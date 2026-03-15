@@ -1,0 +1,22 @@
+{
+  "character_id": "fernando_ii",
+  "records": [
+    {
+      "record_id": "arc-20260315-fernando_ii_01",
+      "event_id": "evt-1476",
+      "chronology_index": 2,
+      "emotion_before": "uncertainty",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "setup",
+      "arc_stage_after": "setup",
+      "change_summary": "Fernando II evoluciona de uncertainty a uncertainty durante Batalla clave en la guerra de sucesion castellana.",
+      "source_ref": {
+        "file": "docs/chronicles/cronica_castilla.md",
+        "section": "capitulo_12",
+        "checksum": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "excerpt": "El resultado refuerza la posicion dinastica isabelina y cambia la narrativa del conflicto."
+      },
+      "updated_at": "2026-03-15T19:45:38Z"
+    }
+  ]
+}

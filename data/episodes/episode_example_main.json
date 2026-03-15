@@ -1,56 +1,70 @@
 {
-  "episode_id": "main-20260315-guerra_sucesion",
+  "episode_id": "main-20260315-linea_01",
   "episode_type": "main",
   "status": "pending_review",
   "language": "es",
   "timeline_event_ids": [
-    "evt-1475",
-    "evt-1476"
+    "evt-1475"
   ],
   "parent_episode_id": null,
-  "title": "La jugada inesperada en la guerra de sucesion",
-  "hook": "Todos creian que la alianza estaba cerrada, pero una decision diplomatica lo cambia todo en una sola noche.",
+  "title": "El primer gran giro del reino de Asturias",
+  "hook": "Cuando todo parecia decidido desde fuera, una alianza local cambia el tablero politico en apenas horas.",
   "plot_twist": {
-    "setup": "La corte interpreta que la via militar sera la unica salida para consolidar el trono.",
-    "reveal": "Un emisario revela un pacto secreto que altera el equilibrio entre facciones.",
-    "payoff": "La narrativa cambia: la victoria no depende del ejercito, sino de una firma politica en el momento exacto."
+    "setup": "Las fuentes describen un escenario de control casi total por parte del poder dominante.",
+    "reveal": "Un testimonio paralelo muestra que la clave fue una decision local ignorada por la cronica principal.",
+    "payoff": "El episodio reordena la lectura del inicio astur y abre un arco nuevo para su liderazgo."
   },
   "scenes": [
     {
       "scene_index": 1,
-      "narration": "Castilla amanece dividida, con nobles calculando cada movimiento mientras la tension sube en la frontera.",
-      "visual_prompt": "Ciudad castellana del siglo XV al amanecer, estandartes, ambiente tenso, estilo historico realista",
-      "estimated_seconds": 18
+      "narration": "El contexto inicial muestra presion militar, tensiones internas y dudas sobre la capacidad de resistencia.",
+      "visual_prompt": "Montanas del norte peninsular, asentamientos altomedievales, ambiente de amenaza",
+      "estimated_seconds": 24
     },
     {
       "scene_index": 2,
-      "narration": "En el consejo, la estrategia parece clara hasta que llega una carta sellada con un pacto inesperado.",
-      "visual_prompt": "Sala de consejo medieval, mesa de madera, carta con sello real, expresiones de sorpresa",
-      "estimated_seconds": 20
+      "narration": "Mientras se negocian apoyos, una decision inesperada cambia el equilibrio entre facciones.",
+      "visual_prompt": "Consejo de lideres locales, mapas de rutas, rostros en conflicto",
+      "estimated_seconds": 24
     },
     {
       "scene_index": 3,
-      "narration": "Ese giro diplomatico redefine la guerra y coloca a Isabel en una posicion de ventaja que nadie vio venir.",
-      "visual_prompt": "Retrato de reina en primer plano, mapa de reinos al fondo, atmosfera de resolucion",
-      "estimated_seconds": 22
+      "narration": "La fuente secundaria revela una maniobra tactica que no aparece en las versiones mas repetidas.",
+      "visual_prompt": "Documento antiguo iluminado, anotaciones marginales, foco en detalle historico",
+      "estimated_seconds": 24
+    },
+    {
+      "scene_index": 4,
+      "narration": "Ese giro consolida un liderazgo emergente y deja planteado el conflicto del siguiente episodio.",
+      "visual_prompt": "Figura central en primer plano, valle astur al amanecer, tono epico sobrio",
+      "estimated_seconds": 24
     }
   ],
   "characters": [
-    "isabel_i",
-    "fernando_ii",
-    "juana_beltraneja"
+    "pelayo",
+    "alfonso_i"
   ],
-  "duration_seconds": 60,
+  "character_beats": [
+    {
+      "character_id": "pelayo",
+      "emotion_before": "uncertainty",
+      "emotion_after": "resolve",
+      "arc_stage_before": "setup",
+      "arc_stage_after": "ascent",
+      "beat_summary": "Pasa de reaccionar al entorno a liderar la estrategia local."
+    }
+  ],
+  "duration_seconds": 96,
   "human_review": {
     "required": true,
     "status": "pending",
     "reviewer": null,
-    "notes": "Pendiente validacion historica final y tono de narracion."
+    "notes": "Validar detalle cronologico y consistencia del giro narrativo."
   },
   "asset_refs": {
-    "audio": "s3://tiktok-assets/audio/main-20260315-guerra_sucesion.wav",
-    "video": "s3://tiktok-assets/video/main-20260315-guerra_sucesion.mp4",
-    "subtitles": "s3://tiktok-assets/subtitles/main-20260315-guerra_sucesion.srt"
+    "audio": "s3://tiktok-assets/audio/main-20260315-linea_01.wav",
+    "video": "s3://tiktok-assets/video/main-20260315-linea_01.mp4",
+    "subtitles": "s3://tiktok-assets/subtitles/main-20260315-linea_01.srt"
   },
   "created_at": "2026-03-15T09:00:00Z"
 }

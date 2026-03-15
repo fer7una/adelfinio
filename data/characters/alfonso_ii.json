@@ -1,0 +1,53 @@
+{
+  "character_id": "alfonso_ii",
+  "display_name": "Alfonso II",
+  "aliases": [],
+  "historical_period": "Periodo por definir",
+  "role": "other",
+  "biography_short": "Personaje recurrente en la cronologia del reino de Asturias. Interviene en 33 eventos documentados de la fuente canonica.",
+  "visual_profile": {
+    "age_range": "30-50",
+    "hair": "castano",
+    "beard": "variable segun etapa",
+    "clothing": "vestimenta altomedieval del norte peninsular",
+    "palette": [
+      "#4D5A6A",
+      "#8D6B46",
+      "#A9B2C0"
+    ],
+    "style_notes": "Priorizar coherencia historica y evitar anacronismos visuales."
+  },
+  "state": {
+    "status": "active",
+    "location": "Asturias",
+    "alliances": [],
+    "conflicts": [],
+    "last_seen_episode_id": null,
+    "last_updated": "2026-03-15T21:38:33Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "Consistencia de motivaciones entre episodios consecutivos",
+      "Coherencia historica con las referencias de fuente"
+    ],
+    "must_avoid": [
+      "Cambios bruscos de personalidad sin evidencia en fuente",
+      "Lenguaje anacronico"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "pride",
+    "intensity": 0.7,
+    "valence": 0.22,
+    "arousal": 0.68,
+    "trigger_summary": "Alfonso II evoluciona de resolve a pride durante Recordemos quién era Ordoño: el segundo hijo de Alfonso III, el mismo que fue."
+  },
+  "arc_state": {
+    "stage": "legacy",
+    "external_goal": "Sostener su posicion en la secuencia politica y militar.",
+    "internal_need": "Alinear decision personal con estabilidad colectiva.",
+    "contradiction": "Interes inmediato frente a continuidad de largo plazo.",
+    "change_vector": "Evolucion gradual guiada por eventos documentados.",
+    "last_event_id": "evt-87102"
+  }
+}

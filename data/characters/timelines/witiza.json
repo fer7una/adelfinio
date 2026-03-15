@@ -1,0 +1,73 @@
+{
+  "character_id": "witiza",
+  "records": [
+    {
+      "record_id": "arc-20260315-witiza_01",
+      "event_id": "evt-70201",
+      "chronology_index": 6,
+      "emotion_before": "uncertainty",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "setup",
+      "arc_stage_after": "ascent",
+      "change_summary": "Witiza evoluciona de uncertainty a uncertainty durante A partir de Wamba, el reino se descompone.",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_6",
+        "checksum": "ee73c14679d53de20ee6bbfb2300fc18f351dfe73fdb49b8e4ef6cb1c75cb0c4",
+        "excerpt": "A partir de Wamba, el reino se descompone. Podemos ahorrarnos más detalles sobre la sucesión de reyes: Ervigio en 680, Égica en 687, Witiza en 702... En 710 Witiza muere y deja en el trono a su hijo Agila, a quien antes..."
+      },
+      "updated_at": "2026-03-15T21:38:33Z"
+    },
+    {
+      "record_id": "arc-20260315-witiza_02",
+      "event_id": "evt-71102",
+      "chronology_index": 7,
+      "emotion_before": "uncertainty",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "ascent",
+      "arc_stage_after": "crisis",
+      "change_summary": "Witiza evoluciona de uncertainty a uncertainty durante Dice la leyenda que Don Julián guardaba rencor a Don Rodrigo porque éste, años.",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_7",
+        "checksum": "5288dd8373f1d33b87cc31b9e5884277add4e4689802f79d329c1cf2098992ea",
+        "excerpt": "Dice la leyenda que Don Julián guardaba rencor a Don Rodrigo porque éste, años atrás, había seducido y deshonrado a su hija, Florinda la Cava. Esto es tradición y no hay prueba de tal cosa. Lo que se sabe es que Don..."
+      },
+      "updated_at": "2026-03-15T21:38:33Z"
+    },
+    {
+      "record_id": "arc-20260315-witiza_03",
+      "event_id": "evt-70202",
+      "chronology_index": 13,
+      "emotion_before": "uncertainty",
+      "emotion_after": "fear",
+      "arc_stage_before": "crisis",
+      "arc_stage_after": "turn",
+      "change_summary": "Witiza evoluciona de uncertainty a fear en el evento evt-70202 (702, Galicia).",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_13",
+        "checksum": "7950375ada826d204d1b5fb5ff76fb4bb92f75f631e72ad9d002448a8d94159f",
+        "excerpt": "De dónde era duque este Favila, el padre de Pelayo? No lo sabemos con certeza. Una línea de la tradición le atribuye el ducado de Cantabria; otra, el de Galicia, y aún más recientemente se considera que debió de ser..."
+      },
+      "updated_at": "2026-03-15T21:38:33Z"
+    },
+    {
+      "record_id": "arc-20260315-witiza_04",
+      "event_id": "evt-73703",
+      "chronology_index": 24,
+      "emotion_before": "fear",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "turn",
+      "arc_stage_after": "legacy",
+      "change_summary": "Witiza evoluciona de fear a uncertainty durante Cuando murió Pelayo, en 737, le sucedió su hijo Favila.",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_24",
+        "checksum": "0766dae633c966b4d892d79262a2a9d1bae58d408323e4ad4ec3ddb37bceb6c9",
+        "excerpt": "Cuando murió Pelayo, en 737, le sucedió su hijo Favila. Conforme a la costumbre goda, el muchacho llevaba el nombre de su abuelo, aquel Favila de Galicia cuya cabeza cedió ante el garrote de Witiza. El joven Favila..."
+      },
+      "updated_at": "2026-03-15T21:38:33Z"
+    }
+  ]
+}

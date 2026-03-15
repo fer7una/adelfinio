@@ -1,44 +1,59 @@
 {
-  "character_id": "isabel_i",
-  "display_name": "Isabel I de Castilla",
+  "character_id": "pelayo",
+  "display_name": "Pelayo",
   "aliases": [
-    "Isabel la Catolica"
+    "Don Pelayo"
   ],
-  "historical_period": "Siglo XV",
-  "role": "monarch",
-  "biography_short": "Reina de Castilla, figura central en la unificacion dinastica y en la reorganizacion institucional de la Corona.",
+  "historical_period": "Siglo VIII",
+  "role": "military",
+  "biography_short": "Lider de la resistencia astur y figura central en los primeros episodios del reino de Asturias.",
   "visual_profile": {
-    "age_range": "40-50",
-    "hair": "castano oscuro recogido",
-    "beard": "sin barba",
-    "clothing": "vestido real castellano con bordados sobrios",
+    "age_range": "30-40",
+    "hair": "castano oscuro, medio",
+    "beard": "barba corta",
+    "clothing": "tunica de lana, capa y elementos militares altomedievales",
     "palette": [
-      "#6E4A3D",
-      "#B89B72",
-      "#2F3A56"
+      "#4D5A6A",
+      "#8D6B46",
+      "#A9B2C0"
     ],
-    "style_notes": "Mantener simbolos de autoridad sin anacronismos ni accesorios modernos."
+    "style_notes": "Mantener referencias altomedievales del norte peninsular, sin anacronismos."
   },
   "state": {
     "status": "active",
-    "location": "Toledo",
+    "location": "Asturias",
     "alliances": [
-      "fernando_ii"
+      "alfonso_i"
     ],
     "conflicts": [
-      "juana_beltraneja"
+      "munuza"
     ],
-    "last_seen_episode_id": "main-20260315-guerra_sucesion",
-    "last_updated": "2026-03-15T08:45:00Z"
+    "last_seen_episode_id": "main-20260315-linea_01",
+    "last_updated": "2026-03-15T09:30:00Z"
   },
   "continuity": {
     "must_keep": [
-      "Tono estrategico y sobrio en decisiones de estado",
-      "Coherencia con contexto politico castellano del siglo XV"
+      "Liderazgo estrategico en contexto de resistencia",
+      "Coherencia cronologica con las fuentes del reino de Asturias"
     ],
     "must_avoid": [
-      "Lenguaje moderno o referencias fuera de epoca",
-      "Vestuario renacentista tardio fuera de periodo"
+      "Lenguaje moderno",
+      "Atributos visuales fuera del periodo"
     ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "resolve",
+    "intensity": 0.81,
+    "valence": 0.25,
+    "arousal": 0.78,
+    "trigger_summary": "Asume la resistencia tras la presion militar en su territorio."
+  },
+  "arc_state": {
+    "stage": "turn",
+    "external_goal": "Consolidar la resistencia y sostener el liderazgo regional.",
+    "internal_need": "Convertir el impulso defensivo en vision politica estable.",
+    "contradiction": "Instinto guerrero frente a necesidad de cohesion institucional.",
+    "change_vector": "De caudillo reactivo a referente con proyeccion historica.",
+    "last_event_id": "evt-1476"
   }
 }

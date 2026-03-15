@@ -7,3 +7,4 @@
 5. Los workflows son esqueletos importables con nodos placeholder y TODOs explicitos para credenciales/endpoints.
 6. La fuente canonica historica vivira en `docs/chronicles/` y se normalizara a `data/timeline/`.
 7. Se requiere aprobacion humana antes de cualquier envio a TikTok.
+8. Para video final local se usa pipeline de imagen + voz + ffmpeg (sin Sora), configurable por `.env`.

@@ -1,42 +1,42 @@
 {
-  "episode_id": "teaser-20260315-guerra_sucesion",
+  "episode_id": "teaser-20260315-linea_01",
   "episode_type": "teaser",
   "status": "pending_review",
   "language": "es",
   "timeline_event_ids": [
-    "evt-1476"
+    "evt-1475"
   ],
-  "parent_episode_id": "main-20260315-guerra_sucesion",
-  "title": "La carta que cambio Castilla en segundos",
-  "hook": "Un documento sellado entra en la sala y todo el plan militar queda en duda.",
+  "parent_episode_id": "main-20260315-linea_01",
+  "title": "La decision que cambio el inicio astur",
+  "hook": "Una maniobra casi olvidada activa un lider inesperado en menos de medio minuto.",
   "scenes": [
     {
       "scene_index": 1,
-      "narration": "Cuando el consejo parecia decidido, una carta secreta detuvo la guerra antes del primer golpe.",
-      "visual_prompt": "Primer plano de carta sellada en sala medieval, rostros sorprendidos, luz dramatica",
-      "estimated_seconds": 12
+      "narration": "Cuando parecia que no habia salida, una alianza local movio toda la partida.",
+      "visual_prompt": "Plano rapido de consejo y mapa altomedieval, tono de urgencia",
+      "estimated_seconds": 13
     },
     {
       "scene_index": 2,
-      "narration": "Descubre en el episodio completo por que esa firma valio mas que mil soldados.",
-      "visual_prompt": "Mapa historico con rutas y escudos de facciones, estilo documental cinematografico",
-      "estimated_seconds": 13
+      "narration": "En el episodio completo veras por que ese giro marco el futuro del reino.",
+      "visual_prompt": "Cierre con llamada a accion sobre montanas astures",
+      "estimated_seconds": 12
     }
   ],
   "characters": [
-    "isabel_i"
+    "pelayo"
   ],
   "duration_seconds": 25,
   "human_review": {
     "required": true,
     "status": "pending",
     "reviewer": null,
-    "notes": "Validar CTA final y precision de terminologia historica."
+    "notes": "Validar CTA y precision de nomenclatura historica."
   },
   "asset_refs": {
-    "audio": "s3://tiktok-assets/audio/teaser-20260315-guerra_sucesion.wav",
-    "video": "s3://tiktok-assets/video/teaser-20260315-guerra_sucesion.mp4",
-    "subtitles": "s3://tiktok-assets/subtitles/teaser-20260315-guerra_sucesion.srt"
+    "audio": "s3://tiktok-assets/audio/teaser-20260315-linea_01.wav",
+    "video": "s3://tiktok-assets/video/teaser-20260315-linea_01.mp4",
+    "subtitles": "s3://tiktok-assets/subtitles/teaser-20260315-linea_01.srt"
   },
   "created_at": "2026-03-15T10:00:00Z"
 }

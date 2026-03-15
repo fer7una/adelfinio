@@ -10,23 +10,90 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TIMELINE_FILE = ROOT / "data" / "timeline" / "source_events.json"
+PROGRESSION_FILE = ROOT / "data" / "timeline" / "progression_state.json"
 
 
-def load_event_ids() -> list[str]:
-    if TIMELINE_FILE.exists():
-        with TIMELINE_FILE.open("r", encoding="utf-8") as handle:
-            payload = json.load(handle)
-        if isinstance(payload, list):
-            sorted_events = sorted(payload, key=lambda ev: ev.get("chronology_index", 999999))
-            event_ids = [ev["event_id"] for ev in sorted_events if "event_id" in ev]
-            if len(event_ids) >= 2:
-                return event_ids[:2]
-    return ["evt-1001", "evt-1002"]
+def read_json(path: Path):
+    with path.open("r", encoding="utf-8") as handle:
+        return json.load(handle)
 
 
-def build_plan(target_date: dt.date) -> dict:
+def write_json(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as handle:
+        json.dump(payload, handle, indent=2, ensure_ascii=False)
+        handle.write("\n")
+
+
+def load_timeline_events(timeline_path: Path) -> list[dict]:
+    if not timeline_path.exists():
+        raise RuntimeError(
+            f"Missing source timeline file: {timeline_path}. "
+            "Strict mode is enabled: no source -> no plan."
+        )
+
+    payload = read_json(timeline_path)
+    if not isinstance(payload, list):
+        raise RuntimeError(f"Timeline file must be a JSON array: {timeline_path}")
+
+    valid_events = []
+    for item in payload:
+        if not isinstance(item, dict):
+            continue
+        if "event_id" not in item or "chronology_index" not in item:
+            continue
+        valid_events.append(item)
+
+    if len(valid_events) < 2:
+        raise RuntimeError(
+            "Timeline has fewer than 2 valid events. "
+            "Strict mode is enabled: no source -> no plan."
+        )
+
+    return sorted(valid_events, key=lambda ev: ev["chronology_index"])
+
+
+def load_progression_state(state_path: Path) -> dict:
+    if not state_path.exists():
+        return {"next_event_offset": 0}
+    payload = read_json(state_path)
+    if not isinstance(payload, dict):
+        return {"next_event_offset": 0}
+    raw_offset = payload.get("next_event_offset", 0)
+    offset = raw_offset if isinstance(raw_offset, int) and raw_offset >= 0 else 0
+    return {"next_event_offset": offset}
+
+
+def save_progression_state(state_path: Path, next_offset: int, target_date: dt.date) -> None:
+    payload = {
+        "next_event_offset": next_offset,
+        "last_plan_date": target_date.isoformat(),
+        "updated_at": dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+    }
+    write_json(state_path, payload)
+
+
+def pick_next_two_events(events: list[dict], offset: int) -> tuple[str, str, int]:
+    selected: list[str] = []
+    cursor = offset
+    while cursor < len(events) and len(selected) < 2:
+        event = events[cursor]
+        actors = event.get("actors", [])
+        if isinstance(actors, list) and len(actors) > 0:
+            selected.append(event["event_id"])
+        cursor += 1
+
+    if len(selected) < 2:
+        raise RuntimeError(
+            "Not enough remaining source events with actors to generate 2 main episodes. "
+            "Add more normalized events with non-empty 'actors' in data/timeline/source_events.json."
+        )
+
+    return selected[0], selected[1], cursor
+
+
+def build_plan(target_date: dt.date, event_a: str, event_b: str) -> dict:
     date_compact = target_date.strftime("%Y%m%d")
-    event_a, event_b = load_event_ids()
 
     main_1 = f"main-{date_compact}-linea_01"
     main_2 = f"main-{date_compact}-linea_02"
@@ -65,7 +132,10 @@ def build_plan(target_date: dt.date) -> dict:
                 "strategy": "question",
             },
         ],
-        "notes": "Plan generado automaticamente. TODO: priorizacion dinamica por rendimiento historico.",
+        "notes": (
+            "Plan generado en modo estricto con fuentes cronologicas. "
+            f"Eventos usados: {event_a}, {event_b}."
+        ),
     }
 
 
@@ -78,25 +148,59 @@ def main() -> int:
         help="Target date in YYYY-MM-DD format (default: today).",
     )
     parser.add_argument(
+        "--timeline",
+        default=str(TIMELINE_FILE),
+        help="Path to normalized source events JSON file.",
+    )
+    parser.add_argument(
+        "--state-file",
+        default=str(PROGRESSION_FILE),
+        help="Path to linear progression state JSON file.",
+    )
+    parser.add_argument(
+        "--reset-progression",
+        action="store_true",
+        help="Reset linear progression and consume events from the beginning.",
+    )
+    parser.add_argument(
         "--output",
         default=None,
         help="Output JSON file path (default: data/daily_plan/plan-YYYYMMDD.json)",
     )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Allow replacing an existing output plan file.",
+    )
     args = parser.parse_args()
 
-    target_date = dt.date.fromisoformat(args.plan_date)
-    plan = build_plan(target_date)
+    try:
+        target_date = dt.date.fromisoformat(args.plan_date)
+        timeline_path = Path(args.timeline)
+        state_path = Path(args.state_file)
 
-    default_output = ROOT / "data" / "daily_plan" / f"plan-{target_date.strftime('%Y%m%d')}.json"
-    output_path = Path(args.output) if args.output else default_output
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+        events = load_timeline_events(timeline_path)
+        progression = {"next_event_offset": 0} if args.reset_progression else load_progression_state(state_path)
+        event_a, event_b, next_offset = pick_next_two_events(events, progression["next_event_offset"])
 
-    with output_path.open("w", encoding="utf-8") as handle:
-        json.dump(plan, handle, indent=2, ensure_ascii=True)
-        handle.write("\n")
+        plan = build_plan(target_date, event_a, event_b)
 
-    print(f"Generated: {output_path}")
-    return 0
+        default_output = ROOT / "data" / "daily_plan" / f"plan-{target_date.strftime('%Y%m%d')}.json"
+        output_path = Path(args.output) if args.output else default_output
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        if output_path.exists() and not args.overwrite:
+            raise RuntimeError(f"Output file already exists: {output_path}. Use --overwrite to replace it.")
+
+        write_json(output_path, plan)
+        save_progression_state(state_path, next_offset, target_date)
+
+        print(f"Generated: {output_path}")
+        print(f"Source events used: {event_a}, {event_b}")
+        print(f"Progression next_event_offset: {next_offset} (state: {state_path})")
+        return 0
+    except RuntimeError as exc:
+        print(f"ERROR: {exc}")
+        return 1
 
 
 if __name__ == "__main__":

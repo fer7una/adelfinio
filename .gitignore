@@ -17,10 +17,16 @@ Thumbs.db
 logs/
 tmp/
 *.log
+artifacts/
+.tmp/
 
 # Data artifacts (generated)
 data/daily_plan/*.json
 !data/daily_plan/.gitkeep
+data/episodes/generated/
+data/timeline/progression_state.json
+docs/chronicles/sidecar_text/*.txt
+!docs/chronicles/sidecar_text/.gitkeep
 
 # Docker volumes (if bind-mounted in future)
 volumes/

@@ -1,0 +1,53 @@
+{
+  "character_id": "isabel_i",
+  "display_name": "Isabel I",
+  "aliases": [],
+  "historical_period": "1475-1476",
+  "role": "other",
+  "biography_short": "Personaje recurrente en la cronologia del reino de Asturias. Interviene en 2 eventos documentados de la fuente canonica.",
+  "visual_profile": {
+    "age_range": "30-50",
+    "hair": "castano",
+    "beard": "variable segun etapa",
+    "clothing": "vestimenta altomedieval del norte peninsular",
+    "palette": [
+      "#4D5A6A",
+      "#8D6B46",
+      "#A9B2C0"
+    ],
+    "style_notes": "Priorizar coherencia historica y evitar anacronismos visuales."
+  },
+  "state": {
+    "status": "active",
+    "location": "Toro",
+    "alliances": [],
+    "conflicts": [],
+    "last_seen_episode_id": null,
+    "last_updated": "2026-03-15T19:45:38Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "Consistencia de motivaciones entre episodios consecutivos",
+      "Coherencia historica con las referencias de fuente"
+    ],
+    "must_avoid": [
+      "Cambios bruscos de personalidad sin evidencia en fuente",
+      "Lenguaje anacronico"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "uncertainty",
+    "intensity": 0.7,
+    "valence": 0.22,
+    "arousal": 0.68,
+    "trigger_summary": "Isabel I evoluciona de uncertainty a uncertainty durante Batalla clave en la guerra de sucesion castellana."
+  },
+  "arc_state": {
+    "stage": "legacy",
+    "external_goal": "Sostener su posicion en la secuencia politica y militar.",
+    "internal_need": "Alinear decision personal con estabilidad colectiva.",
+    "contradiction": "Interes inmediato frente a continuidad de largo plazo.",
+    "change_vector": "Evolucion gradual guiada por eventos documentados.",
+    "last_event_id": "evt-1476"
+  }
+}

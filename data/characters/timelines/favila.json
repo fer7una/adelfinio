@@ -1,0 +1,124 @@
+{
+  "character_id": "favila",
+  "records": [
+    {
+      "record_id": "arc-20260315-favila_01",
+      "event_id": "evt-70202",
+      "chronology_index": 13,
+      "emotion_before": "uncertainty",
+      "emotion_after": "fear",
+      "arc_stage_before": "setup",
+      "arc_stage_after": "setup",
+      "change_summary": "Favila evoluciona de uncertainty a fear en el evento evt-70202 (702, Galicia).",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_13",
+        "checksum": "7950375ada826d204d1b5fb5ff76fb4bb92f75f631e72ad9d002448a8d94159f",
+        "excerpt": "De dónde era duque este Favila, el padre de Pelayo? No lo sabemos con certeza. Una línea de la tradición le atribuye el ducado de Cantabria; otra, el de Galicia, y aún más recientemente se considera que debió de ser..."
+      },
+      "updated_at": "2026-03-15T21:38:33Z"
+    },
+    {
+      "record_id": "arc-20260315-favila_02",
+      "event_id": "evt-73701",
+      "chronology_index": 17,
+      "emotion_before": "fear",
+      "emotion_after": "fear",
+      "arc_stage_before": "setup",
+      "arc_stage_after": "ascent",
+      "change_summary": "Favila evoluciona de fear a fear durante Pelayo se instaló en Cangas de Onís, cerca de las montañas, por si acaso.",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_17",
+        "checksum": "04967551b1e26cee421ca8237beee073ec0480ecdfd4c64e4fe9e5d45ba33603",
+        "excerpt": "Pelayo se instaló en Cangas de Onís, cerca de las montañas, por si acaso. Junto a su esposa Gaudiosa, una dama de Liébana a la que cierta tradición atribuye la derrota de los moros que huían de Covadonga. Pelayo y..."
+      },
+      "updated_at": "2026-03-15T21:38:33Z"
+    },
+    {
+      "record_id": "arc-20260315-favila_03",
+      "event_id": "evt-73201",
+      "chronology_index": 23,
+      "emotion_before": "fear",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "ascent",
+      "arc_stage_after": "crisis",
+      "change_summary": "Favila evoluciona de fear a uncertainty en el evento evt-73201 (732, Asturias).",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_23",
+        "checksum": "79d486d66a42dd0f77a39371e4c193802835930468d8de6d163829a0b50224d6",
+        "excerpt": "Era 732. Las campañas de los francos contra los últimos reductos musulmanes se extendieron durante algunos años más: no se trataba sólo de echar a los invasores, sino también de apoderarse de la Galia visigoda. Hacia 736..."
+      },
+      "updated_at": "2026-03-15T21:38:33Z"
+    },
+    {
+      "record_id": "arc-20260315-favila_04",
+      "event_id": "evt-73703",
+      "chronology_index": 24,
+      "emotion_before": "uncertainty",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "crisis",
+      "arc_stage_after": "crisis",
+      "change_summary": "Favila evoluciona de uncertainty a uncertainty durante Cuando murió Pelayo, en 737, le sucedió su hijo Favila.",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_24",
+        "checksum": "0766dae633c966b4d892d79262a2a9d1bae58d408323e4ad4ec3ddb37bceb6c9",
+        "excerpt": "Cuando murió Pelayo, en 737, le sucedió su hijo Favila. Conforme a la costumbre goda, el muchacho llevaba el nombre de su abuelo, aquel Favila de Galicia cuya cabeza cedió ante el garrote de Witiza. El joven Favila..."
+      },
+      "updated_at": "2026-03-15T21:38:33Z"
+    },
+    {
+      "record_id": "arc-20260315-favila_05",
+      "event_id": "evt-73901",
+      "chronology_index": 25,
+      "emotion_before": "uncertainty",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "crisis",
+      "arc_stage_after": "turn",
+      "change_summary": "Favila evoluciona de uncertainty a uncertainty durante Como no hay nada más que contar, la imaginación tratado de llenar los huecos.",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_25",
+        "checksum": "8f34107c6f88a740ffe4e17eaceef2b708fab575df1f43d31905e1451abc1c88",
+        "excerpt": "Como no hay nada más que contar, la imaginación tratado de llenar los huecos que dejan las crónicas. Hay quien dice que Favila no murió realmente peleando contra un oso, sino víctima de un asesinato político; esto es tan..."
+      },
+      "updated_at": "2026-03-15T21:38:33Z"
+    },
+    {
+      "record_id": "arc-20260315-favila_06",
+      "event_id": "evt-73902",
+      "chronology_index": 32,
+      "emotion_before": "uncertainty",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "turn",
+      "arc_stage_after": "resolution",
+      "change_summary": "Favila evoluciona de uncertainty a uncertainty durante En un contexto así, la circunstancia de Pelayo, Favila y los suyos en Asturias.",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_32",
+        "checksum": "a4166170a4db49e8c1f72ff75c99240e195341fe7efc34775a5b40e762137b45",
+        "excerpt": "En un contexto así, la circunstancia de Pelayo, Favila y los suyos en Asturias tiene algo de idílico; se los imagina uno entregados a la tarea de hacer sidra y cazar osos. No debió de ser tan pacífico el paisaje, pues..."
+      },
+      "updated_at": "2026-03-15T21:38:33Z"
+    },
+    {
+      "record_id": "arc-20260315-favila_07",
+      "event_id": "evt-74001",
+      "chronology_index": 34,
+      "emotion_before": "uncertainty",
+      "emotion_after": "fear",
+      "arc_stage_before": "resolution",
+      "arc_stage_after": "legacy",
+      "change_summary": "Favila evoluciona de uncertainty a fear durante De Alfonso hay que decir, además, que fue un hombre con suerte.",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_34",
+        "checksum": "70c18f0ae5fd33cd4fefc0eabcdcd857dde9aad4172f2ed2caaf8d6633dc551e",
+        "excerpt": "De Alfonso hay que decir, además, que fue un hombre con suerte. Tuvo suerte, ciertamente inesperada y también luctuosa, cuando la temprana muerte de Favila le abrió el camino al trono. Alfonso tenía entonces cuarenta y..."
+      },
+      "updated_at": "2026-03-15T21:38:33Z"
+    }
+  ]
+}

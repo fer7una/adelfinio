@@ -38,6 +38,10 @@ VALIDATION_TARGETS = [
         ROOT / "schemas" / "daily_plan.schema.json",
         ROOT / "data" / "daily_plan" / "daily_plan_example.json",
     ),
+    (
+        ROOT / "schemas" / "character_timeline.schema.json",
+        ROOT / "data" / "characters" / "timelines" / "character_timeline_example.json",
+    ),
 ]
 
 

@@ -12,7 +12,9 @@
     "biography_short",
     "visual_profile",
     "state",
-    "continuity"
+    "continuity",
+    "emotional_state",
+    "arc_state"
   ],
   "properties": {
     "character_id": {
@@ -146,7 +148,10 @@
           "default": []
         },
         "last_seen_episode_id": {
-          "type": "string",
+          "type": [
+            "string",
+            "null"
+          ],
           "pattern": "^(main|teaser)-[0-9]{8}-[a-z0-9_\\-]+$"
         },
         "last_updated": {
@@ -180,6 +185,104 @@
             "maxLength": 200
           },
           "default": []
+        }
+      }
+    },
+    "emotional_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dominant_emotion",
+        "intensity",
+        "valence",
+        "arousal",
+        "trigger_summary"
+      ],
+      "properties": {
+        "dominant_emotion": {
+          "type": "string",
+          "enum": [
+            "calm",
+            "hope",
+            "fear",
+            "anger",
+            "sadness",
+            "resolve",
+            "joy",
+            "grief",
+            "pride",
+            "shame",
+            "uncertainty"
+          ]
+        },
+        "intensity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "valence": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "arousal": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "trigger_summary": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 300
+        }
+      }
+    },
+    "arc_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage",
+        "external_goal",
+        "internal_need",
+        "contradiction",
+        "change_vector",
+        "last_event_id"
+      ],
+      "properties": {
+        "stage": {
+          "type": "string",
+          "enum": [
+            "setup",
+            "ascent",
+            "crisis",
+            "turn",
+            "resolution",
+            "legacy"
+          ]
+        },
+        "external_goal": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 240
+        },
+        "internal_need": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 240
+        },
+        "contradiction": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 240
+        },
+        "change_vector": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 240
+        },
+        "last_event_id": {
+          "type": "string",
+          "pattern": "^evt-[0-9]{4,8}$"
         }
       }
     }

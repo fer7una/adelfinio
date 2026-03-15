@@ -1,0 +1,39 @@
+{
+  "character_id": "pelayo",
+  "records": [
+    {
+      "record_id": "arc-20260315-pelayo_01",
+      "event_id": "evt-1475",
+      "chronology_index": 1,
+      "emotion_before": "uncertainty",
+      "emotion_after": "resolve",
+      "arc_stage_before": "setup",
+      "arc_stage_after": "ascent",
+      "change_summary": "El personaje pasa de reaccionar a organizar una respuesta estructurada.",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_12",
+        "checksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "excerpt": "Se organiza la resistencia en torno a un liderazgo emergente."
+      },
+      "updated_at": "2026-03-15T09:20:00Z"
+    },
+    {
+      "record_id": "arc-20260315-pelayo_02",
+      "event_id": "evt-1476",
+      "chronology_index": 2,
+      "emotion_before": "resolve",
+      "emotion_after": "pride",
+      "arc_stage_before": "ascent",
+      "arc_stage_after": "turn",
+      "change_summary": "El resultado favorable confirma su papel y redefine su arco publico.",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_18",
+        "checksum": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "excerpt": "La victoria fortalece su legitimidad frente a aliados y rivales."
+      },
+      "updated_at": "2026-03-15T09:21:00Z"
+    }
+  ]
+}

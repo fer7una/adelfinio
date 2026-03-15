@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adelfinio.local/schemas/character_timeline.schema.json",
+  "title": "CharacterTimeline",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "character_id",
+    "records"
+  ],
+  "properties": {
+    "character_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_\\-]{3,64}$"
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "record_id",
+          "event_id",
+          "chronology_index",
+          "emotion_before",
+          "emotion_after",
+          "arc_stage_before",
+          "arc_stage_after",
+          "change_summary",
+          "source_ref",
+          "updated_at"
+        ],
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "pattern": "^arc-[0-9]{8}-[a-z0-9_\\-]+$"
+          },
+          "event_id": {
+            "type": "string",
+            "pattern": "^evt-[0-9]{4,8}$"
+          },
+          "chronology_index": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "emotion_before": {
+            "type": "string",
+            "enum": [
+              "calm",
+              "hope",
+              "fear",
+              "anger",
+              "sadness",
+              "resolve",
+              "joy",
+              "grief",
+              "pride",
+              "shame",
+              "uncertainty"
+            ]
+          },
+          "emotion_after": {
+            "type": "string",
+            "enum": [
+              "calm",
+              "hope",
+              "fear",
+              "anger",
+              "sadness",
+              "resolve",
+              "joy",
+              "grief",
+              "pride",
+              "shame",
+              "uncertainty"
+            ]
+          },
+          "arc_stage_before": {
+            "type": "string",
+            "enum": [
+              "setup",
+              "ascent",
+              "crisis",
+              "turn",
+              "resolution",
+              "legacy"
+            ]
+          },
+          "arc_stage_after": {
+            "type": "string",
+            "enum": [
+              "setup",
+              "ascent",
+              "crisis",
+              "turn",
+              "resolution",
+              "legacy"
+            ]
+          },
+          "change_summary": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 400
+          },
+          "source_ref": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "section",
+              "checksum",
+              "excerpt"
+            ],
+            "properties": {
+              "file": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 260
+              },
+              "section": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              },
+              "checksum": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "excerpt": {
+                "type": "string",
+                "minLength": 8,
+                "maxLength": 240
+              }
+            }
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}
