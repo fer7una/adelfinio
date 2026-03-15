@@ -1,0 +1,20 @@
+{
+  "event_id": "evt-1476",
+  "chronology_index": 1,
+  "title": "Batalla clave en la guerra de sucesion castellana",
+  "date_start": "1476",
+  "date_end": null,
+  "location": "Toro",
+  "actors": [
+    "isabel_i",
+    "fernando_ii",
+    "juana_beltraneja"
+  ],
+  "summary": "El enfrentamiento militar y politico acelera la consolidacion de apoyos para la causa isabelina en Castilla.",
+  "source_ref": {
+    "file": "docs/chronicles/cronica_castilla.md",
+    "section": "capitulo_12",
+    "checksum": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "historical_confidence": 0.82
+}

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adelfinio.local/schemas/source_event.schema.json",
+  "title": "SourceEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "chronology_index",
+    "title",
+    "date_start",
+    "location",
+    "summary",
+    "source_ref",
+    "historical_confidence"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "pattern": "^evt-[0-9]{4,8}$"
+    },
+    "chronology_index": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 6,
+      "maxLength": 240
+    },
+    "date_start": {
+      "type": "string",
+      "pattern": "^[0-9]{4}(-[0-9]{2}-[0-9]{2})?$"
+    },
+    "date_end": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9]{4}(-[0-9]{2}-[0-9]{2})?$"
+    },
+    "location": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 120
+    },
+    "actors": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_\\-]{3,64}$"
+      },
+      "default": []
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 1500
+    },
+    "source_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file",
+        "section",
+        "checksum"
+      ],
+      "properties": {
+        "file": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 260
+        },
+        "section": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "checksum": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "historical_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
+  }
+}

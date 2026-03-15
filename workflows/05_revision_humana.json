@@ -1,0 +1,66 @@
+{
+  "name": "05_revision_humana",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manualTrigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        220,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "step",
+              "type": "string",
+              "value": "human_review_gate"
+            },
+            {
+              "name": "allowed_status",
+              "type": "string",
+              "value": "approved_for_inbox"
+            },
+            {
+              "name": "todo",
+              "type": "string",
+              "value": "TODO: integrar formulario/cola de aprobacion humana"
+            }
+          ]
+        }
+      },
+      "id": "setReviewGate",
+      "name": "Set Review Gate",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        500,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Review Gate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "versionId": "00000000-0000-0000-0000-000000000005"
+}

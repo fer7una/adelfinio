@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adelfinio.local/schemas/character.schema.json",
+  "title": "Character",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "character_id",
+    "display_name",
+    "historical_period",
+    "role",
+    "biography_short",
+    "visual_profile",
+    "state",
+    "continuity"
+  ],
+  "properties": {
+    "character_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_\\-]{3,64}$"
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 120
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "historical_period": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "monarch",
+        "military",
+        "political",
+        "religious",
+        "civilian",
+        "chronicler",
+        "other"
+      ]
+    },
+    "biography_short": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 1200
+    },
+    "visual_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "age_range",
+        "hair",
+        "beard",
+        "clothing",
+        "palette",
+        "style_notes"
+      ],
+      "properties": {
+        "age_range": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 40
+        },
+        "hair": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "beard": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "clothing": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 200
+        },
+        "palette": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          }
+        },
+        "style_notes": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 400
+        }
+      }
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "location",
+        "alliances",
+        "conflicts",
+        "last_seen_episode_id",
+        "last_updated"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "inactive",
+            "deceased",
+            "unknown"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "alliances": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9_\\-]{3,64}$"
+          },
+          "default": []
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9_\\-]{3,64}$"
+          },
+          "default": []
+        },
+        "last_seen_episode_id": {
+          "type": "string",
+          "pattern": "^(main|teaser)-[0-9]{8}-[a-z0-9_\\-]+$"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "continuity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "must_keep",
+        "must_avoid"
+      ],
+      "properties": {
+        "must_keep": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 200
+          }
+        },
+        "must_avoid": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 200
+          },
+          "default": []
+        }
+      }
+    }
+  }
+}

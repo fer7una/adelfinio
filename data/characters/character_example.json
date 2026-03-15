@@ -1,0 +1,44 @@
+{
+  "character_id": "isabel_i",
+  "display_name": "Isabel I de Castilla",
+  "aliases": [
+    "Isabel la Catolica"
+  ],
+  "historical_period": "Siglo XV",
+  "role": "monarch",
+  "biography_short": "Reina de Castilla, figura central en la unificacion dinastica y en la reorganizacion institucional de la Corona.",
+  "visual_profile": {
+    "age_range": "40-50",
+    "hair": "castano oscuro recogido",
+    "beard": "sin barba",
+    "clothing": "vestido real castellano con bordados sobrios",
+    "palette": [
+      "#6E4A3D",
+      "#B89B72",
+      "#2F3A56"
+    ],
+    "style_notes": "Mantener simbolos de autoridad sin anacronismos ni accesorios modernos."
+  },
+  "state": {
+    "status": "active",
+    "location": "Toledo",
+    "alliances": [
+      "fernando_ii"
+    ],
+    "conflicts": [
+      "juana_beltraneja"
+    ],
+    "last_seen_episode_id": "main-20260315-guerra_sucesion",
+    "last_updated": "2026-03-15T08:45:00Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "Tono estrategico y sobrio en decisiones de estado",
+      "Coherencia con contexto politico castellano del siglo XV"
+    ],
+    "must_avoid": [
+      "Lenguaje moderno o referencias fuera de epoca",
+      "Vestuario renacentista tardio fuera de periodo"
+    ]
+  }
+}

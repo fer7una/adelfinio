@@ -1,0 +1,61 @@
+{
+  "name": "04_generacion_teasers",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manualTrigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        220,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "step",
+              "type": "string",
+              "value": "generate_two_teasers_from_main_episodes"
+            },
+            {
+              "name": "todo",
+              "type": "string",
+              "value": "TODO: recortar escenas y CTA, enlazar parent_episode_id"
+            }
+          ]
+        }
+      },
+      "id": "setTeaserGeneration",
+      "name": "Set Teaser Generation",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        500,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Teaser Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "versionId": "00000000-0000-0000-0000-000000000004"
+}

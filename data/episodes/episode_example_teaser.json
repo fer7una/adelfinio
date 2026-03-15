@@ -1,0 +1,42 @@
+{
+  "episode_id": "teaser-20260315-guerra_sucesion",
+  "episode_type": "teaser",
+  "status": "pending_review",
+  "language": "es",
+  "timeline_event_ids": [
+    "evt-1476"
+  ],
+  "parent_episode_id": "main-20260315-guerra_sucesion",
+  "title": "La carta que cambio Castilla en segundos",
+  "hook": "Un documento sellado entra en la sala y todo el plan militar queda en duda.",
+  "scenes": [
+    {
+      "scene_index": 1,
+      "narration": "Cuando el consejo parecia decidido, una carta secreta detuvo la guerra antes del primer golpe.",
+      "visual_prompt": "Primer plano de carta sellada en sala medieval, rostros sorprendidos, luz dramatica",
+      "estimated_seconds": 12
+    },
+    {
+      "scene_index": 2,
+      "narration": "Descubre en el episodio completo por que esa firma valio mas que mil soldados.",
+      "visual_prompt": "Mapa historico con rutas y escudos de facciones, estilo documental cinematografico",
+      "estimated_seconds": 13
+    }
+  ],
+  "characters": [
+    "isabel_i"
+  ],
+  "duration_seconds": 25,
+  "human_review": {
+    "required": true,
+    "status": "pending",
+    "reviewer": null,
+    "notes": "Validar CTA final y precision de terminologia historica."
+  },
+  "asset_refs": {
+    "audio": "s3://tiktok-assets/audio/teaser-20260315-guerra_sucesion.wav",
+    "video": "s3://tiktok-assets/video/teaser-20260315-guerra_sucesion.mp4",
+    "subtitles": "s3://tiktok-assets/subtitles/teaser-20260315-guerra_sucesion.srt"
+  },
+  "created_at": "2026-03-15T10:00:00Z"
+}

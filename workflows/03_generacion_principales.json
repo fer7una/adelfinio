@@ -1,0 +1,66 @@
+{
+  "name": "03_generacion_principales",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manualTrigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        220,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "step",
+              "type": "string",
+              "value": "generate_two_main_episodes"
+            },
+            {
+              "name": "plot_twist_required",
+              "type": "boolean",
+              "value": true
+            },
+            {
+              "name": "todo",
+              "type": "string",
+              "value": "TODO: integrar LLM/TTS/imagen y validar episode.schema.json"
+            }
+          ]
+        }
+      },
+      "id": "setMainGeneration",
+      "name": "Set Main Generation",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        500,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Main Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "versionId": "00000000-0000-0000-0000-000000000003"
+}

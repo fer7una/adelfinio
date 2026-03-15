@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adelfinio.local/schemas/episode.schema.json",
+  "title": "Episode",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "episode_id",
+    "episode_type",
+    "status",
+    "language",
+    "timeline_event_ids",
+    "title",
+    "hook",
+    "scenes",
+    "characters",
+    "duration_seconds",
+    "human_review"
+  ],
+  "properties": {
+    "episode_id": {
+      "type": "string",
+      "pattern": "^(main|teaser)-[0-9]{8}-[a-z0-9_\\-]+$"
+    },
+    "episode_type": {
+      "type": "string",
+      "enum": [
+        "main",
+        "teaser"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "generated",
+        "pending_review",
+        "approved_for_inbox",
+        "sent_to_tiktok_inbox",
+        "needs_changes"
+      ]
+    },
+    "language": {
+      "type": "string",
+      "const": "es"
+    },
+    "timeline_event_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^evt-[0-9]{4,8}$"
+      }
+    },
+    "parent_episode_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^main-[0-9]{8}-[a-z0-9_\\-]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 120
+    },
+    "hook": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 300
+    },
+    "plot_twist": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "setup",
+        "reveal",
+        "payoff"
+      ],
+      "properties": {
+        "setup": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 400
+        },
+        "reveal": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 400
+        },
+        "payoff": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 400
+        }
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "scene_index",
+          "narration",
+          "visual_prompt",
+          "estimated_seconds"
+        ],
+        "properties": {
+          "scene_index": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "narration": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 900
+          },
+          "visual_prompt": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 900
+          },
+          "estimated_seconds": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 60
+          }
+        }
+      }
+    },
+    "characters": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_\\-]{3,64}$"
+      }
+    },
+    "duration_seconds": {
+      "type": "integer",
+      "minimum": 15,
+      "maximum": 180
+    },
+    "human_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "status"
+      ],
+      "properties": {
+        "required": {
+          "type": "boolean",
+          "const": true
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "approved",
+            "changes_requested"
+          ]
+        },
+        "reviewer": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 120
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 1500
+        }
+      }
+    },
+    "asset_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "audio": {
+          "type": "string"
+        },
+        "video": {
+          "type": "string"
+        },
+        "subtitles": {
+          "type": "string"
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "episode_type": {
+            "const": "main"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "plot_twist"
+        ],
+        "properties": {
+          "parent_episode_id": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "episode_type": {
+            "const": "teaser"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "parent_episode_id"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "docker: up",
+      "type": "shell",
+      "command": "docker compose up -d",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "docker: down",
+      "type": "shell",
+      "command": "docker compose down",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "validate: json",
+      "type": "shell",
+      "command": "python3 scripts/validate_json.py",
+      "group": "test",
+      "problemMatcher": []
+    }
+  ]
+}

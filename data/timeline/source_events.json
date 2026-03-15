@@ -1,0 +1,41 @@
+[
+  {
+    "event_id": "evt-1475",
+    "chronology_index": 1,
+    "title": "Inicio de la guerra de sucesion castellana",
+    "date_start": "1475",
+    "date_end": null,
+    "location": "Castilla",
+    "actors": [
+      "isabel_i",
+      "juana_beltraneja"
+    ],
+    "summary": "Se formalizan bloques rivales por la sucesion, con apoyo nobiliario fragmentado.",
+    "source_ref": {
+      "file": "docs/chronicles/cronica_castilla.md",
+      "section": "capitulo_11",
+      "checksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "historical_confidence": 0.78
+  },
+  {
+    "event_id": "evt-1476",
+    "chronology_index": 2,
+    "title": "Batalla clave en la guerra de sucesion castellana",
+    "date_start": "1476",
+    "date_end": null,
+    "location": "Toro",
+    "actors": [
+      "isabel_i",
+      "fernando_ii",
+      "juana_beltraneja"
+    ],
+    "summary": "El resultado refuerza la posicion dinastica isabelina y cambia la narrativa del conflicto.",
+    "source_ref": {
+      "file": "docs/chronicles/cronica_castilla.md",
+      "section": "capitulo_12",
+      "checksum": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    "historical_confidence": 0.82
+  }
+]

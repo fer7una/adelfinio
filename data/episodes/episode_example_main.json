@@ -1,0 +1,56 @@
+{
+  "episode_id": "main-20260315-guerra_sucesion",
+  "episode_type": "main",
+  "status": "pending_review",
+  "language": "es",
+  "timeline_event_ids": [
+    "evt-1475",
+    "evt-1476"
+  ],
+  "parent_episode_id": null,
+  "title": "La jugada inesperada en la guerra de sucesion",
+  "hook": "Todos creian que la alianza estaba cerrada, pero una decision diplomatica lo cambia todo en una sola noche.",
+  "plot_twist": {
+    "setup": "La corte interpreta que la via militar sera la unica salida para consolidar el trono.",
+    "reveal": "Un emisario revela un pacto secreto que altera el equilibrio entre facciones.",
+    "payoff": "La narrativa cambia: la victoria no depende del ejercito, sino de una firma politica en el momento exacto."
+  },
+  "scenes": [
+    {
+      "scene_index": 1,
+      "narration": "Castilla amanece dividida, con nobles calculando cada movimiento mientras la tension sube en la frontera.",
+      "visual_prompt": "Ciudad castellana del siglo XV al amanecer, estandartes, ambiente tenso, estilo historico realista",
+      "estimated_seconds": 18
+    },
+    {
+      "scene_index": 2,
+      "narration": "En el consejo, la estrategia parece clara hasta que llega una carta sellada con un pacto inesperado.",
+      "visual_prompt": "Sala de consejo medieval, mesa de madera, carta con sello real, expresiones de sorpresa",
+      "estimated_seconds": 20
+    },
+    {
+      "scene_index": 3,
+      "narration": "Ese giro diplomatico redefine la guerra y coloca a Isabel en una posicion de ventaja que nadie vio venir.",
+      "visual_prompt": "Retrato de reina en primer plano, mapa de reinos al fondo, atmosfera de resolucion",
+      "estimated_seconds": 22
+    }
+  ],
+  "characters": [
+    "isabel_i",
+    "fernando_ii",
+    "juana_beltraneja"
+  ],
+  "duration_seconds": 60,
+  "human_review": {
+    "required": true,
+    "status": "pending",
+    "reviewer": null,
+    "notes": "Pendiente validacion historica final y tono de narracion."
+  },
+  "asset_refs": {
+    "audio": "s3://tiktok-assets/audio/main-20260315-guerra_sucesion.wav",
+    "video": "s3://tiktok-assets/video/main-20260315-guerra_sucesion.mp4",
+    "subtitles": "s3://tiktok-assets/subtitles/main-20260315-guerra_sucesion.srt"
+  },
+  "created_at": "2026-03-15T09:00:00Z"
+}

@@ -1,0 +1,26 @@
+# Environment
+.env
+.env.local
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# OS / Editors
+.DS_Store
+Thumbs.db
+.vscode/*.code-workspace
+
+# Build / runtime artifacts
+logs/
+tmp/
+*.log
+
+# Data artifacts (generated)
+data/daily_plan/*.json
+!data/daily_plan/.gitkeep
+
+# Docker volumes (if bind-mounted in future)
+volumes/
