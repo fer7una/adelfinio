@@ -13,10 +13,10 @@ Este directorio se usa como punto de referencia para despliegue web y documentac
 ## Publicar en GitHub Pages
 
 1. Ir a GitHub -> Settings -> Pages.
-2. En "Build and deployment", elegir "Deploy from a branch".
-3. Branch: `main`.
-4. Folder: `/website`.
-5. Guardar y esperar la URL publica.
+2. En "Build and deployment", elegir `Source: GitHub Actions`.
+3. Verificar que el workflow `.github/workflows/pages.yml` este en `main`.
+4. Ejecutar el workflow manualmente (o hacer push de cambios en `website/` sobre `main`).
+5. Esperar a que finalice el job y usar la URL publicada.
 
 ## URLs para TikTok Developers
 
