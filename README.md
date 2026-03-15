@@ -19,6 +19,7 @@ Base tecnica para un sistema de produccion diaria de 4 videos (2 principales + 2
 - `prompts/`: prompts y plantillas de generacion
 - `scripts/`: utilidades operativas
 - `docs/`: arquitectura, roadmap, operating model y supuestos
+- `website/`: sitio legal minimo (home/privacy/terms) para requisitos de integraciones
 
 ## Requisitos previos
 
@@ -79,6 +80,12 @@ Los archivos en `workflows/` son esqueletos importables y versionables.
 
 - Import manual: UI de n8n -> Workflows -> Import from file.
 - Import/export por API: ver `scripts/import_workflows.sh` y `scripts/export_workflows.sh`.
+
+## Website legal (TikTok Developers)
+
+- Home: `website/index.html`
+- Privacy Policy: `website/privacy-policy.html`
+- Terms of Service: `website/terms-of-service.html`
 
 ## Git flow recomendado
 
