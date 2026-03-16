@@ -55,6 +55,137 @@ INCOMPLETE_TAIL_TOKENS = {
     "una",
     "y",
 }
+DEFAULT_TTS_VOICE = "alloy"
+LEGACY_DEFAULT_WPS = 2.45
+LEGACY_DEFAULT_TONE = "solemne_historico"
+ROLE_OVERRIDES = {
+    "pelayo": "monarch",
+    "alfonso_i": "monarch",
+    "alfonso_ii": "monarch",
+    "witiza": "monarch",
+    "fernando_ii": "monarch",
+    "isabel_i": "monarch",
+    "juana_beltraneja": "monarch",
+    "don_oppas": "religious",
+    "al_qama": "military",
+    "munuza": "political",
+    "favila": "political",
+}
+
+
+def infer_role(actor_id: str, events: list[dict], existing_character: dict | None = None) -> str:
+    if isinstance(existing_character, dict):
+        existing_role = str(existing_character.get("role", "")).strip()
+        if existing_role in {"monarch", "military", "political", "religious", "civilian", "chronicler"}:
+            return existing_role
+
+    if actor_id in ROLE_OVERRIDES:
+        return ROLE_OVERRIDES[actor_id]
+
+    combined_text = " ".join(
+        f"{event.get('title', '')} {event.get('summary', '')}".lower()
+        for event in events[: min(len(events), 8)]
+    )
+    if re.search(r"\b(obispo|abad|monje|iglesia|cl[eé]rigo)\b", combined_text):
+        return "religious"
+    if re.search(r"\b(general|capit[aá]n|ej[eé]rcito|tropas|hueste|asedio|batalla)\b", combined_text):
+        return "military"
+    if re.search(r"\b(rey|reina|pr[ií]ncipe|princesa|caudillo)\b", combined_text):
+        return "monarch"
+    if re.search(r"\b(duque|conde|gobernador|val[ií]|nobleza|corte)\b", combined_text):
+        return "political"
+    return "other"
+
+
+def default_voice_profile(actor_id: str, role: str) -> dict:
+    profile = {
+        "tts_voice": DEFAULT_TTS_VOICE,
+        "tone": "solemne_historico",
+        "words_per_second": LEGACY_DEFAULT_WPS,
+        "delivery_modifiers": {
+            "normal": 1.0,
+            "shout": 1.14,
+        },
+    }
+    if role == "monarch":
+        profile["tone"] = "solemne_regio"
+        profile["words_per_second"] = 2.3
+        profile["delivery_modifiers"]["shout"] = 1.1
+    elif role == "political":
+        profile["tone"] = "diplomatico_tenso"
+        profile["words_per_second"] = 2.3
+    elif role == "religious":
+        profile["tone"] = "liturgico_controlado"
+        profile["words_per_second"] = 2.15
+        profile["delivery_modifiers"]["shout"] = 1.06
+    elif role == "military":
+        profile["tone"] = "marcial_contenido"
+        profile["words_per_second"] = 2.55
+        profile["delivery_modifiers"]["shout"] = 1.18
+    elif role == "chronicler":
+        profile["tone"] = "cronista_epico"
+        profile["words_per_second"] = 2.4
+    elif role == "civilian":
+        profile["tone"] = "terrenal_directo"
+        profile["words_per_second"] = 2.5
+    if actor_id == "pelayo":
+        profile["tone"] = "grave_resuelto"
+        profile["words_per_second"] = 2.6
+    elif actor_id == "don_oppas":
+        profile["tone"] = "sibilino_politico"
+        profile["words_per_second"] = 2.2
+    elif actor_id == "al_qama":
+        profile["tone"] = "militar_severo"
+        profile["words_per_second"] = 2.5
+    return profile
+
+
+def is_legacy_voice_profile(existing_profile: dict) -> bool:
+    if not isinstance(existing_profile, dict):
+        return False
+    try:
+        wps = float(existing_profile.get("words_per_second", LEGACY_DEFAULT_WPS))
+    except (TypeError, ValueError):
+        return False
+    delivery = existing_profile.get("delivery_modifiers")
+    if not isinstance(delivery, dict):
+        return False
+    try:
+        normal = float(delivery.get("normal", 1.0))
+        shout = float(delivery.get("shout", 1.14))
+    except (TypeError, ValueError):
+        return False
+    tone = str(existing_profile.get("tone", "")).strip()
+    voice = str(existing_profile.get("tts_voice", "")).strip()
+    return (
+        (not voice or voice == DEFAULT_TTS_VOICE)
+        and tone == LEGACY_DEFAULT_TONE
+        and abs(wps - LEGACY_DEFAULT_WPS) < 0.001
+        and abs(normal - 1.0) < 0.001
+        and abs(shout - 1.14) < 0.001
+    )
+
+
+def merge_voice_profile(existing_profile, actor_id: str, role: str) -> dict:
+    base = default_voice_profile(actor_id, role)
+    if not isinstance(existing_profile, dict):
+        return base
+    if is_legacy_voice_profile(existing_profile):
+        return base
+    merged = dict(base)
+    merged["tts_voice"] = str(existing_profile.get("tts_voice", base["tts_voice"])).strip() or base["tts_voice"]
+    merged["tone"] = str(existing_profile.get("tone", base["tone"])).strip() or base["tone"]
+    try:
+        merged["words_per_second"] = float(existing_profile.get("words_per_second", base["words_per_second"]))
+    except (TypeError, ValueError):
+        merged["words_per_second"] = base["words_per_second"]
+    delivery = existing_profile.get("delivery_modifiers")
+    if isinstance(delivery, dict):
+        merged["delivery_modifiers"] = {
+            "normal": float(delivery.get("normal", base["delivery_modifiers"]["normal"])),
+            "shout": float(delivery.get("shout", base["delivery_modifiers"]["shout"])),
+        }
+    return merged
 
 
 def now_iso() -> str:
@@ -143,23 +274,29 @@ def event_context_label(event: dict) -> str:
     return title
 
 
-def build_character_record(actor_id: str, events: list[dict], timeline_records: list[dict]) -> dict:
+def build_character_record(actor_id: str, events: list[dict], timeline_records: list[dict], existing_character: dict | None = None) -> dict:
     years = [parse_year(e.get("date_start", "")) for e in events]
     years = [y for y in years if y > 0]
     first_year = min(years) if years else 0
     last_year = max(years) if years else 0
     latest_event = sorted(events, key=lambda e: e["chronology_index"])[-1]
     last_arc = timeline_records[-1]
+    role = infer_role(actor_id, events, existing_character)
 
     return {
         "character_id": actor_id,
         "display_name": actor_to_display_name(actor_id),
         "aliases": [],
         "historical_period": f"{first_year}-{last_year}" if first_year and last_year else "Periodo por definir",
-        "role": "other",
+        "role": role,
         "biography_short": (
             f"Personaje recurrente en la cronologia del reino de Asturias. "
             f"Interviene en {len(events)} eventos documentados de la fuente canonica."
+        ),
+        "voice_profile": merge_voice_profile(
+            existing_character.get("voice_profile") if isinstance(existing_character, dict) else None,
+            actor_id,
+            role,
         ),
         "visual_profile": {
             "age_range": "30-50",
@@ -285,10 +422,10 @@ def main() -> int:
 
     for actor_id, records in timelines.items():
         actor_events = [e for e in events if actor_id in e.get("actors", [])]
-        char_record = build_character_record(actor_id, actor_events, records)
-
         char_file = characters_dir / f"{actor_id}.json"
         timeline_file = timelines_dir / f"{actor_id}.json"
+        existing_character = read_json(char_file) if char_file.exists() else None
+        char_record = build_character_record(actor_id, actor_events, records, existing_character=existing_character)
 
         if (char_file.exists() or timeline_file.exists()) and not args.overwrite:
             print(f"ERROR: {actor_id} already exists. Use --overwrite.")

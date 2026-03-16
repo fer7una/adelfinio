@@ -42,11 +42,9 @@ echo "[4/7] Generate episodes from plan"
 python3 scripts/generate_episodes_from_plan.py --plan "$PLAN_FILE"
 python3 scripts/validate_generated_episodes.py --dir "$EPISODE_BUCKET"
 
-echo "[5/7] Render visual videos (if ffmpeg exists)"
+echo "[5/7] Render final videos (if ffmpeg exists)"
 if command -v ffmpeg >/dev/null 2>&1; then
-  for ep in "$EPISODE_BUCKET"/*.json; do
-    python3 scripts/render_episode_video.py --episode "$ep"
-  done
+  bash scripts/run_final_ai_video_pipeline.sh "$EPISODE_BUCKET" --mock
 else
   echo "WARNING: ffmpeg not found. Install ffmpeg to render MP4 outputs."
 fi
@@ -56,6 +54,6 @@ echo "Events: data/timeline/source_events.json"
 echo "Characters: data/characters/*.json"
 echo "Character timelines: data/characters/timelines/*.json"
 echo "Episodes: $EPISODE_BUCKET"
-echo "Videos: artifacts/videos (if ffmpeg installed)"
+echo "Videos: artifacts/videos/final (if ffmpeg installed)"
 
 echo "[7/7] Done"

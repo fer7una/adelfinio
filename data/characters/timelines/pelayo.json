@@ -2,24 +2,24 @@
   "character_id": "pelayo",
   "records": [
     {
-      "record_id": "arc-20260315-pelayo_01",
+      "record_id": "arc-20260316-pelayo_01",
       "event_id": "evt-88101",
       "chronology_index": 4,
       "emotion_before": "uncertainty",
       "emotion_after": "resolve",
       "arc_stage_before": "setup",
       "arc_stage_after": "setup",
-      "change_summary": "Pelayo evoluciona de uncertainty a resolve durante Asi, en fin, se planteó la batalla.",
+      "change_summary": "Pelayo evoluciona de uncertainty a resolve durante se planteó la batalla.",
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
         "section": "parrafo_4",
-        "checksum": "1ff3e6eb810f5c233b4115bc34a72a760a885fbf085a702bb6da0c58e2568f98",
-        "excerpt": "Asi, en fin, se planteó la batalla. Los cristianos, pocos y sin alimentos; los moros, muchos y bien armados. Pero el terreno jugaba a favor de los cristianos: mover a un ejército numeroso por el laberinto asturiano de..."
+        "checksum": "443ad339520ebc5bc8cc7206f7f4532d2258d3dae7e6b751b5317bfc07df3fb2",
+        "excerpt": "Así, en fin, se planteó la batalla. Los cristianos, pocos y sin alimentos; los moros, muchos y bien armados. Pero el terreno jugaba a favor de los cristianos: mover a un ejército numeroso por el laberinto asturiano de..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_02",
+      "record_id": "arc-20260316-pelayo_02",
       "event_id": "evt-72203",
       "chronology_index": 5,
       "emotion_before": "resolve",
@@ -33,10 +33,10 @@
         "checksum": "3f9a7ba78821788d2b94406b98e05a426fc3870bd498ae966b51acab7562d0a0",
         "excerpt": "Hemos comenzado esta historia de la Reconquista hablando de Covadonga, la batalla fundacional, en 722. Fue el primer revés que sufrían los moros desde que invadieron la Península Ibérica en 711. Pero el mero..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_03",
+      "record_id": "arc-20260316-pelayo_03",
       "event_id": "evt-70202",
       "chronology_index": 13,
       "emotion_before": "uncertainty",
@@ -50,10 +50,10 @@
         "checksum": "7950375ada826d204d1b5fb5ff76fb4bb92f75f631e72ad9d002448a8d94159f",
         "excerpt": "De dónde era duque este Favila, el padre de Pelayo? No lo sabemos con certeza. Una línea de la tradición le atribuye el ducado de Cantabria; otra, el de Galicia, y aún más recientemente se considera que debió de ser..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_04",
+      "record_id": "arc-20260316-pelayo_04",
       "event_id": "evt-71201",
       "chronology_index": 14,
       "emotion_before": "fear",
@@ -67,10 +67,10 @@
         "checksum": "a41c92756cd8256e88f6f6eea30c729645587b72b718561769fee0b4d179d099",
         "excerpt": "Por qué Pelayo fue a Asturias y no a Narbona, como los demás? Éste es un asunto muy debatido; lo estudiaremos después. Quedémonos ahora con la imagen de ese guerrero vencido que se refugia en tierras asturianas. Asturias..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_05",
+      "record_id": "arc-20260316-pelayo_05",
       "event_id": "evt-71801",
       "chronology_index": 15,
       "emotion_before": "uncertainty",
@@ -84,10 +84,10 @@
         "checksum": "c34528b14eff9a3ac23526b359d1fefca84109052a80536866e847ecf023e9ee",
         "excerpt": "Estamos en el año 718. En algún lugar de Asturias, probablemente en la campa de Cangas de Onís, Pelayo es alzado sobre el pavés y elegido príncipe, o caudillo, o líder o rey de los asturianos. Acaba de nacer un foco de..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_06",
+      "record_id": "arc-20260316-pelayo_06",
       "event_id": "evt-72204",
       "chronology_index": 16,
       "emotion_before": "uncertainty",
@@ -101,10 +101,10 @@
         "checksum": "096db1c61817b3026d4131abf75ae7161a79f3f9b0ba68ca44f053bf1e8c8823",
         "excerpt": "Las hostilidades se enquistan hasta el extremo de que los moros deciden hacer una demostración de fuerza. Hay en Córdoba un nuevo gobernador, Anbasa, que doblado los impuestos a los cristianos y ordenado confiscar los..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_07",
+      "record_id": "arc-20260316-pelayo_07",
       "event_id": "evt-73701",
       "chronology_index": 17,
       "emotion_before": "fear",
@@ -118,10 +118,10 @@
         "checksum": "04967551b1e26cee421ca8237beee073ec0480ecdfd4c64e4fe9e5d45ba33603",
         "excerpt": "Pelayo se instaló en Cangas de Onís, cerca de las montañas, por si acaso. Junto a su esposa Gaudiosa, una dama de Liébana a la que cierta tradición atribuye la derrota de los moros que huían de Covadonga. Pelayo y..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_08",
+      "record_id": "arc-20260316-pelayo_08",
       "event_id": "evt-72206",
       "chronology_index": 19,
       "emotion_before": "fear",
@@ -135,10 +135,10 @@
         "checksum": "c7fa09408cc0287e7ac8346d6ab340460bf910576167dc92f49255d396a467cb",
         "excerpt": "Así nos encontramos con un reino cristiano independiente en el norte de España, el reino de Asturias. Pero seamos cabales: llamar reino a esto no deja de ser una exageración. Pelayo gobierna la corte de Cangas de Onís y..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_09",
+      "record_id": "arc-20260316-pelayo_09",
       "event_id": "evt-73702",
       "chronology_index": 20,
       "emotion_before": "uncertainty",
@@ -152,10 +152,10 @@
         "checksum": "cc8143c57ec30ad162c10e047c12e32ada41378f2b2556e041facc0df9abc482",
         "excerpt": "Covadonga y 737, que es el año en que mueren Pelayo y su mujer, Gaudiosa. Lo único que nos consta es que una hija de Pelayo, Ermesinda, casó con Alfonso, hijo del duque Pedro de Cantabria. Nada más."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_10",
+      "record_id": "arc-20260316-pelayo_10",
       "event_id": "evt-71402",
       "chronology_index": 21,
       "emotion_before": "uncertainty",
@@ -169,10 +169,10 @@
         "checksum": "f4ba96fc7331e64e394ac55e8deb2dbbe2fc6cbecc7555d8959bad49079e35d8",
         "excerpt": "Es importante fijarse en este personaje, Pedro de Cantabria. Sabemos poquísimo de Sólo que fue duque hispanogodo de aquella comarca, con capital en Amaya, en lo que hoy es el noroeste de Burgos, y cuya jurisdicción..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_11",
+      "record_id": "arc-20260316-pelayo_11",
       "event_id": "evt-73201",
       "chronology_index": 23,
       "emotion_before": "pride",
@@ -186,10 +186,10 @@
         "checksum": "79d486d66a42dd0f77a39371e4c193802835930468d8de6d163829a0b50224d6",
         "excerpt": "Era 732. Las campañas de los francos contra los últimos reductos musulmanes se extendieron durante algunos años más: no se trataba sólo de echar a los invasores, sino también de apoderarse de la Galia visigoda. Hacia 736..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_12",
+      "record_id": "arc-20260316-pelayo_12",
       "event_id": "evt-73703",
       "chronology_index": 24,
       "emotion_before": "uncertainty",
@@ -203,10 +203,10 @@
         "checksum": "0766dae633c966b4d892d79262a2a9d1bae58d408323e4ad4ec3ddb37bceb6c9",
         "excerpt": "Cuando murió Pelayo, en 737, le sucedió su hijo Favila. Conforme a la costumbre goda, el muchacho llevaba el nombre de su abuelo, aquel Favila de Galicia cuya cabeza cedió ante el garrote de Witiza. El joven Favila..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_13",
+      "record_id": "arc-20260316-pelayo_13",
       "event_id": "evt-72601",
       "chronology_index": 27,
       "emotion_before": "uncertainty",
@@ -220,10 +220,10 @@
         "checksum": "f35a534b4273c574e6fe98e8a08b56d7dd35f76de5c10035bab22164ed6fbdcf",
         "excerpt": "Este Anbasa debe sonarnos, porque es el mismo que se encontrará ante sus narices con el espinoso problema de Pelayo. Anbasa era un \"duro\": cruel, expeditivo, de ambición inagotable. Doblará los impuestos a todo el mundo..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_14",
+      "record_id": "arc-20260316-pelayo_14",
       "event_id": "evt-73902",
       "chronology_index": 32,
       "emotion_before": "uncertainty",
@@ -237,10 +237,10 @@
         "checksum": "a4166170a4db49e8c1f72ff75c99240e195341fe7efc34775a5b40e762137b45",
         "excerpt": "En un contexto así, la circunstancia de Pelayo, Favila y los suyos en Asturias tiene algo de idílico; se los imagina uno entregados a la tarea de hacer sidra y cazar osos. No debió de ser tan pacífico el paisaje, pues..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_15",
+      "record_id": "arc-20260316-pelayo_15",
       "event_id": "evt-75401",
       "chronology_index": 36,
       "emotion_before": "uncertainty",
@@ -254,10 +254,10 @@
         "checksum": "4f2e1b27621f293370653c2472c7c908e31f2d2c443af534e0f11322b417fb42",
         "excerpt": "El territorio inicial de Pelayo se situaba más o menos en torno a Cangas de Onís y Liébana, con límites difusos hacia el oeste. El territorio cántabro abarcaba Trasmiera, Sopuerta, Carranza y Bardulia, es decir, la mitad..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_16",
+      "record_id": "arc-20260316-pelayo_16",
       "event_id": "evt-75901",
       "chronology_index": 53,
       "emotion_before": "uncertainty",
@@ -271,10 +271,10 @@
         "checksum": "16ad439f9c6c766bbc8cbbb634c9ca1a396b02c297f334a134a6445433041515",
         "excerpt": "A partir de este paisaje, podemos imaginarnos el reinado de Fruela como la tarea sobrehumana de un tipo condenado a achicar agua en una barca que amenaza con hundirse. Lo primero que le pasa es que los moros, después de..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_17",
+      "record_id": "arc-20260316-pelayo_17",
       "event_id": "evt-78301",
       "chronology_index": 72,
       "emotion_before": "fear",
@@ -288,10 +288,10 @@
         "checksum": "9821c162a2d51bbae66be830053f0bcd1d23595a3ce7e9dd46f4cbd111c8e526",
         "excerpt": "Turbias maniobras, en la corte asturiana. Estamos en 783. La reina Adosinda, viuda de Silo, lo había dispuesto todo para que subiera al trono el joven Alfonso, hijo de Fruela y doña Munia. Así la corona de Asturias..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_18",
+      "record_id": "arc-20260316-pelayo_18",
       "event_id": "evt-79103",
       "chronology_index": 87,
       "emotion_before": "uncertainty",
@@ -305,10 +305,10 @@
         "checksum": "2a0ad9cf1bc93dfdc18cf4774f91aff83d4c671188fcc5ef2b035be145016667",
         "excerpt": "Alfonso fue proclamado rey el de septiembre de 791. Más precisamente, fue ungido rey por el rito visigodo, algo que no se había hecho nunca antes en el reino de Asturias y que por ello mismo es muy significativo..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_19",
+      "record_id": "arc-20260316-pelayo_19",
       "event_id": "evt-81301",
       "chronology_index": 127,
       "emotion_before": "uncertainty",
@@ -322,10 +322,10 @@
         "checksum": "803b06fe415a1a6831308d64de42b6899fe9671206da8aeb423e589083eb492f",
         "excerpt": "Cómo fue este descubrimiento? Situémonos. Estamos en la Galicia del año 813. Hemos de internarnos en un bosque gallego, el paraje de Libredón, en la primitiva diócesis de Iria Flavia. Allí habita, aislado del mundo, un..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_20",
+      "record_id": "arc-20260316-pelayo_20",
       "event_id": "evt-107701",
       "chronology_index": 128,
       "emotion_before": "uncertainty",
@@ -336,13 +336,13 @@
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
         "section": "parrafo_128",
-        "checksum": "c86e55454439febde0a3f21da13d2d863f8638c1367973e6031be7ac33df88d6",
+        "checksum": "de310c3d9793e48d7327616310dbc500899f9d650ff423d4245d49807128202f",
         "excerpt": "JOSÉ JAVIER ESPARZA 205 no tardará en avalar el descubrimiento. Queda establecida la versión canónica sobre la tumba de Compostela. Así lo contará años después, en 1077, la Concordia de Antealtares: No hay duda alguna y..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_21",
+      "record_id": "arc-20260316-pelayo_21",
       "event_id": "evt-84203",
       "chronology_index": 161,
       "emotion_before": "uncertainty",
@@ -356,10 +356,10 @@
         "checksum": "671fb2943d8e02619e6f31eadf09f82ec8cf89f496a75c3bfeca931d605a8925",
         "excerpt": "Alfonso II el Casto reinó medio siglo y murió con ochenta y dos años. Con se extinguía el linaje directo de Don Pelayo. Su figura nos acompañado durante muchos episodios. Cuando murió, allá por el año 842, y puesto que..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_22",
+      "record_id": "arc-20260316-pelayo_22",
       "event_id": "evt-89902",
       "chronology_index": 263,
       "emotion_before": "uncertainty",
@@ -370,13 +370,13 @@
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
         "section": "parrafo_263",
-        "checksum": "3f00e167b2864b4671ca2a379953e83a62ced810fa6392633588401845b35fcd",
+        "checksum": "83ca4fada76ff12375a2270b8925a769b650e5cbe8a367bf881651856f0fa989",
         "excerpt": "En Santiago hizo algo más, y esto también tiene un gran valor político: sobre la modesta iglesia que Alfonso II había mandado elevar en torno al sepulcro del Apóstol, Alfonso III edificó un gran templo que quedó..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_23",
+      "record_id": "arc-20260316-pelayo_23",
       "event_id": "evt-92302",
       "chronology_index": 340,
       "emotion_before": "uncertainty",
@@ -390,10 +390,10 @@
         "checksum": "74c0cded5bbccf34712c253685a95862b498b7b95e998ab86cc4cbf96adba59d",
         "excerpt": "Habían pasado doscientos años desde la victoria de Covadonga. No es muy verosímil que Ordoño, que tenía un temperamento sensiblemente menos ilustrado que el de su padre, se detuviera a mirar atrás: \"No sabía descansar..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_24",
+      "record_id": "arc-20260316-pelayo_24",
       "event_id": "evt-92402",
       "chronology_index": 349,
       "emotion_before": "pride",
@@ -407,10 +407,10 @@
         "checksum": "ff6dfd23efba60d4d888cdca4ccf0d866fdea5b73e4979eecd8855d4e9df7eea",
         "excerpt": "JOSÉ JAVIER ESPARZA 485 proyecto reunificador; si se sentía imperator, como su padre. Es verdad que el rey se rodeó inmediatamente de toda la pompa posible. Ya antes, cuando sólo reinaban en el solar asturiano, Fruela y..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-pelayo_25",
+      "record_id": "arc-20260316-pelayo_25",
       "event_id": "evt-93102",
       "chronology_index": 353,
       "emotion_before": "fear",
@@ -424,7 +424,7 @@
         "checksum": "99a7f248913be933ff8e25d8e207fe90d9418b7b625aac1c8e55ae703ec0d36a",
         "excerpt": "Alto. Veamos: estamos ya en 931, han pasado más de doscientos años desde la batalla de Covadonga, la España cristiana ocupa ya cerca de un tercio de la Península, Abderramán III acaba de convertir el emirato de Córdoba..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     }
   ]
 }

@@ -1,70 +1,280 @@
 {
-  "episode_id": "main-20260315-linea_01",
+  "episode_id": "main-20260315-linea_02",
   "episode_type": "main",
-  "status": "pending_review",
+  "status": "generated",
   "language": "es",
+  "narrative_tone": "epico_historico_oscuro",
   "timeline_event_ids": [
-    "evt-1475"
+    "evt-72203"
   ],
   "parent_episode_id": null,
-  "title": "El primer gran giro del reino de Asturias",
-  "hook": "Cuando todo parecia decidido desde fuera, una alianza local cambia el tablero politico en apenas horas.",
+  "title": "Hemos comenzado esta historia de la Reconquista hablando de Covadonga, la batalla...",
+  "hook": "Covadonga abre la historia como una victoria que aún necesita explicación. La victoria aún resuena, pero el corte siguiente cae justo sobre el origen del desastre.",
+  "storytelling": {
+    "narrative_mode": "inquiry",
+    "premise": "La narración parte de Covadonga y retrocede para explicar qué fuerzas hicieron posible ese punto de inflexión en Covadonga.",
+    "dramatic_question": "¿Qué hay que entender antes de Covadonga para que esa victoria tenga sentido histórico?",
+    "ending_payoff": "Justo cuando la victoria parecía clara, la historia se abre sobre la caída del reino visigodo."
+  },
   "plot_twist": {
-    "setup": "Las fuentes describen un escenario de control casi total por parte del poder dominante.",
-    "reveal": "Un testimonio paralelo muestra que la clave fue una decision local ignorada por la cronica principal.",
-    "payoff": "El episodio reordena la lectura del inicio astur y abre un arco nuevo para su liderazgo."
+    "setup": "Hemos comenzado esta historia de la Reconquista hablando de Covadonga, la batalla fundacional, en 722.",
+    "reveal": "Pero el mero planteamiento de esa batalla nos abría una serie de preguntas.",
+    "payoff": "Vamos a contestar a todas estas preguntas, y vamos a empezar por la primera: Cómo pudo hundirse el reino visigodo en España?"
   },
   "scenes": [
     {
       "scene_index": 1,
-      "narration": "El contexto inicial muestra presion militar, tensiones internas y dudas sobre la capacidad de resistencia.",
-      "visual_prompt": "Montanas del norte peninsular, asentamientos altomedievales, ambiente de amenaza",
-      "estimated_seconds": 24
+      "story_role": "hook",
+      "source_beat": "Covadonga aparece como una victoria fundacional que obliga a mirar atrás.",
+      "visual_focus": "Viñeta de Covadonga tras el combate, con eco de victoria y preguntas pendientes sobre Covadonga.",
+      "transition_note": "La imagen corta antes de cerrar el problema y empuja a la siguiente viñeta.",
+      "timing": {
+        "narration_seconds": 5,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 7,
+        "narration_words": 11,
+        "dialogue_words": 0,
+        "total_words": 11
+      },
+      "narration": "Covadonga abre la historia como una victoria que aún necesita explicación.",
+      "visual_prompt": "Novela grafica historica en Covadonga, escena hook. Viñeta de Covadonga tras el combate, con eco de victoria y preguntas pendientes sobre Covadonga. Personajes visibles: Pelayo. Claves visuales: viñeta, covadonga, combate, victoria, preguntas, pendientes, abre, historia. Composicion vertical 9:16, dramatismo...",
+      "estimated_seconds": 7
     },
     {
       "scene_index": 2,
-      "narration": "Mientras se negocian apoyos, una decision inesperada cambia el equilibrio entre facciones.",
-      "visual_prompt": "Consejo de lideres locales, mapas de rutas, rostros en conflicto",
-      "estimated_seconds": 24
+      "story_role": "bridge",
+      "source_beat": "La victoria obliga a retroceder a sus causas.",
+      "visual_focus": "Mapa altomedieval retrocediendo desde Covadonga hacia la invasión inicial.",
+      "transition_note": "La imagen corta antes de cerrar el problema y empuja a la siguiente viñeta.",
+      "timing": {
+        "narration_seconds": 7,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 9,
+        "narration_words": 15,
+        "dialogue_words": 0,
+        "total_words": 15
+      },
+      "narration": "La victoria aún resuena, pero el corte siguiente cae justo sobre el origen del desastre.",
+      "visual_prompt": "Novela grafica historica en Covadonga, escena bridge. Mapa altomedieval retrocediendo desde Covadonga hacia la invasión inicial. Personajes visibles: Pelayo. Claves visuales: mapa, altomedieval, retrocediendo, covadonga, hacia, invasión, inicial, victoria. Composicion vertical 9:16, dramatismo cinematografico, textura...",
+      "estimated_seconds": 9
     },
     {
       "scene_index": 3,
-      "narration": "La fuente secundaria revela una maniobra tactica que no aparece en las versiones mas repetidas.",
-      "visual_prompt": "Documento antiguo iluminado, anotaciones marginales, foco en detalle historico",
-      "estimated_seconds": 24
+      "story_role": "setup",
+      "source_beat": "Fue el primer revés que sufrían los moros desde la invasión.",
+      "visual_focus": "Viñeta comparando la victoria astur con el avance previo musulmán sobre Hispania.",
+      "transition_note": "La imagen corta antes de cerrar el problema y empuja a la siguiente viñeta.",
+      "timing": {
+        "narration_seconds": 7,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 9,
+        "narration_words": 17,
+        "dialogue_words": 0,
+        "total_words": 17
+      },
+      "narration": "Ese triunfo fue el primer gran revés que sufrían los invasores desde su entrada en la península.",
+      "visual_prompt": "Novela grafica historica en Covadonga, escena setup. Viñeta comparando la victoria astur con el avance previo musulmán sobre Hispania. Personajes visibles: Pelayo. Claves visuales: viñeta, comparando, victoria, astur, avance, previo, musulmán, hispania. Composicion vertical 9:16, dramatismo cinematografico, textura de...",
+      "estimated_seconds": 9
     },
     {
       "scene_index": 4,
-      "narration": "Ese giro consolida un liderazgo emergente y deja planteado el conflicto del siguiente episodio.",
-      "visual_prompt": "Figura central en primer plano, valle astur al amanecer, tono epico sobrio",
-      "estimated_seconds": 24
+      "story_role": "bridge",
+      "source_beat": "La invasión había empezado en 711.",
+      "visual_focus": "Mapa de la península con flechas de invasión y ciudades cayendo en cadena.",
+      "transition_note": "La imagen corta antes de cerrar el problema y empuja a la siguiente viñeta.",
+      "timing": {
+        "narration_seconds": 7,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 9,
+        "narration_words": 16,
+        "dialogue_words": 0,
+        "total_words": 16
+      },
+      "narration": "Para entender Covadonga hay que volver al instante de 711 en que todo empezó a ceder.",
+      "visual_prompt": "Novela grafica historica en Covadonga, escena bridge. Mapa de la península con flechas de invasión y ciudades cayendo en cadena. Personajes visibles: Pelayo. Claves visuales: mapa, península, flechas, invasión, ciudades, cayendo, cadena, entender. Composicion vertical 9:16, dramatismo cinematografico, textura de tinta...",
+      "estimated_seconds": 9
+    },
+    {
+      "scene_index": 5,
+      "story_role": "question",
+      "source_beat": "La propia batalla abre una cadena de preguntas históricas.",
+      "visual_focus": "Montaje de rostros, mapas y símbolos políticos que convierten la victoria en interrogante.",
+      "transition_note": "Cada pregunta no resuelve la anterior: la vuelve más peligrosa.",
+      "timing": {
+        "narration_seconds": 7,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 9,
+        "narration_words": 16,
+        "dialogue_words": 0,
+        "total_words": 16
+      },
+      "narration": "La victoria no se basta sola: abre una cadena de preguntas que el relato debe ordenar.",
+      "visual_prompt": "Novela grafica historica en Covadonga, escena question. Montaje de rostros, mapas y símbolos políticos que convierten la victoria en interrogante. Personajes visibles: Pelayo. Claves visuales: montaje, rostros, mapas, símbolos, políticos, convierten, victoria, interrogante. Composicion vertical 9:16, dramatismo...",
+      "estimated_seconds": 9
+    },
+    {
+      "scene_index": 6,
+      "story_role": "question",
+      "source_beat": "Cómo pudo hundirse el reino visigodo en España.",
+      "visual_focus": "Viñeta narrativa en Covadonga centrada en Cómo pudo hundirse el reino visigodo en España",
+      "transition_note": "Cada pregunta no resuelve la anterior: la vuelve más peligrosa.",
+      "timing": {
+        "narration_seconds": 6,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 8,
+        "narration_words": 14,
+        "dialogue_words": 0,
+        "total_words": 14
+      },
+      "narration": "Primero, la grieta decisiva está en cómo pudo hundirse el reino visigodo en españa.",
+      "visual_prompt": "Novela grafica historica en Covadonga, escena question. Viñeta narrativa en Covadonga centrada en Cómo pudo hundirse el reino visigodo en España Personajes visibles: Pelayo. Claves visuales: viñeta, narrativa, covadonga, centrada, cómo, pudo, hundirse, reino. Composicion vertical 9:16, dramatismo cinematografico...",
+      "estimated_seconds": 8
+    },
+    {
+      "scene_index": 7,
+      "story_role": "question",
+      "source_beat": "Quiénes eran esos moros que irrumpieron violentamente en nuestra historia y cómo fue posible que tardaran tan poco tiempo en adueñarse de toda la Península.",
+      "visual_focus": "Viñeta narrativa en Covadonga centrada en Quiénes eran esos moros que irrumpieron violentamente en nuestra historia y cómo fue posible que tardaran tan poco tiempo en adueñarse de toda la Península",
+      "transition_note": "Cada pregunta no resuelve la anterior: la vuelve más peligrosa.",
+      "timing": {
+        "narration_seconds": 13,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 15,
+        "narration_words": 32,
+        "dialogue_words": 0,
+        "total_words": 32
+      },
+      "narration": "Después, el relato se tensa al preguntar quiénes eran esos moros que irrumpieron violentamente en nuestra historia y cómo fue posible que tardaran tan poco tiempo en adueñarse de toda la península.",
+      "visual_prompt": "Novela grafica historica en Covadonga, escena question. Viñeta narrativa en Covadonga centrada en Quiénes eran esos moros que irrumpieron violentamente en nuestra historia y cómo fue posible que tardaran tan poco tiempo en adueñarse de toda la Península Personajes visibles: Pelayo. Claves visuales: viñeta, narrativa...",
+      "estimated_seconds": 15
+    },
+    {
+      "scene_index": 8,
+      "story_role": "question",
+      "source_beat": "Quién era realmente Pelayo.",
+      "visual_focus": "Viñeta narrativa en Covadonga centrada en Quién era realmente Pelayo",
+      "transition_note": "Cada pregunta no resuelve la anterior: la vuelve más peligrosa.",
+      "timing": {
+        "narration_seconds": 6,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 8,
+        "narration_words": 12,
+        "dialogue_words": 0,
+        "total_words": 12
+      },
+      "narration": "A continuación, el relato se tensa al preguntar quién era realmente pelayo.",
+      "visual_prompt": "Novela grafica historica en Covadonga, escena question. Viñeta narrativa en Covadonga centrada en Quién era realmente Pelayo Personajes visibles: Pelayo. Claves visuales: viñeta, narrativa, covadonga, centrada, quién, realmente, pelayo, continuación. Composicion vertical 9:16, dramatismo cinematografico, textura de...",
+      "estimated_seconds": 8
+    },
+    {
+      "scene_index": 9,
+      "story_role": "question",
+      "source_beat": "Quiénes eran aquellos astures que se levantaron contra el moro.",
+      "visual_focus": "Viñeta narrativa en Covadonga centrada en Quiénes eran aquellos astures que se levantaron contra el moro",
+      "transition_note": "Cada pregunta no resuelve la anterior: la vuelve más peligrosa.",
+      "timing": {
+        "narration_seconds": 7,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 9,
+        "narration_words": 17,
+        "dialogue_words": 0,
+        "total_words": 17
+      },
+      "narration": "Luego, el relato se tensa al preguntar quiénes eran aquellos astures que se levantaron contra el moro.",
+      "visual_prompt": "Novela grafica historica en Covadonga, escena question. Viñeta narrativa en Covadonga centrada en Quiénes eran aquellos astures que se levantaron contra el moro Personajes visibles: Pelayo. Claves visuales: viñeta, narrativa, covadonga, centrada, quiénes, eran, aquellos, astures. Composicion vertical 9:16, dramatismo...",
+      "estimated_seconds": 9
+    },
+    {
+      "scene_index": 10,
+      "story_role": "question",
+      "source_beat": "Qué pasó.",
+      "visual_focus": "Viñeta narrativa en Covadonga centrada en qué pasó",
+      "transition_note": "Las preguntas ya empujan el relato hacia una grieta aún mayor.",
+      "timing": {
+        "narration_seconds": 4,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 6,
+        "narration_words": 8,
+        "dialogue_words": 0,
+        "total_words": 8
+      },
+      "narration": "Al final, todo queda pendiente de qué pasó.",
+      "visual_prompt": "Novela grafica historica en Covadonga, escena question. Viñeta narrativa en Covadonga centrada en qué pasó Personajes visibles: Pelayo. Claves visuales: viñeta, narrativa, covadonga, centrada, pasó, final, queda, pendiente. Composicion vertical 9:16, dramatismo cinematografico, textura de tinta y grano fino, sin texto...",
+      "estimated_seconds": 6
+    },
+    {
+      "scene_index": 11,
+      "story_role": "bridge",
+      "source_beat": "Vamos a empezar por la primera pregunta.",
+      "visual_focus": "Viñeta de transición con la pregunta principal ocupando el centro del tablero histórico.",
+      "transition_note": "El retroceso termina justo donde empieza el siguiente abismo.",
+      "timing": {
+        "narration_seconds": 7,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 9,
+        "narration_words": 17,
+        "dialogue_words": 0,
+        "total_words": 17
+      },
+      "narration": "El retroceso ya ha elegido su herida inicial: la caída visigoda está a un corte de distancia.",
+      "visual_prompt": "Novela grafica historica en Covadonga, escena bridge. Viñeta de transición con la pregunta principal ocupando el centro del tablero histórico. Personajes visibles: Pelayo. Claves visuales: viñeta, transición, pregunta, principal, ocupando, centro, tablero, histórico. Composicion vertical 9:16, dramatismo...",
+      "estimated_seconds": 9
+    },
+    {
+      "scene_index": 12,
+      "story_role": "legacy",
+      "source_beat": "El siguiente tramo arranca con la caída del reino visigodo.",
+      "visual_focus": "Cierre de transición con corte hacia la crisis visigoda que antecede a Covadonga.",
+      "transition_note": "La escena se corta cuando la historia pide la siguiente respuesta.",
+      "timing": {
+        "narration_seconds": 7,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 9,
+        "narration_words": 16,
+        "dialogue_words": 0,
+        "total_words": 16
+      },
+      "narration": "Justo cuando la victoria parecía clara, la historia se abre sobre la caída del reino visigodo.",
+      "visual_prompt": "Novela grafica historica en Covadonga, escena legacy. Cierre de transición con corte hacia la crisis visigoda que antecede a Covadonga. Personajes visibles: Pelayo. Claves visuales: cierre, transición, corte, hacia, crisis, visigoda, antecede, covadonga. Composicion vertical 9:16, dramatismo cinematografico, textura de...",
+      "estimated_seconds": 9
     }
   ],
   "characters": [
-    "pelayo",
-    "alfonso_i"
+    "pelayo"
   ],
   "character_beats": [
     {
       "character_id": "pelayo",
-      "emotion_before": "uncertainty",
-      "emotion_after": "resolve",
+      "emotion_before": "resolve",
+      "emotion_after": "uncertainty",
       "arc_stage_before": "setup",
-      "arc_stage_after": "ascent",
-      "beat_summary": "Pasa de reaccionar al entorno a liderar la estrategia local."
+      "arc_stage_after": "setup",
+      "beat_summary": "Pelayo evoluciona de resolve a uncertainty en el evento evt-72203 (722, Covadonga)."
     }
   ],
-  "duration_seconds": 96,
+  "duration_seconds": 107,
   "human_review": {
     "required": true,
     "status": "pending",
     "reviewer": null,
-    "notes": "Validar detalle cronologico y consistencia del giro narrativo."
+    "notes": "Pendiente revision historica y narrativa antes de cualquier publicacion."
   },
   "asset_refs": {
-    "audio": "s3://tiktok-assets/audio/main-20260315-linea_01.wav",
-    "video": "s3://tiktok-assets/video/main-20260315-linea_01.mp4",
-    "subtitles": "s3://tiktok-assets/subtitles/main-20260315-linea_01.srt"
+    "audio": "local://audio/main-20260315-linea_02.wav",
+    "video": "local://video/main-20260315-linea_02.mp4",
+    "subtitles": "local://subtitles/main-20260315-linea_02.srt"
   },
-  "created_at": "2026-03-15T09:00:00Z"
+  "created_at": "2026-03-16T20:54:12Z"
 }

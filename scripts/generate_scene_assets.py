@@ -22,6 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ASSETS_DIR = ROOT / "artifacts" / "scene_assets"
+DEFAULT_CHAR_DIR = ROOT / "data" / "characters"
 MOCK_SCENE_COLORS = [
     "#0f172a",
     "#1d4ed8",
@@ -30,6 +31,22 @@ MOCK_SCENE_COLORS = [
     "#7c2d12",
     "#4c1d95",
 ]
+
+
+def default_narrator_profile() -> dict:
+    try:
+        narrator_wps = float(os.getenv("VIDEO_NARRATOR_WPS", "2.55"))
+    except ValueError:
+        narrator_wps = 2.55
+    return {
+        "tts_voice": os.getenv("VIDEO_NARRATOR_TTS_VOICE", os.getenv("OPENAI_TTS_VOICE", "alloy")),
+        "tone": os.getenv("VIDEO_NARRATOR_TONE", "cronista_epico"),
+        "words_per_second": narrator_wps,
+        "delivery_modifiers": {
+            "normal": 1.0,
+            "shout": 1.12,
+        },
+    }
 
 
 def now_iso() -> str:
@@ -93,36 +110,16 @@ def split_caption_blocks(narration: str, max_blocks: int = 3) -> list[dict]:
         paragraph_chunks = [normalize_ws(raw)]
 
     all_blocks: list[dict] = []
-    total_paragraphs = len(paragraph_chunks)
     for paragraph_index, paragraph in enumerate(paragraph_chunks):
         chunks = [c.strip() for c in re.split(r"(?<=[.!?;:])\s+", paragraph) if c.strip()]
-        if len(chunks) == 1:
-            chunks = [c.strip() for c in paragraph.split(",") if c.strip()]
         if not chunks:
             chunks = [paragraph]
-
-        merged: list[str] = []
-        for chunk in chunks:
-            if not merged:
-                merged.append(chunk)
-                continue
-            if len(chunk) < 32 and len(merged[-1]) < 90:
-                merged[-1] = f"{merged[-1]} {chunk}"
-            else:
-                merged.append(chunk)
-
-        paragraph_blocks = [trim_caption(piece) for piece in merged if trim_caption(piece)]
+        paragraph_blocks = [normalize_ws(piece) for piece in chunks if normalize_ws(piece)]
         total = len(paragraph_blocks)
-        is_middle_paragraph = total_paragraphs >= 3 and 0 < paragraph_index < total_paragraphs - 1
         for idx, piece in enumerate(paragraph_blocks):
-            text = piece
-            if total >= 3 and 0 < idx < total - 1:
-                text = trim_caption(with_mid_ellipsis(piece))
-            elif is_middle_paragraph and total == 1:
-                text = trim_caption(with_mid_ellipsis(piece))
             all_blocks.append(
                 {
-                    "text": text,
+                    "text": piece,
                     "paragraph_index": paragraph_index,
                     "paragraph_block_index": idx,
                     "paragraph_blocks_total": total,
@@ -130,11 +127,6 @@ def split_caption_blocks(narration: str, max_blocks: int = 3) -> list[dict]:
             )
 
     final_blocks = all_blocks[:max_blocks]
-    if len(final_blocks) >= 3:
-        for idx in range(1, len(final_blocks) - 1):
-            text = str(final_blocks[idx].get("text", ""))
-            if not text.startswith("...") or not text.endswith("..."):
-                final_blocks[idx]["text"] = trim_caption(with_mid_ellipsis(text))
     return final_blocks
 
 
@@ -157,6 +149,32 @@ def split_duration_slots(total_seconds: int, parts: int) -> list[int]:
     return slots
 
 
+def is_action_shout(text: str) -> bool:
+    low = normalize_ws(text).lower()
+    if "!" in text:
+        return True
+    markers = [
+        "grita",
+        "gritad",
+        "fuego",
+        "cargad",
+        "carga",
+        "ahora",
+        "atacad",
+        "ataque",
+        "resistid",
+        "corred",
+    ]
+    return any(token in low for token in markers)
+
+
+def normalize_dialogue_delivery(delivery: str, line: str) -> str:
+    clean = normalize_ws(delivery).lower()
+    if clean in {"normal", "shout"}:
+        return clean
+    return "shout" if is_action_shout(line) else "normal"
+
+
 def normalize_scene_dialogue(dialogue_payload) -> list[dict]:
     if not isinstance(dialogue_payload, list):
         return []
@@ -168,8 +186,158 @@ def normalize_scene_dialogue(dialogue_payload) -> list[dict]:
         line = normalize_ws(str(item.get("line", "")))
         if not speaker or not line:
             continue
-        out.append({"speaker": speaker, "line": trim_caption(line, max_len=170)})
+        out.append(
+            {
+                "speaker": speaker,
+                "line": trim_caption(line, max_len=170),
+                "delivery": normalize_dialogue_delivery(str(item.get("delivery", "")), line),
+            }
+        )
     return out
+
+
+def load_character_profiles(characters_dir: Path, character_ids: list[str]) -> dict[str, dict]:
+    profiles: dict[str, dict] = {}
+    for character_id in character_ids:
+        path = characters_dir / f"{character_id}.json"
+        if not path.exists():
+            continue
+        try:
+            payload = load_json(path)
+        except RuntimeError:
+            continue
+        display_name = normalize_ws(str(payload.get("display_name", ""))).lower()
+        voice_profile = payload.get("voice_profile")
+        if not display_name or not isinstance(voice_profile, dict):
+            continue
+        profiles[display_name] = voice_profile
+        profiles[normalize_ws(character_id).lower()] = voice_profile
+    return profiles
+
+
+def fallback_voice_profile(speaker: str) -> dict:
+    low = normalize_ws(speaker).lower()
+    narrator_profile = default_narrator_profile()
+    profile = dict(narrator_profile)
+    profile["delivery_modifiers"] = dict(narrator_profile["delivery_modifiers"])
+    if "guerrero" in low or "capitan" in low:
+        profile["tone"] = "marcial_contenido"
+        profile["words_per_second"] = 2.7
+    elif "obispo" in low:
+        profile["tone"] = "liturgico_controlado"
+        profile["words_per_second"] = 2.2
+    return profile
+
+
+def resolve_voice_profile(speaker: str, character_profiles: dict[str, dict]) -> dict:
+    key = normalize_ws(speaker).lower()
+    existing = character_profiles.get(key)
+    if isinstance(existing, dict):
+        return existing
+    return fallback_voice_profile(speaker)
+
+
+def words_in_text(text: str) -> list[str]:
+    return re.findall(r"[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9]+", normalize_ws(text))
+
+
+def estimate_block_seconds(text: str, voice_profile: dict, delivery: str) -> int:
+    words = len(words_in_text(text))
+    narrator_profile = default_narrator_profile()
+    modifiers = voice_profile.get("delivery_modifiers") if isinstance(voice_profile, dict) else {}
+    try:
+        base_wps = float(voice_profile.get("words_per_second", narrator_profile["words_per_second"]))
+    except (AttributeError, TypeError, ValueError):
+        base_wps = float(narrator_profile["words_per_second"])
+    try:
+        delivery_factor = float(modifiers.get(delivery, modifiers.get("normal", 1.0))) if isinstance(modifiers, dict) else 1.0
+    except (TypeError, ValueError):
+        delivery_factor = 1.0
+    effective_wps = max(1.2, base_wps * delivery_factor)
+    commas = len(re.findall(r"[,;:]", text))
+    sentence_ends = len(re.findall(r"[.!?]", text))
+    duration = (words / effective_wps) + (0.18 * commas) + (0.28 * sentence_ends) + 0.35
+    if words <= 3:
+        duration = max(duration, 1.25)
+    elif words <= 8:
+        duration = max(duration, 2.0)
+    return max(1, round(duration))
+
+
+def build_scene_block_plan(
+    narration: str,
+    scene_dialogue: list[dict],
+    character_profiles: dict[str, dict],
+) -> list[dict]:
+    if scene_dialogue:
+        narrator_profile = default_narrator_profile()
+        blocks: list[dict] = [
+            {
+                "text": normalize_ws(narration),
+                "paragraph_index": 0,
+                "paragraph_block_index": 0,
+                "paragraph_blocks_total": len(scene_dialogue) + 1,
+                "dialogue_speaker": "",
+                "dialogue_line": "",
+                "dialogue_delivery": "normal",
+                "audio_text": normalize_ws(narration),
+                "voice_profile": dict(narrator_profile),
+                "duration_seconds": estimate_block_seconds(normalize_ws(narration), narrator_profile, "normal"),
+            }
+        ]
+        total = len(scene_dialogue) + 1
+        for idx, row in enumerate(scene_dialogue, start=1):
+            speaker = str(row.get("speaker", "")).strip()
+            line = str(row.get("line", "")).strip()
+            delivery = str(row.get("delivery", "normal")).strip() or "normal"
+            voice_profile = resolve_voice_profile(speaker, character_profiles)
+            blocks.append(
+                {
+                    "text": line or normalize_ws(narration),
+                    "paragraph_index": 0,
+                    "paragraph_block_index": idx,
+                    "paragraph_blocks_total": total,
+                    "dialogue_speaker": speaker,
+                    "dialogue_line": line,
+                    "dialogue_delivery": delivery,
+                    "audio_text": line,
+                    "voice_profile": voice_profile,
+                    "duration_seconds": estimate_block_seconds(line, voice_profile, delivery),
+                }
+            )
+        return blocks
+
+    caption_blocks = split_caption_blocks(narration, max_blocks=3)
+    if not caption_blocks:
+        caption_blocks = [
+            {
+                "text": trim_caption(narration),
+                "paragraph_index": 0,
+                "paragraph_block_index": 0,
+                "paragraph_blocks_total": 1,
+            }
+        ]
+    blocks = []
+    narrator_profile = default_narrator_profile()
+    for item in caption_blocks:
+        voice_profile = dict(narrator_profile)
+        voice_profile["delivery_modifiers"] = dict(narrator_profile["delivery_modifiers"])
+        text = str(item.get("text", "")).strip()
+        blocks.append(
+            {
+                "text": text,
+                "paragraph_index": int(item.get("paragraph_index", 0)),
+                "paragraph_block_index": int(item.get("paragraph_block_index", 0)),
+                "paragraph_blocks_total": int(item.get("paragraph_blocks_total", len(caption_blocks))),
+                "dialogue_speaker": "",
+                "dialogue_line": "",
+                "dialogue_delivery": "normal",
+                "audio_text": text,
+                "voice_profile": voice_profile,
+                "duration_seconds": estimate_block_seconds(text, voice_profile, "normal"),
+            }
+        )
+    return blocks
 
 
 def build_image_prompt(episode: dict, scene: dict) -> str:
@@ -247,35 +415,73 @@ def first_image_bytes(response) -> bytes:
     raise RuntimeError("Image API response has neither b64_json nor url.")
 
 
-def save_tts_audio(client, model: str, voice: str, narration: str, output_audio: Path) -> None:
+def save_tts_audio(
+    client,
+    model: str,
+    voice: str,
+    narration: str,
+    output_audio: Path,
+    *,
+    instructions: str | None = None,
+    speed: float | None = None,
+) -> None:
     speech = client.audio.speech
+    request = {
+        "model": model,
+        "voice": voice,
+        "input": narration,
+        "response_format": "mp3",
+    }
+    if instructions:
+        request["instructions"] = instructions
+    if speed is not None:
+        request["speed"] = speed
+
+    fallback_request = {
+        "model": model,
+        "voice": voice,
+        "input": narration,
+        "response_format": "mp3",
+    }
 
     # Preferred SDK path: avoids deprecation warning from non-streaming stream_to_file.
     with_streaming = getattr(speech, "with_streaming_response", None)
     if with_streaming is not None and hasattr(with_streaming, "create"):
-        with with_streaming.create(
-            model=model,
-            voice=voice,
-            input=narration,
-            response_format="mp3",
-        ) as tts_stream:
-            if hasattr(tts_stream, "stream_to_file"):
-                tts_stream.stream_to_file(output_audio.as_posix())
-                return
-            if hasattr(tts_stream, "read"):
-                content = tts_stream.read()
-                if isinstance(content, (bytes, bytearray)):
-                    output_audio.write_bytes(bytes(content))
+        try:
+            with with_streaming.create(**request) as tts_stream:
+                if hasattr(tts_stream, "stream_to_file"):
+                    tts_stream.stream_to_file(output_audio.as_posix())
                     return
+                if hasattr(tts_stream, "read"):
+                    content = tts_stream.read()
+                    if isinstance(content, (bytes, bytearray)):
+                        output_audio.write_bytes(bytes(content))
+                        return
+        except Exception as exc:
+            msg = str(exc).lower()
+            unsupported = "unexpected keyword" in msg or "unknown parameter" in msg or "instructions" in msg or "speed" in msg
+            if not unsupported:
+                raise
+            with with_streaming.create(**fallback_request) as tts_stream:
+                if hasattr(tts_stream, "stream_to_file"):
+                    tts_stream.stream_to_file(output_audio.as_posix())
+                    return
+                if hasattr(tts_stream, "read"):
+                    content = tts_stream.read()
+                    if isinstance(content, (bytes, bytearray)):
+                        output_audio.write_bytes(bytes(content))
+                        return
         raise RuntimeError("Unsupported streaming TTS response format from SDK.")
 
     # Backward compatibility for older SDK shapes.
-    tts_response = speech.create(
-        model=model,
-        voice=voice,
-        input=narration,
-        response_format="mp3",
-    )
+    try:
+        tts_response = speech.create(**request)
+    except Exception as exc:
+        msg = str(exc).lower()
+        unsupported = "unexpected keyword" in msg or "unknown parameter" in msg or "instructions" in msg or "speed" in msg
+        if not unsupported:
+            raise
+        tts_response = speech.create(**fallback_request)
     if hasattr(tts_response, "write_to_file"):
         tts_response.write_to_file(output_audio.as_posix())
         return
@@ -287,6 +493,79 @@ def save_tts_audio(client, model: str, voice: str, narration: str, output_audio:
         output_audio.write_bytes(bytes(content))
         return
     raise RuntimeError("Unsupported TTS response format from SDK.")
+
+
+def probe_audio_duration(ffmpeg_bin: str, audio_path: Path) -> float:
+    ffprobe = Path(ffmpeg_bin).with_name("ffprobe")
+    cmd = [
+        ffprobe.as_posix(),
+        "-v",
+        "error",
+        "-show_entries",
+        "format=duration",
+        "-of",
+        "default=noprint_wrappers=1:nokey=1",
+        audio_path.as_posix(),
+    ]
+    proc = subprocess.run(cmd, check=True, capture_output=True, text=True)
+    return max(0.01, float((proc.stdout or "0").strip() or "0"))
+
+
+def atempo_chain(speed_factor: float) -> str:
+    factor = max(0.5, min(100.0, speed_factor))
+    parts: list[float] = []
+    while factor > 2.0:
+        parts.append(2.0)
+        factor /= 2.0
+    while factor < 0.5:
+        parts.append(0.5)
+        factor /= 0.5
+    parts.append(factor)
+    return ",".join(f"atempo={part:.5f}" for part in parts)
+
+
+def fit_audio_to_duration(ffmpeg: str, input_audio: Path, output_audio: Path, target_seconds: int) -> None:
+    target = max(1, int(target_seconds))
+    current = probe_audio_duration(ffmpeg, input_audio)
+    ratio = max(0.5, min(8.0, current / target))
+    chain = atempo_chain(ratio)
+    af = f"{chain},apad=pad_dur={target},atrim=0:{target}"
+    cmd = [
+        ffmpeg,
+        "-y",
+        "-i",
+        input_audio.as_posix(),
+        "-filter:a",
+        af,
+        "-q:a",
+        "2",
+        output_audio.as_posix(),
+    ]
+    subprocess.run(cmd, check=True)
+
+
+def concat_audio_segments(ffmpeg: str, concat_paths: list[Path], output_audio: Path, work_dir: Path) -> None:
+    concat_list = work_dir / f"{output_audio.stem}.concat.txt"
+    concat_list.write_text(
+        "\n".join(f"file '{path.resolve().as_posix()}'" for path in concat_paths) + "\n",
+        encoding="utf-8",
+    )
+    cmd = [
+        ffmpeg,
+        "-y",
+        "-f",
+        "concat",
+        "-safe",
+        "0",
+        "-i",
+        concat_list.as_posix(),
+        "-c:a",
+        "libmp3lame",
+        "-q:a",
+        "2",
+        output_audio.as_posix(),
+    ]
+    subprocess.run(cmd, check=True)
 
 
 def ensure_ffmpeg() -> str:
@@ -366,10 +645,11 @@ def main() -> int:
     parser.add_argument("--episode", required=True, help="Path to episode JSON")
     parser.add_argument("--assets-dir", default=str(DEFAULT_ASSETS_DIR), help="Root output directory for generated assets")
     parser.add_argument("--dotenv", default=str(ROOT / ".env"), help="Path to .env file for local execution")
-    parser.add_argument("--image-model", default=os.getenv("OPENAI_IMAGE_MODEL", "gpt-image-1"), help="OpenAI image model")
-    parser.add_argument("--image-size", default=os.getenv("OPENAI_IMAGE_SIZE", "1024x1024"), help="Image size, e.g. 1024x1024")
-    parser.add_argument("--tts-model", default=os.getenv("OPENAI_TTS_MODEL", "gpt-4o-mini-tts"), help="OpenAI TTS model")
-    parser.add_argument("--tts-voice", default=os.getenv("OPENAI_TTS_VOICE", "alloy"), help="OpenAI TTS voice id")
+    parser.add_argument("--characters-dir", default=str(DEFAULT_CHAR_DIR), help="Directory of character JSON files")
+    parser.add_argument("--image-model", default=None, help="OpenAI image model")
+    parser.add_argument("--image-size", default=None, help="Image size, e.g. 1024x1024")
+    parser.add_argument("--tts-model", default=None, help="OpenAI TTS model")
+    parser.add_argument("--tts-voice", default=None, help="OpenAI TTS voice id")
     parser.add_argument("--mock", action="store_true", help="Generate placeholder assets with ffmpeg instead of OpenAI APIs")
     parser.add_argument(
         "--fallback-mock-on-billing-error",
@@ -384,6 +664,7 @@ def main() -> int:
         scenes = episode.get("scenes")
         if not isinstance(scenes, list) or not scenes:
             raise RuntimeError("Episode has no scenes.")
+        character_profiles = load_character_profiles(Path(args.characters_dir), [str(x) for x in episode.get("characters", [])])
 
         assets_root = Path(args.assets_dir) / str(episode["episode_id"])
         scenes_dir = assets_root / "scenes"
@@ -391,6 +672,11 @@ def main() -> int:
 
         load_dotenv_if_present(Path(args.dotenv))
         ffmpeg = ensure_ffmpeg()
+        image_model = args.image_model or os.getenv("OPENAI_IMAGE_MODEL", "gpt-image-1")
+        image_size = args.image_size or os.getenv("OPENAI_IMAGE_SIZE", "1024x1024")
+        tts_model = args.tts_model or os.getenv("OPENAI_TTS_MODEL", "gpt-4o-mini-tts")
+        tts_voice = args.tts_voice or os.getenv("OPENAI_TTS_VOICE", "alloy")
+        narrator_profile = default_narrator_profile()
 
         client = None
         if not args.mock:
@@ -411,7 +697,6 @@ def main() -> int:
         used_billing_fallback = False
         for scene_pos, scene in enumerate(scenes):
             idx = int(scene["scene_index"])
-            duration = int(scene["estimated_seconds"])
             narration = str(scene["narration"]).strip()
             visual_prompt = str(scene["visual_prompt"]).strip()
             scene_dialogue = normalize_scene_dialogue(scene.get("dialogue"))
@@ -422,39 +707,20 @@ def main() -> int:
             if scene_pos + 1 < len(scenes):
                 next_narration = str(scenes[scene_pos + 1].get("narration", "")).strip()
 
-            caption_blocks = split_caption_blocks(narration, max_blocks=3)
-            if not caption_blocks:
-                caption_blocks = [
-                    {
-                        "text": trim_caption(narration),
-                        "paragraph_index": 0,
-                        "paragraph_block_index": 0,
-                        "paragraph_blocks_total": 1,
-                    }
-                ]
-            block_durations = split_duration_slots(duration, len(caption_blocks))
-
             audio_path = scenes_dir / f"scene_{idx:02d}.mp3"
             base_prompt_path = scenes_dir / f"scene_{idx:02d}.prompt.txt"
             base_prompt = build_image_prompt(episode, scene)
             base_prompt_path.write_text(base_prompt + "\n", encoding="utf-8")
 
+            scene_blocks = build_scene_block_plan(narration, scene_dialogue, character_profiles)
             block_assets: list[dict] = []
-            dialogue_slots = 0
-            dialogue_start = 10**9
-            if scene_dialogue:
-                dialogue_slots = min(len(scene_dialogue), max(1, len(caption_blocks) - 1))
-                dialogue_start = len(caption_blocks) - dialogue_slots + 1
-            for block_idx, block_payload in enumerate(caption_blocks, start=1):
+            for block_idx, block_payload in enumerate(scene_blocks, start=1):
                 block_text = str(block_payload.get("text", "")).strip()
-                block_dialogue = {}
-                if scene_dialogue and block_idx >= dialogue_start:
-                    d_idx = block_idx - dialogue_start
-                    if d_idx < len(scene_dialogue):
-                        block_dialogue = scene_dialogue[d_idx]
-                block_speaker = str(block_dialogue.get("speaker", "")).strip()
-                block_line = str(block_dialogue.get("line", "")).strip()
+                block_speaker = str(block_payload.get("dialogue_speaker", "")).strip()
+                block_line = str(block_payload.get("dialogue_line", "")).strip()
+                block_delivery = str(block_payload.get("dialogue_delivery", "normal")).strip() or "normal"
                 block_img = scenes_dir / f"scene_{idx:02d}_block_{block_idx:02d}.png"
+                block_audio = scenes_dir / f"scene_{idx:02d}_block_{block_idx:02d}.mp3"
                 block_prompt_path = scenes_dir / f"scene_{idx:02d}_block_{block_idx:02d}.prompt.txt"
                 block_prompt = build_block_image_prompt(
                     base_prompt=base_prompt,
@@ -462,7 +728,7 @@ def main() -> int:
                     dialogue_speaker=block_speaker,
                     dialogue_line=block_line,
                     block_index=block_idx,
-                    total_blocks=len(caption_blocks),
+                    total_blocks=len(scene_blocks),
                     prev_scene_narration=prev_narration,
                     next_scene_narration=next_narration,
                 )
@@ -474,46 +740,87 @@ def main() -> int:
                         "paragraph_index": int(block_payload.get("paragraph_index", 0)),
                         "paragraph_block_index": int(block_payload.get("paragraph_block_index", 0)),
                         "paragraph_blocks_total": int(block_payload.get("paragraph_blocks_total", 1)),
-                        "duration_seconds": int(block_durations[block_idx - 1]),
+                        "duration_seconds": int(block_payload.get("duration_seconds", 1)),
                         "image_path": str(block_img),
+                        "audio_path": str(block_audio),
+                        "audio_text": str(block_payload.get("audio_text", block_line or block_text)),
                         "dialogue_speaker": block_speaker,
                         "dialogue_line": block_line,
+                        "dialogue_delivery": block_delivery,
+                        "voice_profile": dict(block_payload.get("voice_profile", narrator_profile)),
                         "prompt_path": str(block_prompt_path),
                         "prompt_text": block_prompt,
                     }
                 )
+            duration = sum(int(block["duration_seconds"]) for block in block_assets)
+            if duration <= 0:
+                duration = max(1, int(scene.get("estimated_seconds", 1)))
 
             if args.mock:
-                create_mock_audio(ffmpeg, audio_path, duration)
                 for block in block_assets:
+                    create_mock_audio(ffmpeg, Path(str(block["audio_path"])), int(block["duration_seconds"]))
                     color = MOCK_SCENE_COLORS[(idx + int(block["block_index"])) % len(MOCK_SCENE_COLORS)]
                     create_mock_image(ffmpeg, Path(block["image_path"]), color=color)
+                concat_audio_segments(
+                    ffmpeg,
+                    [Path(str(block["audio_path"])) for block in block_assets],
+                    audio_path,
+                    scenes_dir,
+                )
             else:
                 try:
-                    save_tts_audio(
-                        client=client,
-                        model=args.tts_model,
-                        voice=args.tts_voice,
-                        narration=narration,
-                        output_audio=audio_path,
-                    )
                     for block in block_assets:
+                        profile = block.get("voice_profile") if isinstance(block.get("voice_profile"), dict) else narrator_profile
+                        target_seconds = int(block["duration_seconds"])
+                        raw_audio = Path(str(block["audio_path"])).with_suffix(".raw.mp3")
+                        profile_tone = str(profile.get("tone", narrator_profile["tone"])).replace("_", " ")
+                        delivery = str(block.get("dialogue_delivery", "normal"))
+                        instructions = f"Habla con tono {profile_tone}. Ritmo controlado y coherente con una narracion historica."
+                        if delivery == "shout":
+                            instructions += " Entrega la frase con intensidad y urgencia, sin perder claridad."
+                        try:
+                            profile_wps = float(profile.get("words_per_second", narrator_profile["words_per_second"]))
+                        except (TypeError, ValueError):
+                            profile_wps = float(narrator_profile["words_per_second"])
+                        speed_hint = max(0.8, min(1.35, profile_wps / float(narrator_profile["words_per_second"])))
+                        save_tts_audio(
+                            client=client,
+                            model=tts_model,
+                            voice=str(profile.get("tts_voice", tts_voice or narrator_profile["tts_voice"])),
+                            narration=str(block["audio_text"]),
+                            output_audio=raw_audio,
+                            instructions=instructions,
+                            speed=speed_hint,
+                        )
+                        fit_audio_to_duration(ffmpeg, raw_audio, Path(str(block["audio_path"])), target_seconds)
                         image_resp = client.images.generate(
-                            model=args.image_model,
+                            model=image_model,
                             prompt=str(block["prompt_text"]),
-                            size=args.image_size,
+                            size=image_size,
                         )
                         Path(str(block["image_path"])).write_bytes(first_image_bytes(image_resp))
+                    concat_audio_segments(
+                        ffmpeg,
+                        [Path(str(block["audio_path"])) for block in block_assets],
+                        audio_path,
+                        scenes_dir,
+                    )
                 except Exception as exc:  # SDK raises typed exceptions; keep generic for compatibility.
                     if args.fallback_mock_on_billing_error and is_billing_limit_error(exc):
                         print(
                             "WARNING: OpenAI billing limit reached. "
                             f"Using mock assets for scene {idx:02d} of {episode['episode_id']}."
                         )
-                        create_mock_audio(ffmpeg, audio_path, duration)
                         for block in block_assets:
+                            create_mock_audio(ffmpeg, Path(str(block["audio_path"])), int(block["duration_seconds"]))
                             color = MOCK_SCENE_COLORS[(idx + int(block["block_index"])) % len(MOCK_SCENE_COLORS)]
                             create_mock_image(ffmpeg, Path(block["image_path"]), color=color)
+                        concat_audio_segments(
+                            ffmpeg,
+                            [Path(str(block["audio_path"])) for block in block_assets],
+                            audio_path,
+                            scenes_dir,
+                        )
                         used_billing_fallback = True
                     else:
                         raise RuntimeError(openai_error_message(exc)) from exc
@@ -537,8 +844,10 @@ def main() -> int:
                             "paragraph_blocks_total": int(block.get("paragraph_blocks_total", 1)),
                             "duration_seconds": int(block["duration_seconds"]),
                             "image_path": str(block["image_path"]),
+                            "audio_path": str(block["audio_path"]),
                             "dialogue_speaker": str(block.get("dialogue_speaker", "")),
                             "dialogue_line": str(block.get("dialogue_line", "")),
+                            "dialogue_delivery": str(block.get("dialogue_delivery", "normal")),
                             "prompt_path": str(block["prompt_path"]),
                         }
                         for block in block_assets
@@ -558,10 +867,10 @@ def main() -> int:
             "generator": {
                 "mock_mode": bool(args.mock),
                 "billing_fallback_used": bool(used_billing_fallback),
-                "image_model": args.image_model if not args.mock else None,
-                "image_size": args.image_size if not args.mock else None,
-                "tts_model": args.tts_model if not args.mock else None,
-                "tts_voice": args.tts_voice if not args.mock else None,
+                "image_model": image_model if not args.mock else None,
+                "image_size": image_size if not args.mock else None,
+                "tts_model": tts_model if not args.mock else None,
+                "tts_voice": tts_voice if not args.mock else None,
             },
             "scenes": manifest_scenes,
         }

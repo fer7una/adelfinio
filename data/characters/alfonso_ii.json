@@ -3,8 +3,17 @@
   "display_name": "Alfonso II",
   "aliases": [],
   "historical_period": "Periodo por definir",
-  "role": "other",
-  "biography_short": "Personaje recurrente en la cronologia del reino de Asturias. Interviene en 33 eventos documentados de la fuente canonica.",
+  "role": "monarch",
+  "biography_short": "Personaje recurrente en la cronologia del reino de Asturias. Interviene en 14 eventos documentados de la fuente canonica.",
+  "voice_profile": {
+    "tts_voice": "alloy",
+    "tone": "solemne_regio",
+    "words_per_second": 2.3,
+    "delivery_modifiers": {
+      "normal": 1.0,
+      "shout": 1.1
+    }
+  },
   "visual_profile": {
     "age_range": "30-50",
     "hair": "castano",
@@ -23,7 +32,7 @@
     "alliances": [],
     "conflicts": [],
     "last_seen_episode_id": null,
-    "last_updated": "2026-03-15T21:38:33Z"
+    "last_updated": "2026-03-16T21:18:15Z"
   },
   "continuity": {
     "must_keep": [
@@ -36,11 +45,11 @@
     ]
   },
   "emotional_state": {
-    "dominant_emotion": "pride",
+    "dominant_emotion": "resolve",
     "intensity": 0.7,
     "valence": 0.22,
     "arousal": 0.68,
-    "trigger_summary": "Alfonso II evoluciona de resolve a pride durante Recordemos quién era Ordoño: el segundo hijo de Alfonso III, el mismo que fue."
+    "trigger_summary": "Alfonso II evoluciona de uncertainty a resolve durante El emirato reaccionará, como era de esperar."
   },
   "arc_state": {
     "stage": "legacy",
@@ -48,6 +57,6 @@
     "internal_need": "Alinear decision personal con estabilidad colectiva.",
     "contradiction": "Interes inmediato frente a continuidad de largo plazo.",
     "change_vector": "Evolucion gradual guiada por eventos documentados.",
-    "last_event_id": "evt-87102"
+    "last_event_id": "evt-91204"
   }
 }

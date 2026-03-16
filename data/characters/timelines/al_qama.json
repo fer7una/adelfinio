@@ -1,0 +1,39 @@
+{
+  "character_id": "al_qama",
+  "records": [
+    {
+      "record_id": "arc-20260316-al_qama_01",
+      "event_id": "evt-88101",
+      "chronology_index": 4,
+      "emotion_before": "uncertainty",
+      "emotion_after": "resolve",
+      "arc_stage_before": "setup",
+      "arc_stage_after": "crisis",
+      "change_summary": "Al Qama evoluciona de uncertainty a resolve durante se planteó la batalla.",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_4",
+        "checksum": "443ad339520ebc5bc8cc7206f7f4532d2258d3dae7e6b751b5317bfc07df3fb2",
+        "excerpt": "Así, en fin, se planteó la batalla. Los cristianos, pocos y sin alimentos; los moros, muchos y bien armados. Pero el terreno jugaba a favor de los cristianos: mover a un ejército numeroso por el laberinto asturiano de..."
+      },
+      "updated_at": "2026-03-16T21:18:15Z"
+    },
+    {
+      "record_id": "arc-20260316-al_qama_02",
+      "event_id": "evt-72204",
+      "chronology_index": 16,
+      "emotion_before": "resolve",
+      "emotion_after": "fear",
+      "arc_stage_before": "crisis",
+      "arc_stage_after": "legacy",
+      "change_summary": "Al Qama evoluciona de resolve a fear en el evento evt-72204 (722, Covadonga).",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "parrafo_16",
+        "checksum": "096db1c61817b3026d4131abf75ae7161a79f3f9b0ba68ca44f053bf1e8c8823",
+        "excerpt": "Las hostilidades se enquistan hasta el extremo de que los moros deciden hacer una demostración de fuerza. Hay en Córdoba un nuevo gobernador, Anbasa, que doblado los impuestos a los cristianos y ordenado confiscar los..."
+      },
+      "updated_at": "2026-03-16T21:18:15Z"
+    }
+  ]
+}

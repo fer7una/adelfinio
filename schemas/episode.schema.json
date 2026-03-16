@@ -12,6 +12,7 @@
     "timeline_event_ids",
     "title",
     "hook",
+    "storytelling",
     "scenes",
     "characters",
     "duration_seconds",
@@ -44,6 +45,10 @@
       "type": "string",
       "const": "es"
     },
+    "narrative_tone": {
+      "type": "string",
+      "pattern": "^[a-z0-9_\\-]{3,64}$"
+    },
     "timeline_event_ids": {
       "type": "array",
       "minItems": 1,
@@ -68,6 +73,38 @@
       "type": "string",
       "minLength": 20,
       "maxLength": 300
+    },
+    "storytelling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "narrative_mode",
+        "premise",
+        "dramatic_question",
+        "ending_payoff"
+      ],
+      "properties": {
+        "narrative_mode": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 32
+        },
+        "premise": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 260
+        },
+        "dramatic_question": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 260
+        },
+        "ending_payoff": {
+          "type": "string",
+          "minLength": 12,
+          "maxLength": 260
+        }
+      }
     },
     "plot_twist": {
       "type": "object",
@@ -103,6 +140,11 @@
         "additionalProperties": false,
         "required": [
           "scene_index",
+          "story_role",
+          "source_beat",
+          "visual_focus",
+          "transition_note",
+          "timing",
           "narration",
           "visual_prompt",
           "estimated_seconds"
@@ -111,6 +153,69 @@
           "scene_index": {
             "type": "integer",
             "minimum": 1
+          },
+          "story_role": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 32
+          },
+          "source_beat": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 220
+          },
+          "visual_focus": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 280
+          },
+          "transition_note": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 220
+          },
+          "timing": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "narration_seconds",
+              "dialogue_seconds",
+              "visual_hold_seconds",
+              "target_duration_seconds",
+              "narration_words",
+              "dialogue_words",
+              "total_words"
+            ],
+            "properties": {
+              "narration_seconds": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "dialogue_seconds": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "visual_hold_seconds": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "target_duration_seconds": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "narration_words": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "dialogue_words": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "total_words": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
           },
           "narration": {
             "type": "string",
@@ -136,7 +241,8 @@
               "additionalProperties": false,
               "required": [
                 "speaker",
-                "line"
+                "line",
+                "delivery"
               ],
               "properties": {
                 "speaker": {
@@ -148,6 +254,13 @@
                   "type": "string",
                   "minLength": 8,
                   "maxLength": 180
+                },
+                "delivery": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "shout"
+                  ]
                 }
               }
             }

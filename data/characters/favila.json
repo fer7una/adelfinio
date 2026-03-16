@@ -3,8 +3,17 @@
   "display_name": "Favila",
   "aliases": [],
   "historical_period": "Periodo por definir",
-  "role": "other",
+  "role": "political",
   "biography_short": "Personaje recurrente en la cronologia del reino de Asturias. Interviene en 7 eventos documentados de la fuente canonica.",
+  "voice_profile": {
+    "tts_voice": "alloy",
+    "tone": "diplomatico_tenso",
+    "words_per_second": 2.3,
+    "delivery_modifiers": {
+      "normal": 1.0,
+      "shout": 1.14
+    }
+  },
   "visual_profile": {
     "age_range": "30-50",
     "hair": "castano",
@@ -23,7 +32,7 @@
     "alliances": [],
     "conflicts": [],
     "last_seen_episode_id": null,
-    "last_updated": "2026-03-15T21:38:33Z"
+    "last_updated": "2026-03-16T21:18:15Z"
   },
   "continuity": {
     "must_keep": [

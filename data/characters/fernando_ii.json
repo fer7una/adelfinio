@@ -5,6 +5,15 @@
   "historical_period": "1476-1476",
   "role": "other",
   "biography_short": "Personaje recurrente en la cronologia del reino de Asturias. Interviene en 1 eventos documentados de la fuente canonica.",
+  "voice_profile": {
+    "tts_voice": "alloy",
+    "tone": "solemne_historico",
+    "words_per_second": 2.45,
+    "delivery_modifiers": {
+      "normal": 1.0,
+      "shout": 1.14
+    }
+  },
   "visual_profile": {
     "age_range": "30-50",
     "hair": "castano",

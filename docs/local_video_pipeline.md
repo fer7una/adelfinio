@@ -87,28 +87,7 @@ Validar episodios:
 python3 scripts/validate_generated_episodes.py --dir data/episodes/generated/plan-20260315
 ```
 
-## Paso 6: renderizar MP4 local
-
-Ejemplo episodio principal:
-
-```bash
-python3 scripts/render_episode_video.py \
-  --episode data/episodes/generated/plan-20260315/main-20260315-linea_01.json
-```
-
-Ejemplo teaser:
-
-```bash
-python3 scripts/render_episode_video.py \
-  --episode data/episodes/generated/plan-20260315/teaser-20260315-linea_01.json
-```
-
-Salida esperada:
-
-- `artifacts/videos/*.mp4`
-- `artifacts/subtitles/*.srt`
-
-## Paso 7: generar video final (imagen IA + voz IA + montaje)
+## Paso 6: generar video final (imagen IA + voz IA + montaje)
 
 Generar assets por escena (OpenAI):
 
@@ -124,6 +103,13 @@ python3 scripts/compose_final_video.py \
   --episode data/episodes/generated/plan-20260315/main-20260315-linea_01.json
 ```
 
+SVG opcionales para narracion/dialogo/grito:
+
+- `assets/video_overlays/narration.svg`
+- `assets/video_overlays/dialogue.svg`
+- `assets/video_overlays/shout.svg`
+- Tambien puedes cambiar la carpeta con `--overlay-assets-dir` o `VIDEO_OVERLAY_ASSETS_DIR`.
+
 Salida esperada:
 
 - `artifacts/scene_assets/<episode_id>/scenes/*.png`
@@ -135,6 +121,12 @@ Ejecucion en lote (todos los episodios del plan):
 
 ```bash
 bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/plan-20260315
+```
+
+Directo desde el `plan.json`:
+
+```bash
+bash scripts/run_final_ai_video_pipeline_from_plan.sh data/daily_plan/plan-20260315.json
 ```
 
 Modo mock sin llamadas a API (solo para test de pipeline):
@@ -154,12 +146,12 @@ Este comando ejecuta:
 1. Generacion de `daily_plan`
 2. Construccion de character bible
 3. Generacion de 4 episodios JSON
-4. Render de 1 principal + 1 teaser
+4. Render final mock de 1 principal + 1 teaser
 
 ## Que valida este pipeline
 
 - Estructura de datos y consistencia de IDs
 - Presencia de plot twist en episodios `main`
 - Continuidad emocional y de arco por personaje (`character_beats`)
-- Render vertical base para test rapido de narrativa y tiempos
-- Punto de integracion para conectar luego voz, imagen IA y subida TikTok
+- Generacion de assets por escena y composicion final
+- Punto de integracion para voz, imagen IA y subida TikTok

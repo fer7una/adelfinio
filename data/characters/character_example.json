@@ -7,6 +7,15 @@
   "historical_period": "Siglo VIII",
   "role": "military",
   "biography_short": "Lider de la resistencia astur y figura central en los primeros episodios del reino de Asturias.",
+  "voice_profile": {
+    "tts_voice": "alloy",
+    "tone": "grave_resuelto",
+    "words_per_second": 2.5,
+    "delivery_modifiers": {
+      "normal": 1.0,
+      "shout": 1.18
+    }
+  },
   "visual_profile": {
     "age_range": "30-40",
     "hair": "castano oscuro, medio",

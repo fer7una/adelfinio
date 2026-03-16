@@ -1,42 +1,75 @@
 {
-  "episode_id": "teaser-20260315-linea_01",
+  "episode_id": "teaser-20260315-linea_02",
   "episode_type": "teaser",
-  "status": "pending_review",
+  "status": "generated",
   "language": "es",
+  "narrative_tone": "epico_historico_oscuro",
   "timeline_event_ids": [
-    "evt-1475"
+    "evt-72203"
   ],
-  "parent_episode_id": "main-20260315-linea_01",
-  "title": "La decision que cambio el inicio astur",
-  "hook": "Una maniobra casi olvidada activa un lider inesperado en menos de medio minuto.",
+  "parent_episode_id": "main-20260315-linea_02",
+  "title": "Teaser: Hemos comenzado esta historia de la Reconquista hablando de Covadonga, la batalla...",
+  "hook": "Covadonga abre la historia como una victoria que aún necesita explicación. La victoria aún resuena, pero el corte siguiente cae justo sobre el origen del desastre.",
+  "storytelling": {
+    "narrative_mode": "teaser",
+    "premise": "La narración parte de Covadonga y retrocede para explicar qué fuerzas hicieron posible ese punto de inflexión en Covadonga.",
+    "dramatic_question": "La pregunta que importa aparece justo después de este corte.",
+    "ending_payoff": "Ese triunfo fue el primer gran revés que sufrían los invasores desde su entrada en la península. La pregunta que importa aparece justo después de este corte."
+  },
   "scenes": [
     {
       "scene_index": 1,
-      "narration": "Cuando parecia que no habia salida, una alianza local movio toda la partida.",
-      "visual_prompt": "Plano rapido de consejo y mapa altomedieval, tono de urgencia",
-      "estimated_seconds": 13
+      "story_role": "hook",
+      "source_beat": "Covadonga aparece como una victoria fundacional que obliga a mirar atrás.",
+      "visual_focus": "Viñeta de Covadonga tras el combate, con eco de victoria y preguntas pendientes sobre Covadonga.",
+      "transition_note": "La imagen corta antes de cerrar el problema y empuja a la siguiente viñeta.",
+      "timing": {
+        "narration_seconds": 5,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 7,
+        "narration_words": 11,
+        "dialogue_words": 0,
+        "total_words": 11
+      },
+      "narration": "Covadonga abre la historia como una victoria que aún necesita explicación.",
+      "visual_prompt": "Novela grafica historica en Viñeta de Covadonga tras el combate, con eco de victoria y preguntas pendientes sobre Covadonga., escena hook. Viñeta de Covadonga tras el combate, con eco de victoria y preguntas pendientes sobre Covadonga. Personajes visibles: Pelayo. Claves visuales: viñeta, covadonga, combate, victoria...",
+      "estimated_seconds": 7
     },
     {
       "scene_index": 2,
-      "narration": "En el episodio completo veras por que ese giro marco el futuro del reino.",
-      "visual_prompt": "Cierre con llamada a accion sobre montanas astures",
-      "estimated_seconds": 12
+      "story_role": "legacy",
+      "source_beat": "Fue el primer revés que sufrían los moros desde la invasión.",
+      "visual_focus": "Cierre con tensión contenida, sombras largas y promesa del siguiente giro.",
+      "transition_note": "La escena se corta cuando la historia pide la siguiente respuesta.",
+      "timing": {
+        "narration_seconds": 11,
+        "dialogue_seconds": 0,
+        "visual_hold_seconds": 2,
+        "target_duration_seconds": 13,
+        "narration_words": 27,
+        "dialogue_words": 0,
+        "total_words": 27
+      },
+      "narration": "Ese triunfo fue el primer gran revés que sufrían los invasores desde su entrada en la península. La pregunta que importa aparece justo después de este corte.",
+      "visual_prompt": "Novela grafica historica en Viñeta de Covadonga tras el combate, con eco de victoria y preguntas pendientes sobre Covadonga., escena legacy. Cierre con tensión contenida, sombras largas y promesa del siguiente giro. Personajes visibles: Pelayo. Claves visuales: cierre, tensión, contenida, sombras, largas, promesa...",
+      "estimated_seconds": 13
     }
   ],
   "characters": [
     "pelayo"
   ],
-  "duration_seconds": 25,
+  "duration_seconds": 20,
   "human_review": {
     "required": true,
     "status": "pending",
     "reviewer": null,
-    "notes": "Validar CTA y precision de nomenclatura historica."
+    "notes": "Validar gancho, CTA y coherencia cronologica."
   },
   "asset_refs": {
-    "audio": "s3://tiktok-assets/audio/teaser-20260315-linea_01.wav",
-    "video": "s3://tiktok-assets/video/teaser-20260315-linea_01.mp4",
-    "subtitles": "s3://tiktok-assets/subtitles/teaser-20260315-linea_01.srt"
+    "audio": "local://audio/teaser-20260315-linea_02.wav",
+    "video": "local://video/teaser-20260315-linea_02.mp4",
+    "subtitles": "local://subtitles/teaser-20260315-linea_02.srt"
   },
-  "created_at": "2026-03-15T10:00:00Z"
+  "created_at": "2026-03-16T20:54:12Z"
 }

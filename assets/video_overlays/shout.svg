@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="204.63557mm"
+   height="169.10609mm"
+   viewBox="0 0 204.63557 169.10609"
+   version="1.1"
+   id="svg1"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm">
+    <inkscape:page
+       x="0"
+       y="-1.4571289e-20"
+       width="204.63557"
+       height="169.10609"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <linearGradient
+       id="swatch12"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop13" />
+    </linearGradient>
+    <linearGradient
+       id="swatch11"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop12" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-51.239232,-20.773489)">
+    <path
+       fill="#fff2a8"
+       fill-opacity="1"
+       stroke-width="7.49998"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke="#000000"
+       stroke-opacity="1"
+       stroke-miterlimit="22.9256"
+       d="m 85.950326,40.094258 33.176264,16.894056 6.69726,-31.2384 28.23083,25.504383 19.59777,-26.731182 13.87408,30.452919 27.50635,-16.049666 -2.13527,29.597159 19.98429,-7.037297 -9.31105,22.694218 28.55433,5.51491 -21.97076,22.862682 20.87004,17.88108 -33.25584,10.88926 7.29257,27.59727 -31.40376,-9.29348 -4.76044,24.25898 -23.98921,-15.80472 -17.93586,18.04334 -17.76222,-19.68045 -25.07443,14.20585 -5.418799,-27.40711 -26.40253,5.45393 6.797516,-26.68674 -24.122536,-3.11505 18.261407,-25.246 -17.803572,-26.638172 30.062246,-1.02112 z m 0,0"
+       id="path23"
+       style="stroke:#000000;stroke-width:4.5;stroke-dasharray:none;stroke-dashoffset:0;paint-order:normal" />
+  </g>
+</svg>

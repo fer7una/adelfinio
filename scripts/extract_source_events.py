@@ -45,6 +45,11 @@ LOCATION_HINTS = [
 ACTOR_HINTS = {
     "pelayo": "pelayo",
     "don pelayo": "pelayo",
+    "oppas": "don_oppas",
+    "don oppas": "don_oppas",
+    "obispo oppas": "don_oppas",
+    "al qama": "al_qama",
+    "alkama": "al_qama",
     "alfonso i": "alfonso_i",
     "alfonso ii": "alfonso_ii",
     "favila": "favila",
@@ -65,6 +70,19 @@ HISTORICAL_HINTS = [
     "alianza",
     "musulman",
     "visigodo",
+]
+
+OCR_FIX_PATTERNS = [
+    (r"\bAsi\b", "Así"),
+    (r"\bsigo\s+VIII\b", "siglo VIII"),
+    (r"\bdificil\b", "difícil"),
+    (r"\bmurio\b", "murió"),
+    (r"\brendicion\b", "rendición"),
+]
+HISTORIOGRAPHY_TAIL_PATTERNS = [
+    r"\bLa Cr[oó]nica de Albelda\b.*$",
+    r"\blo relat[oó] as[ií]\b.*$",
+    r"\bdicen las viejas cr[oó]nicas\b.*$",
 ]
 
 SMART_PUNCT_TRANSLATION = str.maketrans(
@@ -143,7 +161,8 @@ def sha256_text(text: str) -> str:
 
 
 def clean_title(paragraph: str) -> str:
-    sentence = paragraph.split(".")[0].strip()
+    sentence = strip_historiography_tail(repair_common_ocr_issues(paragraph)).split(".")[0].strip()
+    sentence = re.sub(r"^(as[ií]),?\s+en\s+fin,?\s*", "", sentence, flags=re.IGNORECASE)
     words = sentence.split()
     title = " ".join(words[:14]).strip()
     if len(title) < 6:
@@ -160,12 +179,27 @@ def detect_location(paragraph: str) -> str:
 
 
 def detect_actors(paragraph: str) -> list[str]:
-    low = paragraph.lower()
+    low = repair_common_ocr_issues(paragraph).lower()
     actors: list[str] = []
-    for key, actor_id in ACTOR_HINTS.items():
-        if key in low and actor_id not in actors:
+    for key, actor_id in sorted(ACTOR_HINTS.items(), key=lambda item: len(item[0]), reverse=True):
+        pattern = rf"(?<![a-záéíóúüñ]){re.escape(key)}(?![a-záéíóúüñ])"
+        if re.search(pattern, low) and actor_id not in actors:
             actors.append(actor_id)
     return actors
+
+
+def repair_common_ocr_issues(text: str) -> str:
+    repaired = text
+    for pattern, replacement in OCR_FIX_PATTERNS:
+        repaired = re.sub(pattern, replacement, repaired, flags=re.IGNORECASE)
+    return re.sub(r"\s+", " ", repaired).strip()
+
+
+def strip_historiography_tail(text: str) -> str:
+    cleaned = text
+    for pattern in HISTORIOGRAPHY_TAIL_PATTERNS:
+        cleaned = re.sub(pattern, "", cleaned, flags=re.IGNORECASE).strip()
+    return cleaned.rstrip(" ,;:")
 
 
 def infer_base_year(text: str) -> int:
@@ -285,9 +319,10 @@ def paragraph_to_event(
         suffix += 1
         event_id = f"evt-{year}{suffix:02d}"
 
-    checksum = sha256_text(paragraph)
-    actors = detect_actors(paragraph)
-    location = detect_location(paragraph)
+    cleaned_paragraph = strip_historiography_tail(repair_common_ocr_issues(paragraph))
+    checksum = sha256_text(cleaned_paragraph)
+    actors = detect_actors(cleaned_paragraph)
+    location = detect_location(cleaned_paragraph)
 
     confidence = 0.58
     if year_match:
@@ -306,7 +341,7 @@ def paragraph_to_event(
         "date_end": None,
         "location": location,
         "actors": actors,
-        "summary": paragraph[:1500],
+        "summary": cleaned_paragraph[:1500],
         "source_ref": {
             "file": source_ref_file,
             "section": section,

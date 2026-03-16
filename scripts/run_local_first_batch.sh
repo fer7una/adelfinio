@@ -10,7 +10,7 @@ EPISODE_BUCKET="data/episodes/generated/plan-${TARGET_DATE//-/}"
 RESET_FLAG="${2:-}"
 
 if ! command -v ffmpeg >/dev/null 2>&1; then
-  echo "ERROR: ffmpeg is required for rendering. Install it first." >&2
+  echo "ERROR: ffmpeg is required for the final video pipeline. Install it first." >&2
   exit 1
 fi
 
@@ -28,13 +28,13 @@ python3 scripts/validate_generated_characters.py
 echo "[3/5] Generate episode JSON files"
 python3 scripts/generate_episodes_from_plan.py --plan "$PLAN_FILE"
 
-echo "[4/5] Render one main and one teaser (quick validation)"
+echo "[4/5] Render one main and one teaser with the current final pipeline (mock)"
 MAIN_EPISODE="$(ls "$EPISODE_BUCKET"/main-*.json | head -n 1)"
 TEASER_EPISODE="$(ls "$EPISODE_BUCKET"/teaser-*.json | head -n 1)"
-python3 scripts/render_episode_video.py --episode "$MAIN_EPISODE"
-python3 scripts/render_episode_video.py --episode "$TEASER_EPISODE"
+bash scripts/run_final_ai_video_pipeline.sh "$MAIN_EPISODE" --mock
+bash scripts/run_final_ai_video_pipeline.sh "$TEASER_EPISODE" --mock
 
 echo "[5/5] Done"
 echo "Episodes: $EPISODE_BUCKET"
-echo "Videos: artifacts/videos"
-echo "Subtitles: artifacts/subtitles"
+echo "Videos: artifacts/videos/final"
+echo "Subtitles: artifacts/subtitles/final"

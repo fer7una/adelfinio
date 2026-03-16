@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="214.03416mm"
+   height="150.75877mm"
+   viewBox="0 0 214.03416 150.75877"
+   version="1.1"
+   id="svg1"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="214.03416"
+       height="150.75877"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <linearGradient
+       id="swatch12"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop13" />
+    </linearGradient>
+    <linearGradient
+       id="swatch11"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop12" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-42.213276,-7.2401506)">
+    <path
+       fill="#ffffff"
+       fill-opacity="1"
+       stroke-width="7.49998"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke="#000000"
+       stroke-opacity="1"
+       stroke-miterlimit="22.9256"
+       d="m 149.10424,10.990141 c 78.09488,0 106.46385,35.421322 103.13995,72.972286 -2.35188,26.569893 -17.94247,69.924513 -104.67682,70.283783 -80.403162,0.33304 -101.604107,-29.98135 -101.604107,-70.283783 0,-40.301434 46.178054,-72.972286 103.140977,-72.972286 z"
+       id="path1"
+       sodipodi:nodetypes="sssss"
+       style="stroke:#000000;stroke-width:4.5;stroke-dasharray:none;stroke-dashoffset:0;paint-order:normal" />
+  </g>
+</svg>

@@ -50,20 +50,20 @@
   {
     "event_id": "evt-88101",
     "chronology_index": 4,
-    "title": "Asi, en fin, se planteó la batalla",
+    "title": "se planteó la batalla",
     "date_start": "881",
     "date_end": null,
     "location": "Asturias",
     "actors": [
-      "pelayo",
-      "alfonso_i",
-      "alfonso_ii"
+      "don_oppas",
+      "al_qama",
+      "pelayo"
     ],
-    "summary": "Asi, en fin, se planteó la batalla. Los cristianos, pocos y sin alimentos; los moros, muchos y bien armados. Pero el terreno jugaba a favor de los cristianos: mover a un ejército numeroso por el laberinto asturiano de valles y montes, en una época como el sigo VIII, sin carreteras ni puentes, era un calvario. Y los rebeldes, por el contrario, conocían el terreno palmo a palmo. Los moros intentaron un acuerdo diplomático: enviaron a un obispo traidor, Don Oppas, para que convenciera a Pelayo de que debía entregarse y abandonar toda resistencia. Pelayo se negó y dio la batalla. Las tropas de Al Qama terminarían siendo diezmadas. La Crónica de Albelda, fechada en 881, en tiempos de Alfonso III, lo relató así:",
+    "summary": "Así, en fin, se planteó la batalla. Los cristianos, pocos y sin alimentos; los moros, muchos y bien armados. Pero el terreno jugaba a favor de los cristianos: mover a un ejército numeroso por el laberinto asturiano de valles y montes, en una época como el siglo VIII, sin carreteras ni puentes, era un calvario. Y los rebeldes, por el contrario, conocían el terreno palmo a palmo. Los moros intentaron un acuerdo diplomático: enviaron a un obispo traidor, Don Oppas, para que convenciera a Pelayo de que debía entregarse y abandonar toda resistencia. Pelayo se negó y dio la batalla. Las tropas de Al Qama terminarían siendo diezmadas.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_4",
-      "checksum": "1ff3e6eb810f5c233b4115bc34a72a760a885fbf085a702bb6da0c58e2568f98"
+      "checksum": "443ad339520ebc5bc8cc7206f7f4532d2258d3dae7e6b751b5317bfc07df3fb2"
     },
     "historical_confidence": 0.88
   },
@@ -266,7 +266,8 @@
     "date_end": null,
     "location": "Covadonga",
     "actors": [
-      "pelayo"
+      "pelayo",
+      "al_qama"
     ],
     "summary": "Las hostilidades se enquistan hasta el extremo de que los moros deciden hacer una demostración de fuerza. Hay en Córdoba un nuevo gobernador, Anbasa, que doblado los impuestos a los cristianos y ordenado confiscar los bienes de los judíos. Anbasa está por la mano dura y quiere someter con las armas el foco de rebeldía asturiano. Envía a la región una fuerza expedicionaria al mando del general Alkama. Es 722. Los cristianos, encabezados por Pelayo, se refugian en Covadonga. Allí derrotarán a los moros. Lo hemos contado ya.",
     "source_ref": {
@@ -284,9 +285,9 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [
+      "ermesinda",
       "pelayo",
-      "favila",
-      "ermesinda"
+      "favila"
     ],
     "summary": "Pelayo se instaló en Cangas de Onís, cerca de las montañas, por si acaso. Junto a su esposa Gaudiosa, una dama de Liébana a la que cierta tradición atribuye la derrota de los moros que huían de Covadonga. Pelayo y Gaudiosa tuvieron dos hijos: Favila y Ermesinda. Ambos reinarán después. Pelayo murió en Cangas, enfermo, en 737. Gaudiosa falleció muy poco más tarde. Con ellos había nacido el embrión de la España de la Reconquista, sobre un territorio que era aproximadamente la mitad del actual Principado de Asturias. Y qué había allí, en aquella exigua Asturias? Era eso un país? Buena pregunta.",
     "source_ref": {
@@ -338,8 +339,8 @@
     "date_end": null,
     "location": "Covadonga",
     "actors": [
-      "pelayo",
-      "ermesinda"
+      "ermesinda",
+      "pelayo"
     ],
     "summary": "Covadonga y 737, que es el año en que mueren Pelayo y su mujer, Gaudiosa. Lo único que nos consta es que una hija de Pelayo, Ermesinda, casó con Alfonso, hijo del duque Pedro de Cantabria. Nada más.",
     "source_ref": {
@@ -357,8 +358,8 @@
     "date_end": null,
     "location": "Covadonga",
     "actors": [
-      "pelayo",
-      "ermesinda"
+      "ermesinda",
+      "pelayo"
     ],
     "summary": "Es importante fijarse en este personaje, Pedro de Cantabria. Sabemos poquísimo de Sólo que fue duque hispanogodo de aquella comarca, con capital en Amaya, en lo que hoy es el noroeste de Burgos, y cuya jurisdicción abarcaba desde allí hasta el mar. Los cronistas dicen que Pedro era hijo del rey Ervigio, pero esto no es seguro. Lo seguro es que fue de los que no pactaron con los musulmanes. Cuando Muza saqueó por segunda vez Amaya, en 714, nuestro duque y los suyos huyeron hacia el norte, buscando refugio tras las montañas. Y una vez en zona segura, Pedro se pondrá de acuerdo con Pelayo para combatir al moro. Se supone que Pedro estuvo en Covadonga, o al menos en la hueste que aniquiló a los moros en su retirada. Después, probablemente, enviaría a su hijo mayor, Alfonso, a la corte real, como era entonces costumbre. Y según las crónicas, Pelayo y Pedro acordaron unir sus dominios casando a sus hijos: Ermesinda, hija de Pelayo, con Alfonso, hijo del cántabro. De esa unión de casas nacerían linajes de reyes. Pero no adelantemos acontecimientos.",
     "source_ref": {
@@ -618,8 +619,8 @@
     "date_end": null,
     "location": "Cangas",
     "actors": [
-      "pelayo",
-      "alfonso_i"
+      "alfonso_i",
+      "pelayo"
     ],
     "summary": "El territorio inicial de Pelayo se situaba más o menos en torno a Cangas de Onís y Liébana, con límites difusos hacia el oeste. El territorio cántabro abarcaba Trasmiera, Sopuerta, Carranza y Bardulia, es decir, la mitad este de la actual Cantabria más parte de Vizcaya y del norte de Burgos; al norte, el mar, y al sur, el Ebro. Con Alfonso, todo eso pasa a configurar un solo territorio. Hay hueco por el oeste, hacia Galicia, y allí se dirige el nuevo rey. La capital más firme es la diócesis de Iria Flavia, al sur de la actual provincia de La Coruña, frente al mar. Iria Flavia era uno de los grandes centros de poder de la región desde los tiempos de Roma. Alfonso la incorpora a su corona y como jefe religioso sitúa en Lugo al obispo Odoario, figura cuya existencia real se discutido, pero que hay que mencionar. Después el rey marcó su territorio, su limes. Primero, el norte de Portugal; luego, León, en 754. Y finalmente Alfonso puso los ojos en La Rioja. Lo que Alfonso I había hecho era definir el territorio de su reino.",
     "source_ref": {
@@ -1250,16 +1251,14 @@
     "date_start": "789",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i"
-    ],
+    "actors": [],
     "summary": "Mauregato reinó poco tiempo, apenas seis años. Murió en 789, al parecer por causas naturales, y no asesinado por los dos condes de la leyenda. Fue elegido para sucederle un hijo del guerrero Fruela Pérez, Bermudo l, llamado el Diácono porque pertenecía al estado eclesiástico. Pero Bermudo no había heredado las cualidades guerreras de su padre, más bien al revés. Y por otro lado, en aquellos mismos años subía al trono cordobés Hisam, hijo de Abderramán, cuya primera iniciativa será reactivar la guerra contra Asturias. Tras varias derrotas ante los moros, Bermudo abdicará. Así llegará al trono, por fin, Alfonso Il, aquel muchacho, hijo de Fruela el cruel y doña Munia, escondido primero en el monasterio de Samos, criado después a la sombra de Adosinda y Silo, refugiado luego en tierras vasconas. Con conocerá Asturias una época tan peligrosa como fascinante. Pero ya iremos viendo todo esto poco a poco.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_75",
       "checksum": "ccc458a9be0da624a35896f9ce44d0743772992446f925c6c5aa56eea6ba1167"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-78302",
@@ -1381,7 +1380,6 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [
-      "alfonso_i",
       "alfonso_ii"
     ],
     "summary": "Fue en septiembre de ese mismo 791, el año de la derrota. Bermudo abdicó. En quién? En Alfonso, el hijo de Fruela y Doña Munia, que seguía esperando su oportunidad en tierras vasconas. Y el todavía joven Alfonso, que reinará medio siglo y pasará a la historia como Alfonso II el Casto, demostrará ser un jefe a la altura de lo que Asturias precisaba.",
@@ -1594,11 +1592,11 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [],
-    "summary": "Cuándo comenzó el flujo? Pongamos que hacia el año 790, probablemente desde 780. El escenario de estas primeras incursiones es un área muy concreta: la Bardulia, es decir, el solar original de lo que pronto se llamará Castilla, aproximadamente entre el sureste de Cantabria, el noreste de Burgos y el oeste de Álava. Es una zona todavía protegida por montañas,",
+    "summary": "Cuándo comenzó el flujo? Pongamos que hacia el año 790, probablemente desde 780. El escenario de estas primeras incursiones es un área muy concreta: la Bardulia, es decir, el solar original de lo que pronto se llamará Castilla, aproximadamente entre el sureste de Cantabria, el noreste de Burgos y el oeste de Álava. Es una zona todavía protegida por montañas",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_96",
-      "checksum": "865611e0fc145db64e8b66c14755ec9bfd8e5e6012ad548c4bf960c6f2e68061"
+      "checksum": "7533c0ee46a1cb80a1a9913d8a3479acb2be1aa550519a456795b379b5d370d1"
     },
     "historical_confidence": 0.78
   },
@@ -1852,11 +1850,11 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [],
-    "summary": "Otros personajes de este tramo de nuestra historia aparecen una única vez y desaparecen sin dejar rastro. Pensemos en el bravo Gadaxara, por ejemplo. Pero de Teudano aún tenemos alguna noticia posterior. En 812, Alfonso realiza una donación a la catedral ovetense del Salvador. Entre los que firman como testigos se cuenta un tal Teuda, que sin duda es nuestro hombre. Podía ser otro Teuda? El arquitecto Tioda, por ejemplo? Sánchez Albornoz pensaba que ese Teuda es el nuestro: el propio Alfonso explicaba que aquella donación era acción de gracias por su liberación del cautiverio, luego nada más lógico que llamar como testigo al hombre que le había liberado. Así decía el rey Alfonso:",
+    "summary": "Otros personajes de este tramo de nuestra historia aparecen una única vez y desaparecen sin dejar rastro. Pensemos en el bravo Gadaxara, por ejemplo. Pero de Teudano aún tenemos alguna noticia posterior. En 812, Alfonso realiza una donación a la catedral ovetense del Salvador. Entre los que firman como testigos se cuenta un tal Teuda, que sin duda es nuestro hombre. Podía ser otro Teuda? El arquitecto Tioda, por ejemplo? Sánchez Albornoz pensaba que ese Teuda es el nuestro: el propio Alfonso explicaba que aquella donación era acción de gracias por su liberación del cautiverio, luego nada más lógico que llamar como testigo al hombre que le había liberado. Así decía el rey Alfonso",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_112",
-      "checksum": "809fcd311c7674453fd4d42d8ecc7feb1d3e1426ca89b16b844c3e5e20b128f8"
+      "checksum": "223cbded1b8c2fc2064826f728e20757ac267e884179cff83189bb07aa0adb89"
     },
     "historical_confidence": 0.78
   },
@@ -1932,7 +1930,6 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [
-      "alfonso_i",
       "alfonso_ii"
     ],
     "summary": "Pero el reino de Asturias no se limitaba a recibir, sino que también daba. Y así sabemos, porque un poeta musulmán lo contó, que hacia 809 una mujer del área de Guadalajara se quejaba amargamente al emir porque permitía que los cristianos arrasaran sus campos. Decía el poeta que Alhakán, ante las quejas de la mujer, ordenó una expedición para castigar a los cristianos. Sin duda lo hizo, porque ya hemos visto que los ataques de Córdoba contra Alfonso no cesaron nunca. Pero el dato es de la mayor importancia: nos está diciendo que Alfonso II el Casto respondió a las aceifas moras lanzando a sus tropas nada menos que sobre el alto Tajo, en el camino entre Toledo y Zaragoza, una zona absolutamente controlada por el emir. Audaz, Alfonso.",
@@ -1967,7 +1964,6 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [
-      "alfonso_i",
       "alfonso_ii"
     ],
     "summary": "Estamos hacia 804. Una comunidad benedictina se entrega a la tarea de colonizar. Su cabeza visible es el obispo de Valpuesta, ese Juan del que antes hablábamos. Dónde está Valpuesta? En la frontera norte entre Álava y Burgos. Y quién es este obispo Juan? Un buen amigo de Alfonso II el Casto. Sabemos todo eso gracias al cartulario de Santa María de Valpuesta, cuyos textos más antiguos son de ese año 804 (y por los cuales, por cierto, reclama Valpuesta el honor de ser la cuna del",
@@ -1986,11 +1982,11 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [],
-    "summary": "El documento fundacional del monasterio de Santa María de Valpuesta, firmado por el rey Alfonso, nos muchas informaciones sobre en qué consistía exactamente la misión repobladora. Podemos definirla así: colonización tanto espiritual como material. Como conocemos el texto, nada mejor que reproducir algunos fragmentos. Era el de diciembre de 804. Y esto es lo que decía:",
+    "summary": "El documento fundacional del monasterio de Santa María de Valpuesta, firmado por el rey Alfonso, nos muchas informaciones sobre en qué consistía exactamente la misión repobladora. Podemos definirla así: colonización tanto espiritual como material. Como conocemos el texto, nada mejor que reproducir algunos fragmentos. Era el de diciembre de 804. Y esto es lo que decía",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_120",
-      "checksum": "e2d16221005b1293cb062d4d5d26ecbec7f7097e2a289abe1fb1361761579914"
+      "checksum": "635e8fa8cee70a164e9e343e814bbf28cb270baa3243aa068eaa8e4f1efa5be7"
     },
     "historical_confidence": 0.78
   },
@@ -2118,11 +2114,11 @@
     "actors": [
       "pelayo"
     ],
-    "summary": "JOSÉ JAVIER ESPARZA 205 no tardará en avalar el descubrimiento. Queda establecida la versión canónica sobre la tumba de Compostela. Así lo contará años después, en 1077, la Concordia de Antealtares: No hay duda alguna y para algunos es claro, como el testimonio del Papa León, que el bienaventurado Apóstol Santiago, degollado en Jerusalén y llevado por sus discípulos a Jaffa, y después de algún tiempo, fue trasladado por el mar al extremo de Hispania, guiado por la mano de Dios, y fue sepultado en el extremo de Gallecia permaneciendo oculto mucho tiempo. Pero como la luz en las tinieblas, o una candela bajo el celemín no pueden permanecer mucho tiempo ocultas, con la ayuda de la divina providencia, en tiempo del serenísimo rey don Alfonso, llamado el Casto, un anacoreta de nombre Pelayo, que vivía cercano del sepulcro del Apóstol, tuvo en principio una revelación por medio de ángeles. Después se manifiesta como muchas lucecitas a los fieles que estaban en las iglesias de San Félix de Lovio; los que buscando consejo, visitaron al obispo de Iria,",
+    "summary": "JOSÉ JAVIER ESPARZA 205 no tardará en avalar el descubrimiento. Queda establecida la versión canónica sobre la tumba de Compostela. Así lo contará años después, en 1077, la Concordia de Antealtares: No hay duda alguna y para algunos es claro, como el testimonio del Papa León, que el bienaventurado Apóstol Santiago, degollado en Jerusalén y llevado por sus discípulos a Jaffa, y después de algún tiempo, fue trasladado por el mar al extremo de Hispania, guiado por la mano de Dios, y fue sepultado en el extremo de Gallecia permaneciendo oculto mucho tiempo. Pero como la luz en las tinieblas, o una candela bajo el celemín no pueden permanecer mucho tiempo ocultas, con la ayuda de la divina providencia, en tiempo del serenísimo rey don Alfonso, llamado el Casto, un anacoreta de nombre Pelayo, que vivía cercano del sepulcro del Apóstol, tuvo en principio una revelación por medio de ángeles. Después se manifiesta como muchas lucecitas a los fieles que estaban en las iglesias de San Félix de Lovio; los que buscando consejo, visitaron al obispo de Iria",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_128",
-      "checksum": "c86e55454439febde0a3f21da13d2d863f8638c1367973e6031be7ac33df88d6"
+      "checksum": "de310c3d9793e48d7327616310dbc500899f9d650ff423d4245d49807128202f"
     },
     "historical_confidence": 0.88
   },
@@ -2166,7 +2162,6 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [
-      "alfonso_i",
       "alfonso_ii"
     ],
     "summary": "Corre el año 812 cuando Carlomagno mueve ficha en España: envía a su hijo Ludovico Pío para tomar el control de Pamplona, muy probablemente con el conocimiento de Alfonso II de Asturias. Amanece así un bloque de poder que inquieta sobremanera al emirato de Córdoba. El emir responderá con una fuerte ofensiva en 816; su punto culminante será la batalla del río Orón, una de las más tremendas de este primer siglo de la Reconquista. Curiosamente, esta fecha iba a marcar de forma imprevisible los destinos de nuestros protagonistas.",
@@ -2313,11 +2308,11 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [],
-    "summary": "Ese final se produjo en febrero de 961, es decir, ciento treinta y cuatro años después de que los cordobeses pusieran el pie en la isla. Durante todo ese tiempo, los bizantinos habían tratado numerosas veces de recuperar el control sobre Creta, a veces por vía militar, a veces por vía diplomática, pero siempre infructuosamente. Hasta que en febrero de 961 el general bizantino Nicéforo Focas ideó una treta. Ocurría que Bizancio atravesaba por momentos de gran carestía y se había hecho dificil mantener a los caballos; en Creta, por el contrario, había pastos suficientes. Así que los bizantinos pidieron a los hispanocretenses permiso para desembarcar algunos caballos en la isla. Así lo cuenta la crónica de Al Nuwari:",
+    "summary": "Ese final se produjo en febrero de 961, es decir, ciento treinta y cuatro años después de que los cordobeses pusieran el pie en la isla. Durante todo ese tiempo, los bizantinos habían tratado numerosas veces de recuperar el control sobre Creta, a veces por vía militar, a veces por vía diplomática, pero siempre infructuosamente. Hasta que en febrero de 961 el general bizantino Nicéforo Focas ideó una treta. Ocurría que Bizancio atravesaba por momentos de gran carestía y se había hecho difícil mantener a los caballos; en Creta, por el contrario, había pastos suficientes. Así que los bizantinos pidieron a los hispanocretenses permiso para desembarcar algunos caballos en la isla. Así lo cuenta la crónica de Al Nuwari",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_140",
-      "checksum": "4550fa521242bd0320ccdbe67c6da2f1bbb354a1f69630b20822e2c65f53f061"
+      "checksum": "49ba5fbcc4bdb75f63f025bc94e88c167cac1ccff4e0c0fdd0a396d1936b722f"
     },
     "historical_confidence": 0.78
   },
@@ -2441,11 +2436,11 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [],
-    "summary": "Primera ofensiva, verano de 825. Abderramán diseña una operación de gran estilo: un ejército musulmán atacará Álava, al este de la frontera, mientras otro, de mayores dimensiones,",
+    "summary": "Primera ofensiva, verano de 825. Abderramán diseña una operación de gran estilo: un ejército musulmán atacará Álava, al este de la frontera, mientras otro, de mayores dimensiones",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_148",
-      "checksum": "3cd3975d36f8c8b3e258445cef008ca30c8f8430d54a355f8b91522c16844870"
+      "checksum": "1bf2f33285f2ba94ab38783efc5ca0ad16904d84d4c761d76267a3deab813d4e"
     },
     "historical_confidence": 0.78
   },
@@ -2473,11 +2468,11 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [],
-    "summary": "Era la primavera de 839. Como las aceifas de los moros en los campos de los colonos habían dado buenos frutos y no se temía un contraataque cristiano, Abderramán II decidió encabezar en persona el ejército musulmán. El objetivo era fácil: una vez más, la llanura vasca. Sabemos que Abderramán llegó hasta Guadalajara. Sabemos que, una vez allí, se cansó y decidió volver a Córdoba. Por qué? Al parecer, porque no podía vivir sin mujeres, y tantos días lejos de su harén le estaban resultando insoportables. Fue un hijo suyo, Al Hakam, quien dirigió las huestes sarracenas. Esta vez no era sólo cuestión de pillaje:",
+    "summary": "Era la primavera de 839. Como las aceifas de los moros en los campos de los colonos habían dado buenos frutos y no se temía un contraataque cristiano, Abderramán II decidió encabezar en persona el ejército musulmán. El objetivo era fácil: una vez más, la llanura vasca. Sabemos que Abderramán llegó hasta Guadalajara. Sabemos que, una vez allí, se cansó y decidió volver a Córdoba. Por qué? Al parecer, porque no podía vivir sin mujeres, y tantos días lejos de su harén le estaban resultando insoportables. Fue un hijo suyo, Al Hakam, quien dirigió las huestes sarracenas. Esta vez no era sólo cuestión de pillaje",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_150",
-      "checksum": "5fcd5469423bcf2a0b94a03b13ca12e2f5602a988d0000330129be1a0255b8c8"
+      "checksum": "af5f6a191779afed0fd25caa6ddb9fefb959f74019f5ac2e33f1f1b0e923c894"
     },
     "historical_confidence": 0.78
   },
@@ -2633,7 +2628,6 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [
-      "alfonso_i",
       "alfonso_ii"
     ],
     "summary": "Alfonso II el Casto murió en 842, con ochenta y dos años, en su palacio de Oviedo. No hay razones para dudar de que murió satisfechísimo. En más de medio siglo de reinado, había asegurado la independencia del reino de Asturias desde Galicia hasta Guipúzcoa, había ganado nuevas tierras al sur para la cruz, había triunfado sobre todos sus enemigos internos y externos, había edificado una capital como Oviedo, digna de un gran rey; había dado un sentido histórico y espiritual al reino mediante la recuperación del orden gótico; había extendido el culto al Apóstol Santiago desde el hallazgo de Compostela, y había trazado sólidos puentes con la Europa de Carlomagno.",
@@ -2653,7 +2647,6 @@
     "location": "Asturias",
     "actors": [
       "pelayo",
-      "alfonso_i",
       "alfonso_ii"
     ],
     "summary": "Alfonso II el Casto reinó medio siglo y murió con ochenta y dos años. Con se extinguía el linaje directo de Don Pelayo. Su figura nos acompañado durante muchos episodios. Cuando murió, allá por el año 842, y puesto que carecía de descendencia directa (por algo era El Casto), le sucedió en el trono Ramiro, décimo rey de Asturias. A Ramiro I le esperaba un periplo difícil: sólo reinó durante ocho años y todos ellos verán trastornos permanentes, desde conspiraciones palaciegas hasta delincuencia al por mayor, pasando por la inevitable guerra contra el moro y hasta una invasión normanda. Un reinado duro, el de Ramiro.",
@@ -2672,7 +2665,6 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [
-      "alfonso_i",
       "alfonso_ii"
     ],
     "summary": "Bien, nuevo enigma. Quién era Nepociano Díaz? Las fuentes dicen que era comes palatii (o sea, conde de palacio, un cargo muy importante en la corte) y cuñado del rey, cognatus. Cuñado de Alfonso II el Casto? Marido, pues, de la hermana del rey? Porque de Alfonso sabemos que tenía sólo una hermana, Jimena. Aquí hemos contado que, siendo niños, su madre, la vasca doña Munia, ocultó a los dos, Alfonso y Jimena, en el monasterio de Samos cuando asesinaron a su padre, el rey Fruela. Esa misma Jimena aparecido en nuestro relato como madre legendaria del caballero Bernardo del Carpio, engendrado en la hermana del rey por el conde de Saldaña, Sancho Díaz. Ahora bien, hay que recordar que Alfonso murió con más de ochenta años, y que su padre, Fruela, había muerto en 768. Por tanto Jimena, a la altura de 842, que es cuando se produce el episodio de Nepociano, tendría por lo menos setenta y cuatro años. Si Nepociano estaba casado con esta mujer, debía de ser ya un anciano.",
@@ -2787,11 +2779,11 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [],
-    "summary": "JOSÉ JAVIER ESPARZA 259 llo de Clavijo, en Monte Laturce. Era el de mayo de 844. Hay que imaginarse a las huestes cristianas, ya muy mermadas, recluidas al caer la noche, al borde de la desesperanza. Pero fue entones cuando, en el duermevela de la derrota, el rey Ramiro tuvo una visión. Dejemos que mismo nos lo cuente, según el citado documento de Pedro Marcio: Y estando durmiendo, se dignó aparecérseme, en figura corporal, el bienaventurado Santiago, protector de los españoles; y como admirado de lo que veía, le preguntase quién era?, aseguró ser el bienaventurado apóstol de Dios, Santiago. Poseído entonces del mayor asombro, que en modo extraordinario produjeron tales palabras, el bienaventurado apóstol dijo:",
+    "summary": "JOSÉ JAVIER ESPARZA 259 llo de Clavijo, en Monte Laturce. Era el de mayo de 844. Hay que imaginarse a las huestes cristianas, ya muy mermadas, recluidas al caer la noche, al borde de la desesperanza. Pero fue entones cuando, en el duermevela de la derrota, el rey Ramiro tuvo una visión. Dejemos que mismo nos lo cuente, según el citado documento de Pedro Marcio: Y estando durmiendo, se dignó aparecérseme, en figura corporal, el bienaventurado Santiago, protector de los españoles; y como admirado de lo que veía, le preguntase quién era?, aseguró ser el bienaventurado apóstol de Dios, Santiago. Poseído entonces del mayor asombro, que en modo extraordinario produjeron tales palabras, el bienaventurado apóstol dijo",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_169",
-      "checksum": "286d4e01379ce230b293d6b1acd5f52a5e9db37f2e30926eb47a4d5a6ca39aa1"
+      "checksum": "5b608f15cb77446a29c2a9538436b94c0559a785a5cb43a17dc4e11475eecaa2"
     },
     "historical_confidence": 0.78
   },
@@ -3043,11 +3035,11 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [],
-    "summary": "En respuesta, los cristianos reafirmaron sus profesiones de aun sabiendo que la consecuencia inevitable sería la muerte. Es lo que ocurrió con uno de los casos más sonados de aquel tiempo, el del presbítero Perfecto, decapitado el de abril de 850. Perfecto fue conminado por los musulmanes a decir qué pensaba de Mahoma. Y el presbítero contestó lo siguiente:",
+    "summary": "En respuesta, los cristianos reafirmaron sus profesiones de aun sabiendo que la consecuencia inevitable sería la muerte. Es lo que ocurrió con uno de los casos más sonados de aquel tiempo, el del presbítero Perfecto, decapitado el de abril de 850. Perfecto fue conminado por los musulmanes a decir qué pensaba de Mahoma. Y el presbítero contestó lo siguiente",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_185",
-      "checksum": "730d84557f3b503d0aceb9a3896c3db8fbe5f5b85ef004350362aa06b29c50c9"
+      "checksum": "6714a663f42e4743404ed37208fdb2ddf6d539df0441188b2f8db92405292c07"
     },
     "historical_confidence": 0.78
   },
@@ -3059,11 +3051,11 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [],
-    "summary": "A Perfecto le cortaron la cabeza, pero el escarmiento no tuvo el efecto que los musulmanes esperaban, sino exactamente el contrario: el número de mártires aumentó. Tras la muerte de Perfecto, nada menos que cuarenta y ocho notables de Córdoba, cristianos todos ellos, se ofrecieron voluntariamente al martirio. A partir de ahí se desata una auténtica ola de condenas a muerte cuya cuantía exacta sería dificil precisar. Entre el y el de junio del año 851, son ajusticiados un",
+    "summary": "A Perfecto le cortaron la cabeza, pero el escarmiento no tuvo el efecto que los musulmanes esperaban, sino exactamente el contrario: el número de mártires aumentó. Tras la muerte de Perfecto, nada menos que cuarenta y ocho notables de Córdoba, cristianos todos ellos, se ofrecieron voluntariamente al martirio. A partir de ahí se desata una auténtica ola de condenas a muerte cuya cuantía exacta sería difícil precisar. Entre el y el de junio del año 851, son ajusticiados un",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_186",
-      "checksum": "f3ff9c022a4a9311453545dac6a62767542868998de7f1f102c4d74a90f0eada"
+      "checksum": "194aa2be0688ec35c79c778a946ec0c80eecf2c509a65700e98605a5328aa804"
     },
     "historical_confidence": 0.78
   },
@@ -3091,11 +3083,11 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [],
-    "summary": "Abderramán II murió ese año. Su sucesor, Muhammad I, endurecerá aún más la represión. El de marzo de 857 son decapitados los santos Rodrigo y Salomón; el primero, sacerdote, había sido entregado por su propio hermano, converso al islam. Conocemos otros nombres: Sancho, un guerrero cristiano del Pirineo que había acabado como esclavo en la guardia del sultán; Pedro, sacerdote; Walabonso, diácono; Sabiniano y Wistremundo, el anciano Jeremías, y Habencio... Estos últimos protagonizaron un episodio impresionante. Se presentaron ante el juez musulmán y se ofrecieron voluntariamente al martirio. Conocemos las palabras que dijeron. Fue así:",
+    "summary": "Abderramán II murió ese año. Su sucesor, Muhammad I, endurecerá aún más la represión. El de marzo de 857 son decapitados los santos Rodrigo y Salomón; el primero, sacerdote, había sido entregado por su propio hermano, converso al islam. Conocemos otros nombres: Sancho, un guerrero cristiano del Pirineo que había acabado como esclavo en la guardia del sultán; Pedro, sacerdote; Walabonso, diácono; Sabiniano y Wistremundo, el anciano Jeremías, y Habencio... Estos últimos protagonizaron un episodio impresionante. Se presentaron ante el juez musulmán y se ofrecieron voluntariamente al martirio. Conocemos las palabras que dijeron. Fue así",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_188",
-      "checksum": "00a487a77e4418d63fc88706c62578b458e0d4e52005443a41ce010118179b5e"
+      "checksum": "1427c32a14d3f5537de4c8f72b0d6531a66116827fc7e6aaad6434a6e8f5c1a6"
     },
     "historical_confidence": 0.78
   },
@@ -3619,7 +3611,6 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [
-      "alfonso_i",
       "alfonso_ii"
     ],
     "summary": "El rey en persona encabezó la expedición. Debía de ser el verano de 860. Un poderoso ejército cristiano partió de Astorga, atravesó Zamora, cruzó el Duero, bajó a lo largo de la actual provincia de Salamanca, pasó la sierra de Gata y asomó sobre Coria. Una cabalgada de casi cuatrocientos kilómetros, nada menos. Evidentemente, nadie en la Coria mora esperaba un ataque de los rebeldes cristianos del norte. Como había hecho Alfonso II ante Lisboa sesenta y dos años antes, Ordoño tomó la ciudad, se apoderó de cuantos tesoros pudo y, acto seguido, volvió grupas hacia el norte. Pero el rey, astuto, tomó la providencia de llevarse un rehén de campanillas: el alcalde Zeid, gobernador moro de Coria.",
@@ -3797,17 +3788,14 @@
     "date_start": "866",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "HABLEMOS DE POLÍTICA El rey Ordoño murió en 866, fresco aún el ingrato recuerdo del desastre de la Morcuera. Le sucedió su hijo Alfonso, que reinaría como Alfonso III. Será un gran rey, victorioso en el campo de batalla, lúcido en los asuntos de gobierno, brillante en el plano cultural. Pero, sobre todo, el nuevo rey iba a darle un sentido histórico a la Reconquista. En buena medida, fue quien dio significado al propio concepto de Reconquista. Y al hacerlo, demostró un talento político supremo. Pero detengámonos un momento. Recapitulemos. Han pasado ciento cincuenta años desde la invasión musulmana. En ese siglo y medio, el reino de Asturias había logrado sobrevivir pese a todos los peligros. No vendrá mal repasar ahora cómo estaba la situación geográfica y política, para tomar conciencia del panorama que esperaba al nuevo rey. El emirato de Córdoba seguía dominando la mayor parte de la Península. Su control político efectivo se extendía al sur",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_232",
       "checksum": "fe4f8e5d1f194a6fa36c58e58da559928183f1d51d881a1ee8806e81a7e17132"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-85302",
@@ -3864,17 +3852,14 @@
     "date_start": "868",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "Era 868. Alfonso III acababa de aplastar las rebeliones que habían saludado su llegada al trono.Y sin perder ni un minuto, la corte de Asturias pone manos a la obra. Repoblar es la consigna. En el este, las tierras castellanas y alavesas aún sufren las consecuencias de las recientes aceifas musulmanas. En el centro, León y Astorga acaban de rechazar sendos ataques musulmanes. Pero en el oeste las cosas están más maduras. Y allí ponen sus ojos los hombres de Alfonso III.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_236",
       "checksum": "992a331569f72cfdade76927f5305b27181a2a6a6244b112d19e7a9ff7fca55b"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-86603",
@@ -3900,7 +3885,6 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [
-      "alfonso_i",
       "alfonso_ii"
     ],
     "summary": "Pero la operación no acaba ahí: para asentar la ocupación del nuevo territorio hay que marcar un punto fuerte en el este, entre los montes del sur de Orense y el valle de Limia, en lo que hoy es la comarca portuguesa de Trás Montes. El núcleo escogido es Chaves. Según un documento que se conserva en el monasterio de Celanova, en el año 872 Alfonso II encarga a \"su hermano Odoario\" que repueble la región de Chaves. Odoario, por su parte, encomienda a un primo suyo, el diácono Odoyno, que repueble el valle de Limia y reedifique las iglesias de Santa María y Santa Columba, abandonadas desde doscientos años atrás. Santa María y Santa Columba eran iglesias de época visigoda. El rey sigue los movimientos en persona. Sabemos que en 871 Alfonso III se entrevista con Vimara para hablar de la repoblación. Y que en 873 el rey acude a Guimaries para entrevistarse otra vez con el reconquistador de Oporto. La corona es sin duda el motor de la Reconquista.",
@@ -3918,17 +3902,14 @@
     "date_start": "873",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "Vimara Pérez muere en 873. Otros nombres tomarán el relevo en el liderazgo de la repoblación: Hermenegildo Gutiérrez, el yerno de Gatón, y Alfonso Betote, que dirige la colonización del Miño inferior. Ante los hombres del oeste aparece ahora un horizonte nuevo, más al sur, en el límite que marca el río Mondego. Pero aún habrá que esperar un poco para esto. Mientras tanto, Alfonso III seguía desplegando sus energías. Y el emir de Córdoba iba a conocer muy pronto hasta dónde llegaba la audacia del joven rey de Asturias.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_239",
       "checksum": "d0552d271bdf3aef1caf3e9a12fa439b7ccd9c0d9e8a9487d7b68636f334da7a"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-86901",
@@ -4049,17 +4030,14 @@
     "date_start": "878",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "De Alfonso III hay que decir una y otra vez que fue un político eminente; se había fijado desde el principio unos objetivos muy claros y nunca dejó de perseguirlos, aprovechando cada oportunidad para llevarlos a cabo. Ahora, 878, tras la victoria de Polvoraria, el rey se encontraba en una circunstancia única, nunca antes conocida: Córdoba pedía una tregua. Era la primera vez que eso pasaba.Y el reino de Asturias no iba a desperdiciar la ocasión. Había que llenar de gente el territorio que ahora quedaba bajo control cristiano.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_247",
       "checksum": "38bdf7c036f0748246f79e323fcf70ad92ab169dc6e212eab241b255d57dca45"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-88001",
@@ -4197,11 +4175,11 @@
     "date_end": null,
     "location": "Oviedo",
     "actors": [],
-    "summary": "FIN DE TREGUA: LAS GRANDES CABALGADAS La tregua de tres años terminó en 881. Córdoba y Oviedo se habían preparado ya para la guerra que inevitablemente había de volver. Ni Alfonso ni Muhammad estaban en condiciones de atacar el centro neurálgico de su enemigo. Pero ambos podían golpear en puntos sensibles, con campañas de alcance limitado que sirvieran para obtener beneficios por el saqueo, menoscabar al rival, hacer que sus fuerzas flaquearan y, de paso, otorgar al vencedor un nuevo crédito ante amigos y ante adversarios. Éste es el guión de los acontecimientos que van a sucederse en los siguientes años. Parece que el primero en intentar el golpe fue Muhammad. Se trata de aquella aventura marítima a la que nos referíamos capítulos atrás. El objetivo es Galicia. El camino por tierra desde Córdoba hasta Galicia se había complicado mucho por la repoblación del norte de Portugal, que había bajado muy al sur la frontera, y por la inestable situación de Mérida,",
+    "summary": "FIN DE TREGUA: LAS GRANDES CABALGADAS La tregua de tres años terminó en 881. Córdoba y Oviedo se habían preparado ya para la guerra que inevitablemente había de volver. Ni Alfonso ni Muhammad estaban en condiciones de atacar el centro neurálgico de su enemigo. Pero ambos podían golpear en puntos sensibles, con campañas de alcance limitado que sirvieran para obtener beneficios por el saqueo, menoscabar al rival, hacer que sus fuerzas flaquearan y, de paso, otorgar al vencedor un nuevo crédito ante amigos y ante adversarios. Éste es el guión de los acontecimientos que van a sucederse en los siguientes años. Parece que el primero en intentar el golpe fue Muhammad. Se trata de aquella aventura marítima a la que nos referíamos capítulos atrás. El objetivo es Galicia. El camino por tierra desde Córdoba hasta Galicia se había complicado mucho por la repoblación del norte de Portugal, que había bajado muy al sur la frontera, y por la inestable situación de Mérida",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_256",
-      "checksum": "9b91e6266ac227078e858b7fedab57f8816f62e0bd3bc853adda8e40a5b5588b"
+      "checksum": "1ddd1080eb6eee903f43c5eccb42e687c14eb0ebef2e1ca693978b7e220ca75f"
     },
     "historical_confidence": 0.78
   },
@@ -4245,7 +4223,6 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [
-      "alfonso_i",
       "alfonso_ii"
     ],
     "summary": "Verano del año 882. La situación era peliaguda. Un enorme ejército sarraceno se concentraba a orillas del Esla, amenazando León. Pero aquí, en León, otro ejército no menos importante estaba dispuesto a dar la batalla. Alfonso II había reunido a sus hombres. En las tiendas del campo moro, los jefes deliberaban. El principe Al Mundir y el ministro Hasim evaluaban la situación ante la mirada de Ababdella, el BanuQasi traidor, que se había sumado a las fuerzas emirales. AlMundir, probablemente, desearía cargar contra los cristianos, pues no habían llegado hasta allí para retirarse ahora. Pero Hasim se resistía. Era un suicidio permitir a Alfonso que diera la batalla donde quería. Un argumento cierto. Ahora bien, Hasim escondía otro propósito, un designio secreto que haría crecer el asombro en Córdoba y en León.",
@@ -4312,15 +4289,14 @@
     "date_end": null,
     "location": "Galicia",
     "actors": [
-      "pelayo",
-      "alfonso_i",
-      "alfonso_ii"
+      "alfonso_ii",
+      "pelayo"
     ],
-    "summary": "En Santiago hizo algo más, y esto también tiene un gran valor político: sobre la modesta iglesia que Alfonso II había mandado elevar en torno al sepulcro del Apóstol, Alfonso III edificó un gran templo que quedó terminado el de mayo de 899. Por el acta de la ceremonia fundacional conocemos, a pesar de las falsificaciones posteriores, los nombres de las personalidades más eminentes del reino. Entre los condes, Vermudo de León, Sarracino de Astorga y el Bierzo, Betote de Deza, Hermenegildo de Tuy y Oporto, Arias de Coimbra, Pelayo de Braganza, Odoario de Viseo, Silo de Prucios (el norte de Galicia), Lucidio de Guimaries, Ero de Lugo, Munio Núñez de Castilla, Gonzalo Fernández de Burgos, amén de otros condes,",
+    "summary": "En Santiago hizo algo más, y esto también tiene un gran valor político: sobre la modesta iglesia que Alfonso II había mandado elevar en torno al sepulcro del Apóstol, Alfonso III edificó un gran templo que quedó terminado el de mayo de 899. Por el acta de la ceremonia fundacional conocemos, a pesar de las falsificaciones posteriores, los nombres de las personalidades más eminentes del reino. Entre los condes, Vermudo de León, Sarracino de Astorga y el Bierzo, Betote de Deza, Hermenegildo de Tuy y Oporto, Arias de Coimbra, Pelayo de Braganza, Odoario de Viseo, Silo de Prucios (el norte de Galicia), Lucidio de Guimaries, Ero de Lugo, Munio Núñez de Castilla, Gonzalo Fernández de Burgos, amén de otros condes",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_263",
-      "checksum": "3f00e167b2864b4671ca2a379953e83a62ced810fa6392633588401845b35fcd"
+      "checksum": "83ca4fada76ff12375a2270b8925a769b650e5cbe8a367bf881651856f0fa989"
     },
     "historical_confidence": 0.88
   },
@@ -4587,17 +4563,14 @@
     "date_start": "901",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "La victoria de Zamora en 901 puso a Alfonso III en una situación muy ventajosa: había demostrado de qué eran capaces las armas de Asturias. Ante todos los poderes de la España de entonces, la corona de Oviedo aparecía ahora como una",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_280",
       "checksum": "d72ef6ae4a7bdb92af496e4b801ae35b25ddf478a84f68e72585078a8e7a9dbd"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-88003",
@@ -4622,17 +4595,14 @@
     "date_start": "900",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "Por qué Fortún se mostraba remiso a atacar a los BanuQasi? Por miedo, sin duda. Sabemos que Alfonso III se había entrevistado con Fortún a la altura del año 900. Fortún ya era un anciano, pero Alfonso tampoco era un niño: pasaba de la cincuentena y llevaba treinta y cuatro años se dice pronto reinando. Sin duda hablaron del enemigo común. Posiblemente Alfonso pidió ayuda al rey navarro; sin duda éste se la negó. Alfonso tendría que hacerlo todo solo. O quizá no tan solo, pues más al este Aragón y Pallars sufrían también los golpes de los Banu Qasi.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_282",
       "checksum": "ca786091b30c78e10215bb740a4dd1c7720209d93aa7f87c2a73f95c0f0110a5"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-90401",
@@ -4721,17 +4691,14 @@
     "date_start": "909",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "Uno puede ponerse en la piel de Alfonso III y mirar alrededor: tiempos de hierro, ningún lugar donde apoyar el brazo en busca de ayuda. En un plano más profundo, no obstante, iba surgiendo algo. En un bosque de Borgoña, Guillermo de Aquitania fundaba en 909 la abadía de Cluny.Y sobre las rutas del Camino de Santiago empezaba a construirse una identidad que saltaba fronteras. Era Europa.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_288",
       "checksum": "efc94d0af64b1b77700a7c150a80a1bdefede176103311c6a1709671a7a368d1"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-90902",
@@ -4740,17 +4707,14 @@
     "date_start": "909",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "EL PRINCIPIO DEL FIN A la altura del año 909, el reino de Asturias ocupaba su máxima extensión y disfrutaba de su máximo poder. Vencidos o neutralizados sus enemigos, Alfonso III podía mirar al horizonte con la sonrisa de satisfacción del hombre que triunfado. Pero el reino de Asturias ya no se extenderá más. Lo que venga a partir de ahora será otra cosa. Estamos en el principio del fin. Vamos a echar un último vistazo al mapa. El reino de Asturias se expandido hacia el sur de manera poco uniforme. Los ríos nos marcan el límite. La línea de frontera queda constituida, en el oeste, por el Mondego hasta su confluencia con el Duero; en el centro, por el Duero hasta su confluencia con el Pisuerga; en el este, por el Arlanzón y el cauce alto del Ebro. La ganancia territorial en occidente, en Portugal, es mucha; por el contrario, es más limitada en el área oriental, en Castilla.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_289",
       "checksum": "ca2006bf4f1ef227c8bc6b2bd6b9f647e3ff2e1ce752ce3300b93311d669ccdc"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-88204",
@@ -4791,17 +4755,14 @@
     "date_start": "909",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "El caso de Tordesillas merece un comentario aparte, porque los documentos de la época nos dicen algo singular: que la zona estaba ocupada por \"gente barbárica\". Esto es exactamente lo que un diploma de 909 pone en boca del rey Alfonso III: \"Estando yerma aquella villa, con mi propia mano y con mis criados la tomé de la gente barbárica\".",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_292",
       "checksum": "792b2c551d6082cf63c71af906ef3b24b07ca10d4a7033a68850a0852526387e"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-90904",
@@ -4826,17 +4787,14 @@
     "date_start": "909",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "Podemos imaginar a Alfonso III, a la altura del año 909, mirando satisfecho ese mundo nuevo que tanto había contribuido a crear: el reino de Asturias ocupaba su máxima extensión. El monarca Magno pasaba ya de los sesenta años. Dejaba tras de una herencia magnífica. Poco podía sospechar el rey que ese legado excepcional significaba también, en efecto, el principio del fin.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_294",
       "checksum": "3cee939e8461b0e3e1a4c8d19d245edcc32b0de93777e52774fbb715ef7a7628"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-87003",
@@ -4845,17 +4803,14 @@
     "date_start": "870",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "Resumamos el tema legendario. En fecha imprecisa, quizá 870, quizá 888, el rey Alfonso III envía a un tal Ordoño, hermano o hijo suyo (tampoco en esto hay precisión), para atacar las tierras de Vizcaya. Indignados, los vizcaínos se unen para hacer frente al invasor. Le plantan cara y los dos ejércitos se encuentran en un paraje próximo a Bilbao llamado Padura, que en vascuence quiere decir \"las marismas\". Tras largos combates con muchos muertos, los vizcaínos vencen. Tanta es la sangre derramada que el paraje de Padura empezará a llamarse Arrigorriaga, que en vascuence significa \"lugar de piedras rojas\". Después de la batalla, Jaun Zuría será proclamado señor de los vizcaínos.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_295",
       "checksum": "0eeb3d3073d66ce4a10d82db0250cc97c2ac180b40a4ce1d3ec5be429fa673e0"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-110701",
@@ -4881,7 +4836,6 @@
     "date_end": null,
     "location": "Galicia",
     "actors": [
-      "alfonso_i",
       "alfonso_ii"
     ],
     "summary": "Por ejemplo, al Ordoño que supuestamente entró en León nos lo presentan ora como hermano, ora como hijo de Alfonso II. Un hermano? Veamos: no es seguro que Alfonso tuviera otros hermanos que el Odoario que aparece en el documento de la repoblación de Chaves. Y si los tuvo, como quiere la leyenda del infante ciego, entonces deberían haber muerto antes de los supuestos sucesos de Padura. En todo caso, ninguno de los hermanos que la tradición atribuye a Alfonso se llamaba Ordoño. De manera que no pudo ser un hermano del rey quien librara allí batalla. Entonces, un hijo? Alfonso tuvo un hijo Ordoño, en efecto, pero nació hacia el año 871, y desde muy joven, antes de 890, ya estaba dedicado exclusivamente a Galicia; es altamente improbable que se le enviara al frente de una misión contra algún levantamiento en el otro extremo del reino. Y, desde luego, no murió allí.",
@@ -4899,17 +4853,14 @@
     "date_start": "867",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "Un levantamiento en tierras vascas... Hubo tal? No consta. Sabemos, que Alfonso III tuvo que hacer frente a una sublevación de vascones nada más comenzar su reinado, hacia 867: fue aquella donde hizo cautivo al caudillo de los sublevados, Eilo o Egylon. Acaso la tradición popular deformó después aquel suceso, convirtiendo en gran batalla victoriosa de clanes vascos lo que en realidad fue una refriega de señores locales sofocada por el rey de Asturias? Es perfectamente posible. Pero, entonces, qué función tenía la leyenda? Por qué la tradición fabricó el relato de Padura?",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_298",
       "checksum": "3bb6513c971d0d40a46b45756c2a90886809f8933f30cf8be5578ace84a8fd5f"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-90906",
@@ -4930,16 +4881,16 @@
   {
     "event_id": "evt-91001",
     "chronology_index": 300,
-    "title": "Es dificil saber cuándo, cómo y por qué ocurrió todo esto",
+    "title": "Es difícil saber cuándo, cómo y por qué ocurrió todo esto",
     "date_start": "910",
     "date_end": null,
     "location": "Asturias",
     "actors": [],
-    "summary": "Es dificil saber cuándo, cómo y por qué ocurrió todo esto. Hay documentos de abril de 910 que todavía mencionan explícitamente a Alfonso como rey en León. Y hay asimismo huella de que en junio de ese mismo año, en Lugo, los condes",
+    "summary": "Es difícil saber cuándo, cómo y por qué ocurrió todo esto. Hay documentos de abril de 910 que todavía mencionan explícitamente a Alfonso como rey en León. Y hay asimismo huella de que en junio de ese mismo año, en Lugo, los condes",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_300",
-      "checksum": "20d42491eb8c4563564c603fb1f174c8be5c8875caab9d230b8a15062ff3c1ff"
+      "checksum": "2b8d861bdd10b8bb53b5553a6dd70367ae33b1706873ff4148fa9bcab1b5648a"
     },
     "historical_confidence": 0.78
   },
@@ -4951,7 +4902,6 @@
     "date_end": null,
     "location": "Galicia",
     "actors": [
-      "alfonso_i",
       "alfonso_ii"
     ],
     "summary": "de Galicia se sometían a Ordoño (ya Ordoño II) como \"nuestro señor\". De aquí puede deducirse que Alfonso no fue depuesto hasta después de abril, quizá mayo de 910. Esa es la fecha que marca el final de Alfonso II.",
@@ -4969,17 +4919,14 @@
     "date_start": "910",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "La leyenda embellecerá posteriormente estos últimos meses, sin duda amargos, de Alfonso III. Últimos meses, porque Alfonso morirá enseguida, en diciembre de ese mismo año 910. Qué dice la leyenda? Que Alfonso, incapaz de permanecer inactivo, acudió a ver a su hijo, esta vez como súbdito ante su rey (\"se humilló\", dice la tradición), y le pidió permiso para reunir gentes de armas y realizar una última expedición a tierras moras. La tradición por sentada esta última campaña. Sin embargo, hay razones para dudar de que un rey recién depuesto, con más de sesenta años sobre sus espaldas, emprendiera semejante iniciativa.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_302",
       "checksum": "07b3fd04b7ec8ba4c58ad9bc08f745d3a9507822f273f07dcb25b68b8c6a1edc"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-91004",
@@ -5004,17 +4951,14 @@
     "date_start": "910",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "Quizás Alfonso, antes de morir, echó la vista atrás; no sobre su propia vida, sino sobre la vida del reino. No en vano amaba las crónicas históricas. La estrella de Alfonso III el Magno se apagó en 910; la invasión mora de España había sucedido en 711. Dos siglos de historia. Dos siglos en cuyo transcurso Asturias se había convertido en otra cosa. Del pequeño solar de ásperos riscos en torno a Cangas, aquel refugio de \"asnos salvajes\" que los invasores despreciaron, la corona había crecido",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_304",
       "checksum": "16868a8e36d7dab5aabde5c5efe39efa93d49cee29b304a0d960153f2abbb26d"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-91201",
@@ -5023,17 +4967,14 @@
     "date_start": "912",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "En el año de Nuestro Señor de 912 ocurrió algo muy importante: la frontera del reino de Asturias, que ya era reino de León, bajó hasta el Duero. Los pies de los colonos pisaron las aguas de ese río en sus riberas castellanas. Con aquel movimiento se completaba el proyecto de expansión de Alfonso III. Pero no fue el rey Magno, ya difunto, sino su hijo García quien pondría su nombre al acontecimiento. Vamos a ver cómo ocurrió.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_305",
       "checksum": "cbeb3cf7ce09f36234833ac89fb45fb3e2e136b39f18442557aa8067a99b7e02"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-90104",
@@ -5074,17 +5015,14 @@
     "date_start": "711",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "Este Gonzalo Téllez debió de participar en las campañas de Alfonso III contra los Banu Qasi; debió de estar en Grañón y en Ibrillos, seguramente también en Tarazona. Pero pasó a la historia, sobre todo, por la reconquista de Osma, en Soria. Hablamos de la vieja ciudad de Uxama, arévaca primero, romana después, más tarde visigoda, que los moros ocuparon después de 711. Aunque estaba muy al norte del emirato, consta que los musulmanes permanecieron allí mucho tiempo: una atalaya árabe lo confirma. En la cabecera del alto Duero, entre la sierra de la Demanda y el Sistema Central, Osma era el punto fuerte de otro pasillo estratégico decisivo: el que lleva desde los llanos de Burgos hacia tierras aragonesas.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_308",
       "checksum": "5927904997d0117f9f1c84a98c434b990067eb7da5bb4831ddd6dfdf3ba95396"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-91202",
@@ -5109,17 +5047,14 @@
     "date_start": "909",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "La llegada a la línea del Duero tiene otros protagonistas. A uno ya lo conocemos bien: Munio Núñez, conde de Castilla, suegro del rey García, el mismo conde que se levantó contra Alfonso III en las oscuras jornadas de 909. Debía de ser un hombre ya de edad, de la misma generación que el rey Magno. Le hemos visto combatir contra las aceifas musulmanas de los años anteriores (882 y 883) desde su posición de Castrojeriz. Ahora, 912, ya no es conde de Castilla, sino de Amaya. Pero desde esa base emprende la repoblación de otro punto fundamental en la nueva frontera: Roa, entre Valladolid y Aranda.",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_310",
       "checksum": "a55f577095d1cdc0190710be936ca59bfd97d4b8444c9e0b2be5611b53749d39"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-91203",
@@ -5177,7 +5112,6 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [
-      "alfonso_i",
       "alfonso_ii"
     ],
     "summary": "El emirato reaccionará, como era de esperar. Había que desmantelar ese avance cristiano. Vendrán años de guerra. Pero lo esencial es que, a la altura de 912, la obra que concibió Alfonso II había quedado culminada: el reino llegaba a las aguas del Duero. Y los pies de Gonzalo Fernández, Munio Núñez y Gonzalo Téllez, sumergidos en el río, daban de que aquello había vuelto a ser tierra cristiana.",
@@ -5339,17 +5273,14 @@
     "date_start": "871",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i",
-      "alfonso_ii"
-    ],
+    "actors": [],
     "summary": "Recordemos quién era Ordoño: el segundo hijo de Alfonso III, el mismo que fue enviado a la corte zaragozana de los Banu Qasi en los tiempos de su alianza con Asturias; el mismo Ordoño que, después, casó con Elvira Menéndez, nieta del conde Gatón del Bierzo hija del poderoso magnate Hermenegildo Gutiérrez. Ordoño, que había nacido en 871, fue destinado desde muy joven al gobierno de las tierras gallegas, que entonces se extendían desde el Cantábrico hasta el río Mondego. Cuando García se rebeló contra su padre, el rey Alfonso, Ordoño mantuvo una posición distante. No empezó a utilizar el título de rey hasta que Alfonso murió. Y cuando murió a su",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_324",
       "checksum": "996c65da6741c721f2bff532a443adae2f25aa1814993e3144d76e82413e3006"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-91302",
@@ -5681,11 +5612,11 @@
     "date_end": null,
     "location": "Asturias",
     "actors": [],
-    "summary": "ejercer un control casi feudal sobre la tierra. Es lógico suponer, por tanto, que los agricultores libres tratarían de encontrar nuevos espacios más al sur, en áreas donde la influencia de la nobleza aún no había llegado. En cuanto a los que vienen de otras partes del reino, menos sujetas al sistema señorial, buscarían sin duda algo muy elemental y también muy importante: libertad, oportunidades. Hay un párrafo del Fuero de Sepúlveda, otorgado en 940, que dice mucho del espíritu de nuevo mundo que caracterizó a la repoblación en aquellas tierras. Dice así:",
+    "summary": "ejercer un control casi feudal sobre la tierra. Es lógico suponer, por tanto, que los agricultores libres tratarían de encontrar nuevos espacios más al sur, en áreas donde la influencia de la nobleza aún no había llegado. En cuanto a los que vienen de otras partes del reino, menos sujetas al sistema señorial, buscarían sin duda algo muy elemental y también muy importante: libertad, oportunidades. Hay un párrafo del Fuero de Sepúlveda, otorgado en 940, que dice mucho del espíritu de nuevo mundo que caracterizó a la repoblación en aquellas tierras. Dice así",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_345",
-      "checksum": "b961361ad128befd40a7c47d156ac04a0a2ed7e9ced6ed5cc0acab0aae5dc8e0"
+      "checksum": "809cc2fa01ea125c45a2e9dd4c233b2510c1bfdac4f91e37e47e0bb157c8b146"
     },
     "historical_confidence": 0.78
   },
@@ -5794,16 +5725,14 @@
     "date_start": "926",
     "date_end": null,
     "location": "Asturias",
-    "actors": [
-      "alfonso_i"
-    ],
+    "actors": [],
     "summary": "A este Alfonso Ordóñez, Alfonso IV, se le conocería como El Monje por su inclinación a la vida religiosa. Alfonso reinaría en León y Asturias desde febrero de 926, mientras su hermano Sancho quedaba como rey en Galicia y Ramiro hacía lo propio en Portugal. Pero Sancho morirá pronto, en 929, y Galicia",
     "source_ref": {
       "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
       "section": "parrafo_352",
       "checksum": "5f0eeede4fa79cf60e731f8967ebd99ab53dcc9b8e9ac2cc6846fcb1e3bd927d"
     },
-    "historical_confidence": 0.88
+    "historical_confidence": 0.78
   },
   {
     "event_id": "evt-93102",

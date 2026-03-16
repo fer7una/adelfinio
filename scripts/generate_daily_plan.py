@@ -8,6 +8,8 @@ import datetime as dt
 import json
 from pathlib import Path
 
+from story_engine import build_main_storytelling, build_teaser_storytelling
+
 ROOT = Path(__file__).resolve().parents[1]
 TIMELINE_FILE = ROOT / "data" / "timeline" / "source_events.json"
 PROGRESSION_FILE = ROOT / "data" / "timeline" / "progression_state.json"
@@ -73,14 +75,14 @@ def save_progression_state(state_path: Path, next_offset: int, target_date: dt.d
     write_json(state_path, payload)
 
 
-def pick_next_two_events(events: list[dict], offset: int) -> tuple[str, str, int]:
-    selected: list[str] = []
+def pick_next_two_events(events: list[dict], offset: int) -> tuple[dict, dict, int]:
+    selected: list[dict] = []
     cursor = offset
     while cursor < len(events) and len(selected) < 2:
         event = events[cursor]
         actors = event.get("actors", [])
         if isinstance(actors, list) and len(actors) > 0:
-            selected.append(event["event_id"])
+            selected.append(event)
         cursor += 1
 
     if len(selected) < 2:
@@ -92,7 +94,7 @@ def pick_next_two_events(events: list[dict], offset: int) -> tuple[str, str, int
     return selected[0], selected[1], cursor
 
 
-def build_plan(target_date: dt.date, event_a: str, event_b: str) -> dict:
+def build_plan(target_date: dt.date, event_a: dict, event_b: dict) -> dict:
     date_compact = target_date.strftime("%Y%m%d")
 
     main_1 = f"main-{date_compact}-linea_01"
@@ -100,6 +102,10 @@ def build_plan(target_date: dt.date, event_a: str, event_b: str) -> dict:
 
     teaser_1 = f"teaser-{date_compact}-linea_01"
     teaser_2 = f"teaser-{date_compact}-linea_02"
+    story_a = build_main_storytelling(event_a)
+    story_b = build_main_storytelling(event_b)
+    teaser_story_a = build_teaser_storytelling({"hook": story_a["premise"], "scenes": story_a["scene_outline"]}, "cliffhanger")
+    teaser_story_b = build_teaser_storytelling({"hook": story_b["premise"], "scenes": story_b["scene_outline"]}, "question")
 
     return {
         "plan_id": f"plan-{date_compact}",
@@ -111,13 +117,17 @@ def build_plan(target_date: dt.date, event_a: str, event_b: str) -> dict:
         "main_episodes": [
             {
                 "episode_id": main_1,
-                "source_event_ids": [event_a],
+                "source_event_ids": [event_a["event_id"]],
                 "priority": 1,
+                "target_duration_seconds": story_a["target_duration_seconds"],
+                "storytelling": story_a,
             },
             {
                 "episode_id": main_2,
-                "source_event_ids": [event_b],
+                "source_event_ids": [event_b["event_id"]],
                 "priority": 2,
+                "target_duration_seconds": story_b["target_duration_seconds"],
+                "storytelling": story_b,
             },
         ],
         "teaser_episodes": [
@@ -125,16 +135,20 @@ def build_plan(target_date: dt.date, event_a: str, event_b: str) -> dict:
                 "episode_id": teaser_1,
                 "parent_episode_id": main_1,
                 "strategy": "cliffhanger",
+                "target_duration_seconds": teaser_story_a["target_duration_seconds"],
+                "storytelling": teaser_story_a,
             },
             {
                 "episode_id": teaser_2,
                 "parent_episode_id": main_2,
                 "strategy": "question",
+                "target_duration_seconds": teaser_story_b["target_duration_seconds"],
+                "storytelling": teaser_story_b,
             },
         ],
         "notes": (
             "Plan generado en modo estricto con fuentes cronologicas. "
-            f"Eventos usados: {event_a}, {event_b}."
+            f"Eventos usados: {event_a['event_id']}, {event_b['event_id']}."
         ),
     }
 
@@ -195,7 +209,7 @@ def main() -> int:
         save_progression_state(state_path, next_offset, target_date)
 
         print(f"Generated: {output_path}")
-        print(f"Source events used: {event_a}, {event_b}")
+        print(f"Source events used: {event_a['event_id']}, {event_b['event_id']}")
         print(f"Progression next_event_offset: {next_offset} (state: {state_path})")
         return 0
     except RuntimeError as exc:

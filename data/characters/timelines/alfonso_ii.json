@@ -2,41 +2,24 @@
   "character_id": "alfonso_ii",
   "records": [
     {
-      "record_id": "arc-20260315-alfonso_ii_01",
-      "event_id": "evt-88101",
-      "chronology_index": 4,
-      "emotion_before": "uncertainty",
-      "emotion_after": "resolve",
-      "arc_stage_before": "setup",
-      "arc_stage_after": "setup",
-      "change_summary": "Alfonso II evoluciona de uncertainty a resolve durante Asi, en fin, se planteó la batalla.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_4",
-        "checksum": "1ff3e6eb810f5c233b4115bc34a72a760a885fbf085a702bb6da0c58e2568f98",
-        "excerpt": "Asi, en fin, se planteó la batalla. Los cristianos, pocos y sin alimentos; los moros, muchos y bien armados. Pero el terreno jugaba a favor de los cristianos: mover a un ejército numeroso por el laberinto asturiano de..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_02",
+      "record_id": "arc-20260316-alfonso_ii_01",
       "event_id": "evt-79102",
       "chronology_index": 83,
-      "emotion_before": "resolve",
+      "emotion_before": "uncertainty",
       "emotion_after": "fear",
       "arc_stage_before": "setup",
       "arc_stage_after": "setup",
-      "change_summary": "Alfonso II evoluciona de resolve a fear durante Fue en septiembre de ese mismo 791, el año de la derrota.",
+      "change_summary": "Alfonso II evoluciona de uncertainty a fear durante Fue en septiembre de ese mismo 791, el año de la derrota.",
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
         "section": "parrafo_83",
         "checksum": "db73b6efda73fef35b915d1e7fad5e510ade0c14816ca3494ec0fdaa4e7e0242",
         "excerpt": "Fue en septiembre de ese mismo 791, el año de la derrota. Bermudo abdicó. En quién? En Alfonso, el hijo de Fruela y Doña Munia, que seguía esperando su oportunidad en tierras vasconas. Y el todavía joven Alfonso, que..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-alfonso_ii_03",
+      "record_id": "arc-20260316-alfonso_ii_02",
       "event_id": "evt-80901",
       "chronology_index": 117,
       "emotion_before": "fear",
@@ -50,16 +33,16 @@
         "checksum": "0237a1ba627f75d15502ffe032907e5dbd0556913235f46876a21055493ccd16",
         "excerpt": "Pero el reino de Asturias no se limitaba a recibir, sino que también daba. Y así sabemos, porque un poeta musulmán lo contó, que hacia 809 una mujer del área de Guadalajara se quejaba amargamente al emir porque permitía..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-alfonso_ii_04",
+      "record_id": "arc-20260316-alfonso_ii_03",
       "event_id": "evt-80401",
       "chronology_index": 119,
       "emotion_before": "uncertainty",
       "emotion_after": "uncertainty",
       "arc_stage_before": "setup",
-      "arc_stage_after": "setup",
+      "arc_stage_after": "ascent",
       "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante Estamos hacia 804.",
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
@@ -67,16 +50,16 @@
         "checksum": "9a671c07fec32204558f0c2b7149ed02f6c3f43fc5a624df1c8591a8993cc2a4",
         "excerpt": "Estamos hacia 804. Una comunidad benedictina se entrega a la tarea de colonizar. Su cabeza visible es el obispo de Valpuesta, ese Juan del que antes hablábamos. Dónde está Valpuesta? En la frontera norte entre Álava y..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-alfonso_ii_05",
+      "record_id": "arc-20260316-alfonso_ii_04",
       "event_id": "evt-81202",
       "chronology_index": 131,
       "emotion_before": "uncertainty",
       "emotion_after": "uncertainty",
-      "arc_stage_before": "setup",
-      "arc_stage_after": "setup",
+      "arc_stage_before": "ascent",
+      "arc_stage_after": "ascent",
       "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante Corre el año 812 cuando Carlomagno mueve ficha en España: envía a su hijo.",
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
@@ -84,15 +67,15 @@
         "checksum": "f59783059a4e5b4309e35ba32a0d198520522f8682887dd4de77e52bc31c4c14",
         "excerpt": "Corre el año 812 cuando Carlomagno mueve ficha en España: envía a su hijo Ludovico Pío para tomar el control de Pamplona, muy probablemente con el conocimiento de Alfonso II de Asturias. Amanece así un bloque de poder..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-alfonso_ii_06",
+      "record_id": "arc-20260316-alfonso_ii_05",
       "event_id": "evt-84202",
       "chronology_index": 160,
       "emotion_before": "uncertainty",
       "emotion_after": "uncertainty",
-      "arc_stage_before": "setup",
+      "arc_stage_before": "ascent",
       "arc_stage_after": "ascent",
       "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty en el evento evt-84202 (842, Asturias).",
       "source_ref": {
@@ -101,16 +84,16 @@
         "checksum": "c56eb61a588341394480c67e9467020405c3ac0948bef1281b7e98ca4bd4da73",
         "excerpt": "Alfonso II el Casto murió en 842, con ochenta y dos años, en su palacio de Oviedo. No hay razones para dudar de que murió satisfechísimo. En más de medio siglo de reinado, había asegurado la independencia del reino de..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-alfonso_ii_07",
+      "record_id": "arc-20260316-alfonso_ii_06",
       "event_id": "evt-84203",
       "chronology_index": 161,
       "emotion_before": "uncertainty",
       "emotion_after": "uncertainty",
       "arc_stage_before": "ascent",
-      "arc_stage_after": "ascent",
+      "arc_stage_after": "crisis",
       "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante Alfonso II el Casto reinó medio siglo y murió con ochenta y dos años.",
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
@@ -118,16 +101,16 @@
         "checksum": "671fb2943d8e02619e6f31eadf09f82ec8cf89f496a75c3bfeca931d605a8925",
         "excerpt": "Alfonso II el Casto reinó medio siglo y murió con ochenta y dos años. Con se extinguía el linaje directo de Don Pelayo. Su figura nos acompañado durante muchos episodios. Cuando murió, allá por el año 842, y puesto que..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-alfonso_ii_08",
+      "record_id": "arc-20260316-alfonso_ii_07",
       "event_id": "evt-76803",
       "chronology_index": 162,
       "emotion_before": "uncertainty",
       "emotion_after": "uncertainty",
-      "arc_stage_before": "ascent",
-      "arc_stage_after": "ascent",
+      "arc_stage_before": "crisis",
+      "arc_stage_after": "crisis",
       "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante Bien, nuevo enigma.",
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
@@ -135,16 +118,16 @@
         "checksum": "b0932f2f8e121b995ab764c91e83c90ce5d446ce3d0deefffb71ac8c80957c7a",
         "excerpt": "Bien, nuevo enigma. Quién era Nepociano Díaz? Las fuentes dicen que era comes palatii (o sea, conde de palacio, un cargo muy importante en la corte) y cuñado del rey, cognatus. Cuñado de Alfonso II el Casto? Marido..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-alfonso_ii_09",
+      "record_id": "arc-20260316-alfonso_ii_08",
       "event_id": "evt-86002",
       "chronology_index": 221,
       "emotion_before": "uncertainty",
       "emotion_after": "uncertainty",
-      "arc_stage_before": "ascent",
-      "arc_stage_after": "ascent",
+      "arc_stage_before": "crisis",
+      "arc_stage_after": "crisis",
       "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante El rey en persona encabezó la expedición.",
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
@@ -152,50 +135,16 @@
         "checksum": "11fb0321afe9cb330d4e15970b8c8c7e6a0af563074c74fac9dd5c071df40af0",
         "excerpt": "El rey en persona encabezó la expedición. Debía de ser el verano de 860. Un poderoso ejército cristiano partió de Astorga, atravesó Zamora, cruzó el Duero, bajó a lo largo de la actual provincia de Salamanca, pasó la..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-alfonso_ii_10",
-      "event_id": "evt-86602",
-      "chronology_index": 232,
-      "emotion_before": "uncertainty",
-      "emotion_after": "uncertainty",
-      "arc_stage_before": "ascent",
-      "arc_stage_after": "ascent",
-      "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante HABLEMOS DE POLÍTICA El rey Ordoño murió en 866, fresco aún el ingrato recuerdo.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_232",
-        "checksum": "fe4f8e5d1f194a6fa36c58e58da559928183f1d51d881a1ee8806e81a7e17132",
-        "excerpt": "HABLEMOS DE POLÍTICA El rey Ordoño murió en 866, fresco aún el ingrato recuerdo del desastre de la Morcuera. Le sucedió su hijo Alfonso, que reinaría como Alfonso III. Será un gran rey, victorioso en el campo de batalla..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_11",
-      "event_id": "evt-86801",
-      "chronology_index": 236,
-      "emotion_before": "uncertainty",
-      "emotion_after": "uncertainty",
-      "arc_stage_before": "ascent",
-      "arc_stage_after": "ascent",
-      "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty en el evento evt-86801 (868, Asturias).",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_236",
-        "checksum": "992a331569f72cfdade76927f5305b27181a2a6a6244b112d19e7a9ff7fca55b",
-        "excerpt": "Era 868. Alfonso III acababa de aplastar las rebeliones que habían saludado su llegada al trono.Y sin perder ni un minuto, la corte de Asturias pone manos a la obra. Repoblar es la consigna. En el este, las tierras..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_12",
+      "record_id": "arc-20260316-alfonso_ii_09",
       "event_id": "evt-87201",
       "chronology_index": 238,
       "emotion_before": "uncertainty",
       "emotion_after": "uncertainty",
-      "arc_stage_before": "ascent",
-      "arc_stage_after": "ascent",
+      "arc_stage_before": "crisis",
+      "arc_stage_after": "turn",
       "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante Pero la operación no acaba ahí: para asentar la ocupación del nuevo territorio hay.",
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
@@ -203,203 +152,50 @@
         "checksum": "e41a071990fd439311f1668a3721d62ab2cc3e0d67265f0325e5558d6571d7a9",
         "excerpt": "Pero la operación no acaba ahí: para asentar la ocupación del nuevo territorio hay que marcar un punto fuerte en el este, entre los montes del sur de Orense y el valle de Limia, en lo que hoy es la comarca portuguesa de..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-alfonso_ii_13",
-      "event_id": "evt-87301",
-      "chronology_index": 239,
-      "emotion_before": "uncertainty",
-      "emotion_after": "resolve",
-      "arc_stage_before": "ascent",
-      "arc_stage_after": "ascent",
-      "change_summary": "Alfonso II evoluciona de uncertainty a resolve en el evento evt-87301 (873, Asturias).",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_239",
-        "checksum": "d0552d271bdf3aef1caf3e9a12fa439b7ccd9c0d9e8a9487d7b68636f334da7a",
-        "excerpt": "Vimara Pérez muere en 873. Otros nombres tomarán el relevo en el liderazgo de la repoblación: Hermenegildo Gutiérrez, el yerno de Gatón, y Alfonso Betote, que dirige la colonización del Miño inferior. Ante los hombres..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_14",
-      "event_id": "evt-87803",
-      "chronology_index": 247,
-      "emotion_before": "resolve",
-      "emotion_after": "pride",
-      "arc_stage_before": "ascent",
-      "arc_stage_after": "crisis",
-      "change_summary": "Alfonso II evoluciona de resolve a pride durante De Alfonso III hay que decir una y otra vez que fue un político.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_247",
-        "checksum": "38bdf7c036f0748246f79e323fcf70ad92ab169dc6e212eab241b255d57dca45",
-        "excerpt": "De Alfonso III hay que decir una y otra vez que fue un político eminente; se había fijado desde el principio unos objetivos muy claros y nunca dejó de perseguirlos, aprovechando cada oportunidad para llevarlos a cabo..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_15",
+      "record_id": "arc-20260316-alfonso_ii_10",
       "event_id": "evt-88202",
       "chronology_index": 259,
-      "emotion_before": "pride",
+      "emotion_before": "uncertainty",
       "emotion_after": "fear",
-      "arc_stage_before": "crisis",
-      "arc_stage_after": "crisis",
-      "change_summary": "Alfonso II evoluciona de pride a fear durante Verano del año 882.",
+      "arc_stage_before": "turn",
+      "arc_stage_after": "turn",
+      "change_summary": "Alfonso II evoluciona de uncertainty a fear durante Verano del año 882.",
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
         "section": "parrafo_259",
         "checksum": "9d7b993174acce133c3b1a2a39eef7bb85216bbce95a878af004d9b2f0a91701",
         "excerpt": "Verano del año 882. La situación era peliaguda. Un enorme ejército sarraceno se concentraba a orillas del Esla, amenazando León. Pero aquí, en León, otro ejército no menos importante estaba dispuesto a dar la batalla..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-alfonso_ii_16",
+      "record_id": "arc-20260316-alfonso_ii_11",
       "event_id": "evt-89902",
       "chronology_index": 263,
       "emotion_before": "fear",
       "emotion_after": "uncertainty",
-      "arc_stage_before": "crisis",
-      "arc_stage_after": "crisis",
+      "arc_stage_before": "turn",
+      "arc_stage_after": "turn",
       "change_summary": "Alfonso II evoluciona de fear a uncertainty durante En Santiago hizo algo más, y esto también tiene un gran valor político: sobre.",
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
         "section": "parrafo_263",
-        "checksum": "3f00e167b2864b4671ca2a379953e83a62ced810fa6392633588401845b35fcd",
+        "checksum": "83ca4fada76ff12375a2270b8925a769b650e5cbe8a367bf881651856f0fa989",
         "excerpt": "En Santiago hizo algo más, y esto también tiene un gran valor político: sobre la modesta iglesia que Alfonso II había mandado elevar en torno al sepulcro del Apóstol, Alfonso III edificó un gran templo que quedó..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-alfonso_ii_17",
-      "event_id": "evt-90103",
-      "chronology_index": 280,
-      "emotion_before": "uncertainty",
-      "emotion_after": "pride",
-      "arc_stage_before": "crisis",
-      "arc_stage_after": "crisis",
-      "change_summary": "Alfonso II evoluciona de uncertainty a pride durante La victoria de Zamora en 901 puso a Alfonso III en una situación muy.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_280",
-        "checksum": "d72ef6ae4a7bdb92af496e4b801ae35b25ddf478a84f68e72585078a8e7a9dbd",
-        "excerpt": "La victoria de Zamora en 901 puso a Alfonso III en una situación muy ventajosa: había demostrado de qué eran capaces las armas de Asturias. Ante todos los poderes de la España de entonces, la corona de Oviedo aparecía..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_18",
-      "event_id": "evt-90002",
-      "chronology_index": 282,
-      "emotion_before": "pride",
-      "emotion_after": "fear",
-      "arc_stage_before": "crisis",
-      "arc_stage_after": "crisis",
-      "change_summary": "Alfonso II evoluciona de pride a fear en el evento evt-90002 (900, Asturias).",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_282",
-        "checksum": "ca786091b30c78e10215bb740a4dd1c7720209d93aa7f87c2a73f95c0f0110a5",
-        "excerpt": "Por qué Fortún se mostraba remiso a atacar a los BanuQasi? Por miedo, sin duda. Sabemos que Alfonso III se había entrevistado con Fortún a la altura del año 900. Fortún ya era un anciano, pero Alfonso tampoco era un..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_19",
-      "event_id": "evt-90901",
-      "chronology_index": 288,
-      "emotion_before": "fear",
-      "emotion_after": "uncertainty",
-      "arc_stage_before": "crisis",
-      "arc_stage_after": "crisis",
-      "change_summary": "Alfonso II evoluciona de fear a uncertainty en el evento evt-90901 (909, Asturias).",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_288",
-        "checksum": "efc94d0af64b1b77700a7c150a80a1bdefede176103311c6a1709671a7a368d1",
-        "excerpt": "Uno puede ponerse en la piel de Alfonso III y mirar alrededor: tiempos de hierro, ningún lugar donde apoyar el brazo en busca de ayuda. En un plano más profundo, no obstante, iba surgiendo algo. En un bosque de Borgoña..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_20",
-      "event_id": "evt-90902",
-      "chronology_index": 289,
-      "emotion_before": "uncertainty",
-      "emotion_after": "uncertainty",
-      "arc_stage_before": "crisis",
-      "arc_stage_after": "crisis",
-      "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante EL PRINCIPIO DEL FIN A la altura del año 909, el reino de Asturias.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_289",
-        "checksum": "ca2006bf4f1ef227c8bc6b2bd6b9f647e3ff2e1ce752ce3300b93311d669ccdc",
-        "excerpt": "EL PRINCIPIO DEL FIN A la altura del año 909, el reino de Asturias ocupaba su máxima extensión y disfrutaba de su máximo poder. Vencidos o neutralizados sus enemigos, Alfonso III podía mirar al horizonte con la sonrisa..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_21",
-      "event_id": "evt-90903",
-      "chronology_index": 292,
-      "emotion_before": "uncertainty",
-      "emotion_after": "uncertainty",
-      "arc_stage_before": "crisis",
-      "arc_stage_after": "turn",
-      "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante El caso de Tordesillas merece un comentario aparte, porque los documentos de la época.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_292",
-        "checksum": "792b2c551d6082cf63c71af906ef3b24b07ca10d4a7033a68850a0852526387e",
-        "excerpt": "El caso de Tordesillas merece un comentario aparte, porque los documentos de la época nos dicen algo singular: que la zona estaba ocupada por \"gente barbárica\". Esto es exactamente lo que un diploma de 909 pone en boca..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_22",
-      "event_id": "evt-90905",
-      "chronology_index": 294,
-      "emotion_before": "uncertainty",
-      "emotion_after": "uncertainty",
-      "arc_stage_before": "turn",
-      "arc_stage_after": "turn",
-      "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante Podemos imaginar a Alfonso III, a la altura del año 909, mirando satisfecho ese.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_294",
-        "checksum": "3cee939e8461b0e3e1a4c8d19d245edcc32b0de93777e52774fbb715ef7a7628",
-        "excerpt": "Podemos imaginar a Alfonso III, a la altura del año 909, mirando satisfecho ese mundo nuevo que tanto había contribuido a crear: el reino de Asturias ocupaba su máxima extensión. El monarca Magno pasaba ya de los sesenta..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_23",
-      "event_id": "evt-87003",
-      "chronology_index": 295,
-      "emotion_before": "uncertainty",
-      "emotion_after": "uncertainty",
-      "arc_stage_before": "turn",
-      "arc_stage_after": "turn",
-      "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante Resumamos el tema legendario.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_295",
-        "checksum": "0eeb3d3073d66ce4a10d82db0250cc97c2ac180b40a4ce1d3ec5be429fa673e0",
-        "excerpt": "Resumamos el tema legendario. En fecha imprecisa, quizá 870, quizá 888, el rey Alfonso III envía a un tal Ordoño, hermano o hijo suyo (tampoco en esto hay precisión), para atacar las tierras de Vizcaya. Indignados, los..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_24",
+      "record_id": "arc-20260316-alfonso_ii_12",
       "event_id": "evt-87101",
       "chronology_index": 297,
       "emotion_before": "uncertainty",
       "emotion_after": "uncertainty",
       "arc_stage_before": "turn",
-      "arc_stage_after": "turn",
+      "arc_stage_after": "resolution",
       "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante Por ejemplo, al Ordoño que supuestamente entró en León nos lo presentan ora como.",
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
@@ -407,33 +203,16 @@
         "checksum": "cb6a1342d8fd1f1aecb5ecbec8124a12a075d44b14593704ae013ef92ce8c707",
         "excerpt": "Por ejemplo, al Ordoño que supuestamente entró en León nos lo presentan ora como hermano, ora como hijo de Alfonso II. Un hermano? Veamos: no es seguro que Alfonso tuviera otros hermanos que el Odoario que aparece en el..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-alfonso_ii_25",
-      "event_id": "evt-86702",
-      "chronology_index": 298,
-      "emotion_before": "uncertainty",
-      "emotion_after": "uncertainty",
-      "arc_stage_before": "turn",
-      "arc_stage_after": "turn",
-      "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante Un levantamiento en tierras vascas.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_298",
-        "checksum": "3bb6513c971d0d40a46b45756c2a90886809f8933f30cf8be5578ace84a8fd5f",
-        "excerpt": "Un levantamiento en tierras vascas... Hubo tal? No consta. Sabemos, que Alfonso III tuvo que hacer frente a una sublevación de vascones nada más comenzar su reinado, hacia 867: fue aquella donde hizo cautivo al caudillo..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_26",
+      "record_id": "arc-20260316-alfonso_ii_13",
       "event_id": "evt-91002",
       "chronology_index": 301,
       "emotion_before": "uncertainty",
       "emotion_after": "uncertainty",
-      "arc_stage_before": "turn",
-      "arc_stage_after": "turn",
+      "arc_stage_before": "resolution",
+      "arc_stage_after": "resolution",
       "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante de Galicia se sometían a Ordoño (ya Ordoño II) como \"nuestro señor\".",
       "source_ref": {
         "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
@@ -441,95 +220,10 @@
         "checksum": "870ef8d685eb884efc0c513b640bf3a1ea4288f30c18b7e009d11aef6a90e0a9",
         "excerpt": "de Galicia se sometían a Ordoño (ya Ordoño II) como \"nuestro señor\". De aquí puede deducirse que Alfonso no fue depuesto hasta después de abril, quizá mayo de 910. Esa es la fecha que marca el final de Alfonso II."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     },
     {
-      "record_id": "arc-20260315-alfonso_ii_27",
-      "event_id": "evt-91003",
-      "chronology_index": 302,
-      "emotion_before": "uncertainty",
-      "emotion_after": "uncertainty",
-      "arc_stage_before": "turn",
-      "arc_stage_after": "resolution",
-      "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante La leyenda embellecerá posteriormente estos últimos meses, sin duda amargos, de Alfonso III.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_302",
-        "checksum": "07b3fd04b7ec8ba4c58ad9bc08f745d3a9507822f273f07dcb25b68b8c6a1edc",
-        "excerpt": "La leyenda embellecerá posteriormente estos últimos meses, sin duda amargos, de Alfonso III. Últimos meses, porque Alfonso morirá enseguida, en diciembre de ese mismo año 910. Qué dice la leyenda? Que Alfonso, incapaz de..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_28",
-      "event_id": "evt-91005",
-      "chronology_index": 304,
-      "emotion_before": "uncertainty",
-      "emotion_after": "uncertainty",
-      "arc_stage_before": "resolution",
-      "arc_stage_after": "resolution",
-      "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante Quizás Alfonso, antes de morir, echó la vista atrás; no sobre su propia vida.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_304",
-        "checksum": "16868a8e36d7dab5aabde5c5efe39efa93d49cee29b304a0d960153f2abbb26d",
-        "excerpt": "Quizás Alfonso, antes de morir, echó la vista atrás; no sobre su propia vida, sino sobre la vida del reino. No en vano amaba las crónicas históricas. La estrella de Alfonso III el Magno se apagó en 910; la invasión mora..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_29",
-      "event_id": "evt-91201",
-      "chronology_index": 305,
-      "emotion_before": "uncertainty",
-      "emotion_after": "uncertainty",
-      "arc_stage_before": "resolution",
-      "arc_stage_after": "resolution",
-      "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante En el año de Nuestro Señor de 912 ocurrió algo muy importante: la frontera.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_305",
-        "checksum": "cbeb3cf7ce09f36234833ac89fb45fb3e2e136b39f18442557aa8067a99b7e02",
-        "excerpt": "En el año de Nuestro Señor de 912 ocurrió algo muy importante: la frontera del reino de Asturias, que ya era reino de León, bajó hasta el Duero. Los pies de los colonos pisaron las aguas de ese río en sus riberas..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_30",
-      "event_id": "evt-71113",
-      "chronology_index": 308,
-      "emotion_before": "uncertainty",
-      "emotion_after": "uncertainty",
-      "arc_stage_before": "resolution",
-      "arc_stage_after": "resolution",
-      "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty en el evento evt-71113 (711, Asturias).",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_308",
-        "checksum": "5927904997d0117f9f1c84a98c434b990067eb7da5bb4831ddd6dfdf3ba95396",
-        "excerpt": "Este Gonzalo Téllez debió de participar en las campañas de Alfonso III contra los Banu Qasi; debió de estar en Grañón y en Ibrillos, seguramente también en Tarazona. Pero pasó a la historia, sobre todo, por la..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_31",
-      "event_id": "evt-90907",
-      "chronology_index": 310,
-      "emotion_before": "uncertainty",
-      "emotion_after": "uncertainty",
-      "arc_stage_before": "resolution",
-      "arc_stage_after": "resolution",
-      "change_summary": "Alfonso II evoluciona de uncertainty a uncertainty durante La llegada a la línea del Duero tiene otros protagonistas.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_310",
-        "checksum": "a55f577095d1cdc0190710be936ca59bfd97d4b8444c9e0b2be5611b53749d39",
-        "excerpt": "La llegada a la línea del Duero tiene otros protagonistas. A uno ya lo conocemos bien: Munio Núñez, conde de Castilla, suegro del rey García, el mismo conde que se levantó contra Alfonso III en las oscuras jornadas de..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_32",
+      "record_id": "arc-20260316-alfonso_ii_14",
       "event_id": "evt-91204",
       "chronology_index": 314,
       "emotion_before": "uncertainty",
@@ -543,24 +237,7 @@
         "checksum": "86f4590f626c898df8a716ab8fc8ceb962da59eb8acb233bbb90a5449baebc54",
         "excerpt": "El emirato reaccionará, como era de esperar. Había que desmantelar ese avance cristiano. Vendrán años de guerra. Pero lo esencial es que, a la altura de 912, la obra que concibió Alfonso II había quedado culminada: el..."
       },
-      "updated_at": "2026-03-15T21:38:33Z"
-    },
-    {
-      "record_id": "arc-20260315-alfonso_ii_33",
-      "event_id": "evt-87102",
-      "chronology_index": 324,
-      "emotion_before": "resolve",
-      "emotion_after": "pride",
-      "arc_stage_before": "legacy",
-      "arc_stage_after": "legacy",
-      "change_summary": "Alfonso II evoluciona de resolve a pride durante Recordemos quién era Ordoño: el segundo hijo de Alfonso III, el mismo que fue.",
-      "source_ref": {
-        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
-        "section": "parrafo_324",
-        "checksum": "996c65da6741c721f2bff532a443adae2f25aa1814993e3144d76e82413e3006",
-        "excerpt": "Recordemos quién era Ordoño: el segundo hijo de Alfonso III, el mismo que fue enviado a la corte zaragozana de los Banu Qasi en los tiempos de su alianza con Asturias; el mismo Ordoño que, después, casó con Elvira..."
-      },
-      "updated_at": "2026-03-15T21:38:33Z"
+      "updated_at": "2026-03-16T21:18:15Z"
     }
   ]
 }

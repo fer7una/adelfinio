@@ -1,17 +1,17 @@
 {
-  "character_id": "ermesinda",
-  "display_name": "Ermesinda",
+  "character_id": "don_oppas",
+  "display_name": "Don Oppas",
   "aliases": [],
   "historical_period": "Periodo por definir",
-  "role": "military",
-  "biography_short": "Personaje recurrente en la cronologia del reino de Asturias. Interviene en 4 eventos documentados de la fuente canonica.",
+  "role": "religious",
+  "biography_short": "Personaje recurrente en la cronologia del reino de Asturias. Interviene en 1 eventos documentados de la fuente canonica.",
   "voice_profile": {
     "tts_voice": "alloy",
-    "tone": "marcial_contenido",
-    "words_per_second": 2.55,
+    "tone": "sibilino_politico",
+    "words_per_second": 2.2,
     "delivery_modifiers": {
       "normal": 1.0,
-      "shout": 1.18
+      "shout": 1.14
     }
   },
   "visual_profile": {
@@ -45,18 +45,18 @@
     ]
   },
   "emotional_state": {
-    "dominant_emotion": "uncertainty",
+    "dominant_emotion": "resolve",
     "intensity": 0.7,
     "valence": 0.22,
     "arousal": 0.68,
-    "trigger_summary": "Ermesinda evoluciona de pride a uncertainty en el evento evt-75701 (757, Asturias)."
+    "trigger_summary": "Don Oppas evoluciona de uncertainty a resolve durante se planteó la batalla."
   },
   "arc_state": {
-    "stage": "legacy",
+    "stage": "setup",
     "external_goal": "Sostener su posicion en la secuencia politica y militar.",
     "internal_need": "Alinear decision personal con estabilidad colectiva.",
     "contradiction": "Interes inmediato frente a continuidad de largo plazo.",
     "change_vector": "Evolucion gradual guiada por eventos documentados.",
-    "last_event_id": "evt-75701"
+    "last_event_id": "evt-88101"
   }
 }

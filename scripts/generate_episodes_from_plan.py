@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Generate main and teaser episode JSON files from a daily plan.
-
-Strict mode:
-- Requires normalized source events
-- Requires character files and timeline records for actors
-"""
+"""Generate main and teaser episode JSON files from a daily plan."""
 
 from __future__ import annotations
 
@@ -14,110 +9,20 @@ import json
 import re
 from pathlib import Path
 
+from story_engine import (
+    actor_display_name,
+    build_scene_visual_prompt,
+    build_teaser_storytelling,
+    derive_plot_twist,
+    explicit_story_actor_ids,
+    trim_text,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_TIMELINE = ROOT / "data" / "timeline" / "source_events.json"
 DEFAULT_EPISODES_DIR = ROOT / "data" / "episodes" / "generated"
 DEFAULT_CHAR_DIR = ROOT / "data" / "characters"
 DEFAULT_CHAR_TIMELINES = ROOT / "data" / "characters" / "timelines"
-
-META_NOISE_HINTS = [
-    "en este episodio",
-    "plot twist",
-    "fuente secundaria",
-    "narracion dominante",
-    "continuidad narrativa",
-    "cta al episodio",
-    "contexto historico contrastado",
-]
-TWIST_MARKERS = [
-    "pero",
-    "sin embargo",
-    "hasta que",
-    "entonces",
-    "ocurría",
-    "ocurria",
-    "treta",
-    "traidor",
-    "se negó",
-    "murió",
-    "murio",
-    "derrota",
-    "diezm",
-]
-SPANISH_STOPWORDS = {
-    "a",
-    "al",
-    "algo",
-    "ante",
-    "bajo",
-    "cada",
-    "como",
-    "con",
-    "contra",
-    "cual",
-    "cuando",
-    "de",
-    "del",
-    "desde",
-    "donde",
-    "dos",
-    "el",
-    "ella",
-    "ellas",
-    "ellos",
-    "en",
-    "entre",
-    "era",
-    "es",
-    "esa",
-    "ese",
-    "eso",
-    "esta",
-    "este",
-    "estos",
-    "fue",
-    "ha",
-    "hasta",
-    "hay",
-    "la",
-    "las",
-    "le",
-    "les",
-    "lo",
-    "los",
-    "mas",
-    "más",
-    "mientras",
-    "muy",
-    "ni",
-    "no",
-    "nos",
-    "o",
-    "para",
-    "pero",
-    "por",
-    "que",
-    "se",
-    "segun",
-    "según",
-    "si",
-    "sin",
-    "sobre",
-    "su",
-    "sus",
-    "tambien",
-    "también",
-    "todo",
-    "todos",
-    "tras",
-    "un",
-    "una",
-    "uno",
-    "y",
-    "ya",
-}
-DEFAULT_MAIN_SCENE_COUNT = 12
-DEFAULT_MAIN_TARGET_SECONDS = 120
 
 
 def load_json(path: Path):
@@ -134,259 +39,6 @@ def dump_json(path: Path, payload: dict) -> None:
 
 def now_iso() -> str:
     return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-
-
-def normalize_ws(text: str) -> str:
-    return re.sub(r"\s+", " ", text or "").strip()
-
-
-def trim_text(text: str, max_len: int) -> str:
-    compact = normalize_ws(text)
-    if len(compact) <= max_len:
-        return compact
-    cut = compact[: max_len + 1]
-    if " " in cut:
-        cut = cut.rsplit(" ", 1)[0]
-    else:
-        cut = cut[:max_len]
-    return cut.rstrip(".,;: ") + "..."
-
-
-def actor_display_name(actor_id: str) -> str:
-    parts = actor_id.split("_")
-    if parts and parts[-1] in {"i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x"}:
-        return " ".join([p.capitalize() for p in parts[:-1]] + [parts[-1].upper()])
-    return " ".join(p.capitalize() for p in parts)
-
-
-def lower_first(text: str) -> str:
-    cleaned = text.strip()
-    if not cleaned:
-        return cleaned
-    return cleaned[0].lower() + cleaned[1:]
-
-
-def split_candidate_sentences(summary: str) -> list[str]:
-    clean = normalize_ws(summary.replace("...", ". "))
-    chunks = re.split(r"(?<=[.!?])\s+|;\s+", clean)
-    out: list[str] = []
-    for chunk in chunks:
-        sentence = chunk.strip(" \"'“”")
-        if len(sentence) < 30:
-            continue
-        if len(re.findall(r"[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+", sentence)) < 8:
-            continue
-        low = sentence.lower()
-        if any(meta in low for meta in META_NOISE_HINTS):
-            continue
-        out.append(sentence)
-    return out
-
-
-def split_story_fragments(summary: str) -> list[str]:
-    base_sentences = split_candidate_sentences(summary)
-    fragments: list[str] = []
-    for sentence in base_sentences:
-        parts = re.split(r",\s+|:\s+|\s+y\s+|\s+pero\s+", normalize_ws(sentence))
-        for part in parts:
-            clean = normalize_ws(part).strip(" .;:")
-            if len(clean) < 28:
-                continue
-            if len(re.findall(r"[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+", clean)) < 5:
-                continue
-            fragments.append(clean)
-    if not fragments:
-        return base_sentences
-    deduped: list[str] = []
-    seen: set[str] = set()
-    for frag in fragments:
-        key = frag.lower()
-        if key in seen:
-            continue
-        seen.add(key)
-        deduped.append(frag)
-    return deduped
-
-
-def sentence_keywords(sentence: str, max_words: int = 8) -> str:
-    words = re.findall(r"[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]{4,}", sentence)
-    selected: list[str] = []
-    for word in words:
-        low = word.lower()
-        if low in SPANISH_STOPWORDS:
-            continue
-        if low in selected:
-            continue
-        selected.append(low)
-        if len(selected) >= max_words:
-            break
-    return ", ".join(selected)
-
-
-def clean_scene_sentence(sentence: str, max_len: int = 220) -> str:
-    base = trim_text(sentence, max_len)
-    base = re.sub(r"^(as[ií]),?\s+en\s+fin,?\s*", "", base, flags=re.IGNORECASE)
-    base = re.sub(r"^(pero|y|pues|entonces)\s+", "", base, flags=re.IGNORECASE)
-    base = base.strip(" ,;:")
-    if base and base[-1] not in ".!?":
-        base = base + "."
-    return base
-
-
-def source_sentence_cycle(summary: str, scene_count: int) -> list[str]:
-    sentences = split_story_fragments(summary)
-    if not sentences:
-        sentences = [
-            "el combate se prepara entre hambre, miedo y orgullo en las montañas.",
-            "la tensión sube y nadie puede retirarse sin pagar un precio.",
-        ]
-    cleaned = [clean_scene_sentence(item) for item in sentences]
-    while len(cleaned) < scene_count:
-        cleaned.append(cleaned[len(cleaned) % len(cleaned)])
-    return cleaned[:scene_count]
-
-
-def story_cast(actor_names: list[str], summary: str) -> list[str]:
-    cast: list[str] = []
-    for name in actor_names:
-        norm = normalize_ws(name)
-        if norm and norm not in cast:
-            cast.append(norm)
-    lower = summary.lower()
-    inferred = [
-        ("Pelayo", r"\bpelayo\b"),
-        ("Don Oppas", r"\boppas\b|\bobispo\b"),
-        ("Al Qama", r"\bal\s*qama\b"),
-        ("Alfonso I", r"\balfonso\s*i\b"),
-        ("Alfonso II", r"\balfonso\s*ii\b"),
-    ]
-    for label, pattern in inferred:
-        if re.search(pattern, lower) and label not in cast:
-            cast.append(label)
-    return cast
-
-
-def pick_story_roles(cast_names: list[str]) -> dict:
-    lead = next((name for name in cast_names if "pelayo" in name.lower()), cast_names[0] if cast_names else "Pelayo")
-    rival = next((name for name in cast_names if "qama" in name.lower()), "Al Qama")
-    bishop = next((name for name in cast_names if "oppas" in name.lower() or "obispo" in name.lower()), "Don Oppas")
-    alfonso = next((name for name in cast_names if "alfonso" in name.lower()), "Alfonso")
-    ally = next(
-        (name for name in cast_names if name not in {lead, rival, bishop}),
-        alfonso if alfonso not in {lead, rival, bishop} else "Guerrero astur",
-    )
-    return {
-        "lead": lead,
-        "rival": rival,
-        "bishop": bishop,
-        "ally": ally,
-        "captain": f"Capitan de {rival}",
-        "chronicle": "Cronista de Albelda",
-    }
-
-
-def derive_scene_lines(summary: str, location: str, actor_names: list[str], scene_count: int = DEFAULT_MAIN_SCENE_COUNT) -> list[str]:
-    selected = source_sentence_cycle(summary, scene_count)
-    cast_names = story_cast(actor_names, summary)
-    roles = pick_story_roles(cast_names)
-    lead = roles["lead"]
-    rival = roles["rival"]
-    bishop = roles["bishop"]
-
-    beat_prefixes = [
-        f"En {location}, la jornada se abre con dos bandos en tension:",
-        f"{lead} recorre la linea cristiana y aprieta la mandibula:",
-        f"{rival} manda avanzar por el valle sin frenar:",
-        f"{bishop} entra en escena con una oferta de rendicion:",
-        f"{lead} responde de inmediato y endurece la resistencia:",
-        "Los senderos estrechos rompen la marcha de los invasores:",
-        "Cada ladera favorece a quienes conocen la montana:",
-        "La diplomacia se quiebra y las palabras dejan paso al acero:",
-        "Y entonces todo cambia:",
-        "El choque crece en las gargantas y la iniciativa gira:",
-        f"Las filas de {rival} empiezan a deshacerse:",
-        "Cuando cae la noche, la cronica fija el desenlace:",
-    ]
-
-    while len(beat_prefixes) < scene_count:
-        beat_prefixes.append("El frente no concede un respiro:")
-
-    lines: list[str] = []
-    for idx in range(scene_count):
-        source_line = lower_first(selected[idx])
-        line = f"{beat_prefixes[idx]} {source_line}"
-        lines.append(trim_text(line, 240))
-    return lines
-
-
-def build_scene_dialogue(scene_index: int, cast_names: list[str]) -> list[dict]:
-    roles = pick_story_roles(cast_names)
-    lead = roles["lead"]
-    rival = roles["rival"]
-    bishop = roles["bishop"]
-    ally = roles["ally"]
-    captain = roles["captain"]
-    chronicle = roles["chronicle"]
-
-    templates: list[list[tuple[str, str]]] = [
-        [(lead, "Hoy no hay retirada. Asturias se sostiene aqui."), (ally, "Entonces pelearemos roca por roca.")],
-        [(rival, "Quiero ese paso tomado antes del ocaso."), (captain, "El terreno nos quiebra la formacion, senor.")],
-        [(lead, "Que nadie rompa la linea. Aguantad juntos."), (ally, "Aguantaremos, aunque falte el pan.")],
-        [(bishop, "Pelayo, rindete y salvaras a los tuyos."), (lead, "No entregare esta tierra mientras respire.")],
-        [(bishop, "La rendicion te dara clemencia."), (lead, "Prefiero la batalla a vivir arrodillado.")],
-        [(rival, "Forzad el desfiladero, no les deis tiempo."), (captain, "Cada ladera es una emboscada.")],
-        [(ally, "Conocemos cada senda de esta sierra."), (lead, "Entonces golpead y movedos antes de que reaccionen.")],
-        [(rival, "Traedme la cabeza de Pelayo."), (lead, "Que venga a buscarla si se atreve.")],
-        [(bishop, "Aun puedes detener esta sangre."), (lead, "Llegaste tarde: la decision ya esta hecha.")],
-        [(rival, "Cerrad filas, no cedais un palmo."), (captain, "Nos desbordan desde lo alto, general.")],
-        [(lead, "Ahora. Empujad con todo, no aflojeis."), (ally, "Caen, Pelayo. Caen en el barranco.")],
-        [(chronicle, "Asi lo dejo escrito la cronica en 881."), (lead, "Que recuerden que aqui empezamos a resistir.")],
-    ]
-
-    pair = templates[(scene_index - 1) % len(templates)]
-    out: list[dict] = []
-    for speaker, line in pair:
-        out.append({"speaker": speaker, "line": trim_text(line, 140)})
-    return out
-
-
-def derive_plot_twist(summary: str, scene_lines: list[str]) -> dict:
-    sentences = split_candidate_sentences(summary)
-    if not sentences:
-        setup = scene_lines[0]
-        reveal = scene_lines[2] if len(scene_lines) > 2 else scene_lines[-1]
-        payoff = scene_lines[-1]
-        return {"setup": setup, "reveal": reveal, "payoff": payoff}
-
-    setup = sentences[0]
-    reveal = None
-    for sentence in sentences[1:]:
-        low = sentence.lower()
-        if any(marker in low for marker in TWIST_MARKERS):
-            reveal = sentence
-            break
-    if not reveal:
-        reveal = sentences[min(1, len(sentences) - 1)]
-    payoff = sentences[-1]
-    return {
-        "setup": trim_text(setup, 380),
-        "reveal": trim_text(reveal, 380),
-        "payoff": trim_text(payoff, 380),
-    }
-
-
-def build_scene_visual_prompt(line: str, location: str, actor_names: list[str], scene_idx: int) -> str:
-    cast = ", ".join(actor_names[:3]) if actor_names else "sin personajes en primer plano"
-    keywords = sentence_keywords(line)
-    camera = "zoom in lento y dramatico" if scene_idx % 2 == 1 else "traveling corto con tension"
-    return trim_text(
-        (
-            f"Panel de comic historico en {location}, {camera}, intriga politica y atmosfera de guerra. "
-            f"Elenco: {cast}. Claves visuales: {keywords}. "
-            "Ilustracion narrativa epica, contraste alto, grano sutil, sin texto incrustado."
-        ),
-        320,
-    )
 
 
 def event_map(timeline_file: Path) -> dict[str, dict]:
@@ -436,12 +88,6 @@ def load_character_timeline(character_id: str, timelines_dir: Path) -> dict:
     return payload
 
 
-def long_text(base: str, min_length: int = 20) -> str:
-    if len(base) >= min_length:
-        return base
-    return (base + " " + "Contexto historico contrastado para continuidad narrativa.")[: max(min_length, 20)]
-
-
 def beat_for_actor_event(character_id: str, event_id: str, timelines_dir: Path) -> dict:
     timeline_payload = load_character_timeline(character_id, timelines_dir)
     records = timeline_payload.get("records", [])
@@ -453,7 +99,7 @@ def beat_for_actor_event(character_id: str, event_id: str, timelines_dir: Path) 
                 "emotion_after": rec["emotion_after"],
                 "arc_stage_before": rec["arc_stage_before"],
                 "arc_stage_after": rec["arc_stage_after"],
-                "beat_summary": rec["change_summary"][:300],
+                "beat_summary": trim_text(str(rec["change_summary"]), 300),
             }
     raise RuntimeError(
         f"No timeline record for character '{character_id}' in event '{event_id}'. "
@@ -461,27 +107,38 @@ def beat_for_actor_event(character_id: str, event_id: str, timelines_dir: Path) 
     )
 
 
-def build_main_scenes(
-    event_summary: str,
-    location: str,
-    actor_names: list[str],
-    scene_count: int,
-    scene_seconds: int,
-) -> list[dict]:
-    cast_names = story_cast(actor_names, event_summary)
-    lines = derive_scene_lines(event_summary, location, cast_names, scene_count=scene_count)
-    scenes: list[dict] = []
-    for idx, line in enumerate(lines, start=1):
-        scenes.append(
+def scene_from_outline(scene_outline: dict, location: str, actor_names: list[str]) -> dict:
+    dialogue = []
+    for row in scene_outline.get("dialogue") or []:
+        if not isinstance(row, dict):
+            continue
+        speaker = trim_text(str(row.get("speaker", "")).strip(), 80)
+        line = trim_text(str(row.get("line", "")).strip(), 140)
+        if not speaker or not line:
+            continue
+        delivery = str(row.get("delivery", "normal")).strip().lower()
+        dialogue.append(
             {
-                "scene_index": idx,
-                "narration": line,
-                "visual_prompt": build_scene_visual_prompt(line, location, cast_names, idx),
-                "dialogue": build_scene_dialogue(idx, cast_names),
-                "estimated_seconds": scene_seconds,
+                "speaker": speaker,
+                "line": line,
+                "delivery": "shout" if delivery == "shout" else "normal",
             }
         )
-    return scenes
+
+    scene_payload = {
+        "scene_index": int(scene_outline["scene_index"]),
+        "story_role": str(scene_outline.get("story_role", "setup")),
+        "source_beat": trim_text(str(scene_outline.get("source_beat", "")), 180),
+        "visual_focus": trim_text(str(scene_outline.get("visual_focus", "")), 220),
+        "transition_note": trim_text(str(scene_outline.get("transition_note", "")), 180),
+        "timing": dict(scene_outline.get("timing") or {}),
+        "narration": trim_text(str(scene_outline.get("narration", "")), 220),
+        "visual_prompt": build_scene_visual_prompt(scene_outline, location, actor_names),
+        "estimated_seconds": int(scene_outline.get("target_duration_seconds", scene_outline.get("estimated_seconds", 6))),
+    }
+    if dialogue:
+        scene_payload["dialogue"] = dialogue
+    return scene_payload
 
 
 def create_main_episode(main_row: dict, events: dict[str, dict], char_dir: Path, timelines_dir: Path) -> dict:
@@ -491,35 +148,32 @@ def create_main_episode(main_row: dict, events: dict[str, dict], char_dir: Path,
         raise RuntimeError(f"Source event '{lead_id}' not found in timeline.")
 
     lead_event = events[lead_id]
-    event_title = lead_event.get("title", f"Evento {lead_id}")
+    event_title = str(lead_event.get("title", f"Evento {lead_id}")).strip()
     event_summary = str(lead_event.get("summary", "")).strip()
-    location = lead_event.get("location", "Asturias")
+    location = str(lead_event.get("location", "Asturias")).strip() or "Asturias"
     actors = lead_event.get("actors") or []
     if not actors:
         raise RuntimeError(f"Source event '{lead_id}' has no actors. Character continuity is required.")
+    actors = explicit_story_actor_ids(list(actors), event_summary or event_title)
 
     for actor in actors:
         load_character_file(actor, char_dir)
 
     actor_names = [actor_display_name(actor) for actor in actors]
     character_beats = [beat_for_actor_event(actor, lead_id, timelines_dir) for actor in actors]
-    raw_scene_count = int(main_row.get("scene_count", DEFAULT_MAIN_SCENE_COUNT))
-    scene_count = max(6, min(20, raw_scene_count))
-    target_seconds = int(main_row.get("target_duration_seconds", DEFAULT_MAIN_TARGET_SECONDS))
-    target_seconds = max(60, min(180, target_seconds))
-    scene_seconds = max(6, min(20, round(target_seconds / scene_count)))
-    scenes = build_main_scenes(
-        event_summary or event_title,
-        location,
-        actor_names,
-        scene_count=scene_count,
-        scene_seconds=scene_seconds,
-    )
-    plot_twist = derive_plot_twist(event_summary or event_title, [s["narration"] for s in scenes])
-    duration = sum(scene["estimated_seconds"] for scene in scenes)
 
-    hook = trim_text(f"{scenes[0]['narration']} {scenes[2]['narration']}", 300)
-    clean_title = re.sub(r"^(as[ií]),?\s+en\s+fin,?\s*", "", trim_text(event_title, 88), flags=re.IGNORECASE)
+    storytelling = main_row.get("storytelling")
+    if not isinstance(storytelling, dict):
+        raise RuntimeError(f"Main episode '{main_row['episode_id']}' has no storytelling block in plan.")
+    scene_outline = storytelling.get("scene_outline")
+    if not isinstance(scene_outline, list) or not scene_outline:
+        raise RuntimeError(f"Main episode '{main_row['episode_id']}' has no scene outline in plan.")
+
+    scenes = [scene_from_outline(scene, location, actor_names) for scene in scene_outline]
+    duration = sum(int(scene["estimated_seconds"]) for scene in scenes)
+    plot_twist = derive_plot_twist(event_summary or event_title, [scene["narration"] for scene in scenes])
+    hook = trim_text(f"{scenes[0]['narration']} {scenes[min(1, len(scenes) - 1)]['narration']}", 300)
+    clean_title = re.sub(r"^(as[ií]),?\s+en\s+fin,?\s*", "", trim_text(event_title, 88), flags=re.IGNORECASE).strip()
     if clean_title:
         clean_title = clean_title[0].upper() + clean_title[1:]
 
@@ -533,6 +187,12 @@ def create_main_episode(main_row: dict, events: dict[str, dict], char_dir: Path,
         "parent_episode_id": None,
         "title": trim_text(clean_title, 120),
         "hook": hook,
+        "storytelling": {
+            "narrative_mode": storytelling.get("narrative_mode", "chronicle"),
+            "premise": trim_text(str(storytelling.get("premise", "")), 220),
+            "dramatic_question": trim_text(str(storytelling.get("dramatic_question", "")), 220),
+            "ending_payoff": trim_text(str(storytelling.get("ending_payoff", "")), 220),
+        },
         "plot_twist": plot_twist,
         "scenes": scenes,
         "characters": actors,
@@ -554,41 +214,21 @@ def create_main_episode(main_row: dict, events: dict[str, dict], char_dir: Path,
 
 
 def create_teaser_episode(teaser_row: dict, parent_main: dict) -> dict:
-    strategy = teaser_row.get("strategy", "cliffhanger")
+    storytelling = teaser_row.get("storytelling")
+    if not isinstance(storytelling, dict):
+        storytelling = build_teaser_storytelling(parent_main, str(teaser_row.get("strategy", "cliffhanger")))
 
-    line_by_strategy = {
-        "cliffhanger": "Y justo cuando parecía decidido, la crónica abre una herida nueva.",
-        "question": "Si esta versión era la oficial, ¿quién tenía interés en ocultar el giro?",
-        "quote": "Una frase de la crónica basta para encender de nuevo la guerra.",
-    }
+    scene_outline = storytelling.get("scene_outline")
+    if not isinstance(scene_outline, list) or not scene_outline:
+        raise RuntimeError(f"Teaser episode '{teaser_row['episode_id']}' has no scene outline in plan.")
 
+    location = ""
     parent_scenes = parent_main.get("scenes") or []
-    open_line = parent_scenes[0]["narration"] if parent_scenes else parent_main["hook"]
-    twist_line = parent_main.get("plot_twist", {}).get("reveal") or line_by_strategy["cliffhanger"]
-
-    scenes = [
-        {
-            "scene_index": 1,
-            "narration": trim_text(open_line, 220),
-            "visual_prompt": trim_text(
-                "Panel de comic historico, primer plano tenso, gesto de alarma y estandartes en movimiento, sin texto.",
-                220,
-            ),
-            "estimated_seconds": 13,
-        },
-        {
-            "scene_index": 2,
-            "narration": trim_text(
-                f"{trim_text(twist_line, 170)} {line_by_strategy.get(strategy, line_by_strategy['cliffhanger'])}",
-                220,
-            ),
-            "visual_prompt": trim_text(
-                "Panel de cierre con sombras largas, tension militar y promesa de choque inminente, sin texto.",
-                220,
-            ),
-            "estimated_seconds": 12,
-        },
-    ]
+    if parent_scenes:
+        location = str(parent_scenes[0].get("visual_focus", ""))
+    actor_names = [actor_display_name(actor_id) for actor_id in parent_main.get("characters", [])]
+    scenes = [scene_from_outline(scene, location or "Asturias", actor_names) for scene in scene_outline]
+    duration = sum(int(scene["estimated_seconds"]) for scene in scenes)
 
     return {
         "episode_id": teaser_row["episode_id"],
@@ -600,9 +240,15 @@ def create_teaser_episode(teaser_row: dict, parent_main: dict) -> dict:
         "parent_episode_id": teaser_row["parent_episode_id"],
         "title": trim_text(f"Teaser: {parent_main['title']}", 120),
         "hook": trim_text(parent_main["hook"], 300),
+        "storytelling": {
+            "narrative_mode": storytelling.get("narrative_mode", "teaser"),
+            "premise": trim_text(str(storytelling.get("premise", "")), 220),
+            "dramatic_question": trim_text(str(storytelling.get("dramatic_question", "")), 220),
+            "ending_payoff": trim_text(str(storytelling.get("ending_payoff", "")), 220),
+        },
         "scenes": scenes,
         "characters": parent_main["characters"][:2],
-        "duration_seconds": 25,
+        "duration_seconds": duration,
         "human_review": {
             "required": True,
             "status": "pending",

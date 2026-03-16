@@ -10,6 +10,7 @@
     "historical_period",
     "role",
     "biography_short",
+    "voice_profile",
     "visual_profile",
     "state",
     "continuity",
@@ -57,6 +58,53 @@
       "type": "string",
       "minLength": 20,
       "maxLength": 1200
+    },
+    "voice_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tts_voice",
+        "tone",
+        "words_per_second",
+        "delivery_modifiers"
+      ],
+      "properties": {
+        "tts_voice": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 40
+        },
+        "tone": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 80
+        },
+        "words_per_second": {
+          "type": "number",
+          "minimum": 1.2,
+          "maximum": 4.5
+        },
+        "delivery_modifiers": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "normal",
+            "shout"
+          ],
+          "properties": {
+            "normal": {
+              "type": "number",
+              "minimum": 0.7,
+              "maximum": 1.4
+            },
+            "shout": {
+              "type": "number",
+              "minimum": 0.7,
+              "maximum": 1.8
+            }
+          }
+        }
+      }
     },
     "visual_profile": {
       "type": "object",

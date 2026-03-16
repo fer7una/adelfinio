@@ -112,12 +112,6 @@ python3 scripts/validate_generated_episodes.py --dir data/episodes/generated/pla
 python3 scripts/validate_generated_characters.py
 ```
 
-- Renderizar un MP4 vertical local desde un episodio:
-
-```bash
-python3 scripts/render_episode_video.py --episode data/episodes/generated/plan-20260315/main-20260315-linea_01.json
-```
-
 - Generar assets por escena con IA (imagen + voz):
 
 ```bash
@@ -130,10 +124,23 @@ python3 scripts/generate_scene_assets.py --episode data/episodes/generated/plan-
 python3 scripts/compose_final_video.py --episode data/episodes/generated/plan-20260315/main-20260315-linea_01.json
 ```
 
+SVG opcionales para overlays del montaje final:
+
+- `assets/video_overlays/narration.svg`
+- `assets/video_overlays/dialogue.svg`
+- `assets/video_overlays/shout.svg`
+- Si no existen, `compose_final_video.py` usa el estilo legacy generado con filtros de ffmpeg.
+
 - Ejecutar pipeline final en lote para un directorio de episodios:
 
 ```bash
 bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/plan-20260315
+```
+
+- Ejecutar pipeline final directamente desde un plan diario:
+
+```bash
+bash scripts/run_final_ai_video_pipeline_from_plan.sh data/daily_plan/plan-20260315.json
 ```
 
 - Prueba sin APIs (mock local con ffmpeg):
