@@ -52,7 +52,7 @@ for episode in "${EPISODES[@]}"; do
   fi
 
   echo "[2/2] Compose final MP4 -> $episode"
-  python3 scripts/compose_final_video.py --episode "$episode"
+  python3 scripts/compose_final_video.py --episode "$episode" --no-burn-subtitles
 done
 
 echo "Done."

@@ -13,6 +13,7 @@ import base64
 import datetime as dt
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -21,6 +22,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ASSETS_DIR = ROOT / "artifacts" / "scene_assets"
+MOCK_SCENE_COLORS = [
+    "#0f172a",
+    "#1d4ed8",
+    "#b45309",
+    "#065f46",
+    "#7c2d12",
+    "#4c1d95",
+]
 
 
 def now_iso() -> str:
@@ -56,26 +65,164 @@ def load_dotenv_if_present(dotenv_path: Path) -> None:
             os.environ[key] = value
 
 
+def normalize_ws(text: str) -> str:
+    return re.sub(r"\s+", " ", text or "").strip()
+
+
+def trim_caption(text: str, max_len: int = 140) -> str:
+    clean = normalize_ws(text)
+    if len(clean) <= max_len:
+        return clean
+    return clean[: max_len - 3].rstrip(" ,;:") + "..."
+
+
+def with_mid_ellipsis(text: str) -> str:
+    base = normalize_ws(text).strip(". ")
+    if not base:
+        return "..."
+    return f"... {base} ..."
+
+
+def split_caption_blocks(narration: str, max_blocks: int = 3) -> list[dict]:
+    raw = (narration or "").strip()
+    if not raw:
+        return []
+
+    paragraph_chunks = [normalize_ws(p) for p in re.split(r"\n\s*\n+", raw) if normalize_ws(p)]
+    if not paragraph_chunks:
+        paragraph_chunks = [normalize_ws(raw)]
+
+    all_blocks: list[dict] = []
+    total_paragraphs = len(paragraph_chunks)
+    for paragraph_index, paragraph in enumerate(paragraph_chunks):
+        chunks = [c.strip() for c in re.split(r"(?<=[.!?;:])\s+", paragraph) if c.strip()]
+        if len(chunks) == 1:
+            chunks = [c.strip() for c in paragraph.split(",") if c.strip()]
+        if not chunks:
+            chunks = [paragraph]
+
+        merged: list[str] = []
+        for chunk in chunks:
+            if not merged:
+                merged.append(chunk)
+                continue
+            if len(chunk) < 32 and len(merged[-1]) < 90:
+                merged[-1] = f"{merged[-1]} {chunk}"
+            else:
+                merged.append(chunk)
+
+        paragraph_blocks = [trim_caption(piece) for piece in merged if trim_caption(piece)]
+        total = len(paragraph_blocks)
+        is_middle_paragraph = total_paragraphs >= 3 and 0 < paragraph_index < total_paragraphs - 1
+        for idx, piece in enumerate(paragraph_blocks):
+            text = piece
+            if total >= 3 and 0 < idx < total - 1:
+                text = trim_caption(with_mid_ellipsis(piece))
+            elif is_middle_paragraph and total == 1:
+                text = trim_caption(with_mid_ellipsis(piece))
+            all_blocks.append(
+                {
+                    "text": text,
+                    "paragraph_index": paragraph_index,
+                    "paragraph_block_index": idx,
+                    "paragraph_blocks_total": total,
+                }
+            )
+
+    final_blocks = all_blocks[:max_blocks]
+    if len(final_blocks) >= 3:
+        for idx in range(1, len(final_blocks) - 1):
+            text = str(final_blocks[idx].get("text", ""))
+            if not text.startswith("...") or not text.endswith("..."):
+                final_blocks[idx]["text"] = trim_caption(with_mid_ellipsis(text))
+    return final_blocks
+
+
+def split_duration_slots(total_seconds: int, parts: int) -> list[int]:
+    total = max(1, int(total_seconds))
+    size = max(1, int(parts))
+    if size == 1:
+        return [total]
+    base = total // size
+    slots = [base for _ in range(size)]
+    remainder = total - (base * size)
+    for idx in range(remainder):
+        slots[idx] += 1
+    for idx, value in enumerate(slots):
+        if value <= 0:
+            slots[idx] = 1
+    adjust = total - sum(slots)
+    if adjust != 0:
+        slots[-1] += adjust
+    return slots
+
+
+def normalize_scene_dialogue(dialogue_payload) -> list[dict]:
+    if not isinstance(dialogue_payload, list):
+        return []
+    out: list[dict] = []
+    for item in dialogue_payload:
+        if not isinstance(item, dict):
+            continue
+        speaker = normalize_ws(str(item.get("speaker", "")))
+        line = normalize_ws(str(item.get("line", "")))
+        if not speaker or not line:
+            continue
+        out.append({"speaker": speaker, "line": trim_caption(line, max_len=170)})
+    return out
+
+
 def build_image_prompt(episode: dict, scene: dict) -> str:
     episode_title = str(episode.get("title", "")).strip()
     scene_prompt = str(scene.get("visual_prompt", "")).strip()
     scene_narration = str(scene.get("narration", "")).strip()
     characters = episode.get("characters") or []
     cast = ", ".join(str(x) for x in characters[:5]) if characters else "sin personajes nombrados"
+    dialogue = normalize_scene_dialogue(scene.get("dialogue"))
+    dialogue_hint = "; ".join(f"{row['speaker']}: {row['line']}" for row in dialogue[:2]) or "sin dialogo directo"
 
     style_guide = (
-        "Ilustracion historica cinematografica, alta fidelidad, tono documental, "
+        "Ilustracion historica cinematografica con lenguaje de comic, alta fidelidad, tono documental, "
         "sin texto incrustado, sin logos, sin watermark, sin UI. "
         "Vestuario altomedieval iberico coherente. "
-        "Composicion vertical para video 9:16."
+        "Composicion vertical para video 9:16, profundidad dramatica, encuadre de vineta."
     )
 
     return (
         f"TITULO EPISODIO: {episode_title}\n"
         f"ESCENA {scene.get('scene_index')}: {scene_prompt}\n"
         f"CONTEXTO NARRATIVO: {scene_narration}\n"
+        f"DIALOGO REFERENCIA: {dialogue_hint}\n"
         f"ELENCO REFERENCIA: {cast}\n"
         f"ESTILO OBLIGATORIO: {style_guide}"
+    )
+
+
+def build_block_image_prompt(
+    base_prompt: str,
+    block_text: str,
+    dialogue_speaker: str,
+    dialogue_line: str,
+    block_index: int,
+    total_blocks: int,
+    prev_scene_narration: str,
+    next_scene_narration: str,
+) -> str:
+    dialogue_ref = f"{dialogue_speaker}: {dialogue_line}" if dialogue_speaker and dialogue_line else "sin dialogo adicional"
+    speaker_visual = (
+        f"Mostrar claramente a {dialogue_speaker} pronunciando su frase, con expresion facial y gestual coherente."
+        if dialogue_speaker and dialogue_line
+        else "No hay parlamento directo en este bloque."
+    )
+    return (
+        f"{base_prompt}\n"
+        f"MOMENTO {block_index}/{total_blocks}: {block_text}\n"
+        f"REACCION PERSONAJE: {dialogue_ref}\n"
+        f"FOCO VISUAL DIALOGO: {speaker_visual}\n"
+        "INDICACIONES EXTRA: accion intensa, composicion compacta, expresiones faciales fuertes, "
+        "color saturado, energia de comic historico, sin aspecto de postal.\n"
+        f"CONTINUIDAD ESCENA ANTERIOR: {prev_scene_narration or 'inicio de secuencia'}\n"
+        f"CONTINUIDAD ESCENA SIGUIENTE: {next_scene_narration or 'cierre de secuencia'}"
     )
 
 
@@ -172,14 +319,20 @@ def openai_error_message(exc: Exception) -> str:
     return f"OpenAI API error: {exc}"
 
 
-def create_mock_image(ffmpeg: str, output_png: Path, width: int = 1080, height: int = 1920) -> None:
+def create_mock_image(
+    ffmpeg: str,
+    output_png: Path,
+    width: int = 1080,
+    height: int = 1920,
+    color: str = "#1f2937",
+) -> None:
     cmd = [
         ffmpeg,
         "-y",
         "-f",
         "lavfi",
         "-i",
-        f"color=c=#1f2937:s={width}x{height}",
+        f"color=c={color}:s={width}x{height}",
         "-update",
         "1",
         "-frames:v",
@@ -256,30 +409,87 @@ def main() -> int:
 
         manifest_scenes: list[dict] = []
         used_billing_fallback = False
-        for scene in scenes:
+        for scene_pos, scene in enumerate(scenes):
             idx = int(scene["scene_index"])
             duration = int(scene["estimated_seconds"])
             narration = str(scene["narration"]).strip()
             visual_prompt = str(scene["visual_prompt"]).strip()
+            scene_dialogue = normalize_scene_dialogue(scene.get("dialogue"))
+            prev_narration = ""
+            next_narration = ""
+            if scene_pos > 0:
+                prev_narration = str(scenes[scene_pos - 1].get("narration", "")).strip()
+            if scene_pos + 1 < len(scenes):
+                next_narration = str(scenes[scene_pos + 1].get("narration", "")).strip()
 
-            img_path = scenes_dir / f"scene_{idx:02d}.png"
+            caption_blocks = split_caption_blocks(narration, max_blocks=3)
+            if not caption_blocks:
+                caption_blocks = [
+                    {
+                        "text": trim_caption(narration),
+                        "paragraph_index": 0,
+                        "paragraph_block_index": 0,
+                        "paragraph_blocks_total": 1,
+                    }
+                ]
+            block_durations = split_duration_slots(duration, len(caption_blocks))
+
             audio_path = scenes_dir / f"scene_{idx:02d}.mp3"
-            prompt_path = scenes_dir / f"scene_{idx:02d}.prompt.txt"
-            prompt_text = build_image_prompt(episode, scene)
-            prompt_path.write_text(prompt_text + "\n", encoding="utf-8")
+            base_prompt_path = scenes_dir / f"scene_{idx:02d}.prompt.txt"
+            base_prompt = build_image_prompt(episode, scene)
+            base_prompt_path.write_text(base_prompt + "\n", encoding="utf-8")
+
+            block_assets: list[dict] = []
+            dialogue_slots = 0
+            dialogue_start = 10**9
+            if scene_dialogue:
+                dialogue_slots = min(len(scene_dialogue), max(1, len(caption_blocks) - 1))
+                dialogue_start = len(caption_blocks) - dialogue_slots + 1
+            for block_idx, block_payload in enumerate(caption_blocks, start=1):
+                block_text = str(block_payload.get("text", "")).strip()
+                block_dialogue = {}
+                if scene_dialogue and block_idx >= dialogue_start:
+                    d_idx = block_idx - dialogue_start
+                    if d_idx < len(scene_dialogue):
+                        block_dialogue = scene_dialogue[d_idx]
+                block_speaker = str(block_dialogue.get("speaker", "")).strip()
+                block_line = str(block_dialogue.get("line", "")).strip()
+                block_img = scenes_dir / f"scene_{idx:02d}_block_{block_idx:02d}.png"
+                block_prompt_path = scenes_dir / f"scene_{idx:02d}_block_{block_idx:02d}.prompt.txt"
+                block_prompt = build_block_image_prompt(
+                    base_prompt=base_prompt,
+                    block_text=block_text,
+                    dialogue_speaker=block_speaker,
+                    dialogue_line=block_line,
+                    block_index=block_idx,
+                    total_blocks=len(caption_blocks),
+                    prev_scene_narration=prev_narration,
+                    next_scene_narration=next_narration,
+                )
+                block_prompt_path.write_text(block_prompt + "\n", encoding="utf-8")
+                block_assets.append(
+                    {
+                        "block_index": block_idx,
+                        "text": block_text,
+                        "paragraph_index": int(block_payload.get("paragraph_index", 0)),
+                        "paragraph_block_index": int(block_payload.get("paragraph_block_index", 0)),
+                        "paragraph_blocks_total": int(block_payload.get("paragraph_blocks_total", 1)),
+                        "duration_seconds": int(block_durations[block_idx - 1]),
+                        "image_path": str(block_img),
+                        "dialogue_speaker": block_speaker,
+                        "dialogue_line": block_line,
+                        "prompt_path": str(block_prompt_path),
+                        "prompt_text": block_prompt,
+                    }
+                )
 
             if args.mock:
-                create_mock_image(ffmpeg, img_path)
                 create_mock_audio(ffmpeg, audio_path, duration)
+                for block in block_assets:
+                    color = MOCK_SCENE_COLORS[(idx + int(block["block_index"])) % len(MOCK_SCENE_COLORS)]
+                    create_mock_image(ffmpeg, Path(block["image_path"]), color=color)
             else:
                 try:
-                    image_resp = client.images.generate(
-                        model=args.image_model,
-                        prompt=prompt_text,
-                        size=args.image_size,
-                    )
-                    img_path.write_bytes(first_image_bytes(image_resp))
-
                     save_tts_audio(
                         client=client,
                         model=args.tts_model,
@@ -287,17 +497,29 @@ def main() -> int:
                         narration=narration,
                         output_audio=audio_path,
                     )
+                    for block in block_assets:
+                        image_resp = client.images.generate(
+                            model=args.image_model,
+                            prompt=str(block["prompt_text"]),
+                            size=args.image_size,
+                        )
+                        Path(str(block["image_path"])).write_bytes(first_image_bytes(image_resp))
                 except Exception as exc:  # SDK raises typed exceptions; keep generic for compatibility.
                     if args.fallback_mock_on_billing_error and is_billing_limit_error(exc):
                         print(
                             "WARNING: OpenAI billing limit reached. "
                             f"Using mock assets for scene {idx:02d} of {episode['episode_id']}."
                         )
-                        create_mock_image(ffmpeg, img_path)
                         create_mock_audio(ffmpeg, audio_path, duration)
+                        for block in block_assets:
+                            color = MOCK_SCENE_COLORS[(idx + int(block["block_index"])) % len(MOCK_SCENE_COLORS)]
+                            create_mock_image(ffmpeg, Path(block["image_path"]), color=color)
                         used_billing_fallback = True
                     else:
                         raise RuntimeError(openai_error_message(exc)) from exc
+
+            image_paths = [str(block["image_path"]) for block in block_assets]
+            prompt_paths = [str(block["prompt_path"]) for block in block_assets]
 
             manifest_scenes.append(
                 {
@@ -305,9 +527,27 @@ def main() -> int:
                     "estimated_seconds": duration,
                     "narration": narration,
                     "visual_prompt": visual_prompt,
-                    "image_path": str(img_path),
+                    "dialogue": scene_dialogue,
+                    "caption_blocks": [
+                        {
+                            "block_index": int(block["block_index"]),
+                            "text": str(block["text"]),
+                            "paragraph_index": int(block.get("paragraph_index", 0)),
+                            "paragraph_block_index": int(block.get("paragraph_block_index", 0)),
+                            "paragraph_blocks_total": int(block.get("paragraph_blocks_total", 1)),
+                            "duration_seconds": int(block["duration_seconds"]),
+                            "image_path": str(block["image_path"]),
+                            "dialogue_speaker": str(block.get("dialogue_speaker", "")),
+                            "dialogue_line": str(block.get("dialogue_line", "")),
+                            "prompt_path": str(block["prompt_path"]),
+                        }
+                        for block in block_assets
+                    ],
+                    "image_path": image_paths[0],
+                    "image_paths": image_paths,
                     "audio_path": str(audio_path),
-                    "prompt_path": str(prompt_path),
+                    "prompt_path": str(base_prompt_path),
+                    "prompt_paths": prompt_paths,
                 }
             )
 
