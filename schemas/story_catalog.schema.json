@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adelfinio.local/schemas/story_catalog.schema.json",
+  "title": "StoryCatalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "story_catalog_id",
+    "source_pack_id",
+    "character_bible_id",
+    "created_at",
+    "selection_mode",
+    "generation_meta",
+    "stories"
+  ],
+  "properties": {
+    "story_catalog_id": {
+      "type": "string",
+      "pattern": "^sc-[a-z0-9\\-]{6,64}$"
+    },
+    "source_pack_id": {
+      "type": "string",
+      "pattern": "^spk-[a-z0-9\\-]{6,64}$"
+    },
+    "character_bible_id": {
+      "type": "string",
+      "pattern": "^cb-[a-z0-9\\-]{6,64}$"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "selection_mode": {
+      "type": "string",
+      "const": "manual"
+    },
+    "generation_meta": {
+      "$ref": "character_bible.schema.json#/properties/generation_meta"
+    },
+    "stories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/storyCandidate"
+      }
+    }
+  },
+  "$defs": {
+    "sourceRef": {
+      "$ref": "character_bible.schema.json#/$defs/sourceRef"
+    },
+    "claim": {
+      "$ref": "character_bible.schema.json#/$defs/claim"
+    },
+    "storyCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "story_id",
+        "chronology_index",
+        "title",
+        "summary",
+        "source_event_ids",
+        "source_refs",
+        "characters",
+        "conflict",
+        "stakes",
+        "story_goal",
+        "continuity_previous",
+        "continuity_next",
+        "dramatic_value",
+        "historical_fidelity",
+        "visual_potential",
+        "observed_from_source",
+        "inferred_from_source"
+      ],
+      "properties": {
+        "story_id": {
+          "type": "string",
+          "pattern": "^story-[a-z0-9\\-]{6,64}$"
+        },
+        "chronology_index": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 180
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 900
+        },
+        "source_event_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^evt-[0-9]{4,8}$"
+          }
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        },
+        "characters": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9_\\-]{3,64}$"
+          }
+        },
+        "conflict": {
+          "type": "string",
+          "minLength": 12,
+          "maxLength": 260
+        },
+        "stakes": {
+          "type": "string",
+          "minLength": 12,
+          "maxLength": 260
+        },
+        "story_goal": {
+          "type": "string",
+          "minLength": 12,
+          "maxLength": 260
+        },
+        "continuity_previous": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 260
+        },
+        "continuity_next": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 260
+        },
+        "dramatic_value": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "historical_fidelity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "visual_potential": {
+          "type": "string",
+          "minLength": 12,
+          "maxLength": 260
+        },
+        "observed_from_source": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claim"
+          }
+        },
+        "inferred_from_source": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claim"
+          }
+        }
+      }
+    }
+  }
+}

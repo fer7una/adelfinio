@@ -2,22 +2,23 @@
 
 ## Objetivo
 
-- Producir 4 piezas/dia: 2 principales + 2 teasers
+- Producir una historia historica de alta fidelidad a partir de una fuente canonica revisada.
 
 ## Ciclo diario
 
-1. 08:00 - Ingesta de nuevas fuentes y normalizacion
-2. 08:30 - Generacion de plan diario (`daily_plan`)
-3. 09:00 - Generacion de 2 principales con plot twist
-4. 11:00 - Generacion de 2 teasers
-5. 12:00 - Revision humana (contenido + cumplimiento)
-6. 13:00 - Envio a TikTok en modo revision manual/inbox
-7. 17:00 - Revision de metricas, errores, costes y backlog
+1. 08:00 - Ingesta de nueva fuente y construccion de `source_pack`
+2. 08:30 - Revision humana del OCR, chunks y cronologia
+3. 09:00 - Generacion de `character_bible`
+4. 10:00 - Generacion de `story_catalog`
+5. 10:30 - Seleccion manual del `story_id`
+6. 11:00 - Generacion del `episode.json` final
+7. 12:00 - Render y revision humana narrativa/visual
+8. 17:00 - Revision de metricas, errores, costes y backlog
 
 ## Roles
 
 - IA Automation Lead: mantiene workflows, calidad tecnica y observabilidad
-- Editor humano: aprueba o solicita cambios antes de TikTok
+- Editor humano: aprueba fuente, elige historia y valida el episodio final
 - Operaciones: monitoriza SLAs de produccion diaria
 
 ## Estados operativos

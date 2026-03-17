@@ -4,22 +4,16 @@
 from __future__ import annotations
 
 import argparse
-import json
 from pathlib import Path
 
 try:
-    from jsonschema import Draft202012Validator, FormatChecker
+    from schema_validation import build_validator, load_json
 except ImportError as exc:
     print("ERROR: missing dependency 'jsonschema'. Install with: python3 -m pip install jsonschema")
     raise SystemExit(1) from exc
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = ROOT / "schemas" / "episode.schema.json"
-
-
-def load_json(path: Path):
-    with path.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
 
 
 def main() -> int:
@@ -37,8 +31,7 @@ def main() -> int:
         print(f"ERROR: directory not found: {episodes_dir}")
         return 1
 
-    schema = load_json(SCHEMA_PATH)
-    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    validator = build_validator(SCHEMA_PATH)
 
     files = sorted(episodes_dir.glob("*.json"))
     if not files:

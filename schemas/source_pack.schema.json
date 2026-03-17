@@ -1,0 +1,333 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adelfinio.local/schemas/source_pack.schema.json",
+  "title": "SourcePack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_pack_id",
+    "title",
+    "language",
+    "created_at",
+    "review",
+    "source_documents",
+    "pages",
+    "chunks",
+    "chronology_hints",
+    "derived_events"
+  ],
+  "properties": {
+    "source_pack_id": {
+      "type": "string",
+      "pattern": "^spk-[a-z0-9\\-]{6,64}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 6,
+      "maxLength": 220
+    },
+    "language": {
+      "type": "string",
+      "const": "es"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewer",
+        "reviewed_at",
+        "notes"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "approved",
+            "rejected"
+          ]
+        },
+        "reviewer": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 120
+        },
+        "reviewed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 1200
+        }
+      }
+    },
+    "generation_meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pipeline_version",
+        "input_checksum"
+      ],
+      "properties": {
+        "pipeline_version": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 80
+        },
+        "input_checksum": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "source_documents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "kind",
+          "checksum",
+          "page_count"
+        ],
+        "properties": {
+          "file": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 260
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "pdf",
+              "txt",
+              "md",
+              "json"
+            ]
+          },
+          "checksum": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "page_count": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "ocr_mode": {
+            "type": "string",
+            "enum": [
+              "ocr",
+              "text_layer",
+              "direct_text"
+            ]
+          }
+        }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "page_number",
+          "ocr_confidence",
+          "review_status",
+          "chunk_ids",
+          "issues",
+          "excerpt"
+        ],
+        "properties": {
+          "page_number": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "image_path": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 260
+          },
+          "ocr_text_path": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 260
+          },
+          "ocr_tsv_path": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 260
+          },
+          "ocr_confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "review_status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "needs_review"
+            ]
+          },
+          "chunk_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^chk-[0-9]{4}$"
+            }
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 80
+            }
+          },
+          "excerpt": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 260
+          }
+        }
+      }
+    },
+    "chunks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chunk_id",
+          "file",
+          "page_start",
+          "page_end",
+          "checksum",
+          "ocr_confidence",
+          "review_status",
+          "text",
+          "normalized_text"
+        ],
+        "properties": {
+          "chunk_id": {
+            "type": "string",
+            "pattern": "^chk-[0-9]{4}$"
+          },
+          "file": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 260
+          },
+          "page_start": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "page_end": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "heading": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 180
+          },
+          "checksum": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "ocr_confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "review_status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "needs_review"
+            ]
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 80
+            }
+          },
+          "text": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 4000
+          },
+          "normalized_text": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 4000
+          }
+        }
+      }
+    },
+    "chronology_hints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chunk_id",
+          "summary",
+          "detected_years"
+        ],
+        "properties": {
+          "chunk_id": {
+            "type": "string",
+            "pattern": "^chk-[0-9]{4}$"
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 260
+          },
+          "detected_years": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[0-9]{4}$"
+            }
+          }
+        }
+      }
+    },
+    "derived_events": {
+      "type": "array",
+      "items": {
+        "$ref": "source_event.schema.json"
+      }
+    }
+  }
+}

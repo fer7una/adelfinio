@@ -1,0 +1,140 @@
+{
+  "source_pack_id": "spk-asturias-001",
+  "title": "La gran aventura del reino de Asturias",
+  "language": "es",
+  "created_at": "2026-03-17T10:00:00Z",
+  "review": {
+    "status": "approved",
+    "reviewer": "historia_editor",
+    "reviewed_at": "2026-03-17T10:30:00Z",
+    "notes": "OCR revisado y chunks cronologicos aprobados."
+  },
+  "generation_meta": {
+    "pipeline_version": "source-pack-v1",
+    "input_checksum": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "source_documents": [
+    {
+      "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+      "kind": "pdf",
+      "checksum": "2222222222222222222222222222222222222222222222222222222222222222",
+      "page_count": 2,
+      "ocr_mode": "ocr"
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 1,
+      "image_path": "artifacts/source_pack/asturias/pages/page-0001.png",
+      "ocr_text_path": "artifacts/source_pack/asturias/ocr/page-0001.txt",
+      "ocr_tsv_path": "artifacts/source_pack/asturias/ocr/page-0001.tsv",
+      "ocr_confidence": 0.86,
+      "review_status": "approved",
+      "chunk_ids": [
+        "chk-0001"
+      ],
+      "issues": [],
+      "excerpt": "En 711 empieza a quebrarse el reino visigodo..."
+    },
+    {
+      "page_number": 2,
+      "image_path": "artifacts/source_pack/asturias/pages/page-0002.png",
+      "ocr_text_path": "artifacts/source_pack/asturias/ocr/page-0002.txt",
+      "ocr_tsv_path": "artifacts/source_pack/asturias/ocr/page-0002.tsv",
+      "ocr_confidence": 0.78,
+      "review_status": "needs_review",
+      "chunk_ids": [
+        "chk-0002"
+      ],
+      "issues": [
+        "possible_column_break"
+      ],
+      "excerpt": "La resistencia astur se articula en torno a Pelayo..."
+    }
+  ],
+  "chunks": [
+    {
+      "chunk_id": "chk-0001",
+      "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+      "page_start": 1,
+      "page_end": 1,
+      "heading": "La caida del reino",
+      "checksum": "3333333333333333333333333333333333333333333333333333333333333333",
+      "ocr_confidence": 0.86,
+      "review_status": "approved",
+      "issues": [],
+      "text": "En 711 empieza a quebrarse el reino visigodo y la invasion musulmana altera el equilibrio peninsular.",
+      "normalized_text": "En 711 empieza a quebrarse el reino visigodo y la invasion musulmana altera el equilibrio peninsular."
+    },
+    {
+      "chunk_id": "chk-0002",
+      "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+      "page_start": 2,
+      "page_end": 2,
+      "heading": "La respuesta astur",
+      "checksum": "4444444444444444444444444444444444444444444444444444444444444444",
+      "ocr_confidence": 0.78,
+      "review_status": "needs_review",
+      "issues": [
+        "possible_column_break"
+      ],
+      "text": "Pelayo organiza la resistencia en Asturias y convierte la desventaja material en cohesion politica.",
+      "normalized_text": "Pelayo organiza la resistencia en Asturias y convierte la desventaja material en cohesion politica."
+    }
+  ],
+  "chronology_hints": [
+    {
+      "chunk_id": "chk-0001",
+      "summary": "Inicio de la ruptura visigoda",
+      "detected_years": [
+        "0711"
+      ]
+    },
+    {
+      "chunk_id": "chk-0002",
+      "summary": "Organizacion de la resistencia astur",
+      "detected_years": [
+        "0718",
+        "0722"
+      ]
+    }
+  ],
+  "derived_events": [
+    {
+      "event_id": "evt-71101",
+      "chronology_index": 1,
+      "title": "Quiebra del reino visigodo",
+      "date_start": "711",
+      "date_end": null,
+      "location": "Asturias",
+      "actors": [
+        "pelayo"
+      ],
+      "summary": "La invasion musulmana precipita la quiebra del reino visigodo y reordena el poder peninsular.",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "chk-0001",
+        "checksum": "3333333333333333333333333333333333333333333333333333333333333333"
+      },
+      "historical_confidence": 0.84
+    },
+    {
+      "event_id": "evt-72201",
+      "chronology_index": 2,
+      "title": "Pelayo articula la resistencia",
+      "date_start": "722",
+      "date_end": null,
+      "location": "Asturias",
+      "actors": [
+        "pelayo"
+      ],
+      "summary": "Pelayo organiza la resistencia astur y convierte la supervivencia militar en proyecto politico.",
+      "source_ref": {
+        "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+        "section": "chk-0002",
+        "checksum": "4444444444444444444444444444444444444444444444444444444444444444"
+      },
+      "historical_confidence": 0.8
+    }
+  ]
+}

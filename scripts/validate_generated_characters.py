@@ -4,11 +4,10 @@
 from __future__ import annotations
 
 import argparse
-import json
 from pathlib import Path
 
 try:
-    from jsonschema import Draft202012Validator, FormatChecker
+    from schema_validation import build_validator, load_json
 except ImportError as exc:
     print("ERROR: missing dependency 'jsonschema'. Install with: python3 -m pip install jsonschema")
     raise SystemExit(1) from exc
@@ -18,19 +17,13 @@ CHAR_SCHEMA = ROOT / "schemas" / "character.schema.json"
 TIMELINE_SCHEMA = ROOT / "schemas" / "character_timeline.schema.json"
 
 
-def load_json(path: Path):
-    with path.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
-
-
 def validate_dir(schema_path: Path, target_dir: Path, skip_names: set[str]) -> tuple[int, int]:
-    schema = load_json(schema_path)
-    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    validator = build_validator(schema_path)
 
     checked = 0
     failed = 0
     for path in sorted(target_dir.glob("*.json")):
-        if path.name in skip_names:
+        if path.name in skip_names or "character_bible" in path.name:
             continue
         checked += 1
         doc = load_json(path)

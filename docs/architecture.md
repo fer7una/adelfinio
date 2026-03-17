@@ -1,187 +1,166 @@
 # Arquitectura actual
 
-Este documento describe solo el flujo que existe hoy en el repo. Lo obsoleto o lo que no forma parte del camino real de ejecucion actual queda fuera.
+Este documento describe solo el flujo vigente del repo tras la retirada del pipeline heuristico basado en `daily_plan`.
 
 ## Diagrama general
 
 ```mermaid
 flowchart TD
-    subgraph Narrative["1. Flujo narrativo"]
+    subgraph Source["1. Fuente canonica"]
         direction TB
-        Source["Fuente historica<br/>docs/chronicles/*.pdf|*.txt|*.md"]
-        Sidecar["OCR sidecar opcional<br/>docs/chronicles/sidecar_text/*.txt"]
-        Extract["scripts/extract_source_events.py"]
-        Timeline["data/timeline/source_events.json"]
+        Chronicle["Fuente historica<br/>docs/chronicles/*.pdf|*.txt|*.md|*.json"]
+        SourcePack["scripts/build_source_pack.py"]
+        Raster["artifacts/source_pack/{source}/pages/*.png"]
+        Ocr["artifacts/source_pack/{source}/ocr/*.txt|*.tsv"]
+        Pack["data/source/{source}.source_pack.json"]
+        Timeline["data/timeline/source_events.json<br/>artefacto derivado"]
+        Review["scripts/review_source_pack.py"]
 
-        CharBible["scripts/build_character_bible.py"]
-        Characters["data/characters/*.json"]
-        CharTimelines["data/characters/timelines/*.json"]
+        Chronicle --> SourcePack
+        SourcePack --> Raster
+        SourcePack --> Ocr
+        SourcePack --> Pack
+        SourcePack --> Timeline
+        Pack --> Review
+    end
+
+    subgraph Narrative["2. Pipeline narrativo"]
+        direction TB
+        CharBible["scripts/generate_character_bible.py"]
+        Bible["data/characters/{source}.character_bible.json"]
+        Characters["data/characters/*.json<br/>compatibilidad render"]
+        CharTimelines["data/characters/timelines/*.json<br/>compatibilidad render"]
         ValidateChars["scripts/validate_generated_characters.py"]
 
-        StoryEngine["scripts/story_engine.py"]
-        PlanGen["scripts/generate_daily_plan.py"]
-        DailyPlan["data/daily_plan/plan-YYYYMMDD.json<br/>incluye storytelling.scene_outline"]
+        StoryCatalog["scripts/generate_story_catalog.py"]
+        Catalog["data/story/{source}.story_catalog.json"]
+        ManualSelect["Seleccion manual de story_id"]
 
-        EpisodeGen["scripts/generate_episodes_from_plan.py"]
-        Episodes["data/episodes/generated/plan-YYYYMMDD/*.json"]
+        EpisodeGen["scripts/generate_episode_from_story.py"]
+        Episodes["data/episodes/generated/{source}/*.json"]
+        ValidateStory["scripts/validate_story_pipeline.py"]
         ValidateEpisodes["scripts/validate_generated_episodes.py"]
-        Storyboard["scripts/print_episode_storyboard.py"]
 
-        Source --> Extract
-        Sidecar -.-> Extract
-        Extract --> Timeline
-
-        Timeline --> CharBible
+        Review -->|approve required| CharBible
+        Pack --> CharBible
+        CharBible --> Bible
         CharBible --> Characters
         CharBible --> CharTimelines
         Characters --> ValidateChars
         CharTimelines --> ValidateChars
 
-        Timeline --> StoryEngine
-        StoryEngine --> PlanGen
-        Timeline --> PlanGen
-        PlanGen --> DailyPlan
+        Pack --> StoryCatalog
+        Bible --> StoryCatalog
+        StoryCatalog --> Catalog
+        Catalog --> ManualSelect
 
-        DailyPlan --> EpisodeGen
-        Timeline --> EpisodeGen
-        Characters --> EpisodeGen
-        CharTimelines --> EpisodeGen
-        StoryEngine -. fallback teaser .-> EpisodeGen
+        Pack --> EpisodeGen
+        Bible --> EpisodeGen
+        Catalog --> EpisodeGen
+        ManualSelect --> EpisodeGen
         EpisodeGen --> Episodes
+        Pack --> ValidateStory
+        Bible --> ValidateStory
+        Catalog --> ValidateStory
+        Episodes --> ValidateStory
         Episodes --> ValidateEpisodes
-        Episodes --> Storyboard
     end
 
-    subgraph Render["2. Flujo de render"]
+    subgraph Render["3. Render final"]
         direction TB
         FinalWrapper["bash scripts/run_final_ai_video_pipeline.sh"]
-        Mode{"Modo"}
-        AssetsReal["scripts/generate_scene_assets.py --episode ..."]
-        AssetsMock["scripts/generate_scene_assets.py --episode ... --mock"]
-        AssetsFallback["scripts/generate_scene_assets.py --episode ... --fallback-mock-on-billing-error"]
+        Assets["scripts/generate_scene_assets.py"]
+        Compose["scripts/compose_final_video.py --no-burn-subtitles"]
         SceneAssets["artifacts/scene_assets/{episode_id}/<br/>manifest.json + PNG + MP3 + prompts"]
-        Compose["scripts/compose_final_video.py --episode ... --no-burn-subtitles"]
         FinalVideo["artifacts/videos/final/*.mp4"]
         FinalSubs["artifacts/subtitles/final/*.srt"]
 
-        FinalWrapper --> Mode
-        Mode -->|real| AssetsReal
-        Mode -->|mock| AssetsMock
-        Mode -->|fallback| AssetsFallback
-        AssetsReal --> SceneAssets
-        AssetsMock --> SceneAssets
-        AssetsFallback --> SceneAssets
+        Episodes --> FinalWrapper
+        FinalWrapper --> Assets
+        Assets --> SceneAssets
         SceneAssets --> Compose
         Compose --> FinalVideo
         Compose --> FinalSubs
     end
 
-    subgraph Ops["3. Wrappers operativos"]
+    subgraph Ops["4. Wrapper principal"]
         direction TB
-        Book["bash scripts/run_graphic_story_from_book.sh SOURCE DATE [--reset-progression]"]
-        PlanWrapper["bash scripts/run_final_ai_video_pipeline_from_plan.sh plan.json [modo]"]
-        Smoke["bash scripts/run_local_first_batch.sh DATE [--reset-progression]"]
-
-        BookExtract["extraer eventos"]
-        BookChars["build_character_bible + validate_generated_characters"]
-        BookPlan["generate_daily_plan"]
-        BookEpisode["generate_episodes_from_plan + validate_generated_episodes"]
-        BookRender["render mock si ffmpeg existe"]
-
-        PlanEpisode["generate_episodes_from_plan + validate_generated_episodes"]
-        PlanRender["run_final_ai_video_pipeline.sh"]
-
-        SmokePlan["generate_daily_plan"]
-        SmokeChars["build_character_bible + validate_generated_characters"]
-        SmokeEpisode["generate_episodes_from_plan"]
-        SmokeRender["render mock de 1 main + 1 teaser"]
-
-        Book --> BookExtract --> BookChars --> BookPlan --> BookEpisode --> BookRender
-        PlanWrapper --> PlanEpisode --> PlanRender
-        Smoke --> SmokePlan --> SmokeChars --> SmokeEpisode --> SmokeRender
+        Wrapper["bash scripts/run_story_pipeline_from_source.sh SOURCE [story_id] [--approve-source reviewer] [--mock]"]
+        Wrapper --> SourcePack
+        Wrapper --> Review
+        Wrapper --> CharBible
+        Wrapper --> StoryCatalog
+        Wrapper --> EpisodeGen
+        Wrapper --> FinalWrapper
     end
 
-    ValidateEpisodes --> FinalWrapper
-    Episodes -. entrada .-> FinalWrapper
-    Storyboard --> Review["Revision humana"]
-    FinalVideo --> Review
-    FinalSubs --> Review
-    Review -->|ajustar storytelling| PlanGen
-    Review -->|ajustar episodio JSON| EpisodeGen
-    Review -->|regenerar assets o montaje| FinalWrapper
-
-    BookExtract -. usa .-> Extract
-    BookChars -. usa .-> CharBible
-    BookPlan -. usa .-> PlanGen
-    BookEpisode -. usa .-> EpisodeGen
-    BookRender -. usa .-> FinalWrapper
-
-    PlanEpisode -. usa .-> EpisodeGen
-    PlanRender -. usa .-> FinalWrapper
-
-    SmokePlan -. usa .-> PlanGen
-    SmokeChars -. usa .-> CharBible
-    SmokeEpisode -. usa .-> EpisodeGen
-    SmokeRender -. usa .-> FinalWrapper
-
     classDef source fill:#E8F7E8,stroke:#1B5E20,color:#123524,stroke-width:2px;
-    classDef engine fill:#FFF4D6,stroke:#B7791F,color:#5F370E,stroke-width:2px;
+    classDef narrative fill:#FFF4D6,stroke:#B7791F,color:#5F370E,stroke-width:2px;
     classDef data fill:#E8F1FF,stroke:#1D4ED8,color:#102A43,stroke-width:2px;
     classDef validate fill:#FDE68A,stroke:#92400E,color:#451A03,stroke-width:2px;
     classDef render fill:#F3E8FF,stroke:#7C3AED,color:#2E1065,stroke-width:2px;
     classDef wrapper fill:#E0F2FE,stroke:#0369A1,color:#082F49,stroke-width:2px;
     classDef review fill:#FFE4E6,stroke:#BE123C,color:#881337,stroke-width:2px;
 
-    class Source,Sidecar,Extract source;
-    class StoryEngine,PlanGen,EpisodeGen,CharBible engine;
-    class Timeline,DailyPlan,Characters,CharTimelines,Episodes,SceneAssets,FinalVideo,FinalSubs data;
-    class ValidateChars,ValidateEpisodes,Storyboard validate;
-    class FinalWrapper,Mode,AssetsReal,AssetsMock,AssetsFallback,Compose render;
-    class Book,PlanWrapper,Smoke,BookExtract,BookChars,BookPlan,BookEpisode,BookRender,PlanEpisode,PlanRender,SmokePlan,SmokeChars,SmokeEpisode,SmokeRender wrapper;
+    class Chronicle,SourcePack,Raster,Ocr source;
+    class CharBible,StoryCatalog,EpisodeGen,ManualSelect narrative;
+    class Pack,Timeline,Bible,Characters,CharTimelines,Catalog,Episodes,SceneAssets,FinalVideo,FinalSubs data;
+    class ValidateChars,ValidateStory,ValidateEpisodes validate;
+    class FinalWrapper,Assets,Compose render;
+    class Wrapper wrapper;
     class Review review;
 ```
 
 ## Lectura del diagrama
 
-- Bloque 1: el pipeline narrativo convierte la fuente en `source_events.json`, construye personajes y timelines, genera un `plan` con storytelling por escena y materializa episodios JSON.
-- Bloque 2: el pipeline de render toma episodios validados, genera assets por escena y compone el MP4 y el SRT final.
-- Bloque 3: los wrappers no introducen logica nueva; solo orquestan tramos del pipeline general para casos de uso concretos.
+- Bloque 1: la fuente canonica se transforma en un `source_pack` con OCR persistido, chunks trazables y un `source_events.json` derivado.
+- Bloque 2: el pipeline narrativo solo arranca cuando `source_pack.review.status=approved`; desde ahi genera `character_bible`, `story_catalog` y finalmente el `episode.json` seleccionado.
+- Bloque 3: el render sigue consumiendo episodios JSON validados y genera assets, subtitulos y MP4.
+- Bloque 4: el wrapper principal orquesta toda la secuencia y se detiene si falta aprobacion de fuente o seleccion de `story_id`.
 
 ## Contratos y artefactos
 
-- Timeline normalizado: `data/timeline/source_events.json`
-- Estado de progresion: `data/timeline/progression_state.json`
-- Personajes: `data/characters/*.json`
-- Timelines de personaje: `data/characters/timelines/*.json`
-- Plan diario: `data/daily_plan/plan-YYYYMMDD.json`
-- Episodios: `data/episodes/generated/plan-YYYYMMDD/*.json`
+- Fuente canónica revisable: `data/source/{source}.source_pack.json`
+- Timeline derivado: `data/timeline/source_events.json`
+- Character bible consolidado: `data/characters/{source}.character_bible.json`
+- Personajes compatibles con render: `data/characters/*.json`
+- Timelines compatibles con render: `data/characters/timelines/*.json`
+- Catalogo lineal de historias: `data/story/{source}.story_catalog.json`
+- Episodios finales: `data/episodes/generated/{source}/*.json`
 - Assets por escena: `artifacts/scene_assets/{episode_id}/`
 - Videos finales: `artifacts/videos/final/*.mp4`
 - Subtitulos finales: `artifacts/subtitles/final/*.srt`
 
 ## Dependencias exactas
 
-- `scripts/generate_daily_plan.py` depende de `data/timeline/source_events.json`.
-- `scripts/build_character_bible.py` depende de `data/timeline/source_events.json`.
-- `scripts/generate_episodes_from_plan.py` depende de:
+- `scripts/build_source_pack.py` depende de la fuente canonica y genera:
+  - `data/source/{source}.source_pack.json`
   - `data/timeline/source_events.json`
-  - `data/daily_plan/plan-YYYYMMDD.json`
-  - `data/characters/*.json`
-  - `data/characters/timelines/*.json`
-- `scripts/run_final_ai_video_pipeline_from_plan.sh` ejecuta, en este orden:
-  1. `scripts/generate_episodes_from_plan.py`
-  2. `scripts/validate_generated_episodes.py`
-  3. `scripts/run_final_ai_video_pipeline.sh`
+  - `artifacts/source_pack/{source}/`
+- `scripts/review_source_pack.py` actualiza el bloque `review` del `source_pack`.
+- `scripts/generate_character_bible.py` depende de:
+  - `data/source/{source}.source_pack.json` aprobado
+  - OpenAI API
+- `scripts/generate_story_catalog.py` depende de:
+  - `data/source/{source}.source_pack.json` aprobado
+  - `data/characters/{source}.character_bible.json`
+  - OpenAI API
+- `scripts/generate_episode_from_story.py` depende de:
+  - `data/source/{source}.source_pack.json` aprobado
+  - `data/characters/{source}.character_bible.json`
+  - `data/story/{source}.story_catalog.json`
+  - un `story_id` valido
+  - OpenAI API
 - `scripts/run_final_ai_video_pipeline.sh` ejecuta, por cada episodio:
   1. `scripts/generate_scene_assets.py`
   2. `scripts/compose_final_video.py --no-burn-subtitles`
 
 ## Fuera de este documento
 
-No se documentan aqui como parte del flujo actual:
+No se documentan aqui como parte del flujo local vigente:
 
-- `n8n`
-- `PostgreSQL`
-- `Redis`
-- `MinIO`
-- workflows futuros o no conectados al camino real local-first
+- n8n como orquestador principal
+- PostgreSQL
+- Redis
+- MinIO
+- workflows legacy no conectados al pipeline fuente-first

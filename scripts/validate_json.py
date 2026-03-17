@@ -3,12 +3,10 @@
 
 from __future__ import annotations
 
-import json
-import sys
 from pathlib import Path
 
 try:
-    from jsonschema import Draft202012Validator, FormatChecker
+    from schema_validation import build_validator, load_json
 except ImportError as exc:
     print("ERROR: missing dependency 'jsonschema'.")
     print("Install with: python3 -m pip install jsonschema")
@@ -31,23 +29,26 @@ VALIDATION_TARGETS = [
         ROOT / "data" / "episodes" / "episode_example_teaser.json",
     ),
     (
-        ROOT / "schemas" / "source_event.schema.json",
-        ROOT / "data" / "timeline" / "source_event_example.json",
+        ROOT / "schemas" / "source_pack.schema.json",
+        ROOT / "data" / "source" / "source_pack_example.json",
     ),
     (
-        ROOT / "schemas" / "daily_plan.schema.json",
-        ROOT / "data" / "daily_plan" / "daily_plan_example.json",
+        ROOT / "schemas" / "character_bible.schema.json",
+        ROOT / "data" / "characters" / "character_bible_example.json",
+    ),
+    (
+        ROOT / "schemas" / "story_catalog.schema.json",
+        ROOT / "data" / "story" / "story_catalog_example.json",
+    ),
+    (
+        ROOT / "schemas" / "source_event.schema.json",
+        ROOT / "data" / "timeline" / "source_event_example.json",
     ),
     (
         ROOT / "schemas" / "character_timeline.schema.json",
         ROOT / "data" / "characters" / "timelines" / "character_timeline_example.json",
     ),
 ]
-
-
-def load_json(path: Path) -> dict:
-    with path.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
 
 
 def main() -> int:
@@ -61,10 +62,8 @@ def main() -> int:
             failures.append(f"Missing document: {document_path}")
             continue
 
-        schema = load_json(schema_path)
         document = load_json(document_path)
-
-        validator = Draft202012Validator(schema, format_checker=FormatChecker())
+        validator = build_validator(schema_path)
         errors = sorted(validator.iter_errors(document), key=lambda e: list(e.path))
         if errors:
             failures.append(f"{document_path} failed validation:")

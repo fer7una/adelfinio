@@ -575,6 +575,17 @@ def ensure_ffmpeg() -> str:
     raise RuntimeError("ffmpeg not found. Install ffmpeg first.")
 
 
+def normalize_image_quality(value: str | None) -> str | None:
+    if value is None:
+        return None
+    clean = normalize_ws(str(value)).lower()
+    if not clean:
+        return None
+    if clean not in {"low", "medium", "high", "auto"}:
+        raise RuntimeError("Invalid image quality. Use one of: low, medium, high, auto.")
+    return clean
+
+
 def is_billing_limit_error(exc: Exception) -> bool:
     msg = str(exc).lower()
     return (
@@ -648,6 +659,7 @@ def main() -> int:
     parser.add_argument("--characters-dir", default=str(DEFAULT_CHAR_DIR), help="Directory of character JSON files")
     parser.add_argument("--image-model", default=None, help="OpenAI image model")
     parser.add_argument("--image-size", default=None, help="Image size, e.g. 1024x1024")
+    parser.add_argument("--image-quality", default=None, help="OpenAI image quality: low, medium, high or auto")
     parser.add_argument("--tts-model", default=None, help="OpenAI TTS model")
     parser.add_argument("--tts-voice", default=None, help="OpenAI TTS voice id")
     parser.add_argument("--mock", action="store_true", help="Generate placeholder assets with ffmpeg instead of OpenAI APIs")
@@ -674,6 +686,7 @@ def main() -> int:
         ffmpeg = ensure_ffmpeg()
         image_model = args.image_model or os.getenv("OPENAI_IMAGE_MODEL", "gpt-image-1")
         image_size = args.image_size or os.getenv("OPENAI_IMAGE_SIZE", "1024x1024")
+        image_quality = normalize_image_quality(args.image_quality or os.getenv("OPENAI_IMAGE_QUALITY"))
         tts_model = args.tts_model or os.getenv("OPENAI_TTS_MODEL", "gpt-4o-mini-tts")
         tts_voice = args.tts_voice or os.getenv("OPENAI_TTS_VOICE", "alloy")
         narrator_profile = default_narrator_profile()
@@ -797,6 +810,7 @@ def main() -> int:
                             model=image_model,
                             prompt=str(block["prompt_text"]),
                             size=image_size,
+                            quality=image_quality,
                         )
                         Path(str(block["image_path"])).write_bytes(first_image_bytes(image_resp))
                     concat_audio_segments(
@@ -869,6 +883,7 @@ def main() -> int:
                 "billing_fallback_used": bool(used_billing_fallback),
                 "image_model": image_model if not args.mock else None,
                 "image_size": image_size if not args.mock else None,
+                "image_quality": image_quality if not args.mock else None,
                 "tts_model": tts_model if not args.mock else None,
                 "tts_voice": tts_voice if not args.mock else None,
             },

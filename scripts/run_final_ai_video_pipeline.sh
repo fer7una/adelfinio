@@ -9,10 +9,10 @@ if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
   echo "  bash scripts/run_final_ai_video_pipeline.sh <episode_json_or_directory> [--mock] [--fallback-mock-on-billing-error]"
   echo ""
   echo "Examples:"
-  echo "  bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/plan-20260315"
-  echo "  bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/plan-20260315/main-20260315-linea_01.json"
-  echo "  bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/plan-20260315 --mock"
-  echo "  bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/plan-20260315 --fallback-mock-on-billing-error"
+  echo "  bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/story-catalog"
+  echo "  bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/story-catalog/main-20260317-story-resistencia-pelayo.json"
+  echo "  bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/story-catalog --mock"
+  echo "  bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/story-catalog --fallback-mock-on-billing-error"
   exit 0
 fi
 

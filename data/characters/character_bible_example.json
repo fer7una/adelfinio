@@ -1,0 +1,259 @@
+{
+  "character_bible_id": "cb-asturias-001",
+  "source_pack_id": "spk-asturias-001",
+  "created_at": "2026-03-17T11:00:00Z",
+  "inference_policy": "evidence_plus_labeled_inference",
+  "generation_meta": {
+    "model": "gpt-5.4",
+    "prompt_version": "character-bible-v1",
+    "prompt_checksum": "5555555555555555555555555555555555555555555555555555555555555555",
+    "input_checksum": "6666666666666666666666666666666666666666666666666666666666666666",
+    "generated_at": "2026-03-17T11:00:00Z"
+  },
+  "characters": [
+    {
+      "character_id": "pelayo",
+      "display_name": "Pelayo",
+      "aliases": [
+        "Don Pelayo"
+      ],
+      "historical_period": "711-722",
+      "role": "military",
+      "biography_short": "Lider de la resistencia astur en los primeros compases del relato.",
+      "voice_profile": {
+        "tts_voice": "alloy",
+        "tone": "grave_resuelto",
+        "words_per_second": 2.55,
+        "delivery_modifiers": {
+          "normal": 1.0,
+          "shout": 1.14
+        }
+      },
+      "visual_profile": {
+        "age_range": "30-45",
+        "hair": "castano oscuro",
+        "beard": "barba corta",
+        "clothing": "tunica de lana y capa de guerra altomedieval",
+        "palette": [
+          "#4D5A6A",
+          "#8D6B46"
+        ],
+        "style_notes": "Evitar anacronismos y reforzar identidad altomedieval del norte peninsular."
+      },
+      "state": {
+        "status": "active",
+        "location": "Asturias",
+        "alliances": [],
+        "conflicts": [],
+        "last_seen_episode_id": null,
+        "last_updated": "2026-03-17T11:00:00Z"
+      },
+      "continuity": {
+        "must_keep": [
+          "Resistencia disciplinada frente a superioridad enemiga"
+        ],
+        "must_avoid": [
+          "Lenguaje moderno"
+        ]
+      },
+      "emotional_state": {
+        "dominant_emotion": "resolve",
+        "intensity": 0.81,
+        "valence": 0.2,
+        "arousal": 0.77,
+        "trigger_summary": "La presion militar empuja a Pelayo a organizar una respuesta."
+      },
+      "arc_state": {
+        "stage": "turn",
+        "external_goal": "Sostener la resistencia astur frente a la invasion.",
+        "internal_need": "Transformar reaccion defensiva en liderazgo estable.",
+        "contradiction": "Instinto militar frente a necesidad politica de cohesion.",
+        "change_vector": "De resistente local a referente del relato.",
+        "last_event_id": "evt-72201"
+      },
+      "observed_from_source": {
+        "goals": [
+          {
+            "label": "organizar_resistencia",
+            "summary": "Se le presenta organizando la resistencia en Asturias.",
+            "confidence": 0.9,
+            "source_refs": [
+              {
+                "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+                "section": "chk-0002",
+                "checksum": "4444444444444444444444444444444444444444444444444444444444444444",
+                "excerpt": "Pelayo organiza la resistencia en Asturias.",
+                "page_start": 2,
+                "page_end": 2,
+                "chunk_id": "chk-0002"
+              }
+            ]
+          }
+        ],
+        "fears": [],
+        "contradictions": [],
+        "behavior_patterns": [
+          {
+            "label": "liderazgo_reactivo",
+            "summary": "Su conducta se presenta como respuesta organizada a una amenaza previa.",
+            "confidence": 0.78,
+            "source_refs": [
+              {
+                "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+                "section": "chk-0002",
+                "checksum": "4444444444444444444444444444444444444444444444444444444444444444",
+                "excerpt": "Convierte la desventaja material en cohesion politica.",
+                "page_start": 2,
+                "page_end": 2,
+                "chunk_id": "chk-0002"
+              }
+            ]
+          }
+        ],
+        "relationships": []
+      },
+      "inferred_from_source": {
+        "internal_needs": [
+          {
+            "label": "consolidar_legitimidad",
+            "summary": "Necesita convertir la supervivencia militar en legitimidad compartida.",
+            "confidence": 0.68,
+            "source_refs": [
+              {
+                "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+                "section": "chk-0002",
+                "checksum": "4444444444444444444444444444444444444444444444444444444444444444",
+                "excerpt": "Convierte la desventaja material en cohesion politica.",
+                "page_start": 2,
+                "page_end": 2,
+                "chunk_id": "chk-0002"
+              }
+            ]
+          }
+        ],
+        "private_state": [
+          {
+            "label": "tension_interior",
+            "summary": "La presion del contexto sugiere una interioridad marcada por urgencia y control.",
+            "confidence": 0.6,
+            "source_refs": [
+              {
+                "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+                "section": "chk-0002",
+                "checksum": "4444444444444444444444444444444444444444444444444444444444444444",
+                "excerpt": "Organiza la resistencia en Asturias.",
+                "page_start": 2,
+                "page_end": 2,
+                "chunk_id": "chk-0002"
+              }
+            ]
+          }
+        ],
+        "likely_arc": [
+          {
+            "label": "de_resistencia_a_fundacion",
+            "summary": "Su arco probable pasa de defenderse a fundar una continuidad politica.",
+            "confidence": 0.65,
+            "source_refs": [
+              {
+                "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+                "section": "chk-0002",
+                "checksum": "4444444444444444444444444444444444444444444444444444444444444444",
+                "excerpt": "Convierte la desventaja material en cohesion politica.",
+                "page_start": 2,
+                "page_end": 2,
+                "chunk_id": "chk-0002"
+              }
+            ]
+          }
+        ]
+      },
+      "event_records": [
+        {
+          "record_id": "arc-20260317-pelayo_01",
+          "event_id": "evt-71101",
+          "chronology_index": 1,
+          "emotion_before": "uncertainty",
+          "emotion_after": "fear",
+          "arc_stage_before": "setup",
+          "arc_stage_after": "ascent",
+          "change_summary": "La quiebra del reino visigodo desplaza a Pelayo a un estado de alerta.",
+          "observed_from_source": [],
+          "inferred_from_source": [
+            {
+              "label": "alarma_inicial",
+              "summary": "La ruptura del orden sugiere un paso hacia el miedo y la vigilancia.",
+              "confidence": 0.66,
+              "source_refs": [
+                {
+                  "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+                  "section": "chk-0001",
+                  "checksum": "3333333333333333333333333333333333333333333333333333333333333333",
+                  "excerpt": "Empieza a quebrarse el reino visigodo.",
+                  "page_start": 1,
+                  "page_end": 1,
+                  "chunk_id": "chk-0001"
+                }
+              ]
+            }
+          ],
+          "source_refs": [
+            {
+              "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+              "section": "chk-0001",
+              "checksum": "3333333333333333333333333333333333333333333333333333333333333333",
+              "excerpt": "Empieza a quebrarse el reino visigodo.",
+              "page_start": 1,
+              "page_end": 1,
+              "chunk_id": "chk-0001"
+            }
+          ],
+          "confidence": 0.66,
+          "updated_at": "2026-03-17T11:00:00Z"
+        },
+        {
+          "record_id": "arc-20260317-pelayo_02",
+          "event_id": "evt-72201",
+          "chronology_index": 2,
+          "emotion_before": "fear",
+          "emotion_after": "resolve",
+          "arc_stage_before": "ascent",
+          "arc_stage_after": "turn",
+          "change_summary": "Pelayo convierte la presion del contexto en liderazgo organizado.",
+          "observed_from_source": [
+            {
+              "label": "organiza_resistencia",
+              "summary": "La fuente lo situa articulando la resistencia astur.",
+              "confidence": 0.9,
+              "source_refs": [
+                {
+                  "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+                  "section": "chk-0002",
+                  "checksum": "4444444444444444444444444444444444444444444444444444444444444444",
+                  "excerpt": "Pelayo organiza la resistencia en Asturias.",
+                  "page_start": 2,
+                  "page_end": 2,
+                  "chunk_id": "chk-0002"
+                }
+              ]
+            }
+          ],
+          "inferred_from_source": [],
+          "source_refs": [
+            {
+              "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+              "section": "chk-0002",
+              "checksum": "4444444444444444444444444444444444444444444444444444444444444444",
+              "excerpt": "Pelayo organiza la resistencia en Asturias.",
+              "page_start": 2,
+              "page_end": 2,
+              "chunk_id": "chk-0002"
+            }
+          ],
+          "confidence": 0.9,
+          "updated_at": "2026-03-17T11:00:00Z"
+        }
+      ]
+    }
+  ]
+}

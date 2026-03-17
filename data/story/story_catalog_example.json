@@ -1,0 +1,150 @@
+{
+  "story_catalog_id": "sc-asturias-001",
+  "source_pack_id": "spk-asturias-001",
+  "character_bible_id": "cb-asturias-001",
+  "created_at": "2026-03-17T12:00:00Z",
+  "selection_mode": "manual",
+  "generation_meta": {
+    "model": "gpt-5.4",
+    "prompt_version": "story-catalog-v1",
+    "prompt_checksum": "7777777777777777777777777777777777777777777777777777777777777777",
+    "input_checksum": "8888888888888888888888888888888888888888888888888888888888888888",
+    "generated_at": "2026-03-17T12:00:00Z"
+  },
+  "stories": [
+    {
+      "story_id": "story-caida-visigoda",
+      "chronology_index": 1,
+      "title": "La grieta que hizo posible el levantamiento",
+      "summary": "La caida del orden visigodo abre el vacio politico y emocional en el que Pelayo tendra que definirse.",
+      "source_event_ids": [
+        "evt-71101"
+      ],
+      "source_refs": [
+        {
+          "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+          "section": "chk-0001",
+          "checksum": "3333333333333333333333333333333333333333333333333333333333333333",
+          "excerpt": "Empieza a quebrarse el reino visigodo.",
+          "page_start": 1,
+          "page_end": 1,
+          "chunk_id": "chk-0001"
+        }
+      ],
+      "characters": [
+        "pelayo"
+      ],
+      "conflict": "El derrumbe del orden previo deja a los futuros resistentes sin marco estable.",
+      "stakes": "Sin comprender esta grieta, la fundacion narrativa del reino pierde sentido.",
+      "story_goal": "Mostrar el origen del vacio que obliga a reaccionar.",
+      "continuity_previous": "Es el arranque de la linea narrativa.",
+      "continuity_next": "Prepara el paso hacia la organizacion activa de la resistencia.",
+      "dramatic_value": 0.74,
+      "historical_fidelity": 0.9,
+      "visual_potential": "Mapas quebrados, caida del poder y sensacion de ruptura general.",
+      "observed_from_source": [
+        {
+          "label": "ruptura_visigoda",
+          "summary": "La fuente habla de una quiebra del reino visigodo y una alteracion del equilibrio peninsular.",
+          "confidence": 0.92,
+          "source_refs": [
+            {
+              "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+              "section": "chk-0001",
+              "checksum": "3333333333333333333333333333333333333333333333333333333333333333",
+              "excerpt": "Empieza a quebrarse el reino visigodo.",
+              "page_start": 1,
+              "page_end": 1,
+              "chunk_id": "chk-0001"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "vacio_legitimidad",
+          "summary": "La ruptura permite leer un vacio de legitimidad que luego explotara la resistencia.",
+          "confidence": 0.67,
+          "source_refs": [
+            {
+              "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+              "section": "chk-0001",
+              "checksum": "3333333333333333333333333333333333333333333333333333333333333333",
+              "excerpt": "Altera el equilibrio peninsular.",
+              "page_start": 1,
+              "page_end": 1,
+              "chunk_id": "chk-0001"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "story_id": "story-resistencia-pelayo",
+      "chronology_index": 2,
+      "title": "Cuando la resistencia encuentra un rostro",
+      "summary": "Pelayo transforma una situacion defensiva en cohesion politica y abre la posibilidad de una historia propia.",
+      "source_event_ids": [
+        "evt-72201"
+      ],
+      "source_refs": [
+        {
+          "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+          "section": "chk-0002",
+          "checksum": "4444444444444444444444444444444444444444444444444444444444444444",
+          "excerpt": "Pelayo organiza la resistencia en Asturias.",
+          "page_start": 2,
+          "page_end": 2,
+          "chunk_id": "chk-0002"
+        }
+      ],
+      "characters": [
+        "pelayo"
+      ],
+      "conflict": "La inferioridad material debe convertirse en cohesion y legitimidad.",
+      "stakes": "Si la resistencia no se organiza, no hay continuidad narrativa ni politica.",
+      "story_goal": "Mostrar el punto en que una reaccion dispersa se vuelve proyecto.",
+      "continuity_previous": "Llega despues de la quiebra del orden visigodo.",
+      "continuity_next": "Abre el camino hacia el episodio de choque y consolidacion.",
+      "dramatic_value": 0.9,
+      "historical_fidelity": 0.86,
+      "visual_potential": "Montana, preparativos, liderazgo contenido y rostros tensos.",
+      "observed_from_source": [
+        {
+          "label": "organizacion_resistencia",
+          "summary": "La fuente situa a Pelayo organizando la resistencia en Asturias.",
+          "confidence": 0.93,
+          "source_refs": [
+            {
+              "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+              "section": "chk-0002",
+              "checksum": "4444444444444444444444444444444444444444444444444444444444444444",
+              "excerpt": "Pelayo organiza la resistencia en Asturias.",
+              "page_start": 2,
+              "page_end": 2,
+              "chunk_id": "chk-0002"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "nacimiento_de_referente",
+          "summary": "La cohesion politica permite inferir un paso de actor local a referente colectivo.",
+          "confidence": 0.7,
+          "source_refs": [
+            {
+              "file": "docs/chronicles/01-La gran aventura del reino de Asturias.pdf",
+              "section": "chk-0002",
+              "checksum": "4444444444444444444444444444444444444444444444444444444444444444",
+              "excerpt": "Convierte la desventaja material en cohesion politica.",
+              "page_start": 2,
+              "page_end": 2,
+              "chunk_id": "chk-0002"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

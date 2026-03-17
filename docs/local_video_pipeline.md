@@ -1,11 +1,10 @@
 # Local Video Pipeline (step by step)
 
-Objetivo: validar rapido el flujo local de produccion de video sin depender aun de TikTok API.
+Objetivo: validar rapido el flujo local de produccion de video a partir de una fuente canonica revisada, sin depender aun de TikTok API.
 
 Objetivos de duracion:
 
-- Episodio principal: 90-120 segundos (maximo 180)
-- Teaser: 15-30 segundos
+- Episodio principal: 90-150 segundos (maximo 180)
 
 ## Requisitos
 
@@ -26,26 +25,45 @@ Instalacion rapida de ffmpeg:
 python3 scripts/validate_json.py
 ```
 
-## Paso 2: extraer eventos desde cronicas
+## Paso 2: construir `source_pack`
 
 ```bash
-python3 scripts/extract_source_events.py --sources \
+python3 scripts/build_source_pack.py --source \
   docs/chronicles/01-La\\ gran\\ aventura\\ del\\ reino\\ de\\ Asturias.pdf \
   --overwrite
 ```
 
-Nota importante:
+Salida esperada:
 
-- Si el PDF viene con DRM/cifrado (EBX_HANDLER), exporta antes a `.txt` o `.md` y usa ese archivo como source.
+- `data/source/source_pack.json`
+- `data/timeline/source_events.json` (artefacto derivado)
+- `artifacts/source_pack/<fuente>/pages/*.png`
+- `artifacts/source_pack/<fuente>/ocr/*.txt|*.tsv`
 
-## Paso 3: construir personajes, emociones y arco
+## Paso 3: revisar y aprobar `source_pack`
 
 ```bash
-python3 scripts/build_character_bible.py --events data/timeline/source_events.json --overwrite
+python3 scripts/review_source_pack.py \
+  --source-pack data/source/source_pack.json \
+  --approve \
+  --reviewer editor_historia
 ```
 
 Salida esperada:
 
+- `data/source/source_pack.json` con `review.status=approved`
+
+## Paso 4: construir `character_bible`, personajes y timelines compatibles
+
+```bash
+python3 scripts/generate_character_bible.py \
+  --source-pack data/source/source_pack.json \
+  --output data/characters/character_bible.json
+```
+
+Salida esperada:
+
+- `data/characters/character_bible.json`
 - `data/characters/<character_id>.json`
 - `data/characters/timelines/<character_id>.json`
 
@@ -55,52 +73,57 @@ Validar:
 python3 scripts/validate_generated_characters.py
 ```
 
-## Paso 4: generar plan diario
+## Paso 5: generar catalogo lineal de historias
 
 ```bash
-python3 scripts/generate_daily_plan.py --date 2026-03-15 --reset-progression
+python3 scripts/generate_story_catalog.py \
+  --source-pack data/source/source_pack.json \
+  --character-bible data/characters/character_bible.json
 ```
 
 Salida esperada:
 
-- `data/daily_plan/plan-20260315.json`
+- `data/story/story_catalog.json`
 
-Notas:
-
-- El script corre en modo estricto: sin fuente valida no crea plan.
-- El avance lineal entre dias se guarda en `data/timeline/progression_state.json`.
-- Para volver al inicio de la cronologia, usar `--reset-progression`.
-
-## Paso 5: generar episodios (2 main + 2 teaser)
+## Paso 6: generar episodio final desde `story_id`
 
 ```bash
-python3 scripts/generate_episodes_from_plan.py --plan data/daily_plan/plan-20260315.json
+python3 scripts/generate_episode_from_story.py \
+  --source-pack data/source/source_pack.json \
+  --character-bible data/characters/character_bible.json \
+  --story-catalog data/story/story_catalog.json \
+  --story-id story-resistencia-pelayo
 ```
 
 Salida esperada:
 
-- `data/episodes/generated/plan-20260315/*.json`
+- `data/episodes/generated/story-catalog/*.json`
 
-Validar episodios:
+Validar artefactos y episodio:
 
 ```bash
-python3 scripts/validate_generated_episodes.py --dir data/episodes/generated/plan-20260315
+python3 scripts/validate_story_pipeline.py \
+  --source-pack data/source/source_pack.json \
+  --character-bible data/characters/character_bible.json \
+  --story-catalog data/story/story_catalog.json \
+  --episode data/episodes/generated/story-catalog/<episode>.json
 ```
 
-## Paso 6: generar video final (imagen IA + voz IA + montaje)
+## Paso 7: generar video final (imagen IA + voz IA + montaje)
 
 Generar assets por escena (OpenAI):
 
 ```bash
 python3 scripts/generate_scene_assets.py \
-  --episode data/episodes/generated/plan-20260315/main-20260315-linea_01.json
+  --episode data/episodes/generated/story-catalog/<episode>.json \
+  --image-quality medium
 ```
 
 Componer MP4 final con subtitulos incrustados:
 
 ```bash
 python3 scripts/compose_final_video.py \
-  --episode data/episodes/generated/plan-20260315/main-20260315-linea_01.json
+  --episode data/episodes/generated/story-catalog/<episode>.json
 ```
 
 SVG opcionales para narracion/dialogo/grito:
@@ -117,41 +140,47 @@ Salida esperada:
 - `artifacts/videos/final/<episode_id>.mp4`
 - `artifacts/subtitles/final/<episode_id>.srt`
 
+Control de coste/calidad:
+
+- `OPENAI_IMAGE_QUALITY=low|medium|high|auto`
+- Si no se define, el script deja que la API use `auto`.
+
 Ejecucion en lote (todos los episodios del plan):
 
 ```bash
-bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/plan-20260315
-```
-
-Directo desde el `plan.json`:
-
-```bash
-bash scripts/run_final_ai_video_pipeline_from_plan.sh data/daily_plan/plan-20260315.json
+bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/story-catalog
 ```
 
 Modo mock sin llamadas a API (solo para test de pipeline):
 
 ```bash
-bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/plan-20260315 --mock
+bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/story-catalog --mock
 ```
 
-## Smoke test de un comando
+## Pipeline de un comando
 
 ```bash
-bash scripts/run_local_first_batch.sh 2026-03-15 --reset-progression
+bash scripts/run_story_pipeline_from_source.sh \
+  "docs/chronicles/01-La gran aventura del reino de Asturias.pdf" \
+  story-resistencia-pelayo \
+  --approve-source editor_historia \
+  --mock \
+  --overwrite
 ```
 
 Este comando ejecuta:
 
-1. Generacion de `daily_plan`
-2. Construccion de character bible
-3. Generacion de 4 episodios JSON
-4. Render final mock de 1 principal + 1 teaser
+1. `source_pack` y OCR persistido
+2. Revision humana o aprobacion explicita
+3. `character_bible` y salidas compatibles
+4. `story_catalog`
+5. Episodio final
+6. Render mock u OpenAI real
 
 ## Que valida este pipeline
 
 - Estructura de datos y consistencia de IDs
-- Presencia de plot twist en episodios `main`
+- Presencia de `source_evidence`, `plot_twist` y continuidad dramatica en episodios `main`
 - Continuidad emocional y de arco por personaje (`character_beats`)
 - Generacion de assets por escena y composicion final
 - Punto de integracion para voz, imagen IA y subida TikTok

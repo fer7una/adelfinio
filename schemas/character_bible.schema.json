@@ -1,0 +1,488 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adelfinio.local/schemas/character_bible.schema.json",
+  "title": "CharacterBible",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "character_bible_id",
+    "source_pack_id",
+    "created_at",
+    "inference_policy",
+    "generation_meta",
+    "characters"
+  ],
+  "properties": {
+    "character_bible_id": {
+      "type": "string",
+      "pattern": "^cb-[a-z0-9\\-]{6,64}$"
+    },
+    "source_pack_id": {
+      "type": "string",
+      "pattern": "^spk-[a-z0-9\\-]{6,64}$"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "inference_policy": {
+      "type": "string",
+      "const": "evidence_plus_labeled_inference"
+    },
+    "generation_meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "prompt_version",
+        "prompt_checksum",
+        "input_checksum",
+        "generated_at"
+      ],
+      "properties": {
+        "model": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "prompt_version": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "prompt_checksum": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "input_checksum": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "characters": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/characterProfile"
+      }
+    }
+  },
+  "$defs": {
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file",
+        "section",
+        "checksum",
+        "excerpt"
+      ],
+      "properties": {
+        "file": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 260
+        },
+        "section": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "checksum": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "excerpt": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 260
+        },
+        "page_start": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "page_end": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "chunk_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^chk-[0-9]{4}$"
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "summary",
+        "confidence",
+        "source_refs"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 12,
+          "maxLength": 320
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_character_id",
+        "relationship_type",
+        "summary",
+        "confidence",
+        "source_refs"
+      ],
+      "properties": {
+        "target_character_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9_\\-]{3,64}$"
+        },
+        "relationship_type": {
+          "type": "string",
+          "enum": [
+            "ally",
+            "enemy",
+            "family",
+            "subordinate",
+            "authority",
+            "rival",
+            "other"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 12,
+          "maxLength": 320
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        }
+      }
+    },
+    "eventRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_id",
+        "event_id",
+        "chronology_index",
+        "emotion_before",
+        "emotion_after",
+        "arc_stage_before",
+        "arc_stage_after",
+        "change_summary",
+        "observed_from_source",
+        "inferred_from_source",
+        "source_refs",
+        "confidence",
+        "updated_at"
+      ],
+      "properties": {
+        "record_id": {
+          "type": "string",
+          "pattern": "^arc-[0-9]{8}-[a-z0-9_\\-]+$"
+        },
+        "event_id": {
+          "type": "string",
+          "pattern": "^evt-[0-9]{4,8}$"
+        },
+        "chronology_index": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "emotion_before": {
+          "type": "string",
+          "enum": [
+            "calm",
+            "hope",
+            "fear",
+            "anger",
+            "sadness",
+            "resolve",
+            "joy",
+            "grief",
+            "pride",
+            "shame",
+            "uncertainty"
+          ]
+        },
+        "emotion_after": {
+          "type": "string",
+          "enum": [
+            "calm",
+            "hope",
+            "fear",
+            "anger",
+            "sadness",
+            "resolve",
+            "joy",
+            "grief",
+            "pride",
+            "shame",
+            "uncertainty"
+          ]
+        },
+        "arc_stage_before": {
+          "type": "string",
+          "enum": [
+            "setup",
+            "ascent",
+            "crisis",
+            "turn",
+            "resolution",
+            "legacy"
+          ]
+        },
+        "arc_stage_after": {
+          "type": "string",
+          "enum": [
+            "setup",
+            "ascent",
+            "crisis",
+            "turn",
+            "resolution",
+            "legacy"
+          ]
+        },
+        "change_summary": {
+          "type": "string",
+          "minLength": 12,
+          "maxLength": 400
+        },
+        "observed_from_source": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claim"
+          }
+        },
+        "inferred_from_source": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claim"
+          }
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "characterProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "character_id",
+        "display_name",
+        "aliases",
+        "historical_period",
+        "role",
+        "biography_short",
+        "voice_profile",
+        "visual_profile",
+        "state",
+        "continuity",
+        "emotional_state",
+        "arc_state",
+        "observed_from_source",
+        "inferred_from_source",
+        "event_records"
+      ],
+      "properties": {
+        "character_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9_\\-]{3,64}$"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          }
+        },
+        "historical_period": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "monarch",
+            "military",
+            "political",
+            "religious",
+            "civilian",
+            "chronicler",
+            "other"
+          ]
+        },
+        "biography_short": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 1200
+        },
+        "voice_profile": {
+          "$ref": "character.schema.json#/properties/voice_profile"
+        },
+        "visual_profile": {
+          "$ref": "character.schema.json#/properties/visual_profile"
+        },
+        "state": {
+          "$ref": "character.schema.json#/properties/state"
+        },
+        "continuity": {
+          "$ref": "character.schema.json#/properties/continuity"
+        },
+        "emotional_state": {
+          "$ref": "character.schema.json#/properties/emotional_state"
+        },
+        "arc_state": {
+          "$ref": "character.schema.json#/properties/arc_state"
+        },
+        "observed_from_source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "goals",
+            "fears",
+            "contradictions",
+            "behavior_patterns",
+            "relationships"
+          ],
+          "properties": {
+            "goals": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/claim"
+              }
+            },
+            "fears": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/claim"
+              }
+            },
+            "contradictions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/claim"
+              }
+            },
+            "behavior_patterns": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/claim"
+              }
+            },
+            "relationships": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/relationship"
+              }
+            }
+          }
+        },
+        "inferred_from_source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "internal_needs",
+            "private_state",
+            "likely_arc"
+          ],
+          "properties": {
+            "internal_needs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/claim"
+              }
+            },
+            "private_state": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/claim"
+              }
+            },
+            "likely_arc": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/claim"
+              }
+            }
+          }
+        },
+        "event_records": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/eventRecord"
+          }
+        }
+      }
+    }
+  }
+}

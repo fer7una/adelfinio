@@ -106,6 +106,41 @@
         }
       }
     },
+    "generation_meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "prompt_version",
+        "prompt_checksum",
+        "input_checksum",
+        "generated_at"
+      ],
+      "properties": {
+        "model": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "prompt_version": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "prompt_checksum": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "input_checksum": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "plot_twist": {
       "type": "object",
       "additionalProperties": false,
@@ -264,6 +299,62 @@
                 }
               }
             }
+          },
+          "scene_cast": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9_\\-]{3,64}$"
+            }
+          },
+          "scene_objective": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 240
+          },
+          "source_evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sourceEvidence"
+            }
+          },
+          "character_state_before": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/characterStateSnapshot"
+            }
+          },
+          "character_state_after": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/characterStateSnapshot"
+            }
+          },
+          "behavioral_notes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 6,
+              "maxLength": 220
+            }
+          },
+          "subtext_or_private_state_summary": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 320
+          },
+          "prompt_rationale": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 320
+          },
+          "inference_flags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 80
+            }
           }
         }
       }
@@ -356,6 +447,25 @@
         }
       }
     },
+    "source_evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sourceEvidence"
+      }
+    },
+    "prompt_rationale": {
+      "type": "string",
+      "minLength": 12,
+      "maxLength": 320
+    },
+    "inference_flags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 80
+      }
+    },
     "duration_seconds": {
       "type": "integer",
       "minimum": 15,
@@ -412,6 +522,144 @@
     "created_at": {
       "type": "string",
       "format": "date-time"
+    }
+  },
+  "$defs": {
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file",
+        "section",
+        "checksum",
+        "excerpt"
+      ],
+      "properties": {
+        "file": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 260
+        },
+        "section": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "checksum": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "excerpt": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 260
+        },
+        "page_start": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "page_end": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "chunk_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^chk-[0-9]{4}$"
+        }
+      }
+    },
+    "sourceEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "observed_from_source",
+        "inferred_from_source",
+        "confidence",
+        "source_refs"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 12,
+          "maxLength": 320
+        },
+        "observed_from_source": {
+          "type": "boolean"
+        },
+        "inferred_from_source": {
+          "type": "boolean"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        }
+      }
+    },
+    "characterStateSnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "character_id",
+        "emotion",
+        "arc_stage",
+        "summary"
+      ],
+      "properties": {
+        "character_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9_\\-]{3,64}$"
+        },
+        "emotion": {
+          "type": "string",
+          "enum": [
+            "calm",
+            "hope",
+            "fear",
+            "anger",
+            "sadness",
+            "resolve",
+            "joy",
+            "grief",
+            "pride",
+            "shame",
+            "uncertainty"
+          ]
+        },
+        "arc_stage": {
+          "type": "string",
+          "enum": [
+            "setup",
+            "ascent",
+            "crisis",
+            "turn",
+            "resolution",
+            "legacy"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 220
+        }
+      }
     }
   },
   "allOf": [
