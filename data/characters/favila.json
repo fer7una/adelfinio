@@ -1,0 +1,64 @@
+{
+  "character_id": "favila",
+  "display_name": "Favila",
+  "aliases": [],
+  "historical_period": "siglo VIII (inicio-medio)",
+  "role": "military",
+  "biography_short": "Miembro de la aristocracia hispanogoda, vinculado a la primera generación que conecta con Pelayo; se le atribuyen cargos militares y una muerte legendaria por ataque de un plantígrado.",
+  "voice_profile": {
+    "tts_voice": "baritono_rudo",
+    "tone": "conciso, seco",
+    "words_per_second": 2.8,
+    "delivery_modifiers": {
+      "normal": 1.0,
+      "shout": 1.15
+    }
+  },
+  "visual_profile": {
+    "age_range": "30-50",
+    "hair": "oscuro, corto",
+    "beard": "barba completa",
+    "clothing": "armadura de campaña visigoda; insignias de cargo militar",
+    "palette": [
+      "#5C4033",
+      "#4A3B2A",
+      "#9C7B5A"
+    ],
+    "style_notes": "Foco en iconografía de guerrero visigodo; elementos de rango (insignias, fíbula) para planos medios."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "Asturias (según tradición)",
+    "alliances": [
+      "pelayo"
+    ],
+    "conflicts": [],
+    "last_seen_episode_id": "teaser-08970110-favila",
+    "last_updated": "2026-03-17T17:31:57Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "padre_de_pelayo (según fuentes cronísticas)",
+      "muere_por_intervencion_del_entorno_legendario (plantígrado)"
+    ],
+    "must_avoid": [
+      "atribuirle un reinado formal",
+      "precisar detalles cronológicos que la fuente no da"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "pride",
+    "intensity": 0.6,
+    "valence": 0.4,
+    "arousal": 0.5,
+    "trigger_summary": "figura de aristócrata militar con prestigio; su muerte rápida deja vacío dinástico"
+  },
+  "arc_state": {
+    "stage": "setup",
+    "external_goal": "mantener posición aristocrática y militar",
+    "internal_need": "garantizar la continuidad de su linaje",
+    "contradiction": "muerte prematura que trastoca la sucesión",
+    "change_vector": "de figura estable a factor de crisis dinástica",
+    "last_event_id": "evt-089701"
+  }
+}

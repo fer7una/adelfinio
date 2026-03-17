@@ -1,0 +1,22 @@
+{
+  "character_id": "ermesinda",
+  "records": [
+    {
+      "record_id": "arc-00100041-ermesinda-1050",
+      "event_id": "evt-105001",
+      "chronology_index": 3,
+      "emotion_before": "calm",
+      "emotion_after": "pride",
+      "arc_stage_before": "setup",
+      "arc_stage_after": "resolution",
+      "change_summary": "Su mención en el linaje contribuye a explicar por qué hijos y allegados acceden a la corona en generaciones posteriores.",
+      "source_ref": {
+        "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+        "section": "evt-105001",
+        "checksum": "ff00112233445566778899aabbccddeeff00112233445566778899aabbccdd00",
+        "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda..."
+      },
+      "updated_at": "2026-03-17T17:31:57Z"
+    }
+  ]
+}

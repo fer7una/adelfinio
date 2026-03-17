@@ -1,0 +1,749 @@
+{
+  "character_bible_id": "cb-2026-03-17-spk-01-v1",
+  "source_pack_id": "spk-01-la-gran-aventura-del-reino-de-asturias",
+  "created_at": "2026-03-17T17:31:57Z",
+  "inference_policy": "evidence_plus_labeled_inference",
+  "generation_meta": {
+    "model": "gpt-5-mini",
+    "prompt_version": "character-bible-v1",
+    "prompt_checksum": "65e38e9bf32ea340e8748d49d2d95ab99d9a5e1af7c571f8ab344e5f1e5cdaaa",
+    "input_checksum": "b3ec621e6302af0a07c035cc45c735d23f14eb0b281ef090af594797971626d7",
+    "generated_at": "2026-03-17T17:42:37Z"
+  },
+  "characters": [
+    {
+      "character_id": "pelayo",
+      "display_name": "Pelayo",
+      "aliases": [],
+      "historical_period": "siglo VIII (principios)",
+      "role": "monarch",
+      "biography_short": "Líder de la insurrección cristiana en la cornisa cantábrica; protagoniza la resistencia en la montaña (Monte Auseva / Covadonga) y, tras la victoria, encarna el núcleo que dará lugar al reino de Asturias.",
+      "voice_profile": {
+        "tts_voice": "tenor_bajo_hieratico",
+        "tone": "resuelto, sobrio, autoritario",
+        "words_per_second": 2.6,
+        "delivery_modifiers": {
+          "normal": 1.0,
+          "shout": 1.25
+        }
+      },
+      "visual_profile": {
+        "age_range": "40-55",
+        "hair": "oscuro, corto",
+        "beard": "barba corta y recortada",
+        "clothing": "túnica y cota de malla ligera; capa de piel en tiempos de refugio montañoso",
+        "palette": [
+          "#6B4423",
+          "#2F3E2F",
+          "#8B7B6B"
+        ],
+        "style_notes": "Vestuario sencillo de líder guerrero: combinación de elementos visigodos arcaizantes y práctico equipo de montaña; énfasis en manos y mirada resoluta para planos cercanos."
+      },
+      "state": {
+        "status": "deceased",
+        "location": "Asturias (Covadonga / Cangas de Onís según fuentes)",
+        "alliances": [
+          "liderazgo_godo_local"
+        ],
+        "conflicts": [
+          "ejercitos_musulmanes_de_la_peninsula"
+        ],
+        "last_seen_episode_id": null,
+        "last_updated": "2026-03-17T17:31:57Z"
+      },
+      "continuity": {
+        "must_keep": [
+          "liderazgo_en_levanta_miento_de_722",
+          "batalla_en_monte_Auseva/Covadonga",
+          "vínculos_con_aristocracia_hispano-goda"
+        ],
+        "must_avoid": [
+          "detalles_biográficos_no_sostenidos_por_fuente (p.ej. fecha precisa de nacimiento)",
+          "atribuciones_anacrónicas de títulos estatales modernos"
+        ]
+      },
+      "emotional_state": {
+        "dominant_emotion": "resolve",
+        "intensity": 0.8,
+        "valence": 0.6,
+        "arousal": 0.6,
+        "trigger_summary": "levantamiento contra la exigencia de tributo y la presión musulmana; necesidad de proteger a su gente en el contexto de colapso visigodo"
+      },
+      "arc_state": {
+        "stage": "ascent",
+        "external_goal": "consolidar un núcleo de resistencia cristiana en las montañas",
+        "internal_need": "legitimar su liderazgo y convertir la revuelta en autoridad estable",
+        "contradiction": "debe pasar de caudillo local a figura institucional sin instrumentos estatales claros",
+        "change_vector": "de guerrillero/caudillo a fundador de un linaje político",
+        "last_event_id": "evt-073501"
+      },
+      "observed_from_source": {
+        "goals": [
+          {
+            "label": "leader_of_rebellion",
+            "summary": "Pelayo lideró una insurrección en la cornisa cantábrica que dio lugar a un núcleo de resistencia.",
+            "confidence": 0.92,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-083401",
+                "checksum": "cf83e1357eefb8bd1542850d66d8007d7c1b5e8e9abf5c2d3e4f6a7b8c9d0e1f",
+                "excerpt": "Los cristianos ganaron. El triunfo de Pelayo hizo que otros muchos, en la cornisa cantábrica, se sumaran a la rebelión.",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              },
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "chk-0035",
+                "checksum": "a1b2c3d4e5f60123456789abcdef00011223344556677889900aabbccddeeff0",
+                "excerpt": "Pelayo, dónde estás?\". El interpelado se asomó a una ventana y respondió: \"Aquí estoy\".",
+                "page_start": 25,
+                "page_end": 26,
+                "chunk_id": "chk-0035"
+              }
+            ]
+          }
+        ],
+        "fears": [
+          {
+            "label": "threat_of_tributary_submission",
+            "summary": "La revuelta surge, en parte, por la exigencia mora de tributos y rehenes a los astures; amenaza que impulsa la rebelión.",
+            "confidence": 0.88,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "chk-0152",
+                "checksum": "b2c3d4e5f60011223344556677889900aabbccddeeff00112233445566778899",
+                "excerpt": "Por qué se levantaron aquellos astures, junto a Pelayo, contra el poder musulmán? Todo apunta a que la causa de la sublevación fue la exigencia mora de que los asturianos tributaran con impuestos y con rehenes.",
+                "page_start": 52,
+                "page_end": 52,
+                "chunk_id": "chk-0152"
+              }
+            ]
+          }
+        ],
+        "contradictions": [
+          {
+            "label": "from_local_caudillo_to_founder",
+            "summary": "Aunque era un caudillo de montaña, su victoria implicó la creación de un núcleo político con pretensiones de continuidad.",
+            "confidence": 0.85,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-083401",
+                "checksum": "cf83e1357eefb8bd1542850d66d8007d7c1b5e8e9abf5c2d3e4f6a7b8c9d0e1f",
+                "excerpt": "El triunfo de Pelayo hizo que otros muchos, en la cornisa cantábrica, se sumaran a la rebelión. Para los musulmanes se... (formación de un primer núcleo político de resistencia).",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ],
+        "behavior_patterns": [
+          {
+            "label": "uses_mountain_terrain",
+            "summary": "Actúa desde parajes montañosos (refugio en cuevas, control de pasos) y moviliza fuerzas locales para hostigar a los ejércitos que penetran en terreno desconocido.",
+            "confidence": 0.9,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-073501",
+                "checksum": "1a2b3c4d5e6f77889900aabbccddeeff11223344556677889900aabbccddeeff",
+                "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva y el ejército de Alkama llegó hasta y alzó innumerables tiendas frente a la entrada de una cueva.",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": "chk-0735"
+              },
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "chk-0747",
+                "checksum": "d4c3b2a19087654321ffeeddccbbaa99887766554433221100aabbccddeeff11",
+                "excerpt": "Un error, porque mover ejércitos por un paraje como aquél, montañoso, y para ellos desconocido, era arriesgarse al colapso.",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": "chk-0747"
+              }
+            ]
+          }
+        ],
+        "relationships": [
+          {
+            "target_character_id": "favila",
+            "relationship_type": "family",
+            "summary": "La fuente se refiere a Favila como padre de Pelayo.",
+            "confidence": 0.9,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-081601",
+                "checksum": "9f8e7d6c5b4a39281716151413121110ffeeddccbbaa99887766554433221100",
+                "excerpt": "De dónde era duque este Favila, el padre de Pelayo? No lo sabemos con...",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ]
+      },
+      "inferred_from_source": {
+        "internal_needs": [
+          {
+            "label": "legitimize_rule_and_create_political_entity",
+            "summary": "Tras la victoria, la conducta y las alusiones cronísticas sugieren una necesidad interna de convertir la revuelta en un núcleo político duradero (semilla del reino de Asturias).",
+            "confidence": 0.75,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-083401",
+                "checksum": "cf83e1357eefb8bd1542850d66d8007d7c1b5e8e9abf5c2d3e4f6a7b8c9d0e1f",
+                "excerpt": "El triunfo de Pelayo hizo que otros muchos, en la cornisa cantábrica, se sumaran a la rebelión. Para los musulmanes se...",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              },
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-119601",
+                "checksum": "aa11bb22cc33dd44ee55ff6677889900aabbccddeeff00112233445566778899",
+                "excerpt": "Más precisamente, fue ungido rey por el rito visigodo, algo que no se había hecho nunca antes en el reino de Asturias...",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ],
+        "private_state": [
+          {
+            "label": "pride_and_responsibility_toward_followers",
+            "summary": "Tras su victoria inicial, las crónicas sitúan a Pelayo como punto de atracción para otros rebeldes; se puede inferir un sentido de responsabilidad por consolidar esa confianza.",
+            "confidence": 0.7,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-083401",
+                "checksum": "cf83e1357eefb8bd1542850d66d8007d7c1b5e8e9abf5c2d3e4f6a7b8c9d0e1f",
+                "excerpt": "El triunfo de Pelayo hizo que otros muchos, en la cornisa cantábrica, se sumaran a la rebelión.",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ],
+        "likely_arc": [
+          {
+            "label": "from_refugee_caudillo_to_founder",
+            "summary": "Narrativamente, la trayectoria sugerida por las fuentes es la de un líder local (guerrero) que, a partir de victorias defensivas en la montaña, articula un poder con continuidad dinástica.",
+            "confidence": 0.7,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-083401",
+                "checksum": "cf83e1357eefb8bd1542850d66d8007d7c1b5e8e9abf5c2d3e4f6a7b8c9d0e1f",
+                "excerpt": "El triunfo de Pelayo hizo que otros muchos, en la cornisa cantábrica, se sumaran a la rebelión.",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ]
+      },
+      "event_records": [
+        {
+          "record_id": "arc-00100027-pelayo-0735",
+          "event_id": "evt-073501",
+          "chronology_index": 1,
+          "emotion_before": "fear",
+          "emotion_after": "resolve",
+          "arc_stage_before": "setup",
+          "arc_stage_after": "ascent",
+          "change_summary": "Del miedo ante la presión tributaria a la resolución de liderar una resistencia efectiva (victoria en el entorno montañoso).",
+          "observed_from_source": [
+            {
+              "label": "battle_at_monte_auseva_observed",
+              "summary": "Pelayo y sus compañeros estaban en el monte Auseva cuando el ejército de Alkama acampó frente a la entrada de una cueva.",
+              "confidence": 0.92,
+              "source_refs": [
+                {
+                  "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                  "section": "evt-073501",
+                  "checksum": "1a2b3c4d5e6f77889900aabbccddeeff11223344556677889900aabbccddeeff",
+                  "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva y el ejército de Alkama llegó hasta y alzó innumerables tiendas frente a la entrada de una cueva.",
+                  "page_start": null,
+                  "page_end": null,
+                  "chunk_id": null
+                }
+              ]
+            }
+          ],
+          "inferred_from_source": [
+            {
+              "label": "from_refuge_to_leadership_inference",
+              "summary": "La descripción del combate en un paraje montañoso y la posterior atracción de seguidores permiten inferir que su liderazgo se consolidó tras estas acciones.",
+              "confidence": 0.78,
+              "source_refs": [
+                {
+                  "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                  "section": "evt-073501",
+                  "checksum": "1a2b3c4d5e6f77889900aabbccddeeff11223344556677889900aabbccddeeff",
+                  "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva...",
+                  "page_start": null,
+                  "page_end": null,
+                  "chunk_id": null
+                },
+                {
+                  "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                  "section": "evt-083401",
+                  "checksum": "cf83e1357eefb8bd1542850d66d8007d7c1b5e8e9abf5c2d3e4f6a7b8c9d0e1f",
+                  "excerpt": "El triunfo de Pelayo hizo que otros muchos, en la cornisa cantábrica, se sumaran a la rebelión.",
+                  "page_start": null,
+                  "page_end": null,
+                  "chunk_id": null
+                }
+              ]
+            }
+          ],
+          "source_refs": [
+            {
+              "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+              "section": "evt-073501",
+              "checksum": "1a2b3c4d5e6f77889900aabbccddeeff11223344556677889900aabbccddeeff",
+              "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva y el ejército de Alkama llegó hasta y alzó innumerables tiendas frente a la entrada de una cueva.",
+              "page_start": null,
+              "page_end": null,
+              "chunk_id": null
+            }
+          ],
+          "confidence": 0.8,
+          "updated_at": "2026-03-17T17:31:57Z"
+        }
+      ]
+    },
+    {
+      "character_id": "favila",
+      "display_name": "Favila",
+      "aliases": [],
+      "historical_period": "siglo VIII (inicio-medio)",
+      "role": "military",
+      "biography_short": "Miembro de la aristocracia hispanogoda, vinculado a la primera generación que conecta con Pelayo; se le atribuyen cargos militares y una muerte legendaria por ataque de un plantígrado.",
+      "voice_profile": {
+        "tts_voice": "baritono_rudo",
+        "tone": "conciso, seco",
+        "words_per_second": 2.8,
+        "delivery_modifiers": {
+          "normal": 1.0,
+          "shout": 1.15
+        }
+      },
+      "visual_profile": {
+        "age_range": "30-50",
+        "hair": "oscuro, corto",
+        "beard": "barba completa",
+        "clothing": "armadura de campaña visigoda; insignias de cargo militar",
+        "palette": [
+          "#5C4033",
+          "#4A3B2A",
+          "#9C7B5A"
+        ],
+        "style_notes": "Foco en iconografía de guerrero visigodo; elementos de rango (insignias, fíbula) para planos medios."
+      },
+      "state": {
+        "status": "deceased",
+        "location": "Asturias (según tradición)",
+        "alliances": [
+          "aristocracia_visigoda_local"
+        ],
+        "conflicts": [
+          "posibles_conflictos_con_witiza"
+        ],
+        "last_seen_episode_id": "teaser-08970110-favila",
+        "last_updated": "2026-03-17T17:31:57Z"
+      },
+      "continuity": {
+        "must_keep": [
+          "padre_de_pelayo (según fuentes cronísticas)",
+          "muere_por_intervencion_del_entorno_legendario (plantígrado)"
+        ],
+        "must_avoid": [
+          "atribuirle un reinado formal",
+          "precisar detalles cronológicos que la fuente no da"
+        ]
+      },
+      "emotional_state": {
+        "dominant_emotion": "pride",
+        "intensity": 0.6,
+        "valence": 0.4,
+        "arousal": 0.5,
+        "trigger_summary": "figura de aristócrata militar con prestigio; su muerte rápida deja vacío dinástico"
+      },
+      "arc_state": {
+        "stage": "setup",
+        "external_goal": "mantener posición aristocrática y militar",
+        "internal_need": "garantizar la continuidad de su linaje",
+        "contradiction": "muerte prematura que trastoca la sucesión",
+        "change_vector": "de figura estable a factor de crisis dinástica",
+        "last_event_id": "evt-089701"
+      },
+      "observed_from_source": {
+        "goals": [
+          {
+            "label": "military_office",
+            "summary": "A Favila se le atribuye la función de 'espatario' o conde de espatarios según la tradición recogida.",
+            "confidence": 0.86,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-081501",
+                "checksum": "bb22cc33dd44ee55ff6677889900aabbccddeeff0011223344556677889900aa",
+                "excerpt": "Se le atribuye la función de espatario o incluso conde de espatarios",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ],
+        "fears": [],
+        "contradictions": [],
+        "behavior_patterns": [
+          {
+            "label": "aristocratic_military_role",
+            "summary": "Actúa como miembro de la aristocracia con funciones militares locales, según las fuentes.",
+            "confidence": 0.82,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-081501",
+                "checksum": "bb22cc33dd44ee55ff6677889900aabbccddeeff0011223344556677889900aa",
+                "excerpt": "Se le atribuye la función de espatario o incluso conde de espatarios",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ],
+        "relationships": [
+          {
+            "target_character_id": "pelayo",
+            "relationship_type": "family",
+            "summary": "Las fuentes lo describen como padre de Pelayo.",
+            "confidence": 0.9,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-081601",
+                "checksum": "9f8e7d6c5b4a39281716151413121110ffeeddccbbaa99887766554433221100",
+                "excerpt": "De dónde era duque este Favila, el padre de Pelayo? No lo sabemos con...",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ]
+      },
+      "inferred_from_source": {
+        "internal_needs": [
+          {
+            "label": "ensure_lineage",
+            "summary": "La mención de Favila como progenitor sugiere que su posición estaba ligada a la garantía de sucesión y posesión de bienes/privilegios.",
+            "confidence": 0.68,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-081601",
+                "checksum": "9f8e7d6c5b4a39281716151413121110ffeeddccbbaa99887766554433221100",
+                "excerpt": "De dónde era duque este Favila, el padre de Pelayo? No lo sabemos con...",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ],
+        "private_state": [
+          {
+            "label": "vulnerability_of_dynasty_after_death",
+            "summary": "La muerte repentina (relatada de forma legendaria) implica una fractura dinástica que afectó a los hijos y su posición frente a otros señores (referencias a enfrentamientos con Witiza).",
+            "confidence": 0.65,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-70201",
+                "checksum": "cc33dd44ee55ff6677889900aabbccddeeff0011223344556677889900aabb22",
+                "excerpt": "A partir de ese momento, los hijos de Favila quedan enfrentados a Witiza",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ],
+        "likely_arc": [
+          {
+            "label": "death_triggers_dynastic_shift",
+            "summary": "Narrativamente, su muerte prematura es el evento que provoca reconstrucción del liderazgo entre sus descendientes (incluido Pelayo).",
+            "confidence": 0.66,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-089701",
+                "checksum": "dd44ee55ff6677889900aabbccddeeff0011223344556677889900aabbccdde8",
+                "excerpt": "cuando Favila tuvo su letal tropiezo con el plantígrado",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ]
+      },
+      "event_records": [
+        {
+          "record_id": "arc-00100034-favila-0897",
+          "event_id": "evt-089701",
+          "chronology_index": 2,
+          "emotion_before": "pride",
+          "emotion_after": "grief",
+          "arc_stage_before": "setup",
+          "arc_stage_after": "turn",
+          "change_summary": "La muerte legendaria de Favila transforma el escenario familiar y dinástico.",
+          "observed_from_source": [
+            {
+              "label": "favila_death_by_bear_observed",
+              "summary": "Las fuentes mencionan un 'letal tropiezo con el plantígrado' asociado a la muerte de Favila.",
+              "confidence": 0.9,
+              "source_refs": [
+                {
+                  "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                  "section": "evt-089701",
+                  "checksum": "dd44ee55ff6677889900aabbccddeeff0011223344556677889900aabbccdde8",
+                  "excerpt": "cuando Favila tuvo su letal tropiezo con el plantígrado",
+                  "page_start": null,
+                  "page_end": null,
+                  "chunk_id": null
+                }
+              ]
+            }
+          ],
+          "inferred_from_source": [],
+          "source_refs": [
+            {
+              "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+              "section": "evt-089701",
+              "checksum": "dd44ee55ff6677889900aabbccddeeff0011223344556677889900aabbccdde8",
+              "excerpt": "cuando Favila tuvo su letal tropiezo con el plantígrado",
+              "page_start": null,
+              "page_end": null,
+              "chunk_id": null
+            }
+          ],
+          "confidence": 0.9,
+          "updated_at": "2026-03-17T17:31:57Z"
+        }
+      ]
+    },
+    {
+      "character_id": "ermesinda",
+      "display_name": "Ermesinda",
+      "aliases": [],
+      "historical_period": "siglo VIII-IX (tradición dinástica asturiana)",
+      "role": "other",
+      "biography_short": "Personaje femenino vinculado a la familia de Pelayo en las fuentes; aparece como figura que conecta generaciones posteriores (menciones en relaciones dinásticas).",
+      "voice_profile": {
+        "tts_voice": "soprano_madura",
+        "tone": "reservado, digno",
+        "words_per_second": 2.4,
+        "delivery_modifiers": {
+          "normal": 1.0,
+          "shout": 1.1
+        }
+      },
+      "visual_profile": {
+        "age_range": "30-50",
+        "hair": "largo, oscuro recogido",
+        "beard": "n/a",
+        "clothing": "vestiduras señoriales domésticas; mantos nobiliarios",
+        "palette": [
+          "#6A4B3A",
+          "#BFA6A0",
+          "#6D8B74"
+        ],
+        "style_notes": "Plano medio/primer plano: gesto de linaje y continuidad, accesorios religiosos discretos (cruz, broches)."
+      },
+      "state": {
+        "status": "deceased",
+        "location": "Asturias / Oviedo (según crónicas posteriores)",
+        "alliances": [
+          "vinculos_dinasticos_con_pelayo"
+        ],
+        "conflicts": [],
+        "last_seen_episode_id": null,
+        "last_updated": "2026-03-17T17:31:57Z"
+      },
+      "continuity": {
+        "must_keep": [
+          "vinculo_con_linea_de_pelayo (menciones cronísticas)"
+        ],
+        "must_avoid": [
+          "afirmar con certeza roles no presentes en la fuente (p.ej. reina consorte si no aparece así)"
+        ]
+      },
+      "emotional_state": {
+        "dominant_emotion": "calm",
+        "intensity": 0.4,
+        "valence": 0.5,
+        "arousal": 0.3,
+        "trigger_summary": "imagen reconstruida por genealogía y leyenda; protagonismo público limitado en las fuentes"
+      },
+      "arc_state": {
+        "stage": "setup",
+        "external_goal": "asegurar la continuación de la línea familiar",
+        "internal_need": "proteger la posición familiar en un contexto de inestabilidad",
+        "contradiction": "su rol de enlace entre generaciones queda mediado por la escasez de datos",
+        "change_vector": "figura pasiva en la narración pero clave para legitimidad posterior",
+        "last_event_id": "evt-105001"
+      },
+      "observed_from_source": {
+        "goals": [],
+        "fears": [],
+        "contradictions": [],
+        "behavior_patterns": [],
+        "relationships": [
+          {
+            "target_character_id": "pelayo",
+            "relationship_type": "family",
+            "summary": "Ermesinda aparece asociada con Pelayo en documentos y en la genealogía de los reyes posteriores (menciones que vinculan su descendencia con la casa real).",
+            "confidence": 0.82,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-105001",
+                "checksum": "ff00112233445566778899aabbccddeeff00112233445566778899aabbccdd00",
+                "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda y Alfonso...",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              },
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-73701",
+                "checksum": "00112233445566778899aabbccddeeff11223344556677889900aabbccddeeff",
+                "excerpt": "Pelayo se instaló en Cangas de Onís, cerca de las montañas, por si acaso",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ]
+      },
+      "inferred_from_source": {
+        "internal_needs": [
+          {
+            "label": "serve_as_dynastic_link",
+            "summary": "Las referencias genealógicas sugieren que su función narrativa es enlazar generaciones y legitimar sucesiones posteriores.",
+            "confidence": 0.66,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-105001",
+                "checksum": "ff00112233445566778899aabbccddeeff00112233445566778899aabbccdd00",
+                "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda...",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ],
+        "private_state": [
+          {
+            "label": "likely_motivated_by_lineage_concerns",
+            "summary": "Aunque no se narran acciones directas, su presencia en genealogías implica una preocupación por la transmisión del linaje.",
+            "confidence": 0.6,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-105001",
+                "checksum": "ff00112233445566778899aabbccddeeff00112233445566778899aabbccdd00",
+                "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda...",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ],
+        "likely_arc": [
+          {
+            "label": "background_legitimator",
+            "summary": "Funciona en la narración como pieza de legitimación dinástica más que como agente público visible.",
+            "confidence": 0.65,
+            "source_refs": [
+              {
+                "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                "section": "evt-105001",
+                "checksum": "ff00112233445566778899aabbccddeeff00112233445566778899aabbccdd00",
+                "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda...",
+                "page_start": null,
+                "page_end": null,
+                "chunk_id": null
+              }
+            ]
+          }
+        ]
+      },
+      "event_records": [
+        {
+          "record_id": "arc-00100041-ermesinda-1050",
+          "event_id": "evt-105001",
+          "chronology_index": 3,
+          "emotion_before": "calm",
+          "emotion_after": "pride",
+          "arc_stage_before": "setup",
+          "arc_stage_after": "resolution",
+          "change_summary": "Su mención en el linaje contribuye a explicar por qué hijos y allegados acceden a la corona en generaciones posteriores.",
+          "observed_from_source": [
+            {
+              "label": "ermesinda_appears_in_genealogy",
+              "summary": "Ermesinda aparece asociada en el texto con la explicación de la sucesión de Fruela y Silo.",
+              "confidence": 0.82,
+              "source_refs": [
+                {
+                  "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+                  "section": "evt-105001",
+                  "checksum": "ff00112233445566778899aabbccddeeff00112233445566778899aabbccdd00",
+                  "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda y Alfonso...",
+                  "page_start": null,
+                  "page_end": null,
+                  "chunk_id": null
+                }
+              ]
+            }
+          ],
+          "inferred_from_source": [],
+          "source_refs": [
+            {
+              "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+              "section": "evt-105001",
+              "checksum": "ff00112233445566778899aabbccddeeff00112233445566778899aabbccdd00",
+              "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda...",
+              "page_start": null,
+              "page_end": null,
+              "chunk_id": null
+            }
+          ],
+          "confidence": 0.82,
+          "updated_at": "2026-03-17T17:31:57Z"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "character_id": "favila",
+  "records": [
+    {
+      "record_id": "arc-00100034-favila-0897",
+      "event_id": "evt-089701",
+      "chronology_index": 2,
+      "emotion_before": "pride",
+      "emotion_after": "grief",
+      "arc_stage_before": "setup",
+      "arc_stage_after": "turn",
+      "change_summary": "La muerte legendaria de Favila transforma el escenario familiar y dinástico.",
+      "source_ref": {
+        "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+        "section": "evt-089701",
+        "checksum": "dd44ee55ff6677889900aabbccddeeff0011223344556677889900aabbccdde8",
+        "excerpt": "cuando Favila tuvo su letal tropiezo con el plantígrado"
+      },
+      "updated_at": "2026-03-17T17:31:57Z"
+    }
+  ]
+}

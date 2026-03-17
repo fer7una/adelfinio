@@ -1,0 +1,65 @@
+{
+  "character_id": "pelayo",
+  "display_name": "Pelayo",
+  "aliases": [],
+  "historical_period": "siglo VIII (principios)",
+  "role": "monarch",
+  "biography_short": "Líder de la insurrección cristiana en la cornisa cantábrica; protagoniza la resistencia en la montaña (Monte Auseva / Covadonga) y, tras la victoria, encarna el núcleo que dará lugar al reino de Asturias.",
+  "voice_profile": {
+    "tts_voice": "tenor_bajo_hieratico",
+    "tone": "resuelto, sobrio, autoritario",
+    "words_per_second": 2.6,
+    "delivery_modifiers": {
+      "normal": 1.0,
+      "shout": 1.25
+    }
+  },
+  "visual_profile": {
+    "age_range": "40-55",
+    "hair": "oscuro, corto",
+    "beard": "barba corta y recortada",
+    "clothing": "túnica y cota de malla ligera; capa de piel en tiempos de refugio montañoso",
+    "palette": [
+      "#6B4423",
+      "#2F3E2F",
+      "#8B7B6B"
+    ],
+    "style_notes": "Vestuario sencillo de líder guerrero: combinación de elementos visigodos arcaizantes y práctico equipo de montaña; énfasis en manos y mirada resoluta para planos cercanos."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "Asturias (Covadonga / Cangas de Onís según fuentes)",
+    "alliances": [
+      "favila"
+    ],
+    "conflicts": [],
+    "last_seen_episode_id": null,
+    "last_updated": "2026-03-17T17:31:57Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "liderazgo_en_levanta_miento_de_722",
+      "batalla_en_monte_Auseva/Covadonga",
+      "vínculos_con_aristocracia_hispano-goda"
+    ],
+    "must_avoid": [
+      "detalles_biográficos_no_sostenidos_por_fuente (p.ej. fecha precisa de nacimiento)",
+      "atribuciones_anacrónicas de títulos estatales modernos"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "resolve",
+    "intensity": 0.8,
+    "valence": 0.6,
+    "arousal": 0.6,
+    "trigger_summary": "levantamiento contra la exigencia de tributo y la presión musulmana; necesidad de proteger a su gente en el contexto de colapso visigodo"
+  },
+  "arc_state": {
+    "stage": "ascent",
+    "external_goal": "consolidar un núcleo de resistencia cristiana en las montañas",
+    "internal_need": "legitimar su liderazgo y convertir la revuelta en autoridad estable",
+    "contradiction": "debe pasar de caudillo local a figura institucional sin instrumentos estatales claros",
+    "change_vector": "de guerrillero/caudillo a fundador de un linaje político",
+    "last_event_id": "evt-073501"
+  }
+}

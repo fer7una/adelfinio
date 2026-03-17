@@ -40,6 +40,23 @@ Reglas:
 """.strip()
 
 
+def sample_evenly(items: list[dict], limit: int) -> list[dict]:
+    if limit <= 0 or len(items) <= limit:
+        return list(items)
+    if limit == 1:
+        return [items[0]]
+    step = (len(items) - 1) / (limit - 1)
+    picked: list[dict] = []
+    used: set[int] = set()
+    for index in range(limit):
+        pos = round(index * step)
+        if pos in used:
+            continue
+        used.add(pos)
+        picked.append(items[pos])
+    return picked
+
+
 def ensure_reviewed(source_pack: dict) -> None:
     if (source_pack.get("review") or {}).get("status") != "approved":
         raise RuntimeError("source_pack review.status must be 'approved' before generating the story catalog.")
@@ -53,31 +70,68 @@ def compact_characters(character_bible: dict) -> list[dict]:
                 "character_id": character["character_id"],
                 "display_name": character["display_name"],
                 "role": character["role"],
-                "behavior_patterns": ((character.get("observed_from_source") or {}).get("behavior_patterns")) or [],
-                "likely_arc": ((character.get("inferred_from_source") or {}).get("likely_arc")) or [],
+                "behavior_patterns": (((character.get("observed_from_source") or {}).get("behavior_patterns")) or [])[:4],
+                "likely_arc": (((character.get("inferred_from_source") or {}).get("likely_arc")) or [])[:4],
+                "event_record_count": len(character.get("event_records") or []),
                 "event_records": [
                     {
                         "event_id": record["event_id"],
                         "chronology_index": record["chronology_index"],
                         "change_summary": trim_text(str(record["change_summary"]), 180),
                     }
-                    for record in (character.get("event_records") or [])
+                    for record in sample_evenly(list(character.get("event_records") or []), 8)
                 ],
             }
         )
     return items
 
 
+def compact_events(source_pack: dict, limit: int = 240) -> list[dict]:
+    events = sample_evenly(list(source_pack.get("derived_events", [])), limit)
+    items = []
+    for index, event in enumerate(events, start=1):
+        items.append(
+            {
+                "sample_index": index,
+                "event_id": event.get("event_id"),
+                "date_start": event.get("date_start"),
+                "title": trim_text(str(event.get("title") or ""), 120),
+                "actors": list((event.get("actors") or [])[:6]),
+                "location": trim_text(str(event.get("location") or ""), 80),
+                "summary": trim_text(str(event.get("summary") or ""), 180),
+            }
+        )
+    return items
+
+
+def compact_chronology_hints(source_pack: dict, limit: int = 120) -> list[dict]:
+    hints = sample_evenly(list(source_pack.get("chronology_hints", [])), limit)
+    return [
+        {
+            "chunk_id": hint.get("chunk_id"),
+            "detected_years": list((hint.get("detected_years") or [])[:6]),
+            "summary": trim_text(str(hint.get("summary") or ""), 180),
+        }
+        for hint in hints
+    ]
+
+
 def prompt_payload(source_pack: dict, character_bible: dict) -> str:
     payload = {
         "source_pack_id": source_pack["source_pack_id"],
         "character_bible_id": character_bible["character_bible_id"],
-        "derived_events": source_pack.get("derived_events", []),
-        "chronology_hints": source_pack.get("chronology_hints", []),
+        "source_stats": {
+            "page_count": len(source_pack.get("pages", [])),
+            "chunk_count": len(source_pack.get("chunks", [])),
+            "derived_event_count": len(source_pack.get("derived_events", [])),
+        },
+        "derived_event_samples": compact_events(source_pack),
+        "chronology_hints": compact_chronology_hints(source_pack),
         "characters": compact_characters(character_bible),
         "instructions": {
             "selection_mode": "manual",
             "goal": "Devolver episodios potenciales lineales, comparables y fieles a la fuente.",
+            "sampling_policy": "uniform_coverage_over_full_source",
         },
     }
     return json.dumps(payload, ensure_ascii=False, indent=2)

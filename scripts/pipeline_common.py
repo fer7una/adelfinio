@@ -160,6 +160,59 @@ def inline_external_schema_refs(node: Any, *, base_dir: Path | None = None, cach
     return {key: inline_external_schema_refs(value, base_dir=base_dir, cache=cache) for key, value in node.items()}
 
 
+def _schema_allows_null(node: Any) -> bool:
+    if not isinstance(node, dict):
+        return False
+    node_type = node.get("type")
+    if node_type == "null":
+        return True
+    if isinstance(node_type, list) and "null" in node_type:
+        return True
+    for key in ("anyOf", "oneOf"):
+        options = node.get(key)
+        if isinstance(options, list) and any(_schema_allows_null(option) for option in options):
+            return True
+    return False
+
+
+def _make_nullable_schema(node: Any) -> Any:
+    if not isinstance(node, dict) or _schema_allows_null(node):
+        return node
+
+    node_type = node.get("type")
+    if isinstance(node_type, str):
+        out = deepcopy(node)
+        out["type"] = [node_type, "null"]
+        return out
+    if isinstance(node_type, list):
+        out = deepcopy(node)
+        out["type"] = [item for item in node_type if item != "null"] + ["null"]
+        return out
+    return {"anyOf": [deepcopy(node), {"type": "null"}]}
+
+
+def make_openai_strict_schema(node: Any) -> Any:
+    if isinstance(node, list):
+        return [make_openai_strict_schema(item) for item in node]
+    if not isinstance(node, dict):
+        return node
+
+    transformed = {key: make_openai_strict_schema(value) for key, value in node.items()}
+    if transformed.get("type") != "object" or "properties" not in transformed:
+        return transformed
+
+    properties = transformed.get("properties") or {}
+    original_required = set(transformed.get("required") or [])
+    strict_properties: dict[str, Any] = {}
+    for key, value in properties.items():
+        strict_properties[key] = value if key in original_required else _make_nullable_schema(value)
+
+    transformed["properties"] = strict_properties
+    transformed["required"] = list(strict_properties.keys())
+    transformed["additionalProperties"] = False
+    return transformed
+
+
 def build_openai_client(dotenv_path: Path):
     load_dotenv_if_present(dotenv_path)
     api_key = os.getenv("OPENAI_API_KEY", "").strip()
@@ -199,6 +252,7 @@ def run_structured_generation(
     user_prompt: str,
     reasoning_effort: str = "medium",
 ) -> dict[str, Any]:
+    strict_schema = make_openai_strict_schema(schema)
     response = client.responses.create(
         model=model,
         reasoning={"effort": reasoning_effort},
@@ -216,7 +270,7 @@ def run_structured_generation(
             "format": {
                 "type": "json_schema",
                 "name": schema_name,
-                "schema": schema,
+                "schema": strict_schema,
                 "strict": True,
             }
         },

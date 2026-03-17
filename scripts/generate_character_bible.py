@@ -42,27 +42,112 @@ Reglas:
 """.strip()
 
 
-def prompt_payload(source_pack: dict) -> str:
-    chunks = []
-    for chunk in source_pack.get("chunks", [])[:80]:
-        chunks.append(
+def sample_evenly(items: list[dict], limit: int) -> list[dict]:
+    if limit <= 0 or len(items) <= limit:
+        return list(items)
+    if limit == 1:
+        return [items[0]]
+    step = (len(items) - 1) / (limit - 1)
+    picked: list[dict] = []
+    used: set[int] = set()
+    for index in range(limit):
+        pos = round(index * step)
+        if pos in used:
+            continue
+        used.add(pos)
+        picked.append(items[pos])
+    return picked
+
+
+def build_actor_candidates(source_pack: dict, limit: int = 80) -> list[dict]:
+    actor_map: dict[str, dict] = {}
+    for event in source_pack.get("derived_events", []):
+        for actor in event.get("actors", []) or []:
+            name = normalize_ws(str(actor))
+            if len(name) < 3:
+                continue
+            entry = actor_map.setdefault(
+                name,
+                {
+                    "name": name,
+                    "mentions": 0,
+                    "sample_events": [],
+                    "years": set(),
+                },
+            )
+            entry["mentions"] += 1
+            if len(entry["sample_events"]) < 4:
+                entry["sample_events"].append(
+                    {
+                        "event_id": event.get("event_id"),
+                        "title": trim_text(str(event.get("title") or event.get("summary") or ""), 120),
+                    }
+                )
+            year = str(event.get("date_start") or "").strip()
+            if year:
+                entry["years"].add(year)
+
+    ranked = sorted(actor_map.values(), key=lambda item: (-item["mentions"], item["name"]))
+    out: list[dict] = []
+    for item in ranked[:limit]:
+        out.append(
             {
-                "chunk_id": chunk["chunk_id"],
-                "page_start": chunk["page_start"],
-                "page_end": chunk["page_end"],
-                "text": trim_text(str(chunk["normalized_text"]), 800),
-                "issues": chunk.get("issues", []),
+                "name": item["name"],
+                "mentions": item["mentions"],
+                "sample_years": sorted(item["years"])[:6],
+                "sample_events": item["sample_events"],
             }
         )
+    return out
+
+
+def compact_event_samples(source_pack: dict, limit: int = 180) -> list[dict]:
+    events = sample_evenly(list(source_pack.get("derived_events", [])), limit)
+    return [
+        {
+            "event_id": event.get("event_id"),
+            "date_start": event.get("date_start"),
+            "title": trim_text(str(event.get("title") or ""), 120),
+            "actors": list((event.get("actors") or [])[:6]),
+            "location": trim_text(str(event.get("location") or ""), 80),
+            "summary": trim_text(str(event.get("summary") or ""), 180),
+        }
+        for event in events
+    ]
+
+
+def compact_chunk_samples(source_pack: dict, limit: int = 120) -> list[dict]:
+    chunks = sample_evenly(list(source_pack.get("chunks", [])), limit)
+    return [
+        {
+            "chunk_id": chunk.get("chunk_id"),
+            "page_start": chunk.get("page_start"),
+            "page_end": chunk.get("page_end"),
+            "ocr_confidence": chunk.get("ocr_confidence"),
+            "issues": list((chunk.get("issues") or [])[:4]),
+            "text": trim_text(str(chunk.get("normalized_text") or ""), 220),
+        }
+        for chunk in chunks
+    ]
+
+
+def prompt_payload(source_pack: dict) -> str:
     payload = {
         "source_pack_id": source_pack["source_pack_id"],
         "title": source_pack["title"],
         "review": source_pack["review"],
-        "derived_events": source_pack.get("derived_events", []),
-        "chunks": chunks,
+        "source_stats": {
+            "page_count": len(source_pack.get("pages", [])),
+            "chunk_count": len(source_pack.get("chunks", [])),
+            "derived_event_count": len(source_pack.get("derived_events", [])),
+        },
+        "actor_candidates": build_actor_candidates(source_pack),
+        "derived_event_samples": compact_event_samples(source_pack),
+        "chunk_samples": compact_chunk_samples(source_pack),
         "instructions": {
             "goal": "Extraer personajes, comportamiento, relaciones y continuidad dramatica sin perder fidelidad.",
             "inference_policy": "evidence_plus_labeled_inference",
+            "sampling_policy": "uniform_coverage_plus_actor_index",
         },
     }
     return json.dumps(payload, ensure_ascii=False, indent=2)

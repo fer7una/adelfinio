@@ -1,0 +1,62 @@
+{
+  "character_id": "ermesinda",
+  "display_name": "Ermesinda",
+  "aliases": [],
+  "historical_period": "siglo VIII-IX (tradición dinástica asturiana)",
+  "role": "other",
+  "biography_short": "Personaje femenino vinculado a la familia de Pelayo en las fuentes; aparece como figura que conecta generaciones posteriores (menciones en relaciones dinásticas).",
+  "voice_profile": {
+    "tts_voice": "soprano_madura",
+    "tone": "reservado, digno",
+    "words_per_second": 2.4,
+    "delivery_modifiers": {
+      "normal": 1.0,
+      "shout": 1.1
+    }
+  },
+  "visual_profile": {
+    "age_range": "30-50",
+    "hair": "largo, oscuro recogido",
+    "beard": "n/a",
+    "clothing": "vestiduras señoriales domésticas; mantos nobiliarios",
+    "palette": [
+      "#6A4B3A",
+      "#BFA6A0",
+      "#6D8B74"
+    ],
+    "style_notes": "Plano medio/primer plano: gesto de linaje y continuidad, accesorios religiosos discretos (cruz, broches)."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "Asturias / Oviedo (según crónicas posteriores)",
+    "alliances": [
+      "pelayo"
+    ],
+    "conflicts": [],
+    "last_seen_episode_id": null,
+    "last_updated": "2026-03-17T17:31:57Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "vinculo_con_linea_de_pelayo (menciones cronísticas)"
+    ],
+    "must_avoid": [
+      "afirmar con certeza roles no presentes en la fuente (p.ej. reina consorte si no aparece así)"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "calm",
+    "intensity": 0.4,
+    "valence": 0.5,
+    "arousal": 0.3,
+    "trigger_summary": "imagen reconstruida por genealogía y leyenda; protagonismo público limitado en las fuentes"
+  },
+  "arc_state": {
+    "stage": "setup",
+    "external_goal": "asegurar la continuación de la línea familiar",
+    "internal_need": "proteger la posición familiar en un contexto de inestabilidad",
+    "contradiction": "su rol de enlace entre generaciones queda mediado por la escasez de datos",
+    "change_vector": "figura pasiva en la narración pero clave para legitimidad posterior",
+    "last_event_id": "evt-105001"
+  }
+}
