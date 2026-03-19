@@ -16,6 +16,16 @@ PREFERRED_DIALOGUE_MIN_FONT_SIZE = 26
 PREFERRED_SHOUT_MIN_FONT_SIZE = 28
 
 
+def mode_char_width_factor(mode: str, *, delivery: str = "normal") -> float:
+    clean_mode = re.sub(r"\s+", " ", mode or "").strip().lower()
+    clean_delivery = re.sub(r"\s+", " ", delivery or "").strip().lower()
+    if clean_mode == "dialogue":
+        return TEXT_FIT_CHAR_WIDTH_FACTOR * (0.90 if clean_delivery == "shout" else 0.95)
+    if clean_mode == "shout":
+        return TEXT_FIT_CHAR_WIDTH_FACTOR * 0.84
+    return TEXT_FIT_CHAR_WIDTH_FACTOR * 0.98
+
+
 def normalize_ws(text: str) -> str:
     return re.sub(r"\s+", " ", text or "").strip()
 
@@ -56,16 +66,16 @@ def overlay_text_config(
             fallback_w=DEFAULT_DIALOGUE_OVERLAY_W,
             fallback_h=DEFAULT_DIALOGUE_OVERLAY_H,
         )
-        pad_x = max(92, round(overlay_w * (0.24 if shout else 0.22)))
-        pad_y = max(74, round(overlay_h * (0.27 if shout else 0.24)))
+        pad_x = max(72, round(overlay_w * (0.20 if shout else 0.17)))
+        pad_y = max(58, round(overlay_h * (0.22 if shout else 0.19)))
         return {
             "box_w": max(80, overlay_w - (2 * pad_x)),
             "box_h": max(40, overlay_h - (2 * pad_y)),
-            "max_font_size": 36 if shout else 38,
-            "min_font_size": 22,
-            "preferred_min_font_size": PREFERRED_SHOUT_MIN_FONT_SIZE if shout else PREFERRED_DIALOGUE_MIN_FONT_SIZE,
-            "max_lines": 3,
-            "char_width_factor": TEXT_FIT_CHAR_WIDTH_FACTOR,
+            "max_font_size": 42 if shout else 40,
+            "min_font_size": 20 if shout else 21,
+            "preferred_min_font_size": max(22, PREFERRED_SHOUT_MIN_FONT_SIZE - 2) if shout else PREFERRED_DIALOGUE_MIN_FONT_SIZE,
+            "max_lines": 4,
+            "char_width_factor": mode_char_width_factor(mode, delivery=delivery),
         }
 
     _, _, overlay_w, overlay_h = bbox_to_pixels(
@@ -86,7 +96,7 @@ def overlay_text_config(
         "min_font_size": 26,
         "preferred_min_font_size": 30,
         "max_lines": 3,
-        "char_width_factor": TEXT_FIT_CHAR_WIDTH_FACTOR,
+        "char_width_factor": mode_char_width_factor(mode),
     }
 
 
@@ -137,15 +147,17 @@ def fit_wrapped_text(
 
     for font_size in range(max_font_size, min_font_size - 1, -1):
         line_spacing = max(4, round(font_size * 0.16))
-        max_chars = max(8, int(box_w / max(1.0, font_size * char_width_factor)))
-        lines = wrap_text_unbounded(clean, max_chars)
-        if not lines or len(lines) > max_lines:
-            continue
-        wrapped = "\n".join(lines)
-        est_width = max(len(line) for line in lines) * font_size * char_width_factor
-        est_height = (len(lines) * font_size) + ((len(lines) - 1) * line_spacing)
-        if est_width <= box_w and est_height <= box_h:
-            return wrapped, font_size, line_spacing
+        base_chars = max(8, int(box_w / max(1.0, font_size * char_width_factor)))
+        for extra_chars in (0, 1, 2, 3):
+            max_chars = base_chars + extra_chars
+            lines = wrap_text_unbounded(clean, max_chars)
+            if not lines or len(lines) > max_lines:
+                continue
+            wrapped = "\n".join(lines)
+            est_width = max(len(line) for line in lines) * font_size * char_width_factor
+            est_height = (len(lines) * font_size) + ((len(lines) - 1) * line_spacing)
+            if est_width <= (box_w * 1.02) and est_height <= (box_h * 1.02):
+                return wrapped, font_size, line_spacing
 
     fallback_spacing = max(4, round(min_font_size * 0.16))
     fallback_chars = max(8, int(box_w / max(1.0, min_font_size * char_width_factor)))

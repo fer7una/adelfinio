@@ -391,6 +391,9 @@
         "visual_profile": {
           "$ref": "character.schema.json#/properties/visual_profile"
         },
+        "face_signature": {
+          "$ref": "character.schema.json#/properties/face_signature"
+        },
         "state": {
           "$ref": "character.schema.json#/properties/state"
         },

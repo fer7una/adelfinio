@@ -19,9 +19,11 @@ Supuestos cerrados:
 - La respiracion siempre va antes de hablar.
 - La escena puede crecer si el tiempo real lo necesita.
 - Nunca se acelera audio.
-- La camara es adaptable por cambios de texto visible.
+- La camara ya no persigue cada fragmento de texto: usa un ancla fija por escena y solo un push-in suave.
 - El zoom es monotono y solo entra.
 - El zoom se aplica al frame ya compuesto.
+- La generacion de imagen recibe una idea global del episodio y un resumen completo de escena, no fragmentos paginados.
+- Cada personaje debe mantener una identidad facial canonica reusable entre escenas.
 
 ## Problemas del pipeline actual
 
@@ -34,6 +36,7 @@ Supuestos cerrados:
 - El cambio de pagina puede introducir transiciones no deseadas en una misma escena.
 - El audio de escena es monolitico y no es la fuente canonica del timeline.
 - Layout, tiempo y camara no estan desacoplados.
+- La narracion puede paginarse si no cabe, pero las paginas consecutivas no deben fundirse con fade-out.
 
 ## Objetivos de V2
 

@@ -137,7 +137,7 @@ SVG opcionales para narracion/dialogo/grito:
 Salida esperada:
 
 - `artifacts/scene_assets/<episode_id>/scenes/*.png`
-- `artifacts/scene_assets/<episode_id>/manifest.json` con `scene_image_path`, `text_phases`, `overlay_bbox`, `focus_bbox` y `camera_track`
+- `artifacts/scene_assets/<episode_id>/manifest.json` con `episode_brief`, `scene_brief`, `character_face_lines`, `scene_image_path`, `text_phases`, `overlay_bbox`, `focus_bbox` y `camera_track`
 - `artifacts/audio_events/<episode_id>/scene_XX/utt_YYY.mp3`
 - `artifacts/render_plan/<episode_id>/scene_XX.events.json`
 - `artifacts/render_plan/<episode_id>/scene_XX.utterances.json`
@@ -165,8 +165,11 @@ Comportamiento del render final:
 - Se genera una sola imagen base por escena.
 - La unidad visible pasa a ser `events.json`, un evento por pagina ya validada.
 - El audio se genera por `utterance`, no por escena monolitica.
+- El prompt de imagen usa una idea global del episodio y un resumen completo de escena, no fragmentos paginados.
+- Los personajes reutilizan una identidad facial canonica entre escenas.
+- La narracion puede paginarse si no cabe, pero las paginas consecutivas no se funden con fade-out.
 - El render limpio va primero; overlays y camara se aplican despues.
-- El zoom final se aplica sobre el frame ya compuesto.
+- El zoom final se aplica sobre el frame ya compuesto y usa un ancla fija por escena, no un paneo por pagina.
 
 Ejecucion en lote (todos los episodios del plan):
 

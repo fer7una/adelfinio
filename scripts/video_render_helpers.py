@@ -8,9 +8,9 @@ from functools import lru_cache
 from pathlib import Path
 
 try:
-    from video_text_layout import TEXT_FIT_CHAR_WIDTH_FACTOR, wrap_text_unbounded
+    from video_text_layout import TEXT_FIT_CHAR_WIDTH_FACTOR, mode_char_width_factor, wrap_text_unbounded
 except ModuleNotFoundError:
-    from scripts.video_text_layout import TEXT_FIT_CHAR_WIDTH_FACTOR, wrap_text_unbounded
+    from scripts.video_text_layout import TEXT_FIT_CHAR_WIDTH_FACTOR, mode_char_width_factor, wrap_text_unbounded
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OVERLAY_DIR = ROOT / "assets" / "video_overlays"
@@ -57,15 +57,17 @@ def fit_wrapped_text(
 
     for font_size in range(max_font_size, min_font_size - 1, -1):
         line_spacing = max(4, round(font_size * 0.16))
-        max_chars = max(8, int(box_w / max(1.0, font_size * char_width_factor)))
-        lines = wrap_text_unbounded(clean, max_chars)
-        if not lines or len(lines) > max_lines:
-            continue
-        wrapped = "\n".join(lines)
-        est_width = max(len(line) for line in lines) * font_size * char_width_factor
-        est_height = (len(lines) * font_size) + ((len(lines) - 1) * line_spacing)
-        if est_width <= box_w and est_height <= box_h:
-            return wrapped, font_size, line_spacing
+        base_chars = max(8, int(box_w / max(1.0, font_size * char_width_factor)))
+        for extra_chars in (0, 1, 2, 3, 4, 5):
+            max_chars = base_chars + extra_chars
+            lines = wrap_text_unbounded(clean, max_chars)
+            if not lines or len(lines) > max_lines:
+                continue
+            wrapped = "\n".join(lines)
+            est_width = max(len(line) for line in lines) * font_size * char_width_factor
+            est_height = (len(lines) * font_size) + ((len(lines) - 1) * line_spacing)
+            if est_width <= (box_w * 1.04) and est_height <= (box_h * 1.03):
+                return wrapped, font_size, line_spacing
 
     fallback_spacing = max(4, round(min_font_size * 0.16))
     fallback_chars = max(8, int(box_w / max(1.0, min_font_size * char_width_factor)))
@@ -201,8 +203,8 @@ def dialogue_layout_from_box(
     overlay_h: int,
     shout: bool,
 ) -> tuple[str, str, str, str, int, int]:
-    pad_x = max(92, round(overlay_w * (0.24 if shout else 0.22)))
-    pad_y = max(74, round(overlay_h * (0.27 if shout else 0.24)))
+    pad_x = max(56, round(overlay_w * (0.18 if shout else 0.15)))
+    pad_y = max(44, round(overlay_h * (0.20 if shout else 0.17)))
     text_x, text_y, text_box_w, text_box_h = centered_text_position(
         str(overlay_x),
         str(overlay_y),

@@ -6,16 +6,21 @@ cd "$ROOT_DIR"
 
 if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
   echo "Usage:"
-  echo "  bash scripts/run_final_ai_video_pipeline_v2.sh <episode_json_or_directory> [--mock]"
+  echo "  bash scripts/run_final_ai_video_pipeline_v2.sh <episode_json_or_directory> [--mock|--postprod-only]"
   echo ""
   echo "Examples:"
   echo "  bash scripts/run_final_ai_video_pipeline_v2.sh data/episodes/generated/story-catalog/main-20262011-visigoth-collapse-711.json"
   echo "  bash scripts/run_final_ai_video_pipeline_v2.sh data/episodes/generated/story-catalog --mock"
+  echo "  VIDEO_POSTPROD_ONLY=1 bash scripts/run_final_ai_video_pipeline_v2.sh data/episodes/generated/story-catalog/main-20262011-visigoth-collapse-711.json"
   exit 0
 fi
 
 TARGET="${1:-data/episodes/generated/story-catalog}"
 MODE="${2:-}"
+POSTPROD_ONLY="${VIDEO_POSTPROD_ONLY:-0}"
+if [[ "$MODE" == "--postprod-only" ]]; then
+  POSTPROD_ONLY=1
+fi
 
 if [[ -d "$TARGET" ]]; then
   shopt -s nullglob
@@ -31,13 +36,6 @@ if [[ ${#EPISODES[@]} -eq 0 ]]; then
 fi
 
 for episode in "${EPISODES[@]}"; do
-  echo "[1/11] Generate scene assets -> $episode"
-  if [[ "$MODE" == "--mock" ]]; then
-    python3 scripts/generate_scene_assets.py --episode "$episode" --mock
-  else
-    python3 scripts/generate_scene_assets.py --episode "$episode"
-  fi
-
   EPISODE_ID="$(python3 - <<PY
 import json
 from pathlib import Path
@@ -45,42 +43,84 @@ print(json.loads(Path("$episode").read_text(encoding="utf-8"))["episode_id"])
 PY
 )"
 
-  echo "[2/11] Build scene events -> $EPISODE_ID"
-  python3 scripts/build_scene_events.py --episode "$episode"
+  if [[ "$POSTPROD_ONLY" != "1" ]]; then
+    echo "[1/11] Generate scene assets -> $episode"
+    if [[ "$MODE" == "--mock" ]]; then
+      python3 scripts/generate_scene_assets.py --episode "$episode" --mock
+    else
+      python3 scripts/generate_scene_assets.py --episode "$episode"
+    fi
 
-  echo "[3/11] Build utterances -> $EPISODE_ID"
-  python3 scripts/build_scene_utterances.py --episode-id "$EPISODE_ID"
+    echo "[2/11] Build scene events -> $EPISODE_ID"
+    python3 scripts/build_scene_events.py --episode "$episode"
 
-  echo "[4/11] Synthesize scene audio -> $EPISODE_ID"
-  if [[ "$MODE" == "--mock" ]]; then
-    python3 scripts/synthesize_scene_audio.py --episode-id "$EPISODE_ID" --mock
+    echo "[3/11] Build utterances -> $EPISODE_ID"
+    python3 scripts/build_scene_utterances.py --episode-id "$EPISODE_ID"
+
+    echo "[4/11] Synthesize scene audio -> $EPISODE_ID"
+    if [[ "$MODE" == "--mock" ]]; then
+      python3 scripts/synthesize_scene_audio.py --episode-id "$EPISODE_ID" --mock
+    else
+      python3 scripts/synthesize_scene_audio.py --episode-id "$EPISODE_ID"
+    fi
+
+    echo "[5/11] Align scene audio -> $EPISODE_ID"
+    if [[ "$MODE" == "--mock" ]]; then
+      python3 scripts/align_scene_audio.py --episode-id "$EPISODE_ID" --mock
+    else
+      python3 scripts/align_scene_audio.py --episode-id "$EPISODE_ID" --allow-estimated-fallback
+    fi
+
+    echo "[6/11] Build scene audio plan -> $EPISODE_ID"
+    python3 scripts/build_scene_audio_plan.py --episode "$episode"
+
+    echo "[7/11] Render clean scenes -> $EPISODE_ID"
+    python3 scripts/render_clean_scene_video.py --episode "$episode"
   else
-    python3 scripts/synthesize_scene_audio.py --episode-id "$EPISODE_ID"
+    for required in \
+      "artifacts/render_plan/$EPISODE_ID" \
+      "artifacts/videos/clean/$EPISODE_ID" \
+      "artifacts/audio_events/$EPISODE_ID"; do
+      if [[ ! -e "$required" ]]; then
+        echo "ERROR: missing required postproduction input: $required" >&2
+        exit 1
+      fi
+    done
+    echo "[postprod] Using existing assets for $EPISODE_ID"
   fi
 
-  echo "[5/11] Align scene audio -> $EPISODE_ID"
-  if [[ "$MODE" == "--mock" ]]; then
-    python3 scripts/align_scene_audio.py --episode-id "$EPISODE_ID" --mock
-  else
-    python3 scripts/align_scene_audio.py --episode-id "$EPISODE_ID" --allow-estimated-fallback
+  MAX_POSTPROD_PASSES="${VIDEO_POSTPROD_MAX_PASSES:-6}"
+  POSTPROD_OK=0
+  for PASS_INDEX in $(seq 0 $((MAX_POSTPROD_PASSES - 1))); do
+    export VIDEO_POSTPROD_REPAIR_LEVEL="$PASS_INDEX"
+    echo "[8/11] Build overlay timelines (repair=$PASS_INDEX) -> $EPISODE_ID"
+    python3 scripts/build_overlay_timeline.py --episode "$episode"
+
+    echo "[9/11] Build camera plans (repair=$PASS_INDEX) -> $EPISODE_ID"
+    python3 scripts/build_camera_plan.py --episode "$episode"
+
+    echo "[10/11] Compose scene videos (repair=$PASS_INDEX) -> $EPISODE_ID"
+    python3 scripts/compose_scene_video.py --episode-id "$EPISODE_ID"
+
+    echo "[11/11] Verify postproduction (repair=$PASS_INDEX) -> $EPISODE_ID"
+    if python3 scripts/verify_postproduction_v2.py --episode "$episode"; then
+      POSTPROD_OK=1
+      break
+    fi
+
+    if [[ "$PASS_INDEX" -ge $((MAX_POSTPROD_PASSES - 1)) ]]; then
+      echo "ERROR: postproduction verification failed after $MAX_POSTPROD_PASSES passes for $EPISODE_ID" >&2
+      exit 1
+    fi
+    echo "Postproduction verification failed, retrying with a more conservative layout..."
+  done
+
+  if [[ "$POSTPROD_OK" -ne 1 ]]; then
+    echo "ERROR: unable to verify postproduction for $EPISODE_ID" >&2
+    exit 1
   fi
 
-  echo "[6/11] Build scene audio plan -> $EPISODE_ID"
-  python3 scripts/build_scene_audio_plan.py --episode "$episode"
-
-  echo "[7/11] Render clean scenes -> $EPISODE_ID"
-  python3 scripts/render_clean_scene_video.py --episode "$episode"
-
-  echo "[8/11] Build overlay timelines -> $EPISODE_ID"
-  python3 scripts/build_overlay_timeline.py --episode "$episode"
-
-  echo "[9/11] Build camera plans -> $EPISODE_ID"
-  python3 scripts/build_camera_plan.py --episode "$episode"
-
-  echo "[10/11] Compose scene videos -> $EPISODE_ID"
-  python3 scripts/compose_scene_video.py --episode-id "$EPISODE_ID"
-
-  echo "[11/11] Assemble final episode -> $EPISODE_ID"
+  echo "[12/12] Assemble final episode -> $EPISODE_ID"
   python3 scripts/assemble_episode_video.py --episode "$episode"
 done
 

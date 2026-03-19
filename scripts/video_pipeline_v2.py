@@ -32,6 +32,7 @@ try:
         dialogue_layout_from_box,
         escape_filter_path,
         fit_wrapped_text,
+        mode_char_width_factor,
         narration_layout_from_box,
         resolve_font_file,
         resolve_narration_font_file,
@@ -56,6 +57,7 @@ except ModuleNotFoundError:
         dialogue_layout_from_box,
         escape_filter_path,
         fit_wrapped_text,
+        mode_char_width_factor,
         narration_layout_from_box,
         resolve_font_file,
         resolve_narration_font_file,
@@ -124,27 +126,27 @@ OVERLAY_LIMITS = {
         "adaptive": False,
     },
     "dialogue": {
-        "min_w": 420,
-        "max_w": 760,
-        "min_h": 140,
-        "max_h": 300,
-        "min_font": 28,
-        "max_font": 42,
-        "max_lines": 3,
-        "pad_x": 42,
-        "pad_y": 28,
+        "min_w": 460,
+        "max_w": 800,
+        "min_h": 170,
+        "max_h": 340,
+        "min_font": 24,
+        "max_font": 40,
+        "max_lines": 4,
+        "pad_x": 36,
+        "pad_y": 24,
         "adaptive": True,
     },
     "shout": {
-        "min_w": 360,
-        "max_w": 820,
-        "min_h": 130,
-        "max_h": 320,
-        "min_font": 32,
-        "max_font": 48,
-        "max_lines": 3,
-        "pad_x": 34,
-        "pad_y": 24,
+        "min_w": 460,
+        "max_w": 920,
+        "min_h": 180,
+        "max_h": 360,
+        "min_font": 26,
+        "max_font": 46,
+        "max_lines": 4,
+        "pad_x": 42,
+        "pad_y": 28,
         "adaptive": True,
     },
 }
@@ -184,6 +186,33 @@ def normalize_text(text: str) -> str:
     clean = re.sub(r"\s+", " ", clean).strip()
     clean = re.sub(r"\s*\.\s*\.\s*\.", "...", clean)
     return clean
+
+
+def continuation_display_text(text: str, page_index: int, page_count: int) -> str:
+    clean = normalize_text(text)
+    if not clean or page_count <= 1:
+        return clean
+
+    display = clean
+    if page_index > 1 and not display.startswith("..."):
+        display = display.lstrip(".").strip()
+        display = f"...{display}"
+    if page_index < page_count and not display.endswith("..."):
+        display = display.rstrip(".").strip()
+        display = f"{display}..."
+    return display
+
+
+def postproduction_repair_level() -> int:
+    try:
+        return max(0, int(os.environ.get("VIDEO_POSTPROD_REPAIR_LEVEL", "0")))
+    except ValueError:
+        return 0
+
+
+def overlay_char_width_factor(kind: str, delivery: str = "normal") -> float:
+    repair_bias = 1.0 + (0.035 * postproduction_repair_level())
+    return mode_char_width_factor(kind, delivery=delivery) * repair_bias
 
 
 def normalize_id(value: str) -> str:
@@ -298,7 +327,9 @@ def build_scene_events_payload(episode_path: Path, manifest_path: Path) -> list[
         for order, phase in enumerate(phases, start=1):
             kind = event_kind_for_phase(phase)
             speaker = normalize_id(str(phase.get("dialogue_speaker", "")))
-            text = normalize_text(str(phase.get("dialogue_line") or phase.get("text") or ""))
+            page_index = int(phase.get("paragraph_block_index", order - 1)) + 1
+            page_count = int(phase.get("paragraph_blocks_total", 1))
+            text = continuation_display_text(str(phase.get("dialogue_line") or phase.get("text") or ""), page_index, page_count)
             audio_text = normalize_text(str(phase.get("audio_text") or phase.get("dialogue_line") or phase.get("text") or ""))
             if not text:
                 continue
@@ -312,8 +343,8 @@ def build_scene_events_payload(episode_path: Path, manifest_path: Path) -> list[
                     "delivery": normalize_ws(str(phase.get("dialogue_delivery", "normal")).lower()) or "normal",
                     "text": text,
                     "audio_text": audio_text,
-                    "page_index": int(phase.get("paragraph_block_index", order - 1)) + 1,
-                    "page_count_in_group": int(phase.get("paragraph_blocks_total", 1)),
+                    "page_index": page_index,
+                    "page_count_in_group": page_count,
                     "group_id": group_id,
                     "primary_actor": normalize_id(str(phase.get("primary_actor", ""))),
                     "focus_bbox": list(phase.get("focus_bbox", [])) if isinstance(phase.get("focus_bbox"), list) else [],
@@ -636,12 +667,45 @@ def match_alignment_token(
     if (
         len(word_token) >= 5
         and len(target_token) >= 5
-        and word_token[0] == target_token[0]
-        and word_token[-1] == target_token[-1]
-        and SequenceMatcher(None, word_token, target_token).ratio() >= 0.8
+        and SequenceMatcher(None, word_token, target_token).ratio() >= 0.78
+        and (
+            word_token[0] == target_token[0]
+            or word_token[:4] == target_token[:4]
+            or word_token[-3:] == target_token[-3:]
+        )
     ):
         return word_idx + 1, target_idx + 1
 
+    return None
+
+
+def approximate_alignment_span(word_tokens: list[str], target_tokens: list[str], cursor: int) -> tuple[int, int] | None:
+    if not word_tokens or not target_tokens or cursor >= len(word_tokens):
+        return None
+
+    best_ratio = -1.0
+    best_span: tuple[int, int] | None = None
+    max_extra_words = max(2, len(target_tokens) // 4)
+
+    for start_idx in range(max(0, cursor), len(word_tokens)):
+        end_limit = min(len(word_tokens), start_idx + len(target_tokens) + max_extra_words)
+        for end_idx in range(start_idx + 1, end_limit + 1):
+            window = word_tokens[start_idx:end_idx]
+            if not window:
+                continue
+            ratio = SequenceMatcher(None, window, target_tokens).ratio()
+            if window[0] == target_tokens[0]:
+                ratio += 0.08
+            if window[-1] == target_tokens[-1]:
+                ratio += 0.08
+            if len(window) == len(target_tokens):
+                ratio += 0.04
+            if ratio > best_ratio:
+                best_ratio = ratio
+                best_span = (start_idx, end_idx - 1)
+
+    if best_span and best_ratio >= 0.58:
+        return best_span
     return None
 
 
@@ -670,6 +734,9 @@ def extract_word_timings_for_event(event: dict[str, Any], utterance_alignment: d
                 last_idx = consumed_word_end
                 break
         if found is None:
+            fallback = approximate_alignment_span(word_tokens, target_tokens, cursor)
+            if fallback is not None:
+                return fallback
             remaining_targets = len(target_tokens) - target_idx
             matched_any = start_idx is not None and last_idx is not None
             remaining_words = len(word_tokens) - cursor
@@ -700,6 +767,20 @@ def bbox_area(bbox: list[float]) -> float:
     if len(bbox) != 4:
         return 0.0
     return max(0.0, float(bbox[2])) * max(0.0, float(bbox[3]))
+
+
+def region_is_face_like(region: dict[str, Any]) -> bool:
+    label = normalize_ws(str(region.get("label", ""))).lower()
+    kind = normalize_ws(str(region.get("kind", ""))).lower()
+    blob = f"{label} {kind}"
+    return any(token in blob for token in ("face", "rostro", "rostros", "cara", "caras", "ojo", "ojos", "eye", "eyes", "mouth", "boca"))
+
+
+def region_is_hand_like(region: dict[str, Any]) -> bool:
+    label = normalize_ws(str(region.get("label", ""))).lower()
+    kind = normalize_ws(str(region.get("kind", ""))).lower()
+    blob = f"{label} {kind}"
+    return any(token in blob for token in ("hand", "hands", "mano", "manos"))
 
 
 def speaker_matches_region(speaker: str, label: str) -> bool:
@@ -734,10 +815,10 @@ def analyze_occlusion(scene_layout: dict[str, Any], event: dict[str, Any], box_n
         importance = float(region.get("importance", 0.0))
         overlap_ratio = overlap / max(0.0001, bbox_area(region_bbox))
         label = str(region.get("label", ""))
-        kind = normalize_ws(str(region.get("kind", "")).lower())
+        face_like = region_is_face_like(region)
         if speaker and speaker_matches_region(speaker, label):
             covers_speaker = overlap_ratio > 0.05
-        elif kind == "face" and overlap_ratio > 0.05 and importance >= 0.85:
+        elif face_like and overlap_ratio > 0.03 and importance >= 0.75:
             covers_listener_face = True
             severity = max(severity, overlap_ratio)
     requires_pre_roll = bool(
@@ -784,6 +865,8 @@ def build_scene_audio_plan_payload(events_path: Path, utterances_path: Path, ali
     scene_cursor = 0.0
     audio_items: list[dict[str, Any]] = []
     bindings: list[dict[str, Any]] = []
+    last_narration_visible_end = 0.0
+    last_event_kind = ""
 
     for utterance in utterances:
         utterance_id = str(utterance["utterance_id"])
@@ -829,7 +912,10 @@ def build_scene_audio_plan_payload(events_path: Path, utterances_path: Path, ali
             else:
                 associated_end_s = scene_audio_end_s
             min_legible = legibility_duration(str(event.get("text", "")), str(event.get("kind", "dialogue")))
-            visible_start_s = speech_start_s
+            if str(event.get("kind", "dialogue")) == "narration" and last_event_kind == "narration":
+                visible_start_s = min(last_narration_visible_end, speech_start_s)
+            else:
+                visible_start_s = speech_start_s
             visible_end_s = max(associated_end_s, visible_start_s + min_legible)
             bindings.append(
                 {
@@ -845,6 +931,9 @@ def build_scene_audio_plan_payload(events_path: Path, utterances_path: Path, ali
                     "legibility_floor_s": round(min_legible, 4),
                 }
             )
+            if str(event.get("kind", "dialogue")) == "narration":
+                last_narration_visible_end = visible_end_s
+            last_event_kind = str(event.get("kind", "dialogue"))
         scene_cursor = max(scene_audio_end_s, max((binding["visible_end_s"] for binding in bindings if binding["utterance_id"] == utterance_id), default=scene_audio_end_s))
 
     return {
@@ -892,11 +981,17 @@ def adaptive_overlay_size(kind: str, text: str, candidate_bbox: list[float]) -> 
             max(limits["min_w"], min(limits["max_w"], candidate_w)),
             max(limits["min_h"], min(limits["max_h"], candidate_h)),
         )
-    scale = 0.66 if words <= 4 else 0.82 if words <= 10 else 1.0
+    if kind == "shout":
+        scale = 0.56 if words <= 4 else 0.72 if words <= 10 else 0.90
+    else:
+        scale = 0.56 if words <= 4 else 0.70 if words <= 10 else 0.88
     target_w = max(limits["min_w"], min(limits["max_w"], round(candidate_w * scale)))
     estimated_lines = max(1, min(limits["max_lines"], math.ceil(words / 5.5)))
     base_h = limits["min_h"] + ((estimated_lines - 1) * 54)
-    target_h = max(limits["min_h"], min(limits["max_h"], max(base_h, round(candidate_h * (0.7 if words <= 6 else 0.9)))))
+    height_scale = 0.66 if words <= 6 else 0.84
+    if kind == "shout":
+        height_scale = 0.68 if words <= 6 else 0.86
+    target_h = max(limits["min_h"], min(limits["max_h"], max(base_h, round(candidate_h * height_scale))))
     return target_w, target_h
 
 
@@ -912,6 +1007,145 @@ def centered_box_from_candidate(candidate_bbox: list[float], width_px: int, heig
     x = min(max(0.0, cx - (width_norm / 2)), 1.0 - width_norm)
     y = min(max(0.0, cy - (height_norm / 2)), 1.0 - height_norm)
     return [round(x, 4), round(y, 4), round(width_norm, 4), round(height_norm, 4)]
+
+
+def clamp_overlay_box(box: list[float]) -> list[float]:
+    if len(box) != 4:
+        return [0.0, 0.0, 1.0, 1.0]
+    w = min(max(float(box[2]), 0.02), 1.0)
+    h = min(max(float(box[3]), 0.02), 1.0)
+    x = min(max(0.0, float(box[0])), 1.0 - w)
+    y = min(max(0.0, float(box[1])), 1.0 - h)
+    return [round(x, 4), round(y, 4), round(w, 4), round(h, 4)]
+
+
+def bbox_center(box: list[float]) -> tuple[float, float]:
+    if len(box) != 4:
+        return 0.5, 0.5
+    return float(box[0]) + (float(box[2]) / 2), float(box[1]) + (float(box[3]) / 2)
+
+
+def distance(a: tuple[float, float], b: tuple[float, float]) -> float:
+    return math.hypot(a[0] - b[0], a[1] - b[1])
+
+
+def candidate_overlay_positions(kind: str, candidate_bbox: list[float], *, width_px: int, height_px: int) -> list[list[float]]:
+    width_norm = width_px / DEFAULT_CANVAS_W
+    height_norm = height_px / DEFAULT_CANVAS_H
+    positions: list[list[float]] = []
+
+    def add_pos(cx: float, cy: float) -> None:
+        x = min(max(0.0, cx - (width_norm / 2)), 1.0 - width_norm)
+        y = min(max(0.0, cy - (height_norm / 2)), 1.0 - height_norm)
+        positions.append([round(x, 4), round(y, 4), round(width_norm, 4), round(height_norm, 4)])
+
+    if len(candidate_bbox) == 4:
+        cand_cx, cand_cy = bbox_center(candidate_bbox)
+        cand_w = float(candidate_bbox[2])
+        cand_h = float(candidate_bbox[3])
+        for dx in (-0.48, -0.3, -0.16, 0.0, 0.16, 0.3, 0.48):
+            for dy in (-0.48, -0.3, -0.16, 0.0, 0.16, 0.3, 0.48):
+                add_pos(cand_cx + (dx * cand_w), cand_cy + (dy * cand_h))
+
+    if kind == "narration":
+        preferred_y = [0.78, 0.62, 0.48, 0.28]
+        preferred_x = [0.5]
+    else:
+        preferred_y = [0.10, 0.22, 0.34, 0.50, 0.68, 0.82]
+        preferred_x = [0.12, 0.28, 0.50, 0.72, 0.88]
+    for cy in preferred_y:
+        for cx in preferred_x:
+            add_pos(cx, cy)
+
+    deduped: list[list[float]] = []
+    seen: set[tuple[int, int, int, int]] = set()
+    for item in positions:
+        key = tuple(round(v * 1000) for v in item)
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(item)
+    return deduped
+
+
+def select_overlay_box(
+    *,
+    kind: str,
+    candidate_bbox: list[float],
+    protected_regions: list[dict[str, Any]],
+    focus_bbox: list[float],
+    used_boxes: list[list[float]],
+    width_px: int,
+    height_px: int,
+) -> list[float]:
+    focus_center = bbox_center(focus_bbox) if len(focus_bbox) == 4 else (0.5, 0.5)
+    candidate_target = bbox_center(candidate_bbox) if len(candidate_bbox) == 4 else (0.5, 0.5)
+    size_candidates: list[tuple[int, int]] = [(width_px, height_px)]
+    if kind != "narration":
+        size_candidates.extend(
+            [
+                (max(240, round(width_px * 0.88)), max(120, round(height_px * 0.88))),
+                (max(220, round(width_px * 0.78)), max(110, round(height_px * 0.78))),
+            ]
+        )
+
+    best_safe_score: float | None = None
+    best_safe_box: list[float] | None = None
+    best_fallback_score: float | None = None
+    best_fallback_box: list[float] | None = None
+
+    for size_w, size_h in size_candidates:
+        candidates = candidate_overlay_positions(kind, candidate_bbox, width_px=size_w, height_px=size_h)
+        if not candidates:
+            continue
+        for box in candidates:
+            face_overlap = 0.0
+            hand_overlap = 0.0
+            occluded_regions = 0
+            for region in protected_regions:
+                if not isinstance(region, dict):
+                    continue
+                region_bbox = list(region.get("bbox", [])) if isinstance(region.get("bbox"), list) else []
+                if len(region_bbox) != 4:
+                    continue
+                overlap = bbox_intersection(box, region_bbox)
+                if overlap <= 0:
+                    continue
+                occluded_regions += 1
+                importance = float(region.get("importance", 0.5))
+                if region_is_face_like(region):
+                    face_overlap += (overlap / max(0.0001, bbox_area(region_bbox))) * importance
+                elif region_is_hand_like(region):
+                    hand_overlap += (overlap / max(0.0001, bbox_area(region_bbox))) * importance
+            score = 0.0
+            if len(focus_bbox) == 4:
+                score += bbox_intersection(box, focus_bbox) * 10.0
+            for prev in used_boxes[-2:]:
+                if len(prev) == 4:
+                    score += bbox_intersection(box, prev) * 1.5
+            score += distance(bbox_center(box), candidate_target) * 0.12
+            if kind == "dialogue":
+                score += abs(bbox_center(box)[1] - 0.34) * 0.08
+            else:
+                score += abs(bbox_center(box)[1] - 0.78) * 0.12
+            score += distance(bbox_center(box), focus_center) * 0.04
+            score += hand_overlap * 1.2
+            score += occluded_regions * 0.06
+
+            if face_overlap <= 0.0001:
+                if best_safe_score is None or score < best_safe_score:
+                    best_safe_score = score
+                    best_safe_box = box
+            else:
+                fallback_score = score + (face_overlap * 40.0)
+                if best_fallback_score is None or fallback_score < best_fallback_score:
+                    best_fallback_score = fallback_score
+                    best_fallback_box = box
+
+    chosen = best_safe_box or best_fallback_box
+    if chosen is None:
+        chosen = centered_box_from_candidate(candidate_bbox, width_px, height_px)
+    return clamp_overlay_box(chosen)
 
 
 def apply_overlay_crossfades(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -955,27 +1189,41 @@ def build_scene_overlay_timeline_payload(events_path: Path, audio_plan_path: Pat
         if not binding:
             raise RuntimeError(f"Missing audio binding for event {event['event_id']}")
         kind = str(event.get("kind", "dialogue"))
+        delivery = str(event.get("delivery", "normal"))
+        display_text = continuation_display_text(
+            str(event.get("text", "")),
+            int(event.get("page_index", 1)),
+            int(event.get("page_count_in_group", 1)),
+        )
         candidate_bbox = list(event.get("overlay_candidate_bbox", []))
         if kind == "narration":
             if narration_box is None:
                 narration_box = candidate_bbox if len(candidate_bbox) == 4 else [0.08, 0.68, 0.84, 0.24]
             final_box = narration_box
         else:
-            overlay_w, overlay_h = adaptive_overlay_size(kind, str(event.get("text", "")), candidate_bbox)
-            final_box = centered_box_from_candidate(candidate_bbox or [0.5, 0.2, 0.5, 0.2], overlay_w, overlay_h)
+            overlay_w, overlay_h = adaptive_overlay_size(kind, display_text, candidate_bbox)
+            final_box = select_overlay_box(
+                kind=kind,
+                candidate_bbox=candidate_bbox or [0.5, 0.2, 0.5, 0.2],
+                protected_regions=list(scene_layout.get("protected_regions") or []),
+                focus_bbox=list(event.get("focus_bbox", [])) if isinstance(event.get("focus_bbox"), list) else [],
+                used_boxes=[list(item.get("region", {}).get("box_norm", [])) for item in out_events if isinstance(item.get("region", {}).get("box_norm", []), list)],
+                width_px=overlay_w,
+                height_px=overlay_h,
+            )
         occlusion = analyze_occlusion(scene_layout, event, final_box)
         limits = scene_layout_bounds(kind)
         box_x, box_y, box_w, box_h = bbox_to_pixels(final_box, frame_w=DEFAULT_CANVAS_W, frame_h=DEFAULT_CANVAS_H, fallback_w=limits["max_w"], fallback_h=limits["max_h"])
         text_box_w = max(40, box_w - (2 * limits["pad_x"]))
         text_box_h = max(40, box_h - (2 * limits["pad_y"]))
         wrapped_text, font_px, _line_spacing = fit_wrapped_text(
-            str(event.get("text", "")),
+            display_text,
             text_box_w,
             text_box_h,
             max_font_size=int(limits["max_font"]),
             min_font_size=int(limits["min_font"]),
             max_lines=int(limits["max_lines"]),
-            char_width_factor=TEXT_FIT_CHAR_WIDTH_FACTOR,
+            char_width_factor=overlay_char_width_factor(kind, delivery=delivery),
         )
         line_count = max(1, wrapped_text.count("\n") + 1)
         tail_anchor_norm = []
@@ -987,13 +1235,13 @@ def build_scene_overlay_timeline_payload(events_path: Path, audio_plan_path: Pat
                 "event_id": str(event["event_id"]),
                 "kind": kind,
                 "speaker": str(event.get("speaker", "")),
-                "delivery": str(event.get("delivery", "normal")),
-                "text": str(event.get("text", "")),
+                "delivery": delivery,
+                "text": display_text,
                 "start_s": float(binding["visible_start_s"]),
                 "end_s": float(binding["visible_end_s"]),
-                "fade_in_s": DEFAULT_FADE_IN_S,
-                "fade_out_s": DEFAULT_FADE_OUT_S,
-                "crossfade_text_s": DEFAULT_CROSSFADE_S,
+                "fade_in_s": 0.0,
+                "fade_out_s": 0.0,
+                "crossfade_text_s": 0.0,
                 "pre_roll_clean_s": float(binding.get("pre_roll_clean_s", 0.0)),
                 "region": {
                     "box_norm": final_box,
@@ -1061,61 +1309,25 @@ def build_scene_camera_plan_payload(overlay_timeline_path: Path, manifest_path: 
     manifest_scene = (manifest.get("scenes") or [])[scene_index - 1]
     scene_duration = float(overlay_timeline["scene_duration_s"])
     events = [item for item in overlay_timeline.get("events", []) if isinstance(item, dict)]
-    scene_layout = dict(manifest_scene.get("layout_analysis") or {})
-    scene_focus_bbox = list((scene_layout.get("camera_track") or {}).get("focus_bbox", [])) if isinstance((scene_layout.get("camera_track") or {}).get("focus_bbox", []), list) else []
-    if len(scene_focus_bbox) != 4:
-        scene_focus_bbox = [0.25, 0.18, 0.5, 0.5]
-    scene_focus_center = [float(scene_focus_bbox[0]) + (float(scene_focus_bbox[2]) / 2), float(scene_focus_bbox[1]) + (float(scene_focus_bbox[3]) / 2)]
-    global_zoom_max = float((scene_layout.get("camera_track") or {}).get("zoom_end", 1.14))
-    change_times = sorted({0.0, scene_duration, *[float(event["start_s"]) for event in events], *[float(event["end_s"]) for event in events]})
-    keyframes: list[dict[str, Any]] = []
-    prev_zoom = 1.0
-    total_changes = max(1, len(change_times) - 1)
-    for idx, time_s in enumerate(change_times):
-        active_event = active_event_at_time(events, time_s + 0.0001 if time_s < scene_duration else max(0.0, time_s - 0.0001))
-        desired_zoom = 1.0 + ((global_zoom_max - 1.0) * (idx / total_changes))
-        max_allowed_zoom = max_zoom_for_box(list((active_event or {}).get("region", {}).get("box_norm", [])))
-        zoom = max(prev_zoom, min(desired_zoom, max_allowed_zoom, global_zoom_max))
-        if zoom - max_allowed_zoom > 1e-6:
-            raise RuntimeError(f"Camera plan cannot fit overlay for scene {scene_index} at t={time_s:.2f}s.")
-        half_w = 0.5 / zoom
-        half_h = 0.5 / zoom
-        target_focus_bbox = list((active_event or {}).get("region", {}).get("box_norm", []))
-        if active_event and len(active_event.get("region", {}).get("box_norm", [])) == 4:
-            box = active_event["region"]["box_norm"]
-            margin_x = DEFAULT_MARGIN_PX / DEFAULT_CANVAS_W
-            margin_y = DEFAULT_MARGIN_PX / DEFAULT_CANVAS_H
-            min_x = float(box[0]) - margin_x
-            max_x = float(box[0]) + float(box[2]) + margin_x
-            min_y = float(box[1]) - margin_y
-            max_y = float(box[1]) + float(box[3]) + margin_y
-            target_cx = scene_focus_center[0]
-            target_cy = scene_focus_center[1]
-            cx = choose_camera_center(target_cx, half_w, min_x, max_x)
-            cy = choose_camera_center(target_cy, half_h, min_y, max_y)
-        else:
-            cx = min(max(scene_focus_center[0], half_w), 1.0 - half_w)
-            cy = min(max(scene_focus_center[1], half_h), 1.0 - half_h)
-        keyframes.append(
-            {
-                "time_s": round(time_s, 4),
-                "zoom": round(zoom, 4),
-                "focus_x": round(cx, 4),
-                "focus_y": round(cy, 4),
-                "active_event_id": str(active_event["event_id"]) if active_event else "",
-            }
-        )
-        prev_zoom = zoom
+    keyframes: list[dict[str, Any]] = [
+        {
+            "time_s": 0.0,
+            "zoom": 1.0,
+            "focus_x": 0.5,
+            "focus_y": 0.5,
+            "active_event_id": str(events[0]["event_id"]) if events else "",
+        }
+    ]
     return {
         "scene_index": scene_index,
         "duration_s": scene_duration,
-        "mode": "full_frame_zoom",
+        "mode": "static_frame",
         "keyframes": keyframes,
         "constraints": {
-            "keep_active_overlay_inside_frame": True,
+            "keep_active_overlay_inside_frame": False,
             "zoom_min": 1.0,
-            "zoom_max": round(global_zoom_max, 4),
-            "monotonic_zoom": True,
+            "zoom_max": 1.0,
+            "monotonic_zoom": False,
         },
     }
 
@@ -1171,11 +1383,8 @@ def render_clean_scene_video(scene_events_path: Path, audio_plan_path: Path, man
     if not image_path.exists():
         raise RuntimeError(f"Missing scene image for clean render: {image_path}")
     scene_layout = dict(manifest_scene.get("layout_analysis") or {})
-    focus_bbox = list((scene_layout.get("camera_track") or {}).get("focus_bbox", [])) if isinstance((scene_layout.get("camera_track") or {}).get("focus_bbox", []), list) else []
-    if len(focus_bbox) != 4:
-        focus_bbox = [0.25, 0.18, 0.5, 0.5]
-    center_x = float(focus_bbox[0]) + (float(focus_bbox[2]) / 2)
-    center_y = float(focus_bbox[1]) + (float(focus_bbox[3]) / 2)
+    center_x = 0.5
+    center_y = 0.5
     audio_tmp = TMP_DIR / str(events_payload["episode_id"]) / f"scene_{scene_index:02d}.clean.audio.m4a"
     ensure_dir(audio_tmp.parent)
     create_scene_audio_mix(ffmpeg, audio_plan, audio_tmp)
@@ -1245,7 +1454,12 @@ def compose_scene_video(overlay_timeline_path: Path, camera_plan_path: Path, out
     for event in events:
         event_id = str(event["event_id"])
         kind = str(event.get("kind", "dialogue"))
-        text = str(event.get("text", ""))
+        delivery = str(event.get("delivery", "normal"))
+        text = continuation_display_text(
+            str(event.get("text", "")),
+            int(event.get("page_index", 1)),
+            int(event.get("page_count_in_group", 1)),
+        )
         box_norm = list(event.get("region", {}).get("box_norm", []))
         box_x, box_y, box_w, box_h = bbox_to_pixels(box_norm, frame_w=width, frame_h=height, fallback_w=720, fallback_h=240)
         caption_file = captions_dir / f"{event_id}.txt"
@@ -1283,7 +1497,7 @@ def compose_scene_video(overlay_timeline_path: Path, camera_plan_path: Path, out
                 max_font_size=int(limits["max_font"]),
                 min_font_size=int(limits["min_font"]),
                 max_lines=int(limits["max_lines"]),
-                char_width_factor=TEXT_FIT_CHAR_WIDTH_FACTOR,
+                char_width_factor=overlay_char_width_factor(kind, delivery=delivery),
             )
             caption_file.write_text(wrapped_text + "\n", encoding="utf-8")
             next_label = f"evt_{stage}_txt"
@@ -1331,7 +1545,7 @@ def compose_scene_video(overlay_timeline_path: Path, camera_plan_path: Path, out
                 max_font_size=int(limits["max_font"]),
                 min_font_size=int(limits["min_font"]),
                 max_lines=int(limits["max_lines"]),
-                char_width_factor=TEXT_FIT_CHAR_WIDTH_FACTOR,
+                char_width_factor=overlay_char_width_factor(kind, delivery=delivery),
             )
             caption_file.write_text(wrapped_text + "\n", encoding="utf-8")
             next_label = f"evt_{stage}_txt"
@@ -1342,13 +1556,12 @@ def compose_scene_video(overlay_timeline_path: Path, camera_plan_path: Path, out
                 f"line_spacing={line_spacing}:box=0:borderw=0:shadowx=0:shadowy=0[{next_label}]"
             )
             current_event_label = next_label
-        faded_label = f"evtfade_{stage}"
-        graph.append(
-            f"[{current_event_label}]fade=t=in:st={float(event['start_s']):.4f}:d={float(event.get('fade_in_s', 0.10)):.4f}:alpha=1,"
-            f"fade=t=out:st={max(float(event['start_s']), float(event['end_s']) - float(event.get('fade_out_s', 0.10))):.4f}:d={float(event.get('fade_out_s', 0.10)):.4f}:alpha=1[{faded_label}]"
-        )
+        enable_expr = f"gte(t\\,{float(event['start_s']):.4f})*lt(t\\,{float(event['end_s']):.4f})"
+        current_overlay_label = current_event_label
         next_main = f"v{stage}"
-        graph.append(f"[{current_label}][{faded_label}]overlay=0:0:format=auto[{next_main}]")
+        graph.append(
+            f"[{current_label}][{current_overlay_label}]overlay=0:0:format=auto:enable='{enable_expr}'[{next_main}]"
+        )
         current_label = next_main
         stage += 1
 
@@ -1424,7 +1637,11 @@ def build_scene_srt_entries(overlay_timeline: dict[str, Any], scene_offset_s: fl
     for event in overlay_timeline.get("events", []) or []:
         if not isinstance(event, dict):
             continue
-        text = normalize_text(str(event.get("text", "")))
+        text = continuation_display_text(
+            str(event.get("text", "")),
+            int(event.get("page_index", 1)),
+            int(event.get("page_count_in_group", 1)),
+        )
         if not text:
             continue
         entries.append((scene_offset_s + float(event["start_s"]), scene_offset_s + float(event["end_s"]), text))

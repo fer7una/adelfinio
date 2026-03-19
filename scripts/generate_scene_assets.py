@@ -551,12 +551,23 @@ def load_character_profiles(characters_dir: Path, character_ids: list[str]) -> d
             payload = load_json(path)
         except RuntimeError:
             continue
-        display_name = normalize_ws(str(payload.get("display_name", ""))).lower()
+        display_name = normalize_ws(str(payload.get("display_name", "")))
         voice_profile = normalized_voice_profile(payload.get("voice_profile"))
         if not display_name or not isinstance(voice_profile, dict):
             continue
-        profiles[display_name] = voice_profile
-        profiles[normalize_ws(character_id).lower()] = voice_profile
+        record = {
+            "character_id": normalize_ws(character_id),
+            "display_name": display_name,
+            "voice_profile": voice_profile,
+            "visual_profile": dict(payload.get("visual_profile") or {}),
+            "face_signature": dict(payload.get("face_signature") or {}),
+        }
+        profiles[display_name.lower()] = record
+        profiles[normalize_ws(character_id).lower()] = record
+        for alias in payload.get("aliases") or []:
+            alias_key = normalize_ws(str(alias)).lower()
+            if alias_key:
+                profiles[alias_key] = record
     return profiles
 
 
@@ -578,8 +589,100 @@ def resolve_voice_profile(speaker: str, character_profiles: dict[str, dict]) -> 
     key = normalize_ws(speaker).lower()
     existing = character_profiles.get(key)
     if isinstance(existing, dict):
+        if isinstance(existing.get("voice_profile"), dict):
+            return normalized_voice_profile(existing["voice_profile"])
         return normalized_voice_profile(existing)
     return fallback_voice_profile(speaker)
+
+
+def character_face_signature(profile: dict) -> dict:
+    if isinstance(profile.get("face_signature"), dict) and profile["face_signature"]:
+        return dict(profile["face_signature"])
+    visual_profile = dict(profile.get("visual_profile") or {})
+    display_name = normalize_ws(str(profile.get("display_name", "")))
+    age_range = normalize_ws(str(visual_profile.get("age_range", "")))
+    hair = normalize_ws(str(visual_profile.get("hair", "")))
+    beard = normalize_ws(str(visual_profile.get("beard", "")))
+    style_notes = normalize_ws(str(visual_profile.get("style_notes", "")))
+    fixed_traits = [item for item in [age_range, hair, beard] if item]
+    distinctive_marks = [item for item in [style_notes] if item]
+    summary = normalize_ws(" ".join([item for item in [display_name, age_range, hair, beard] if item]))
+    return {
+        "canonical_summary": summary or display_name,
+        "fixed_traits": fixed_traits,
+        "distinctive_marks": distinctive_marks,
+        "anti_patterns": [
+            "No cambiar la edad aparente entre escenas.",
+            "No variar peinado, barba o silueta facial entre escenas.",
+            "No usar un rostro generico o intercambiable.",
+        ],
+        "reference_prompt": normalize_ws(
+            f"Rostro canonico de {display_name or 'personaje'}: {summary or 'identidad facial estable'}; "
+            f"rasgos fijos: {', '.join(fixed_traits) or 'ninguno'}; "
+            f"marcas distintivas: {', '.join(distinctive_marks) or 'ninguna'}; "
+            "mantener exactamente la misma cara entre escenas."
+        ),
+    }
+
+
+def character_face_line(profile: dict) -> str:
+    face = character_face_signature(profile)
+    display_name = normalize_ws(str(profile.get("display_name", ""))) or normalize_ws(str(profile.get("character_id", "")))
+    return f"{display_name}: {face.get('reference_prompt') or face.get('canonical_summary') or 'rostro canonico estable'}"
+
+
+def build_episode_brief(episode: dict) -> str:
+    storytelling = episode.get("storytelling") or {}
+    plot_twist = episode.get("plot_twist") or {}
+    pieces = [
+        f"Titulo: {normalize_ws(str(episode.get('title', '')))}",
+        f"Hook: {normalize_ws(str(episode.get('hook', '')))}",
+        f"Premisa: {normalize_ws(str(storytelling.get('premise', '')))}",
+        f"Pregunta dramatica: {normalize_ws(str(storytelling.get('dramatic_question', '')))}",
+        f"Giro: {normalize_ws(str(plot_twist.get('reveal', '')))}",
+        f"Pago final: {normalize_ws(str(storytelling.get('ending_payoff', '')))}",
+    ]
+    return normalize_ws(" ".join(piece for piece in pieces if normalize_ws(piece)))
+
+
+def build_scene_brief(scene: dict, scene_dialogue: list[dict], prev_narration: str, next_narration: str) -> str:
+    dialogue_summary = "; ".join(f"{row['speaker']}: {row['line']}" for row in scene_dialogue[:4])
+    pieces = [
+        f"Objetivo: {normalize_ws(str(scene.get('scene_objective', '')))}",
+        f"Narracion completa: {normalize_ws(str(scene.get('narration', '')))}",
+        f"Dialogo completo: {dialogue_summary or 'sin dialogo directo'}",
+        f"Subtexto: {normalize_ws(str(scene.get('subtext_or_private_state_summary', '')))}",
+        f"Transicion anterior: {normalize_ws(prev_narration)}",
+        f"Transicion siguiente: {normalize_ws(next_narration)}",
+        f"Visual focus: {normalize_ws(str(scene.get('visual_focus', '')))}",
+        f"Visual prompt: {normalize_ws(str(scene.get('visual_prompt', '')))}",
+    ]
+    return normalize_ws(" ".join(piece for piece in pieces if normalize_ws(piece)))
+
+
+def build_scene_face_lines(scene: dict, scene_dialogue: list[dict], character_profiles: dict[str, dict]) -> list[str]:
+    ordered_candidates: list[str] = []
+    seen: set[str] = set()
+    for raw in list(scene.get("scene_cast") or []):
+        candidate = normalize_ws(str(raw))
+        if candidate:
+            ordered_candidates.append(candidate)
+    for row in scene_dialogue:
+        speaker = normalize_ws(str(row.get("speaker", "")))
+        if speaker:
+            ordered_candidates.append(speaker)
+
+    face_lines: list[str] = []
+    for candidate in ordered_candidates:
+        profile = character_profiles.get(candidate.lower()) or character_profiles.get(normalize_ws(candidate).lower())
+        if not isinstance(profile, dict):
+            continue
+        display_name = normalize_ws(str(profile.get("display_name", ""))) or normalize_ws(str(profile.get("character_id", "")))
+        if not display_name or display_name.lower() in seen:
+            continue
+        seen.add(display_name.lower())
+        face_lines.append(character_face_line(profile))
+    return face_lines
 
 
 def words_in_text(text: str) -> list[str]:
@@ -835,14 +938,9 @@ def repaginate_scene_blocks_to_layout(
     return assigned_layout, assigned_phases, changed
 
 
-def build_image_prompt(episode: dict, scene: dict) -> str:
+def build_image_prompt(episode: dict, scene: dict, *, episode_brief: str, scene_brief: str) -> str:
     episode_title = str(episode.get("title", "")).strip()
     scene_prompt = str(scene.get("visual_prompt", "")).strip()
-    scene_narration = str(scene.get("narration", "")).strip()
-    characters = episode.get("characters") or []
-    cast = ", ".join(str(x) for x in characters[:5]) if characters else "sin personajes nombrados"
-    dialogue = normalize_scene_dialogue(scene.get("dialogue"))
-    dialogue_hint = "; ".join(f"{row['speaker']}: {row['line']}" for row in dialogue[:2]) or "sin dialogo directo"
 
     style_guide = (
         "Ilustracion historica cinematografica con lenguaje de comic, alta fidelidad, tono documental, "
@@ -850,15 +948,15 @@ def build_image_prompt(episode: dict, scene: dict) -> str:
         "Vestuario altomedieval iberico coherente. "
         "Composicion vertical para video 9:16, profundidad dramatica, encuadre de vineta. "
         "Mantener el dibujo historico, pero con paleta mas viva, contrastes limpios, azules, rojos y dorados intensos. "
-        "Evitar sepia, apagado, envejecido excesivo o aspecto deslavado."
+        "Evitar sepia, apagado, envejecido excesivo o aspecto deslavado. "
+        "La escena debe leerse como una unica imagen epica y coherente, no como un collage de fragmentos."
     )
 
     return (
         f"TITULO EPISODIO: {episode_title}\n"
+        f"IDEA GENERAL DE LA HISTORIA: {episode_brief}\n"
         f"ESCENA {scene.get('scene_index')}: {scene_prompt}\n"
-        f"CONTEXTO NARRATIVO: {scene_narration}\n"
-        f"DIALOGO REFERENCIA: {dialogue_hint}\n"
-        f"ELENCO REFERENCIA: {cast}\n"
+        f"RESUMEN DE ESCENA: {scene_brief}\n"
         f"ESTILO OBLIGATORIO: {style_guide}"
     )
 
@@ -913,30 +1011,29 @@ def build_block_image_prompt(
 
 def build_scene_image_prompt(
     base_prompt: str,
-    scene_blocks: list[dict],
-    prev_scene_narration: str,
-    next_scene_narration: str,
+    *,
+    scene_brief: str,
+    character_face_lines: list[str],
+    prev_scene_brief: str,
+    next_scene_brief: str,
 ) -> str:
-    actor_labels: list[str] = []
-    phase_hints: list[str] = []
-    for block in scene_blocks[:6]:
-        actor = normalize_ws(str(block.get("primary_actor", "")))
-        if actor and actor not in actor_labels:
-            actor_labels.append(actor)
-        text = normalize_ws(str(block.get("dialogue_line") or block.get("text") or ""))
-        if text:
-            phase_hints.append(text)
-    actor_note = ", ".join(actor_labels[:3]) or "sin actor unico"
-    phase_summary = " | ".join(phase_hints[:4]) or "sin fase destacada"
+    actor_note = ", ".join(
+        normalize_ws(line.split(":", 1)[0])
+        for line in character_face_lines[:4]
+        if normalize_ws(line)
+    ) or "sin actor unico"
+    face_block = "\n".join(f"- {line}" for line in character_face_lines[:5]) or "- Sin identidad facial especifica."
     return (
         f"{base_prompt}\n"
         "IMAGEN UNICA DE ESCENA: esta ilustracion debe sostener toda la escena mientras cambian bocadillos y narracion.\n"
+        f"RESUMEN CINEMATOGRAFICO DE ESCENA: {scene_brief}\n"
         f"ACTORES CLAVE: {actor_note}\n"
-        f"FRASES Y MOMENTOS A SOSTENER: {phase_summary}\n"
-        "COMPOSICION: una sola ilustracion fuerte, legible y estable, con capas de accion claras. "
-        "No fragmentar la escena en momentos incompatibles entre si.\n"
-        f"CONTINUIDAD ESCENA ANTERIOR: {prev_scene_narration or 'inicio de secuencia'}\n"
-        f"CONTINUIDAD ESCENA SIGUIENTE: {next_scene_narration or 'cierre de secuencia'}"
+        "IDENTIDADES FACIALES CANONICAS:\n"
+        f"{face_block}\n"
+        "COMPOSICION: una sola ilustracion fuerte, legible y estable, con capas de accion claras y epicidad visual. "
+        "No fragmentar la escena en momentos incompatibles entre si; pensar en un plano iconico que siga funcionando mientras el texto pagina.\n"
+        f"CONTINUIDAD ESCENA ANTERIOR: {prev_scene_brief or 'inicio de secuencia'}\n"
+        f"CONTINUIDAD ESCENA SIGUIENTE: {next_scene_brief or 'cierre de secuencia'}"
     )
 
 
@@ -1249,6 +1346,7 @@ def main() -> int:
         if not isinstance(scenes, list) or not scenes:
             raise RuntimeError("Episode has no scenes.")
         character_profiles = load_character_profiles(Path(args.characters_dir), [str(x) for x in episode.get("characters", [])])
+        episode_brief = build_episode_brief(episode)
 
         assets_root = Path(args.assets_dir) / str(episode["episode_id"])
         scenes_dir = assets_root / "scenes"
@@ -1292,18 +1390,21 @@ def main() -> int:
                 prev_narration = str(scenes[scene_pos - 1].get("narration", "")).strip()
             if scene_pos + 1 < len(scenes):
                 next_narration = str(scenes[scene_pos + 1].get("narration", "")).strip()
+            scene_brief = build_scene_brief(scene, scene_dialogue, prev_narration, next_narration)
+            scene_face_lines = build_scene_face_lines(scene, scene_dialogue, character_profiles)
 
             scene_image_path = scenes_dir / f"scene_{idx:02d}.png"
             base_prompt_path = scenes_dir / f"scene_{idx:02d}.prompt.txt"
-            base_prompt = build_image_prompt(episode, scene)
+            base_prompt = build_image_prompt(episode, scene, episode_brief=episode_brief, scene_brief=scene_brief)
             base_prompt_path.write_text(base_prompt + "\n", encoding="utf-8")
 
             scene_blocks = build_scene_block_plan(scene, narration, scene_dialogue, character_profiles)
             scene_prompt = build_scene_image_prompt(
                 base_prompt=base_prompt,
-                scene_blocks=scene_blocks,
-                prev_scene_narration=prev_narration,
-                next_scene_narration=next_narration,
+                scene_brief=scene_brief,
+                character_face_lines=scene_face_lines,
+                prev_scene_brief=prev_narration,
+                next_scene_brief=next_narration,
             )
             scene_prompt_path = scenes_dir / f"scene_{idx:02d}.image.prompt.txt"
             scene_prompt_path.write_text(scene_prompt + "\n", encoding="utf-8")
@@ -1392,6 +1493,8 @@ def main() -> int:
                     "estimated_seconds": duration,
                     "narration": narration,
                     "visual_prompt": visual_prompt,
+                    "scene_brief": scene_brief,
+                    "character_face_lines": list(scene_face_lines),
                     "dialogue": scene_dialogue,
                     "scene_image_path": str(scene_image_path),
                     "layout_analysis": layout_analysis,
@@ -1430,6 +1533,7 @@ def main() -> int:
             "episode_id": episode["episode_id"],
             "episode_file": str(episode_path),
             "created_at": now_iso(),
+            "episode_brief": episode_brief,
             "generator": {
                 "mock_mode": bool(args.mock),
                 "billing_fallback_used": bool(used_billing_fallback),

@@ -59,6 +59,7 @@ Reglas:
 - Toda inferencia debe apoyarse en source_refs y confidence.
 - Modela comportamiento, voz, visualidad y arco pensando en su uso posterior en video.
 - Mantén continuidad cronologica y emocional por personaje.
+- Cada personaje necesita una identidad facial canónica reusable entre escenas: define face_signature con rasgos fijos, marcas distintivas, anti-patterns y un prompt de referencia.
 - voice_profile.tts_voice debe ser una voz OpenAI valida. Valores permitidos: alloy, echo, fable, onyx, nova, shimmer, coral, verse, ballad, ash, sage, marin, cedar.
 """.strip()
 
@@ -180,10 +181,57 @@ def normalize_tts_voice_id(value: str | None, fallback: str = "alloy") -> str:
     return "alloy"
 
 
+def build_face_signature(payload: dict) -> dict:
+    display_name = normalize_ws(str(payload.get("display_name") or payload.get("character_id") or ""))
+    visual_profile = dict(payload.get("visual_profile") or {})
+    age_range = normalize_ws(str(visual_profile.get("age_range", "")))
+    hair = normalize_ws(str(visual_profile.get("hair", "")))
+    beard = normalize_ws(str(visual_profile.get("beard", "")))
+    clothing = normalize_ws(str(visual_profile.get("clothing", "")))
+    style_notes = normalize_ws(str(visual_profile.get("style_notes", "")))
+    palette = [normalize_ws(str(item)) for item in (visual_profile.get("palette") or []) if normalize_ws(str(item))]
+
+    canonical_summary = normalize_ws(
+        " ".join(
+            part
+            for part in (
+                display_name,
+                age_range,
+                hair,
+                beard,
+            )
+            if part
+        )
+    )
+    fixed_traits = [item for item in [age_range, hair, beard, clothing] if item]
+    distinctive_marks = [item for item in [style_notes] if item]
+    if palette:
+        distinctive_marks.append(f"Paleta asociada: {', '.join(palette[:3])}.")
+    anti_patterns = [
+        f"No cambiar la edad aparente fuera de {age_range}." if age_range else "No cambiar la edad aparente.",
+        "No alternar entre rostro generico y rostro heroico.",
+        "No variar peinado, barba o silueta facial entre escenas.",
+    ]
+    reference_prompt = normalize_ws(
+        f"Rostro canonico de {display_name or 'personaje'}: {canonical_summary or 'identidad facial estable'}; "
+        f"rasgos fijos: {', '.join(fixed_traits) or 'ninguno'}; "
+        f"marcas distintivas: {', '.join(distinctive_marks) or 'ninguna'}; "
+        "mantener exactamente la misma cara entre escenas, con coherencia de edad, peinado, barba y expresion base."
+    )
+    return {
+        "canonical_summary": canonical_summary or display_name,
+        "fixed_traits": fixed_traits,
+        "distinctive_marks": distinctive_marks,
+        "anti_patterns": anti_patterns,
+        "reference_prompt": reference_prompt,
+    }
+
+
 def normalize_character_payload(payload: dict) -> dict:
     voice_profile = dict(payload.get("voice_profile") or {})
     voice_profile["tts_voice"] = normalize_tts_voice_id(str(voice_profile.get("tts_voice", "alloy")))
     payload["voice_profile"] = voice_profile
+    payload["face_signature"] = dict(payload.get("face_signature") or build_face_signature(payload))
     return payload
 
 
@@ -210,6 +258,9 @@ def prompt_payload(source_pack: dict) -> str:
             "goal": "Extraer personajes, comportamiento, relaciones y continuidad dramatica sin perder fidelidad.",
             "inference_policy": "evidence_plus_labeled_inference",
             "sampling_policy": "uniform_coverage_plus_actor_index",
+            "visual_identity_policy": {
+                "rule": "Cada personaje debe incluir face_signature con rasgos fijos, marcas distintivas, anti-patterns y un prompt de referencia para mantener la misma cara entre escenas.",
+            },
             "tts_voice_policy": {
                 "allowed_values": SUPPORTED_OPENAI_TTS_VOICES,
                 "rule": "Usa solo voces OpenAI validas en voice_profile.tts_voice",
@@ -249,6 +300,7 @@ def materialize_character_record(payload: dict) -> dict:
         "biography_short": payload["biography_short"],
         "voice_profile": dict(payload["voice_profile"]),
         "visual_profile": dict(payload["visual_profile"]),
+        "face_signature": dict(payload.get("face_signature") or build_face_signature(payload)),
         "state": state,
         "continuity": dict(payload["continuity"]),
         "emotional_state": dict(payload["emotional_state"]),

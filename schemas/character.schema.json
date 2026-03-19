@@ -166,6 +166,46 @@
         }
       }
     },
+    "face_signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "canonical_summary": {
+          "type": "string",
+          "minLength": 12,
+          "maxLength": 400
+        },
+        "fixed_traits": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          }
+        },
+        "distinctive_marks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "anti_patterns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "reference_prompt": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 800
+        }
+      }
+    },
     "state": {
       "type": "object",
       "additionalProperties": false,
