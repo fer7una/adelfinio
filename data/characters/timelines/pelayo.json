@@ -2,21 +2,21 @@
   "character_id": "pelayo",
   "records": [
     {
-      "record_id": "arc-07350101-pelayo",
-      "event_id": "evt-073501",
+      "record_id": "arc-10001167-pelayo-covadonga",
+      "event_id": "evt-072201",
       "chronology_index": 1,
-      "emotion_before": "uncertainty",
+      "emotion_before": "fear",
       "emotion_after": "resolve",
-      "arc_stage_before": "setup",
-      "arc_stage_after": "ascent",
-      "change_summary": "Defensa/emboscada en Monte Auseva (Covadonga) donde las fuerzas de Pelayo resisten y causan la retirada musulmana; esto impulsa el crecimiento del movimiento rebelde.",
+      "arc_stage_before": "ascent",
+      "arc_stage_after": "turn",
+      "change_summary": "From small-group fugitives to a recognized military victory that elevates Pelayo's leadership and attracts followers.",
       "source_ref": {
-        "file": "01-La gran aventura del reino de Asturias",
-        "section": "evt-073501",
-        "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
-        "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva y el ejército de Alkama llegó ..."
+        "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+        "section": "evt-072201 / LA BATALLA DE COVADONGA",
+        "checksum": "df1c4c1a0000abcd0000abcd0000abcd0000abcd0000abcd0000abcd0000abcd",
+        "excerpt": "LA BATALLA DE COVADONGA Estamos en 722 ..."
       },
-      "updated_at": "2026-03-18T23:45:00Z"
+      "updated_at": "2026-03-19T18:40:00Z"
     }
   ]
 }

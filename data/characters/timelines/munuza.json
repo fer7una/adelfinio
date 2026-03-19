@@ -1,0 +1,22 @@
+{
+  "character_id": "munuza",
+  "records": [
+    {
+      "record_id": "arc-60006661-munuza-harem",
+      "event_id": "evt-085201",
+      "chronology_index": 1,
+      "emotion_before": "pride",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "crisis",
+      "arc_stage_after": "turn",
+      "change_summary": "Reported attempt to create kinship ties with local elites by assimilating a member of Pelayo's family; mixes political goals and personal narrative.",
+      "source_ref": {
+        "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+        "section": "evt-085201",
+        "checksum": "0000000000000000000000000000000000000000000000000000000000000000",
+        "excerpt": "Explica también que el gobernador moro, Munuza, quisiera incorporar a su harén a la hermana de Pelayo..."
+      },
+      "updated_at": "2026-03-19T18:40:00Z"
+    }
+  ]
+}

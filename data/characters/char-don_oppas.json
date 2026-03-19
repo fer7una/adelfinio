@@ -1,0 +1,64 @@
+{
+  "character_id": "char-don_oppas",
+  "display_name": "Don Oppas",
+  "aliases": [
+    "Oppas",
+    "Don Oppas (visigothic figure)"
+  ],
+  "historical_period": "early 8th century",
+  "role": "political",
+  "biography_short": "Personaje vinculado en las fuentes al episodio de la batalla frente a los rebeldes; figura asociada a las facciones witizianas en la narrativa.",
+  "voice_profile": {
+    "tts_voice": "ash",
+    "tone": "smooth, slightly conciliatory",
+    "words_per_second": 3.4,
+    "delivery_modifiers": {
+      "normal": 1,
+      "shout": 1.1
+    }
+  },
+  "visual_profile": {
+    "age_range": "40-60",
+    "hair": "dark",
+    "beard": "short",
+    "clothing": "noble's tunic, decorative but not ostentatious",
+    "palette": [
+      "#5A3E2B",
+      "#D0BFA3"
+    ],
+    "style_notes": "represent as a member of the local visigothic elite, possibly cooperating with Muslim forces per some traditions."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "northern Iberia",
+    "alliances": [],
+    "conflicts": [
+      "char-pelayo"
+    ],
+    "last_seen_episode_id": "main-07340102-evt",
+    "last_updated": "2026-03-19T17:39:56Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "Appears in battle accounts alongside Muslim commanders (suggesting alignment with witiziano/Agila party)"
+    ],
+    "must_avoid": [
+      "Ascribing motivations beyond the text (e.g., personal betrayal reasons not present in the source)"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "uncertainty",
+    "intensity": 0.5,
+    "valence": 0.2,
+    "arousal": 0.4,
+    "trigger_summary": "Political factionalism and alignment with external forces create tension around his figure."
+  },
+  "arc_state": {
+    "stage": "ascent",
+    "external_goal": "support witiziano claims and preserve factional influence",
+    "internal_need": "maintain noble standing",
+    "contradiction": "alignment with invaders vs. legitimacy among local populace",
+    "change_vector": "participation in major battle events; later disappearance from central narrative",
+    "last_event_id": "evt-073401"
+  }
+}

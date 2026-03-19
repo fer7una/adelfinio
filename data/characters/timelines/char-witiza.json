@@ -1,0 +1,22 @@
+{
+  "character_id": "char-witiza",
+  "records": [
+    {
+      "record_id": "arc-00010800-witiza-faction",
+      "event_id": "evt-70201",
+      "chronology_index": 1,
+      "emotion_before": "uncertainty",
+      "emotion_after": "fear",
+      "arc_stage_before": "setup",
+      "arc_stage_after": "crisis",
+      "change_summary": "Factional politics under Witiza contribute to flight of some nobles and to openings exploited by invaders.",
+      "source_ref": {
+        "file": "01-La gran aventura del reino de Asturias",
+        "section": "A partir de ese momento, los hijos de Favila quedan enfrentados a Witiza",
+        "checksum": "0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b",
+        "excerpt": "A partir de ese momento, los hijos de Favila quedan enfrentados a Witiza..."
+      },
+      "updated_at": "2026-03-19T17:39:56Z"
+    }
+  ]
+}

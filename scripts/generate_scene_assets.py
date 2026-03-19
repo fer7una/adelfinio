@@ -1091,6 +1091,10 @@ def fit_audio_to_duration(ffmpeg: str, input_audio: Path, output_audio: Path, ta
 
 
 def concat_audio_segments(ffmpeg: str, concat_paths: list[Path], output_audio: Path, work_dir: Path) -> None:
+    invalid_paths = [path for path in concat_paths if not str(path).strip() or path.is_dir() or not path.is_file()]
+    if invalid_paths:
+        invalid_list = ", ".join(path.as_posix() or "<empty>" for path in invalid_paths)
+        raise RuntimeError(f"Cannot concat audio for {output_audio.name}: invalid segment paths: {invalid_list}")
     concat_list = work_dir / f"{output_audio.stem}.concat.txt"
     concat_list.write_text(
         "\n".join(f"file '{path.resolve().as_posix()}'" for path in concat_paths) + "\n",
@@ -1256,8 +1260,6 @@ def main() -> int:
         image_model = args.image_model or os.getenv("OPENAI_IMAGE_MODEL", "gpt-image-1")
         image_size = args.image_size or os.getenv("OPENAI_IMAGE_SIZE", "1024x1024")
         image_quality = normalize_image_quality(args.image_quality or os.getenv("OPENAI_IMAGE_QUALITY"))
-        tts_model = args.tts_model or os.getenv("OPENAI_TTS_MODEL", "gpt-4o-mini-tts")
-        tts_voice = normalize_tts_voice_id(args.tts_voice or os.getenv("OPENAI_TTS_VOICE", "alloy"))
         layout_model = os.getenv("OPENAI_LAYOUT_MODEL", os.getenv("OPENAI_EPISODE_MODEL", "gpt-5.4"))
         layout_reasoning_effort = os.getenv("OPENAI_LAYOUT_REASONING_EFFORT", "low")
         narrator_profile = default_narrator_profile()
@@ -1291,7 +1293,6 @@ def main() -> int:
             if scene_pos + 1 < len(scenes):
                 next_narration = str(scenes[scene_pos + 1].get("narration", "")).strip()
 
-            audio_path = scenes_dir / f"scene_{idx:02d}.mp3"
             scene_image_path = scenes_dir / f"scene_{idx:02d}.png"
             base_prompt_path = scenes_dir / f"scene_{idx:02d}.prompt.txt"
             base_prompt = build_image_prompt(episode, scene)
@@ -1320,7 +1321,6 @@ def main() -> int:
                         "paragraph_block_index": int(block_payload.get("paragraph_block_index", 0)),
                         "paragraph_blocks_total": int(block_payload.get("paragraph_blocks_total", 1)),
                         "duration_seconds": int(block_payload.get("duration_seconds", 1)),
-                        "audio_path": "",
                         "audio_text": str(block_payload.get("audio_text", phase_line or phase_text)),
                         "dialogue_speaker": str(block_payload.get("dialogue_speaker", "")).strip(),
                         "dialogue_line": phase_line,
@@ -1333,7 +1333,6 @@ def main() -> int:
                     }
                 )
             scene_uses_mock_layout = bool(args.mock)
-            scene_force_mock_assets = bool(args.mock)
             if args.mock:
                 color = MOCK_SCENE_COLORS[idx % len(MOCK_SCENE_COLORS)]
                 create_mock_image(ffmpeg, scene_image_path, color=color)
@@ -1346,12 +1345,6 @@ def main() -> int:
                         quality=image_quality,
                     )
                     scene_image_path.write_bytes(first_image_bytes(image_resp))
-                    concat_audio_segments(
-                        ffmpeg,
-                        [Path(str(phase["audio_path"])) for phase in text_phases],
-                        audio_path,
-                        scenes_dir,
-                    )
                 except Exception as exc:  # SDK raises typed exceptions; keep generic for compatibility.
                     if args.fallback_mock_on_billing_error and is_billing_limit_error(exc):
                         print(
@@ -1361,7 +1354,6 @@ def main() -> int:
                         color = MOCK_SCENE_COLORS[idx % len(MOCK_SCENE_COLORS)]
                         create_mock_image(ffmpeg, scene_image_path, color=color)
                         scene_uses_mock_layout = True
-                        scene_force_mock_assets = True
                         used_billing_fallback = True
                     else:
                         raise RuntimeError(openai_error_message(exc)) from exc
@@ -1385,68 +1377,12 @@ def main() -> int:
                     break
 
             for phase_idx, phase in enumerate(text_phases, start=1):
-                phase_audio = scenes_dir / f"scene_{idx:02d}_phase_{phase_idx:02d}.mp3"
                 phase["phase_index"] = phase_idx
-                phase["audio_path"] = str(phase_audio)
                 phase["audio_text"] = str(phase.get("audio_text") or phase.get("dialogue_line") or phase.get("text") or "")
 
             duration = sum(int(phase["duration_seconds"]) for phase in text_phases)
             if duration <= 0:
                 duration = max(1, int(scene.get("estimated_seconds", 1)))
-
-            if scene_force_mock_assets:
-                for phase in text_phases:
-                    create_mock_audio(ffmpeg, Path(str(phase["audio_path"])), int(phase["duration_seconds"]))
-            else:
-                try:
-                    for phase in text_phases:
-                        profile = phase.get("voice_profile") if isinstance(phase.get("voice_profile"), dict) else narrator_profile
-                        target_seconds = int(phase["duration_seconds"])
-                        raw_audio = Path(str(phase["audio_path"])).with_suffix(".raw.mp3")
-                        profile_tone = str(profile.get("tone", narrator_profile["tone"])).replace("_", " ")
-                        delivery = str(phase.get("dialogue_delivery", "normal"))
-                        instructions = f"Habla con tono {profile_tone}. Ritmo controlado y coherente con una narracion historica."
-                        if delivery == "shout":
-                            instructions += " Entrega la frase con intensidad y urgencia, sin perder claridad."
-                        try:
-                            profile_wps = float(profile.get("words_per_second", narrator_profile["words_per_second"]))
-                        except (TypeError, ValueError):
-                            profile_wps = float(narrator_profile["words_per_second"])
-                        speed_hint = max(0.8, min(1.35, profile_wps / float(narrator_profile["words_per_second"])))
-                        save_tts_audio(
-                            client=client,
-                            model=tts_model,
-                            voice=normalize_tts_voice_id(
-                                str(profile.get("tts_voice", tts_voice or narrator_profile["tts_voice"])),
-                                tts_voice or narrator_profile["tts_voice"],
-                            ),
-                            narration=str(phase["audio_text"]),
-                            output_audio=raw_audio,
-                            instructions=instructions,
-                            speed=speed_hint,
-                        )
-                        fit_audio_to_duration(ffmpeg, raw_audio, Path(str(phase["audio_path"])), target_seconds)
-                except Exception as exc:  # SDK raises typed exceptions; keep generic for compatibility.
-                    if args.fallback_mock_on_billing_error and is_billing_limit_error(exc):
-                        print(
-                            "WARNING: OpenAI billing limit reached while generating audio. "
-                            f"Using mock audio for scene {idx:02d} of {episode['episode_id']}."
-                        )
-                        for phase in text_phases:
-                            create_mock_audio(ffmpeg, Path(str(phase["audio_path"])), int(phase["duration_seconds"]))
-                        used_billing_fallback = True
-                    else:
-                        raise RuntimeError(openai_error_message(exc)) from exc
-
-            concat_audio_segments(
-                ffmpeg,
-                [Path(str(phase["audio_path"])) for phase in text_phases],
-                audio_path,
-                scenes_dir,
-            )
-
-            prompt_paths = [str(scene_prompt_path)]
-            image_paths = [str(scene_image_path)]
             for phase in text_phases:
                 phase["image_path"] = str(scene_image_path)
 
@@ -1473,7 +1409,6 @@ def main() -> int:
                             "phase_start_s": float(phase.get("phase_start_s", 0.0)),
                             "phase_end_s": float(phase.get("phase_end_s", 0.0)),
                             "image_path": str(scene_image_path),
-                            "audio_path": str(phase["audio_path"]),
                             "audio_text": str(phase.get("audio_text", "")),
                             "dialogue_speaker": str(phase.get("dialogue_speaker", "")),
                             "dialogue_line": str(phase.get("dialogue_line", "")),
@@ -1486,34 +1421,8 @@ def main() -> int:
                         }
                         for phase in text_phases
                     ],
-                    "caption_blocks": [
-                        {
-                            "block_index": int(phase["phase_index"]),
-                            "text": str(phase["text"]),
-                            "paragraph_index": int(phase.get("paragraph_index", 0)),
-                            "paragraph_block_index": int(phase.get("paragraph_block_index", 0)),
-                            "paragraph_blocks_total": int(phase.get("paragraph_blocks_total", 1)),
-                            "duration_seconds": int(phase["duration_seconds"]),
-                            "phase_start_s": float(phase.get("phase_start_s", 0.0)),
-                            "phase_end_s": float(phase.get("phase_end_s", 0.0)),
-                            "image_path": str(scene_image_path),
-                            "audio_path": str(phase["audio_path"]),
-                            "dialogue_speaker": str(phase.get("dialogue_speaker", "")),
-                            "dialogue_line": str(phase.get("dialogue_line", "")),
-                            "dialogue_delivery": str(phase.get("dialogue_delivery", "normal")),
-                            "primary_actor": str(phase.get("primary_actor", "")),
-                            "proper_nouns": list(phase.get("proper_nouns", [])) if isinstance(phase.get("proper_nouns"), list) else [],
-                            "overlay_bbox": list(phase.get("overlay_bbox", [])) if isinstance(phase.get("overlay_bbox"), list) else [],
-                            "focus_bbox": list(phase.get("focus_bbox", [])) if isinstance(phase.get("focus_bbox"), list) else [],
-                            "prompt_path": str(scene_prompt_path),
-                        }
-                        for phase in text_phases
-                    ],
                     "image_path": str(scene_image_path),
-                    "image_paths": image_paths,
-                    "audio_path": str(audio_path),
                     "prompt_path": str(scene_prompt_path),
-                    "prompt_paths": prompt_paths,
                 }
             )
 
@@ -1529,8 +1438,6 @@ def main() -> int:
                 "image_quality": image_quality if not args.mock else None,
                 "layout_model": layout_model if not args.mock else None,
                 "layout_reasoning_effort": layout_reasoning_effort if not args.mock else None,
-                "tts_model": tts_model if not args.mock else None,
-                "tts_voice": tts_voice if not args.mock else None,
             },
             "scenes": manifest_scenes,
         }

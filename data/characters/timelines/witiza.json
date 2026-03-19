@@ -1,0 +1,22 @@
+{
+  "character_id": "witiza",
+  "records": [
+    {
+      "record_id": "arc-70007771-witiza-faction",
+      "event_id": "evt-070201",
+      "chronology_index": 1,
+      "emotion_before": "uncertainty",
+      "emotion_after": "anger",
+      "arc_stage_before": "setup",
+      "arc_stage_after": "crisis",
+      "change_summary": "Witiza's rise exacerbated existing factional tensions and is used by chronicles to explain later displacements and exiles.",
+      "source_ref": {
+        "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+        "section": "evt-070201",
+        "checksum": "0000000000000000000000000000000000000000000000000000000000000000",
+        "excerpt": "A partir de ese momento, los hijos de Favila quedan enfrentados a Witiza."
+      },
+      "updated_at": "2026-03-19T18:40:00Z"
+    }
+  ]
+}

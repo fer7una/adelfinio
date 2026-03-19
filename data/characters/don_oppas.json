@@ -1,15 +1,16 @@
 {
   "character_id": "don_oppas",
-  "display_name": "Don Oppas",
+  "display_name": "Don Oppas (Don Oppas / Oppa)",
   "aliases": [
-    "Oppas (obispo)"
+    "Oppas",
+    "Don Oppas"
   ],
-  "historical_period": "early 8th century (events around 722–735)",
+  "historical_period": "early 8th century",
   "role": "religious",
-  "biography_short": "Obispo mencionado en las fuentes del libro en el contexto de los episodios alrededor de Monte Auseva / Covadonga; aparece vinculado a los mismos hechos en los que participa Pelayo.",
+  "biography_short": "A figure identified on the Muslim/visigothic side present in narratives of the pitched engagements against Pelayo's rebels; sources place him among commanders at relevant encounters.",
   "voice_profile": {
-    "tts_voice": "fable",
-    "tone": "ceremonial, preocupado",
+    "tts_voice": "verse",
+    "tone": "clerical, somewhat conciliatory but formal",
     "words_per_second": 3.0,
     "delivery_modifiers": {
       "normal": 1.0,
@@ -17,45 +18,47 @@
     }
   },
   "visual_profile": {
-    "age_range": "adult (40-70)",
-    "hair": "poco definido en la fuente",
-    "beard": "no especificado",
-    "clothing": "atuendo episcopal (inferencia baja confianza)",
+    "age_range": "35-60 (inferred)",
+    "hair": "dark (inferred)",
+    "beard": "full or trimmed (inferred)",
+    "clothing": "clerical/official garb when in court; commander dress in campaign depictions (inferred)",
     "palette": [
-      "#BFAE9E",
-      "#6B5844"
+      "#5B4A3A",
+      "#9E7B5A"
     ],
-    "style_notes": "Presentarlo como figura eclesiástica implicada en los eventos, más de presencia institucional que de mando militar."
+    "style_notes": "When used visually, emphasize his ambiguous position between ecclesiastical and political roles."
   },
   "state": {
     "status": "deceased",
-    "location": "Asturias",
+    "location": "campaigns/northern Iberia",
     "alliances": [],
-    "conflicts": [],
-    "last_seen_episode_id": "teaser-07350110-evt",
-    "last_updated": "2026-03-18T23:45:00Z"
+    "conflicts": [
+      "pelayo"
+    ],
+    "last_seen_episode_id": "teaser-07340100-evt",
+    "last_updated": "2026-03-19T18:40:00Z"
   },
   "continuity": {
     "must_keep": [
-      "aparece en las fuentes ligadas a los episodios de Monte Auseva/Covadonga"
+      "present_at_battle_descriptions_with_al_qama_and_pelayo"
     ],
     "must_avoid": [
-      "afirmar colaboraciones o traiciones no expresadas textualmente en las citas"
+      "overstating_political_power_without_evidence"
     ]
   },
   "emotional_state": {
-    "dominant_emotion": "uncertainty",
-    "intensity": 0.4,
-    "valence": 0.0,
-    "arousal": 0.2,
-    "trigger_summary": "presencia eclesial en un contexto militar y narrativo complejo"
+    "dominant_emotion": "resolve",
+    "intensity": 0.5,
+    "valence": 0.2,
+    "arousal": 0.4,
+    "trigger_summary": "Participates as commander or notable figure in engagements recorded in chronicles."
   },
   "arc_state": {
-    "stage": "setup",
-    "external_goal": "representar la presencia eclesiástica en episodios fundacionales",
-    "internal_need": "mantener la autoridad espiritual en tiempos de cambio",
-    "contradiction": "la Iglesia aparece tanto como institución apoyadora del orden como implicada en conflictos locales",
-    "change_vector": "figura de referencia institucional en relatos sobre la fundación del reino",
-    "last_event_id": "evt-073501"
+    "stage": "crisis",
+    "external_goal": "suppress rebels and reassert order",
+    "internal_need": "maintain status within witizian/pro-Muslim party",
+    "contradiction": "presence in sources but limited characterization",
+    "change_vector": "participant in military events rather than central actor",
+    "last_event_id": "evt-073401"
   }
 }

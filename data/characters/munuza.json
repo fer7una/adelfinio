@@ -1,0 +1,61 @@
+{
+  "character_id": "munuza",
+  "display_name": "Munuza",
+  "aliases": [
+    "Munya / Munuza (governor)"
+  ],
+  "historical_period": "early to mid 8th century",
+  "role": "political",
+  "biography_short": "A Muslim governor mentioned in sources as involved with northern affairs; traditions report he attempted to incorporate Pelayo's sister into his household (political marriage/concubinage narratives appear in chronicles).",
+  "voice_profile": {
+    "tts_voice": "marin",
+    "tone": "administrative, urbane, commanding",
+    "words_per_second": 3.4,
+    "delivery_modifiers": {
+      "normal": 1.0,
+      "shout": 1.2
+    }
+  },
+  "visual_profile": {
+    "age_range": "30-50 (inferred)",
+    "hair": "dark",
+    "beard": "trimmed",
+    "clothing": "governor's tunic, richer fabrics when in court (inferred)",
+    "palette": [
+      "#2F4F4F",
+      "#C9A66B"
+    ],
+    "style_notes": "Depict as provincial governor with hints of Islamic courtly dress when relevant."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "Córdoba / northern provinces (campaigns)",
+    "alliances": [],
+    "conflicts": [],
+    "last_seen_episode_id": "teaser-08520100-evt",
+    "last_updated": "2026-03-19T18:40:00Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "governor_who_interacted_with_northern_populations"
+    ],
+    "must_avoid": [
+      "detailed_personal_motivations_not_attested"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "pride",
+    "intensity": 0.5,
+    "valence": 0.2,
+    "arousal": 0.4,
+    "trigger_summary": "Role as provincial authority with interest in consolidating power via personal alliances."
+  },
+  "arc_state": {
+    "stage": "crisis",
+    "external_goal": "secure provincial control and establish alliances (including via marriage/concubinage)",
+    "internal_need": "assert metropolitan authority in periphery",
+    "contradiction": "sources relay courtly/personal anecdotes (e.g., intent to incorporate a sister into a harem) that may mix fact and legend",
+    "change_vector": "from provincial governor to a figure in cross-cultural narratives",
+    "last_event_id": "evt-085201"
+  }
+}

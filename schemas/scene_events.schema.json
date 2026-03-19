@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scene_events.schema.json",
+  "title": "Scene Events",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "episode_id",
+    "scene_index",
+    "source_scene_image_path",
+    "initial_scene_estimate_s",
+    "events"
+  ],
+  "properties": {
+    "episode_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scene_index": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "source_scene_image_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "initial_scene_estimate_s": {
+      "$ref": "render_plan_common.schema.json#/$defs/nonNegativeNumber"
+    },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "event_id",
+          "order",
+          "kind",
+          "speaker",
+          "delivery",
+          "text",
+          "audio_text",
+          "page_index",
+          "page_count_in_group",
+          "group_id",
+          "primary_actor",
+          "focus_bbox",
+          "overlay_candidate_bbox",
+          "source_phase_index",
+          "source_image_path",
+          "source_prompt_path",
+          "requires_pre_roll_clean"
+        ],
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "narration",
+              "dialogue",
+              "shout"
+            ]
+          },
+          "speaker": {
+            "type": "string"
+          },
+          "delivery": {
+            "type": "string",
+            "minLength": 1
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "audio_text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "page_index": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "page_count_in_group": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "group_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "primary_actor": {
+            "type": "string"
+          },
+          "focus_bbox": {
+            "$ref": "render_plan_common.schema.json#/$defs/bboxNorm"
+          },
+          "overlay_candidate_bbox": {
+            "$ref": "render_plan_common.schema.json#/$defs/bboxNorm"
+          },
+          "source_phase_index": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "source_image_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_prompt_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "requires_pre_roll_clean": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

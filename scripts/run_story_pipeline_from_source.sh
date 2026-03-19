@@ -162,9 +162,9 @@ python3 scripts/validate_generated_episodes.py --dir "$EPISODE_DIR"
 echo "[7/7] Render final video"
 if command -v ffmpeg >/dev/null 2>&1; then
   if [[ -n "$RENDER_MODE" ]]; then
-    bash scripts/run_final_ai_video_pipeline.sh "$EPISODE_PATH" "$RENDER_MODE"
+    bash scripts/run_final_ai_video_pipeline_v2.sh "$EPISODE_PATH" "$RENDER_MODE"
   else
-    bash scripts/run_final_ai_video_pipeline.sh "$EPISODE_PATH"
+    bash scripts/run_final_ai_video_pipeline_v2.sh "$EPISODE_PATH"
   fi
 else
   echo "WARNING: ffmpeg not found. Episode JSON was generated but rendering was skipped."

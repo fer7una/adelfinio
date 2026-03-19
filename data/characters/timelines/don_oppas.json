@@ -2,21 +2,21 @@
   "character_id": "don_oppas",
   "records": [
     {
-      "record_id": "arc-07350101-donoppas",
-      "event_id": "evt-073501",
+      "record_id": "arc-50005551-donoppas-battle",
+      "event_id": "evt-073401",
       "chronology_index": 1,
-      "emotion_before": "uncertainty",
+      "emotion_before": "resolve",
       "emotion_after": "uncertainty",
-      "arc_stage_before": "setup",
-      "arc_stage_after": "setup",
-      "change_summary": "Presencia eclesiástica registrada en la narración del episodio de Monte Auseva; función explícita no clarificada en los fragmentos citados.",
+      "arc_stage_before": "crisis",
+      "arc_stage_after": "turn",
+      "change_summary": "Actor on the anti-rebel side in the pitched engagement; precise fate not specified.",
       "source_ref": {
-        "file": "01-La gran aventura del reino de Asturias",
-        "section": "evt-073501",
-        "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
-        "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva y el obispo Oppas subió a un..."
+        "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+        "section": "evt-073401",
+        "checksum": "0000000000000000000000000000000000000000000000000000000000000000",
+        "excerpt": "actors: don_oppas, al_qama, pelayo"
       },
-      "updated_at": "2026-03-18T23:45:00Z"
+      "updated_at": "2026-03-19T18:40:00Z"
     }
   ]
 }

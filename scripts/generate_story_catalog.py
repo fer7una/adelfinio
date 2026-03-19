@@ -4,8 +4,11 @@
 from __future__ import annotations
 
 import argparse
+from difflib import SequenceMatcher
 import json
 import os
+import re
+import unicodedata
 from pathlib import Path
 
 from pipeline_common import (
@@ -39,12 +42,14 @@ Reglas:
 - No propongas historias que contradigan la fuente revisada.
 """.strip()
 
+NON_WORD_RE = re.compile(r"[^a-z0-9]+")
+
 
 def print_llm_warning() -> None:
     print(
         "WARNING: generate_story_catalog.py uses OpenAI structured generation and will call the API.\n"
         "No built-in --mock is available for this narrative step.\n"
-        "If you only need to avoid OpenAI calls during render, use --mock in run_story_pipeline_from_source.sh or run_final_ai_video_pipeline.sh.",
+        "If you only need to avoid OpenAI calls during render, use --mock in run_story_pipeline_from_source.sh or run_final_ai_video_pipeline_v2.sh.",
         file=os.sys.stderr,
     )
 
@@ -125,6 +130,144 @@ def compact_chronology_hints(source_pack: dict, limit: int = 120) -> list[dict]:
     ]
 
 
+def normalize_ref_text(value: str) -> str:
+    folded = unicodedata.normalize("NFKD", normalize_ws(value)).encode("ascii", "ignore").decode("ascii")
+    return NON_WORD_RE.sub(" ", folded.lower()).strip()
+
+
+def story_source_ref_from_chunk(chunk: dict) -> dict:
+    section = trim_text(str(chunk.get("normalized_text") or chunk.get("heading") or chunk.get("chunk_id") or ""), 120)
+    excerpt = trim_text(str(chunk.get("normalized_text") or chunk.get("text") or section), 260)
+    return {
+        "file": str(chunk.get("file") or ""),
+        "section": section,
+        "checksum": str(chunk.get("checksum") or ""),
+        "excerpt": excerpt,
+        "page_start": chunk.get("page_start"),
+        "page_end": chunk.get("page_end"),
+        "chunk_id": chunk.get("chunk_id"),
+    }
+
+
+def build_source_indexes(source_pack: dict) -> dict:
+    derived_events = [event for event in source_pack.get("derived_events", []) if isinstance(event, dict)]
+    chunks = [chunk for chunk in source_pack.get("chunks", []) if isinstance(chunk, dict)]
+    event_by_id = {str(event.get("event_id")): event for event in derived_events if event.get("event_id")}
+    event_by_chunk_id = {
+        str(event.get("source_ref", {}).get("section")): event
+        for event in derived_events
+        if isinstance(event.get("source_ref"), dict) and event.get("source_ref", {}).get("section")
+    }
+    chunk_by_id = {str(chunk.get("chunk_id")): chunk for chunk in chunks if chunk.get("chunk_id")}
+    normalized_chunk_texts = []
+    for chunk in chunks:
+        norm = normalize_ref_text(str(chunk.get("normalized_text") or chunk.get("text") or chunk.get("heading") or ""))
+        if not norm:
+            continue
+        normalized_chunk_texts.append((norm, chunk))
+    return {
+        "event_by_id": event_by_id,
+        "event_by_chunk_id": event_by_chunk_id,
+        "chunk_by_id": chunk_by_id,
+        "normalized_chunk_texts": normalized_chunk_texts,
+    }
+
+
+def resolve_chunk_from_ref(ref: dict, indexes: dict) -> dict | None:
+    chunk_id = ref.get("chunk_id")
+    chunk_by_id = indexes["chunk_by_id"]
+    if isinstance(chunk_id, str) and chunk_id in chunk_by_id:
+        return chunk_by_id[chunk_id]
+
+    candidates = [normalize_ref_text(str(ref.get("section") or "")), normalize_ref_text(str(ref.get("excerpt") or ""))]
+    candidates = [candidate for candidate in candidates if candidate]
+    if not candidates:
+        return None
+
+    normalized_chunk_texts = indexes["normalized_chunk_texts"]
+    for candidate in candidates:
+        for chunk_text, chunk in normalized_chunk_texts:
+            if candidate == chunk_text or candidate in chunk_text or chunk_text in candidate:
+                return chunk
+
+    best_score = 0.0
+    best_chunk = None
+    for candidate in candidates:
+        for chunk_text, chunk in normalized_chunk_texts:
+            prefix = chunk_text[: max(len(candidate) + 32, len(chunk_text))]
+            score = SequenceMatcher(None, candidate, prefix).ratio()
+            if score > best_score:
+                best_score = score
+                best_chunk = chunk
+    if best_score >= 0.72:
+        return best_chunk
+    return None
+
+
+def resolve_event_id_candidates(story: dict, indexes: dict) -> tuple[list[str], list[dict]]:
+    event_by_id = indexes["event_by_id"]
+    event_by_chunk_id = indexes["event_by_chunk_id"]
+    chunk_by_id = indexes["chunk_by_id"]
+
+    resolved_event_ids: list[str] = []
+    resolved_chunks: list[dict] = []
+    seen_event_ids: set[str] = set()
+    seen_chunk_ids: set[str] = set()
+
+    def add_event(event: dict | None, chunk: dict | None = None) -> None:
+        if not event:
+            return
+        event_id = str(event.get("event_id") or "")
+        if not event_id or event_id in seen_event_ids:
+            return
+        seen_event_ids.add(event_id)
+        resolved_event_ids.append(event_id)
+        if chunk is None:
+            chunk = chunk_by_id.get(str(event.get("source_ref", {}).get("section") or ""))
+        if chunk:
+            chunk_id = str(chunk.get("chunk_id") or "")
+            if chunk_id and chunk_id not in seen_chunk_ids:
+                seen_chunk_ids.add(chunk_id)
+                resolved_chunks.append(chunk)
+
+    for raw_event_id in story.get("source_event_ids", []):
+        if raw_event_id in event_by_id:
+            add_event(event_by_id[raw_event_id])
+            continue
+        if isinstance(raw_event_id, str):
+            digits = raw_event_id.removeprefix("evt-")
+            if len(digits) == 4:
+                add_event(event_by_chunk_id.get(f"chk-{digits}"))
+
+    for ref in story.get("source_refs", []):
+        if not isinstance(ref, dict):
+            continue
+        chunk = resolve_chunk_from_ref(ref, indexes)
+        if not chunk:
+            continue
+        event = event_by_chunk_id.get(str(chunk.get("chunk_id") or ""))
+        add_event(event, chunk)
+
+    return resolved_event_ids, resolved_chunks
+
+
+def sanitize_story_catalog_payload(source_pack: dict, payload: dict) -> dict:
+    indexes = build_source_indexes(source_pack)
+    for story in payload.get("stories", []):
+        if not isinstance(story, dict):
+            continue
+        resolved_event_ids, resolved_chunks = resolve_event_id_candidates(story, indexes)
+        if not resolved_event_ids:
+            raise RuntimeError(f"Story '{story.get('story_id')}' could not be linked to any real derived event.")
+        story["source_event_ids"] = resolved_event_ids
+        story["source_refs"] = [story_source_ref_from_chunk(chunk) for chunk in resolved_chunks] or [
+            story_source_ref_from_chunk(indexes["chunk_by_id"][indexes["event_by_id"][event_id]["source_ref"]["section"]])
+            for event_id in resolved_event_ids
+            if indexes["event_by_id"][event_id]["source_ref"]["section"] in indexes["chunk_by_id"]
+        ]
+    return payload
+
+
 def prompt_payload(source_pack: dict, character_bible: dict) -> str:
     payload = {
         "source_pack_id": source_pack["source_pack_id"],
@@ -194,6 +337,7 @@ def main() -> int:
         payload["source_pack_id"] = source_pack["source_pack_id"]
         payload["character_bible_id"] = character_bible["character_bible_id"]
         payload["selection_mode"] = "manual"
+        payload = sanitize_story_catalog_payload(source_pack, payload)
         payload["generation_meta"] = default_generation_meta(
             model=model,
             prompt_version=PROMPT_VERSION,

@@ -1,0 +1,65 @@
+{
+  "character_id": "alfonso_i",
+  "display_name": "Alfonso I (Alfonso I el Católico)",
+  "aliases": [
+    "Alfonso I"
+  ],
+  "historical_period": "mid 8th century (reign through 757)",
+  "role": "monarch",
+  "biography_short": "Son of Pedro of Cantabria; ruler who consolidated and expanded the Asturian polity after the founding period, credited with territorial expansion and political organization.",
+  "voice_profile": {
+    "tts_voice": "sage",
+    "tone": "measured, authoritative, strategic",
+    "words_per_second": 3.2,
+    "delivery_modifiers": {
+      "normal": 1.0,
+      "shout": 1.15
+    }
+  },
+  "visual_profile": {
+    "age_range": "40-65 (inferred at death)",
+    "hair": "dark (inferred)",
+    "beard": "full (inferred)",
+    "clothing": "early regal/ducal garments, mix of noble and military garb",
+    "palette": [
+      "#6A4B2A",
+      "#D4AF7F"
+    ],
+    "style_notes": "Depict as consolidator: more ordered, with clear heraldry and mounted presence in campaign scenes."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "Asturias/various campaign zones",
+    "alliances": [
+      "ermesinda"
+    ],
+    "conflicts": [],
+    "last_seen_episode_id": "teaser-09050100-evt",
+    "last_updated": "2026-03-19T18:40:00Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "expands_territory_to_Galicia_Vizcaya",
+      "dies_757",
+      "organizing_role"
+    ],
+    "must_avoid": [
+      "anachronistic_institutionalization"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "pride",
+    "intensity": 0.7,
+    "valence": 0.6,
+    "arousal": 0.5,
+    "trigger_summary": "Success in territorial extension and institutional consolidation; opportunity created by divisions among Muslim rulers."
+  },
+  "arc_state": {
+    "stage": "resolution",
+    "external_goal": "consolidate and expand the territorial basis of Asturias",
+    "internal_need": "transform a precarious wartime collectivity into a stable polity",
+    "contradiction": "expansionist success but harsh methods implied by chronicles",
+    "change_vector": "from frontier war-leader to institutional sovereign",
+    "last_event_id": "evt-090501"
+  }
+}

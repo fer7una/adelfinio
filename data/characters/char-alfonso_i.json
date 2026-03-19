@@ -1,0 +1,66 @@
+{
+  "character_id": "char-alfonso_i",
+  "display_name": "Alfonso I",
+  "aliases": [
+    "Alfonso I el Católico",
+    "Alfonso (son of Pedro of Cantabria)"
+  ],
+  "historical_period": "mid 8th century (reigned 739–757 era)",
+  "role": "monarch",
+  "biography_short": "Rey asturiano que amplió considerablemente el territorio del reino y organizó su estructura política; casado con Ermesinda, hija de Pelayo.",
+  "voice_profile": {
+    "tts_voice": "ballad",
+    "tone": "authoritative, deliberate",
+    "words_per_second": 3.5,
+    "delivery_modifiers": {
+      "normal": 1,
+      "shout": 1.3
+    }
+  },
+  "visual_profile": {
+    "age_range": "35-60",
+    "hair": "dark, long",
+    "beard": "full",
+    "clothing": "military cloak and princely mantle; symbolic insignia of rulership",
+    "palette": [
+      "#5A3E2B",
+      "#C7A078",
+      "#4A6B3A"
+    ],
+    "style_notes": "combines warrior imagery with nascent royal administration; portraits should emphasize command and organization."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "Asturias / Duero frontier",
+    "alliances": [
+      "char-ermesinda"
+    ],
+    "conflicts": [],
+    "last_seen_episode_id": "main-07570109-evt",
+    "last_updated": "2026-03-19T17:39:56Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "Expanded the Asturian domain (Galicia to Vizcaya) and implemented territorial/administrative measures",
+      "Married Ermesinda (daughter of Pelayo)"
+    ],
+    "must_avoid": [
+      "Presenting exact administrative reforms with modern institutional terms without source backing"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "resolve",
+    "intensity": 0.8,
+    "valence": 0.5,
+    "arousal": 0.6,
+    "trigger_summary": "Opportunities opened by divisions among Muslim rulers; push to expand and organize territory."
+  },
+  "arc_state": {
+    "stage": "ascent",
+    "external_goal": "consolidate and expand the Asturian realm",
+    "internal_need": "transform military successes into durable governance",
+    "contradiction": "need for expansion vs. limited resources and resistance from local nobles",
+    "change_vector": "from frontier leader to territorial organizer",
+    "last_event_id": "evt-0214"
+  }
+}

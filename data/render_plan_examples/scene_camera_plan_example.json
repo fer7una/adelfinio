@@ -1,0 +1,27 @@
+{
+  "scene_index": 1,
+  "duration_s": 3.2,
+  "mode": "full_frame_zoom",
+  "keyframes": [
+    {
+      "time_s": 0.0,
+      "zoom": 1.0,
+      "focus_x": 0.5,
+      "focus_y": 0.5,
+      "active_event_id": "scene_01_ev_001"
+    },
+    {
+      "time_s": 3.2,
+      "zoom": 1.08,
+      "focus_x": 0.52,
+      "focus_y": 0.47,
+      "active_event_id": ""
+    }
+  ],
+  "constraints": {
+    "keep_active_overlay_inside_frame": true,
+    "zoom_min": 1.0,
+    "zoom_max": 1.14,
+    "monotonic_zoom": true
+  }
+}

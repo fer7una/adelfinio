@@ -1,0 +1,65 @@
+{
+  "character_id": "char-ermesinda",
+  "display_name": "Ermesinda",
+  "aliases": [
+    "Ermesinda (daughter of Pelayo)"
+  ],
+  "historical_period": "mid 8th century",
+  "role": "other",
+  "biography_short": "Hija de Pelayo; casó con Alfonso I y aparece en las fuentes como nexo dinástico entre Pelayo y la casa de Alfonso.",
+  "voice_profile": {
+    "tts_voice": "fable",
+    "tone": "measured, dignified",
+    "words_per_second": 3.4,
+    "delivery_modifiers": {
+      "normal": 1,
+      "shout": 1.1
+    }
+  },
+  "visual_profile": {
+    "age_range": "20-40",
+    "hair": "dark",
+    "beard": "n/a",
+    "clothing": "noblewoman attire; practical but with modest jewelry typical of 8th-century aristocracy",
+    "palette": [
+      "#8A5A4B",
+      "#F0E4D1"
+    ],
+    "style_notes": "reinforce familial/dynastic link between Pelayo and Alfonso I; clothing should be conservative and regionally plausible."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "Asturias / Galicia",
+    "alliances": [
+      "char-pelayo",
+      "char-alfonso_i"
+    ],
+    "conflicts": [],
+    "last_seen_episode_id": "main-11070101-evt",
+    "last_updated": "2026-03-19T17:39:56Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "Daughter of Pelayo",
+      "Wife of Alfonso I"
+    ],
+    "must_avoid": [
+      "Assigning political actions not attested in the source"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "calm",
+    "intensity": 0.4,
+    "valence": 0.6,
+    "arousal": 0.3,
+    "trigger_summary": "Role as dynastic connector and survivor of turbulent succession moments."
+  },
+  "arc_state": {
+    "stage": "resolution",
+    "external_goal": "secure familial ties that stabilize the emerging dynasty",
+    "internal_need": "protect family legacy",
+    "contradiction": "private family role vs. public significance through marriage",
+    "change_vector": "from daughter of caudillo to queen-consort figure in dynastic narrative",
+    "last_event_id": "evt-110701"
+  }
+}

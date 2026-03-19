@@ -1,0 +1,62 @@
+{
+  "character_id": "char-munuza",
+  "display_name": "Munuza",
+  "aliases": [
+    "Muza (governor)",
+    "Munuza (valí/gobernador in some chronicles)"
+  ],
+  "historical_period": "early 8th century",
+  "role": "military",
+  "biography_short": "Gobernador moro mencionado en relación con las campañas en el norte y con la presencia de rehénes; las fuentes recogen su papel en la política de control y castigo.",
+  "voice_profile": {
+    "tts_voice": "coral",
+    "tone": "formal, somewhat distant",
+    "words_per_second": 3.6,
+    "delivery_modifiers": {
+      "normal": 1,
+      "shout": 1.2
+    }
+  },
+  "visual_profile": {
+    "age_range": "30-50",
+    "hair": "dark",
+    "beard": "full",
+    "clothing": "gubernatorial garb: lamellar or distinctive cloak; accoutrements of Muslim provincial governor",
+    "palette": [
+      "#5D4E3A",
+      "#A68B6E"
+    ],
+    "style_notes": "portrayal should reflect a provincial governor with martial command rather than courtly splendor."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "Córdoba / frontier territories",
+    "alliances": [],
+    "conflicts": [],
+    "last_seen_episode_id": "main-07160106-evt",
+    "last_updated": "2026-03-19T17:39:56Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "Appears in sources as governor/actor linked to northern operations and to an episode involving Pelayo as part of a group of captives/rehenes"
+    ],
+    "must_avoid": [
+      "Attributing specific personal motives or domestic arrangements beyond what the sources state"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "pride",
+    "intensity": 0.5,
+    "valence": 0.4,
+    "arousal": 0.5,
+    "trigger_summary": "Agent of central authority; involvement in power plays and garrison actions."
+  },
+  "arc_state": {
+    "stage": "ascent",
+    "external_goal": "maintain control and authority on the northern frontier",
+    "internal_need": "preserve favor with central powers in Córdoba",
+    "contradiction": "local initiatives vs. distant caliphal oversight",
+    "change_vector": "engagement in frontier politics, occasional recall to central authorities",
+    "last_event_id": "evt-071601"
+  }
+}

@@ -67,7 +67,7 @@ def print_llm_warning() -> None:
     print(
         "WARNING: generate_character_bible.py uses OpenAI structured generation and will call the API.\n"
         "No built-in --mock is available for this narrative step.\n"
-        "If you only need to avoid OpenAI calls during render, use --mock in run_story_pipeline_from_source.sh or run_final_ai_video_pipeline.sh.",
+        "If you only need to avoid OpenAI calls during render, use --mock in run_story_pipeline_from_source.sh or run_final_ai_video_pipeline_v2.sh.",
         file=os.sys.stderr,
     )
 

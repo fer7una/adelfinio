@@ -1,0 +1,62 @@
+{
+  "character_id": "char-al_qama",
+  "display_name": "Al Qama (Alkama / Alkama ibn ...)",
+  "aliases": [
+    "Alkama",
+    "Alkama (commander mentioned in battle accounts)"
+  ],
+  "historical_period": "early 8th century",
+  "role": "military",
+  "biography_short": "Militar musulmán citado en las fuentes como comandante que dirigió las operaciones contra los rebeldes en el norte en torno a 722.",
+  "voice_profile": {
+    "tts_voice": "onyx",
+    "tone": "sharp, brisk",
+    "words_per_second": 3.8,
+    "delivery_modifiers": {
+      "normal": 1,
+      "shout": 1.2
+    }
+  },
+  "visual_profile": {
+    "age_range": "30-50",
+    "hair": "dark",
+    "beard": "trimmed",
+    "clothing": "field commander attire with standard-issue equipment of the period",
+    "palette": [
+      "#3D2C20",
+      "#9E7B58"
+    ],
+    "style_notes": "military presence; equipment and banners appropriate to early Umayyad provincial forces."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "operations in northern Iberia",
+    "alliances": [],
+    "conflicts": [],
+    "last_seen_episode_id": "main-07340102-evt",
+    "last_updated": "2026-03-19T17:39:56Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "Mentioned as commanding/leading Muslim forces in the confrontation with Pelayo/Christians around Covadonga/722"
+    ],
+    "must_avoid": [
+      "Specifying personal biographical details beyond the battle reports"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "resolve",
+    "intensity": 0.6,
+    "valence": 0.2,
+    "arousal": 0.5,
+    "trigger_summary": "Acting as a commander executing central authority orders in difficult terrain."
+  },
+  "arc_state": {
+    "stage": "ascent",
+    "external_goal": "suppress uprising and restore control",
+    "internal_need": "deliver a decisive victory for authority",
+    "contradiction": "large, well-armed force vs. disadvantageous terrain",
+    "change_vector": "operational defeat -> retreat",
+    "last_event_id": "evt-073401"
+  }
+}

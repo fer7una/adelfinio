@@ -68,26 +68,27 @@ flowchart TD
 
     subgraph Render["3. Render final"]
         direction TB
-        FinalWrapper["bash scripts/run_final_ai_video_pipeline.sh<br/>req: <episode_json_or_directory><br/>opt: --mock --fallback-mock-on-billing-error"]
+        FinalWrapper["bash scripts/run_final_ai_video_pipeline_v2.sh<br/>req: <episode_json_or_directory><br/>opt: --mock"]
         Assets["scripts/generate_scene_assets.py<br/>LLM solo para imagen/TTS reales<br/>req: --episode<br/>opt: --assets-dir --dotenv --characters-dir --image-model --image-size --image-quality --tts-model --tts-voice --mock --fallback-mock-on-billing-error"]
-        Layout["scripts/layout_analysis.py<br/>LLM multimodal opcional<br/>invocado dentro de generate_scene_assets.py<br/>req: --image --scene-json --phases-json --output<br/>opt: --dotenv --model --reasoning-effort --mock"]
-        Compose["scripts/compose_final_video.py<br/>sin LLM<br/>req: --episode<br/>opt: --assets-dir --output-video --output-srt --fps --width --height --overlay-assets-dir --font-file --burn-subtitles --no-burn-subtitles"]
-        SceneAssets["artifacts/scene_assets/{episode_id}/<br/>manifest.json + scene_image + text_phases + MP3 + prompts"]
+        Plans["build_scene_events.py + build_scene_utterances.py + synthesize_scene_audio.py + align_scene_audio.py + build_scene_audio_plan.py + build_overlay_timeline.py + build_camera_plan.py"]
+        Compose["render_clean_scene_video.py + compose_scene_video.py + assemble_episode_video.py"]
+        SceneAssets["artifacts/scene_assets/{episode_id}/<br/>manifest.json + scene_image + prompts"]
         SceneImage["1 imagen base por escena"]
-        SceneAudio["audio continuo por escena<br/>compuesto desde fases"]
-        LayoutData["focus_bbox + protected_regions + overlay_bbox + camera_track"]
+        SceneAudio["audio por utterance + alignment + audio_plan"]
+        LayoutData["overlay_timeline + camera_plan"]
         FinalVideo["artifacts/videos/final/*.mp4"]
         FinalSubs["artifacts/subtitles/final/*.srt"]
 
         Episodes --> FinalWrapper
         FinalWrapper --> Assets
+        FinalWrapper --> Plans
+        FinalWrapper --> Compose
         Assets --> SceneImage
-        Assets --> SceneAudio
-        SceneImage --> Layout
         Assets --> SceneAssets
-        Layout --> LayoutData
+        Plans --> SceneAudio
         SceneAudio --> SceneAssets
         LayoutData --> SceneAssets
+        SceneAssets --> Plans
         SceneAssets --> Compose
         Compose --> FinalVideo
         Compose --> FinalSubs
@@ -132,7 +133,7 @@ flowchart TD
 
 ## Warning sobre `--mock`
 
-- `--mock` existe en el render: `scripts/run_final_ai_video_pipeline.sh`, `scripts/generate_scene_assets.py` y `scripts/layout_analysis.py`.
+- `--mock` existe en el render V2: `scripts/run_final_ai_video_pipeline_v2.sh`, `scripts/generate_scene_assets.py`, `scripts/synthesize_scene_audio.py` y `scripts/align_scene_audio.py`.
 - `--mock` no existe en `scripts/generate_character_bible.py`, `scripts/generate_story_catalog.py` ni `scripts/generate_episode_from_story.py`.
 - Por tanto, `bash scripts/run_story_pipeline_from_source.sh SOURCE ... --mock` sigue haciendo llamadas LLM en la fase narrativa; solo evita las llamadas OpenAI de imagen/TTS/layout del render.
 
@@ -148,16 +149,16 @@ flowchart TD
   - voz: TTS
   - en `--mock` no usa LLM
 - `scripts/layout_analysis.py`: puede usar LLM multimodal para detectar `focus_target` y `protected_regions`; si falla o estas en `--mock`, cae a heuristica local.
-- `scripts/compose_final_video.py`: no usa LLM. Solo FFmpeg y layout ya calculado.
+- Los scripts de composicion V2 no usan LLM. Solo FFmpeg y los contratos derivados del render plan.
 
 ## Principios operativos del render
 
 - Una escena ya no equivale a una sola caja de texto ni a una sola imagen por bloque.
 - La unidad visual es `scene_image_path`: una ilustracion base reutilizada durante toda la escena.
-- La unidad temporal visible es `text_phases`: fragmentos secuenciales de narracion o dialogo con `phase_start_s` y `phase_end_s`.
-- El zoom se calcula desde `camera_track.focus_bbox`, no desde un ancla fija en el centro.
-- La posicion del overlay se calcula desde `overlay_bbox` para evitar tapar `focus_target` y `protected_regions`.
-- Los subtitulos `.srt` se exportan por fases, pero no se queman en el MP4 por defecto.
+- La unidad temporal visible es `events.json`: un evento por pagina visible ya validada.
+- El audio se sintetiza por `utterance` y luego se alinea palabra-audio.
+- El `overlay_timeline` y el `camera_plan` son artefactos explicitos.
+- Los subtitulos `.srt` se exportan desde tiempos reales del timeline V2.
 
 ## Contratos y artefactos
 
@@ -170,12 +171,17 @@ flowchart TD
 - Episodios finales: `data/episodes/generated/{source}/*.json`
 - Assets por escena: `artifacts/scene_assets/{episode_id}/`
   - `scene_image_path`: ilustracion base de la escena
-  - `audio_path`: audio continuo de la escena, derivado de varias fases
-  - `text_phases`: fases secuenciales de narracion/dialogo con tiempos propios
-  - `layout_analysis.focus_target`: sujeto u objeto principal detectado visualmente
-  - `layout_analysis.protected_regions`: regiones que no deben taparse
-  - `overlay_bbox`: caja donde cabe cada overlay sin tapar el foco
-  - `camera_track.focus_bbox`: foco real para el zoom
+  - `text_phases`: paginacion base de salida de `generate_scene_assets.py`
+- Render plan V2: `artifacts/render_plan/{episode_id}/`
+  - `scene_XX.events.json`
+  - `scene_XX.utterances.json`
+  - `scene_XX.alignment.json`
+  - `scene_XX.audio_plan.json`
+  - `scene_XX.overlay_timeline.json`
+  - `scene_XX.camera_plan.json`
+- Audio por utterance: `artifacts/audio_events/{episode_id}/`
+- Videos clean por escena: `artifacts/videos/clean/{episode_id}/`
+- Videos compuestos por escena: `artifacts/videos/composited/{episode_id}/`
 - Videos finales: `artifacts/videos/final/*.mp4`
 - Subtitulos finales: `artifacts/subtitles/final/*.srt`
 
@@ -215,24 +221,30 @@ flowchart TD
   - `scene_image_path`
   - metadata de escena y `text_phases`
   - OpenAI Responses API multimodal o fallback heuristico
-- `scripts/compose_final_video.py` depende de:
-  - `artifacts/scene_assets/{episode_id}/manifest.json`
-  - `scene_image_path`, `audio_path`, `text_phases`, `overlay_bbox` y `camera_track`
-  - `ffmpeg`
-- `scripts/run_final_ai_video_pipeline.sh` ejecuta, por cada episodio:
+- `scripts/run_final_ai_video_pipeline_v2.sh` ejecuta, por cada episodio:
   1. `scripts/generate_scene_assets.py`
-  2. `scripts/compose_final_video.py --no-burn-subtitles`
-- El analisis de layout ocurre dentro de `scripts/generate_scene_assets.py` mediante `layout_analysis.py`; `scripts/analyze_scene_layout.py` queda como wrapper CLI standalone, no como paso separado del wrapper principal de render.
+  2. `scripts/build_scene_events.py`
+  3. `scripts/build_scene_utterances.py`
+  4. `scripts/synthesize_scene_audio.py`
+  5. `scripts/align_scene_audio.py`
+  6. `scripts/build_scene_audio_plan.py`
+  7. `scripts/render_clean_scene_video.py`
+  8. `scripts/build_overlay_timeline.py`
+  9. `scripts/build_camera_plan.py`
+  10. `scripts/compose_scene_video.py`
+  11. `scripts/assemble_episode_video.py`
 
 ## Orden interno del render por escena
 
-1. `generate_scene_assets.py` parte la escena en `text_phases` segun el espacio disponible en narracion/dialogo.
-2. El mismo script genera una unica ilustracion base para la escena.
-3. Cada fase genera o mockea su audio; despues se concatena en un `audio_path` continuo por escena.
-4. `layout_analysis.py` analiza la imagen base y devuelve foco, regiones protegidas y cajas recomendadas para overlays.
-5. El `manifest.json` guarda esa escena con su `scene_image_path`, `audio_path`, `text_phases`, `layout_analysis` y `camera_track`.
-6. `compose_final_video.py` recorre las fases, hace zoom continuo sobre el foco y coloca el bocadillo correspondiente en su `overlay_bbox`.
-7. Se exporta un `.srt` por fases y un MP4 final sin subtitulos quemados salvo que se pida explicitamente `--burn-subtitles`.
+1. `generate_scene_assets.py` genera una imagen base por escena y la paginacion visible base.
+2. `events` y `utterances` convierten esa salida en unidades canonicas de render.
+3. El audio se genera por `utterance` y se alinea palabra-audio.
+4. `audio_plan` resuelve la duracion real de la escena.
+5. `render_clean_scene_video.py` crea un `scene.clean.mp4` continuo.
+6. `build_overlay_timeline.py` coloca overlays con respiracion y micro-crossfade tecnico.
+7. `build_camera_plan.py` calcula el zoom final sobre el frame ya compuesto.
+8. `compose_scene_video.py` genera `scene.composited.mp4`.
+9. `assemble_episode_video.py` concatena escenas y escribe el `.srt`.
 
 ## Fuera de este documento
 

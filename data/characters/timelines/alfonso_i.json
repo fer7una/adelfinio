@@ -1,0 +1,22 @@
+{
+  "character_id": "alfonso_i",
+  "records": [
+    {
+      "record_id": "arc-20002221-alfonso-expansion",
+      "event_id": "evt-090501",
+      "chronology_index": 1,
+      "emotion_before": "hope",
+      "emotion_after": "pride",
+      "arc_stage_before": "ascent",
+      "arc_stage_after": "resolution",
+      "change_summary": "Alfonso's reign expanded the realm materially and began administrative consolidation.",
+      "source_ref": {
+        "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+        "section": "evt-090501",
+        "checksum": "0000000000000000000000000000000000000000000000000000000000000000",
+        "excerpt": "Alfonso I debió de ver el cielo abierto ..."
+      },
+      "updated_at": "2026-03-19T18:40:00Z"
+    }
+  ]
+}

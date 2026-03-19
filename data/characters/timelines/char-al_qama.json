@@ -1,0 +1,22 @@
+{
+  "character_id": "char-al_qama",
+  "records": [
+    {
+      "record_id": "arc-00010600-alqama-battle",
+      "event_id": "evt-073401",
+      "chronology_index": 1,
+      "emotion_before": "pride",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "ascent",
+      "arc_stage_after": "turn",
+      "change_summary": "Frontal engagement in difficult terrain results in disordered retreat of Muslim forces.",
+      "source_ref": {
+        "file": "01-La gran aventura del reino de Asturias",
+        "section": "se planteó la batalla",
+        "checksum": "0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b",
+        "excerpt": "Así, en fin, se planteó la batalla... mover a un ejército por un paraje montañoso era arriesgarse al colapso."
+      },
+      "updated_at": "2026-03-19T17:39:56Z"
+    }
+  ]
+}

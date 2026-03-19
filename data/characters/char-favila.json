@@ -1,0 +1,64 @@
+{
+  "character_id": "char-favila",
+  "display_name": "Favila",
+  "aliases": [
+    "Favila (son of Pelayo)"
+  ],
+  "historical_period": "mid 8th century (d. 737?)",
+  "role": "monarch",
+  "biography_short": "Hijo y sucesor de Pelayo que accedió al trono tras la muerte de su padre; las fuentes ofrecen datos limitados sobre su reinado.",
+  "voice_profile": {
+    "tts_voice": "echo",
+    "tone": "youthful, hesitant",
+    "words_per_second": 3.6,
+    "delivery_modifiers": {
+      "normal": 1,
+      "shout": 1.2
+    }
+  },
+  "visual_profile": {
+    "age_range": "20-35",
+    "hair": "dark",
+    "beard": "light or none",
+    "clothing": "short royal mantle, less ornate than later monarchs",
+    "palette": [
+      "#7A4B2C",
+      "#BFA58A"
+    ],
+    "style_notes": "brief reign visualized as a transitional figure between Pelayo and later rulers; modest regalia."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "Cangas de Onís (historical)",
+    "alliances": [
+      "char-pelayo"
+    ],
+    "conflicts": [],
+    "last_seen_episode_id": "main-73701094-evt",
+    "last_updated": "2026-03-19T17:39:56Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "Succeeded Pelayo circa 737",
+      "Very limited narrative presence in the source"
+    ],
+    "must_avoid": [
+      "Attributing a long or well-documented reign beyond what the sources state"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "uncertainty",
+    "intensity": 0.6,
+    "valence": 0.2,
+    "arousal": 0.4,
+    "trigger_summary": "Inherited sudden responsibility after Pelayo's death; sparse records produce an aura of fragility."
+  },
+  "arc_state": {
+    "stage": "turn",
+    "external_goal": "maintain succession after Pelayo",
+    "internal_need": "establish personal legitimacy",
+    "contradiction": "lack of recorded achievements vs. dynastic expectations",
+    "change_vector": "brief rulership, followed by early death or disappearance from records",
+    "last_event_id": "evt-73701"
+  }
+}

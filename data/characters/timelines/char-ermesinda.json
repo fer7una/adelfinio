@@ -1,0 +1,22 @@
+{
+  "character_id": "char-ermesinda",
+  "records": [
+    {
+      "record_id": "arc-00010400-ermesinda-marriage",
+      "event_id": "evt-110701",
+      "chronology_index": 12,
+      "emotion_before": "calm",
+      "emotion_after": "pride",
+      "arc_stage_before": "turn",
+      "arc_stage_after": "resolution",
+      "change_summary": "Marriage to Alfonso I links Pelayo's line to later ruling house; dynastic consolidation.",
+      "source_ref": {
+        "file": "01-La gran aventura del reino de Asturias",
+        "section": "Nació de los amores de Alfonso I ...",
+        "checksum": "0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b",
+        "excerpt": "Recordemos: Alfonso... se casa con Ermesinda, la hija de Don Pelayo."
+      },
+      "updated_at": "2026-03-19T17:39:56Z"
+    }
+  ]
+}

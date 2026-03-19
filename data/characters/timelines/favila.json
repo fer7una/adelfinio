@@ -2,21 +2,21 @@
   "character_id": "favila",
   "records": [
     {
-      "record_id": "arc-08970101-favila",
-      "event_id": "evt-089701",
+      "record_id": "arc-10001177-favila-succession",
+      "event_id": "evt-073701",
       "chronology_index": 1,
-      "emotion_before": "calm",
-      "emotion_after": "grief",
-      "arc_stage_before": "ascent",
-      "arc_stage_after": "turn",
-      "change_summary": "Muerte súbita/accidental (tradición de tropiezo fatal con un oso) que interrumpe su proyección política y favorece la candidatura de otros.",
+      "emotion_before": "uncertainty",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "turn",
+      "arc_stage_after": "resolution",
+      "change_summary": "Favila takes the throne after Pelayo's death; chroniclers give limited further detail.",
       "source_ref": {
-        "file": "01-La gran aventura del reino de Asturias",
-        "section": "evt-089701",
-        "checksum": "89c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3",
-        "excerpt": "LA GRAN AVENTURA ... cuando Favila tuvo su letal tropiezo con el plantígrado ..."
+        "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+        "section": "evt-073701",
+        "checksum": "0000000000000000000000000000000000000000000000000000000000000000",
+        "excerpt": "Cuando murió Pelayo, en 737, le sucedió su hijo Favila."
       },
-      "updated_at": "2026-03-18T23:45:00Z"
+      "updated_at": "2026-03-19T18:40:00Z"
     }
   ]
 }

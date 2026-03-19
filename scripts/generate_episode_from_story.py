@@ -65,7 +65,7 @@ def print_llm_warning() -> None:
     print(
         "WARNING: generate_episode_from_story.py uses OpenAI structured generation and will call the API.\n"
         "No built-in --mock is available for this narrative step.\n"
-        "If you only need to avoid OpenAI calls during render, use --mock in run_story_pipeline_from_source.sh or run_final_ai_video_pipeline.sh.",
+        "If you only need to avoid OpenAI calls during render, use --mock in run_story_pipeline_from_source.sh or run_final_ai_video_pipeline_v2.sh.",
         file=os.sys.stderr,
     )
 
@@ -342,17 +342,23 @@ def normalize_review_scope(value: str | None) -> str:
     raise RuntimeError(f"Unsupported review scope: {value!r}. Use 'full' or 'render'.")
 
 
+def review_text_value(value: object) -> str:
+    if value is None:
+        return ""
+    return str(value)
+
+
 def build_proofread_payload(payload: dict, *, scope: str = "full") -> dict:
     if scope == "render":
         return {
-            "title": payload.get("title"),
+            "title": review_text_value(payload.get("title")),
             "scenes": [
                 {
-                    "narration": scene.get("narration"),
+                    "narration": review_text_value(scene.get("narration")),
                     "dialogue": [
                         {
-                            "speaker": line.get("speaker"),
-                            "line": line.get("line"),
+                            "speaker": review_text_value(line.get("speaker")),
+                            "line": review_text_value(line.get("line")),
                         }
                         for line in (scene.get("dialogue") or [])
                     ],
@@ -361,70 +367,70 @@ def build_proofread_payload(payload: dict, *, scope: str = "full") -> dict:
             ],
         }
     return {
-        "title": payload.get("title"),
-        "hook": payload.get("hook"),
+        "title": review_text_value(payload.get("title")),
+        "hook": review_text_value(payload.get("hook")),
         "storytelling": {
-            "premise": ((payload.get("storytelling") or {}).get("premise")),
-            "dramatic_question": ((payload.get("storytelling") or {}).get("dramatic_question")),
-            "ending_payoff": ((payload.get("storytelling") or {}).get("ending_payoff")),
+            "premise": review_text_value((payload.get("storytelling") or {}).get("premise")),
+            "dramatic_question": review_text_value((payload.get("storytelling") or {}).get("dramatic_question")),
+            "ending_payoff": review_text_value((payload.get("storytelling") or {}).get("ending_payoff")),
         },
         "plot_twist": {
-            "setup": ((payload.get("plot_twist") or {}).get("setup")),
-            "reveal": ((payload.get("plot_twist") or {}).get("reveal")),
-            "payoff": ((payload.get("plot_twist") or {}).get("payoff")),
+            "setup": review_text_value((payload.get("plot_twist") or {}).get("setup")),
+            "reveal": review_text_value((payload.get("plot_twist") or {}).get("reveal")),
+            "payoff": review_text_value((payload.get("plot_twist") or {}).get("payoff")),
         },
         "character_beats": [
             {
-                "beat_summary": beat.get("beat_summary"),
+                "beat_summary": review_text_value(beat.get("beat_summary")),
             }
             for beat in (payload.get("character_beats") or [])
         ],
         "source_evidence": [
             {
-                "summary": evidence.get("summary"),
+                "summary": review_text_value(evidence.get("summary")),
             }
             for evidence in (payload.get("source_evidence") or [])
         ],
-        "prompt_rationale": payload.get("prompt_rationale"),
+        "prompt_rationale": review_text_value(payload.get("prompt_rationale")),
         "human_review": {
-            "notes": ((payload.get("human_review") or {}).get("notes")),
+            "notes": review_text_value((payload.get("human_review") or {}).get("notes")),
         },
         "scenes": [
             {
-                "source_beat": scene.get("source_beat"),
-                "visual_focus": scene.get("visual_focus"),
-                "transition_note": scene.get("transition_note"),
-                "narration": scene.get("narration"),
-                "visual_prompt": scene.get("visual_prompt"),
+                "source_beat": review_text_value(scene.get("source_beat")),
+                "visual_focus": review_text_value(scene.get("visual_focus")),
+                "transition_note": review_text_value(scene.get("transition_note")),
+                "narration": review_text_value(scene.get("narration")),
+                "visual_prompt": review_text_value(scene.get("visual_prompt")),
                 "dialogue": [
                     {
-                        "speaker": line.get("speaker"),
-                        "line": line.get("line"),
+                        "speaker": review_text_value(line.get("speaker")),
+                        "line": review_text_value(line.get("line")),
                     }
                     for line in (scene.get("dialogue") or [])
                 ],
-                "scene_objective": scene.get("scene_objective"),
-                "behavioral_notes": list(scene.get("behavioral_notes") or []),
+                "scene_objective": review_text_value(scene.get("scene_objective")),
+                "behavioral_notes": [review_text_value(note) for note in (scene.get("behavioral_notes") or [])],
                 "source_evidence": [
                     {
-                        "summary": evidence.get("summary"),
+                        "summary": review_text_value(evidence.get("summary")),
                     }
                     for evidence in (scene.get("source_evidence") or [])
                 ],
                 "character_state_before": [
                     {
-                        "summary": snapshot.get("summary"),
+                        "summary": review_text_value(snapshot.get("summary")),
                     }
                     for snapshot in (scene.get("character_state_before") or [])
                 ],
                 "character_state_after": [
                     {
-                        "summary": snapshot.get("summary"),
+                        "summary": review_text_value(snapshot.get("summary")),
                     }
                     for snapshot in (scene.get("character_state_after") or [])
                 ],
-                "subtext_or_private_state_summary": scene.get("subtext_or_private_state_summary"),
-                "prompt_rationale": scene.get("prompt_rationale"),
+                "subtext_or_private_state_summary": review_text_value(scene.get("subtext_or_private_state_summary")),
+                "prompt_rationale": review_text_value(scene.get("prompt_rationale")),
             }
             for scene in (payload.get("scenes") or [])
         ],

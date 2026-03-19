@@ -1,61 +1,65 @@
 {
   "character_id": "ermesinda",
   "display_name": "Ermesinda",
-  "aliases": [],
-  "historical_period": "8th–9th century (appears in genealogical references across chapters)",
-  "role": "civilian",
-  "biography_short": "Personaje recurrente en la narrativa genealógica del libro; aparece vinculada con la familia de Pelayo y con la sucesión dinástica en pasajes que tratan la transmisión del poder en Asturias.",
+  "aliases": [
+    "Ermesinda (daughter of Pelayo)"
+  ],
+  "historical_period": "8th century",
+  "role": "other",
+  "biography_short": "Daughter of Pelayo; later married Alfonso I (sources note her as a dynastic connector). Mentioned in succession and genealogical contexts; limited independent action recorded.",
   "voice_profile": {
-    "tts_voice": "sage",
-    "tone": "sereno, contenido",
-    "words_per_second": 3.2,
+    "tts_voice": "fable",
+    "tone": "measured, composed, courtly",
+    "words_per_second": 3.1,
     "delivery_modifiers": {
       "normal": 1.0,
       "shout": 1.05
     }
   },
   "visual_profile": {
-    "age_range": "adult (20-50)",
-    "hair": "no especificado en fuente",
+    "age_range": "20-40 (inferred during marriage)",
+    "hair": "dark (inferred)",
     "beard": "n/a",
-    "clothing": "atributos femeninos de la nobleza temprana (inferencia baja confianza)",
+    "clothing": "noble woman's dress of early Asturian court (inferred)",
     "palette": [
-      "#7B6E5A",
-      "#C9B79A"
+      "#8A6B5B",
+      "#D8C3A5"
     ],
-    "style_notes": "Representar como figura de la casa dinástica, presencia más relevante por vínculo que por acción directa."
+    "style_notes": "Portray as dynastic bridge—noble, reserved, visually tied to both Pelayo's lineage and Alfonso's court."
   },
   "state": {
     "status": "deceased",
     "location": "Asturias",
     "alliances": [
-      "pelayo"
+      "pelayo",
+      "alfonso_i"
     ],
     "conflicts": [],
-    "last_seen_episode_id": "teaser-10500110-evt",
-    "last_updated": "2026-03-18T23:45:00Z"
+    "last_seen_episode_id": "teaser-11070100-evt",
+    "last_updated": "2026-03-19T18:40:00Z"
   },
   "continuity": {
     "must_keep": [
-      "vínculo genealogíco/sucesorio con Pelayo y la monarquía asturiana"
+      "daughter_of_pelayo",
+      "married_to_alfonso_i"
     ],
     "must_avoid": [
-      "atribuirle acciones militares o políticas sin fuente explícita"
+      "portrayal_as_political_machinator_without_evidence"
     ]
   },
   "emotional_state": {
     "dominant_emotion": "calm",
-    "intensity": 0.3,
-    "valence": 0.2,
-    "arousal": 0.2,
-    "trigger_summary": "aparece en registros genealógicos y ceremoniales; su representación debe ser de calma institucional"
+    "intensity": 0.4,
+    "valence": 0.5,
+    "arousal": 0.3,
+    "trigger_summary": "Role as dynastic link and caretaker of lineage in an unstable frontier environment."
   },
   "arc_state": {
-    "stage": "setup",
-    "external_goal": "mantener la línea dinástica/familiar",
-    "internal_need": "proteger la memoria y legitimidad de la casa",
-    "contradiction": "presencia simbólica frente a ausencia de acciones directas",
-    "change_vector": "más figura de enlace generacional que agente de cambio",
-    "last_event_id": "evt-105001"
+    "stage": "resolution",
+    "external_goal": "ensure dynastic continuity and familial security",
+    "internal_need": "protect family standing",
+    "contradiction": "named in sources but with minimal agency recorded",
+    "change_vector": "from daughter of a war-leader to consort in a consolidating court",
+    "last_event_id": "evt-110701"
   }
 }

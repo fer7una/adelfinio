@@ -1,0 +1,63 @@
+{
+  "character_id": "witiza",
+  "display_name": "Witiza",
+  "aliases": [
+    "Witiza (visigothic king/factional marker)"
+  ],
+  "historical_period": "late 7th - early 8th century (contextual predecessor)",
+  "role": "political",
+  "biography_short": "King (or leader) associated in sources with factional struggles preceding the Muslim invasion; his factional politics are used in chronicles to explain later alignments and hostilities.",
+  "voice_profile": {
+    "tts_voice": "ballad",
+    "tone": "authoritative, aristocratic",
+    "words_per_second": 3.1,
+    "delivery_modifiers": {
+      "normal": 1.0,
+      "shout": 1.1
+    }
+  },
+  "visual_profile": {
+    "age_range": "50-70 (inferred historical figure)",
+    "hair": "dark (inferred)",
+    "beard": "full (inferred)",
+    "clothing": "visigothic royal garb (inferred)",
+    "palette": [
+      "#5D473A",
+      "#CBB79E"
+    ],
+    "style_notes": "When referenced, used as background political cause of later strife rather than as active contemporary actor to Pelayo's story."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "Toledo (associated)",
+    "alliances": [],
+    "conflicts": [
+      "pelayo"
+    ],
+    "last_seen_episode_id": "teaser-07020100-evt",
+    "last_updated": "2026-03-19T18:40:00Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "associated_with_pre-invasion_factional_conflicts"
+    ],
+    "must_avoid": [
+      "overstating_direct_interaction_with_pelayo"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "anger",
+    "intensity": 0.5,
+    "valence": 0.2,
+    "arousal": 0.5,
+    "trigger_summary": "Factional disputes and alleged causes of collaboration with invading forces (as expressed in chronicles)."
+  },
+  "arc_state": {
+    "stage": "setup",
+    "external_goal": "maintain/extend power within a fracturing Visigothic polity",
+    "internal_need": "secure elite position against rivals",
+    "contradiction": "sources use Witiza as a narrative cause for later conflicts but documentary evidence is partial",
+    "change_vector": "background cause of later realignments",
+    "last_event_id": "evt-070201"
+  }
+}

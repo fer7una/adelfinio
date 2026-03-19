@@ -1,0 +1,63 @@
+{
+  "character_id": "char-witiza",
+  "display_name": "Witiza",
+  "aliases": [
+    "King Witiza (visigothic king mentioned in narratives)"
+  ],
+  "historical_period": "late 7th – early 8th century",
+  "role": "political",
+  "biography_short": "Rey visigodo cuyo reinado y faction are invoked in narratives explaining the internal divisions that facilitated Muslim entry; presented in sources as a focal point for later factional conflicts.",
+  "voice_profile": {
+    "tts_voice": "sage",
+    "tone": "cool, distant",
+    "words_per_second": 3.3,
+    "delivery_modifiers": {
+      "normal": 1,
+      "shout": 1.1
+    }
+  },
+  "visual_profile": {
+    "age_range": "50-70",
+    "hair": "grey",
+    "beard": "longish",
+    "clothing": "royal visigothic garb as depicted in chronicles; formal robe",
+    "palette": [
+      "#4E3B2E",
+      "#BFAE93"
+    ],
+    "style_notes": "use iconographic cues of late-Visigothic royalty and courtly factionalism."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "Toledo / exilic networks",
+    "alliances": [],
+    "conflicts": [
+      "char-pelayo"
+    ],
+    "last_seen_episode_id": "main-07020101-evt",
+    "last_updated": "2026-03-19T17:39:56Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "Referenced as a cause of internal divisions and as a ruler whose party later aligns with invaders in certain accounts"
+    ],
+    "must_avoid": [
+      "Presenting legendary anecdotes as verified facts without labeling them as tradition"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "pride",
+    "intensity": 0.6,
+    "valence": 0.2,
+    "arousal": 0.4,
+    "trigger_summary": "His reign and factional policies are cited as contributing factors to the later breakdown of Visigothic cohesion."
+  },
+  "arc_state": {
+    "stage": "setup",
+    "external_goal": "maintain royal authority",
+    "internal_need": "secure succession and loyal noble support",
+    "contradiction": "internal noble fragmentation vs. central authority",
+    "change_vector": "reign -> factional legacy facilitating external intervention",
+    "last_event_id": "evt-70201"
+  }
+}

@@ -22,7 +22,7 @@ from extract_source_events import (
     sanitize_event_text,
     strip_historiography_tail,
 )
-from pipeline_common import ROOT, now_iso, read_json, sha256_text, slugify, source_ref_file, trim_text, write_json, write_text
+from pipeline_common import ROOT, normalize_year_token, now_iso, read_json, sha256_text, slugify, source_ref_file, trim_text, write_json, write_text
 
 DEFAULT_SOURCE = ROOT / "docs" / "chronicles" / "01-La gran aventura del reino de Asturias.pdf"
 DEFAULT_OUTPUT = ROOT / "data" / "source" / "source_pack.json"
@@ -337,7 +337,7 @@ def build_pages(source_path: Path, artifacts_root: Path, start_page: int, end_pa
 def chronology_hints(chunks: list[dict]) -> list[dict]:
     hints = []
     for chunk in chunks:
-        years = sorted(set(YEAR_RE.findall(str(chunk["normalized_text"]))))
+        years = sorted({year for year in (normalize_year_token(raw) for raw in YEAR_RE.findall(str(chunk["normalized_text"]))) if year})
         hints.append(
             {
                 "chunk_id": chunk["chunk_id"],
@@ -358,7 +358,7 @@ def derive_events(source_path: Path, chunks: list[dict]) -> list[dict]:
         if len(paragraph.split()) < 10:
             continue
         year_match = YEAR_RE.search(paragraph)
-        year = year_match.group(1) if year_match else infer_year_for_index(base_year, index)
+        year = normalize_year_token(year_match.group(1)) if year_match else normalize_year_token(infer_year_for_index(base_year, index))
         event = paragraph_to_event(
             paragraph=paragraph,
             source_ref_file=source_ref_file(source_path),

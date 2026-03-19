@@ -1,0 +1,56 @@
+{
+  "episode_id": "example-episode",
+  "scene_index": 1,
+  "scene_duration_s": 3.2,
+  "canvas": {
+    "width": 1080,
+    "height": 1920
+  },
+  "source_image_path": "artifacts/scene_assets/example-episode/scenes/scene_01.png",
+  "source_clean_video_path": "artifacts/videos/clean/example-episode/scene_01.clean.mp4",
+  "events": [
+    {
+      "event_id": "scene_01_ev_001",
+      "kind": "narration",
+      "speaker": "",
+      "delivery": "normal",
+      "text": "The kingdom fractures into rival factions.",
+      "start_s": 0.0,
+      "end_s": 3.2,
+      "fade_in_s": 0.1,
+      "fade_out_s": 0.1,
+      "crossfade_text_s": 0.1,
+      "pre_roll_clean_s": 0.0,
+      "region": {
+        "box_norm": [
+          0.08,
+          0.79,
+          0.84,
+          0.14
+        ],
+        "tail_anchor_norm": [
+          0.44,
+          0.36
+        ],
+        "size_mode": "fixed"
+      },
+      "layout": {
+        "font_px": 34,
+        "line_count": 2,
+        "padding_x_px": 56,
+        "padding_y_px": 34
+      },
+      "visibility_policy": {
+        "single_visible_unit": true,
+        "hide_others": true
+      },
+      "occlusion_analysis": {
+        "covers_speaker": false,
+        "covers_focus": false,
+        "covers_listener_face": false,
+        "requires_pre_roll_clean": false,
+        "recommended_pre_roll_s": 0.0
+      }
+    }
+  ]
+}

@@ -120,11 +120,11 @@ python3 scripts/generate_scene_assets.py \
   --image-quality medium
 ```
 
-Componer MP4 final con subtitulos incrustados:
+Render V2 completo:
 
 ```bash
-python3 scripts/compose_final_video.py \
-  --episode data/episodes/generated/story-catalog/<episode>.json
+bash scripts/run_final_ai_video_pipeline_v2.sh \
+  data/episodes/generated/story-catalog/<episode>.json
 ```
 
 SVG opcionales para narracion/dialogo/grito:
@@ -137,8 +137,16 @@ SVG opcionales para narracion/dialogo/grito:
 Salida esperada:
 
 - `artifacts/scene_assets/<episode_id>/scenes/*.png`
-- `artifacts/scene_assets/<episode_id>/scenes/*.mp3`
 - `artifacts/scene_assets/<episode_id>/manifest.json` con `scene_image_path`, `text_phases`, `overlay_bbox`, `focus_bbox` y `camera_track`
+- `artifacts/audio_events/<episode_id>/scene_XX/utt_YYY.mp3`
+- `artifacts/render_plan/<episode_id>/scene_XX.events.json`
+- `artifacts/render_plan/<episode_id>/scene_XX.utterances.json`
+- `artifacts/render_plan/<episode_id>/scene_XX.alignment.json`
+- `artifacts/render_plan/<episode_id>/scene_XX.audio_plan.json`
+- `artifacts/render_plan/<episode_id>/scene_XX.overlay_timeline.json`
+- `artifacts/render_plan/<episode_id>/scene_XX.camera_plan.json`
+- `artifacts/videos/clean/<episode_id>/scene_XX.clean.mp4`
+- `artifacts/videos/composited/<episode_id>/scene_XX.composited.mp4`
 - `artifacts/videos/final/<episode_id>.mp4`
 - `artifacts/subtitles/final/<episode_id>.srt`
 
@@ -155,20 +163,21 @@ Control de coste/calidad:
 Comportamiento del render final:
 
 - Se genera una sola imagen base por escena.
-- El texto visible se divide en `text_phases` secuenciales cuando no cabe en el overlay.
-- El zoom se calcula desde `focus_bbox`, no desde anclas fijas.
-- Los bocadillos de narracion/dialogo se colocan en `overlay_bbox` calculados para evitar tapar el foco y regiones protegidas.
+- La unidad visible pasa a ser `events.json`, un evento por pagina ya validada.
+- El audio se genera por `utterance`, no por escena monolitica.
+- El render limpio va primero; overlays y camara se aplican despues.
+- El zoom final se aplica sobre el frame ya compuesto.
 
 Ejecucion en lote (todos los episodios del plan):
 
 ```bash
-bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/story-catalog
+bash scripts/run_final_ai_video_pipeline_v2.sh data/episodes/generated/story-catalog
 ```
 
 Modo mock sin llamadas a API (solo para test de pipeline):
 
 ```bash
-bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/story-catalog --mock
+bash scripts/run_final_ai_video_pipeline_v2.sh data/episodes/generated/story-catalog --mock
 ```
 
 ## Pipeline de un comando

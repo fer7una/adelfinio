@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scene_camera_plan.schema.json",
+  "title": "Scene Camera Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "scene_index",
+    "duration_s",
+    "mode",
+    "keyframes",
+    "constraints"
+  ],
+  "properties": {
+    "scene_index": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "duration_s": {
+      "$ref": "render_plan_common.schema.json#/$defs/nonNegativeNumber"
+    },
+    "mode": {
+      "type": "string",
+      "const": "full_frame_zoom"
+    },
+    "keyframes": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "time_s",
+          "zoom",
+          "focus_x",
+          "focus_y",
+          "active_event_id"
+        ],
+        "properties": {
+          "time_s": {
+            "$ref": "render_plan_common.schema.json#/$defs/nonNegativeNumber"
+          },
+          "zoom": {
+            "type": "number",
+            "minimum": 1
+          },
+          "focus_x": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "focus_y": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "active_event_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "keep_active_overlay_inside_frame",
+        "zoom_min",
+        "zoom_max",
+        "monotonic_zoom"
+      ],
+      "properties": {
+        "keep_active_overlay_inside_frame": {
+          "type": "boolean"
+        },
+        "zoom_min": {
+          "type": "number",
+          "minimum": 1
+        },
+        "zoom_max": {
+          "type": "number",
+          "minimum": 1
+        },
+        "monotonic_zoom": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

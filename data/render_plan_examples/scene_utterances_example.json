@@ -1,0 +1,26 @@
+{
+  "episode_id": "example-episode",
+  "scene_index": 1,
+  "utterances": [
+    {
+      "utterance_id": "utt_001",
+      "kind": "narration",
+      "speaker": "narrator",
+      "delivery": "normal",
+      "event_ids": [
+        "scene_01_ev_001"
+      ],
+      "tts_voice": "alloy",
+      "voice_profile": {
+        "tts_voice": "alloy",
+        "tone": "chronicle",
+        "words_per_second": 2.6,
+        "delivery_modifiers": {
+          "normal": 1.0,
+          "shout": 1.12
+        }
+      },
+      "full_text": "The kingdom fractures into rival factions."
+    }
+  ]
+}

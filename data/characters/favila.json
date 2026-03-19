@@ -1,62 +1,66 @@
 {
   "character_id": "favila",
   "display_name": "Favila",
-  "aliases": [],
-  "historical_period": "8th–9th century (references in late 8th/early 9th century material)",
+  "aliases": [
+    "Favila (son of Pelayo)"
+  ],
+  "historical_period": "8th century (d. c.737/early)",
   "role": "monarch",
-  "biography_short": "Personaje vinculado a la dinastía inicial asturiana. Las fuentes del libro lo mencionan en cargos honoríficos (espatario/conde de espatarios) y en la sucesión inmediata tras Pelayo en algunas narraciones; la obra recoge además una tradición sobre su muerte accidental.",
+  "biography_short": "Hijo de Pelayo, successor as ruler of Asturias after Pelayo's death (sources give few details; chroniclers record his succession and brief reign and later widow and daughter).",
   "voice_profile": {
     "tts_voice": "ash",
-    "tone": "más apagado, formal",
-    "words_per_second": 3.2,
+    "tone": "younger, less seasoned; deferential and unsettled",
+    "words_per_second": 3.4,
     "delivery_modifiers": {
       "normal": 1.0,
       "shout": 1.1
     }
   },
   "visual_profile": {
-    "age_range": "adult (30-50)",
-    "hair": "no especificado en fuente",
-    "beard": "no especificado en fuente",
-    "clothing": "insignia de cargo ceremonial (inferencia baja confianza)",
+    "age_range": "young-adult to middle-aged (inferred)",
+    "hair": "dark (inferred)",
+    "beard": "sparse or clean-shaven (inferred)",
+    "clothing": "early royal vestments mixed with warrior trappings (inferred)",
     "palette": [
-      "#5A4B3A",
-      "#8A7F6E"
+      "#7F5539",
+      "#BFA27A"
     ],
-    "style_notes": "Figura descrita en las crónicas como menos heroica que Pelayo; representar con menor empaque épico."
+    "style_notes": "Portray as brief, transitional ruler; not heavily armored in pageantry—more a local aristocrat elevated by lineage."
   },
   "state": {
     "status": "deceased",
-    "location": "Asturias",
+    "location": "Cangas de Onís (burial in local church recorded)",
     "alliances": [
-      "pelayo"
+      "pelayo",
+      "ermesinda"
     ],
     "conflicts": [],
-    "last_seen_episode_id": "teaser-08970110-evt",
-    "last_updated": "2026-03-18T23:45:00Z"
+    "last_seen_episode_id": "teaser-08940100-evt",
+    "last_updated": "2026-03-19T18:40:00Z"
   },
   "continuity": {
     "must_keep": [
-      "asociación con el título de espatario/conde de espatarios",
-      "mención en la sucesión temprana tras Pelayo en la narrativa"
+      "son_of_pelayo",
+      "succeeded_737",
+      "limited_historical_record"
     ],
     "must_avoid": [
-      "dar por hecho genealogías contradictorias sin citar la fuente"
+      "detailed_policy_actions_unreferenced"
     ]
   },
   "emotional_state": {
     "dominant_emotion": "uncertainty",
-    "intensity": 0.4,
-    "valence": 0.0,
-    "arousal": 0.2,
-    "trigger_summary": "las fuentes lo presentan como figura secundaria frente a Pelayo; la percepción es de menor protagonismo"
+    "intensity": 0.6,
+    "valence": 0.3,
+    "arousal": 0.4,
+    "trigger_summary": "Brief and poorly documented reign following the founder; sources imply limited political footprint."
   },
   "arc_state": {
-    "stage": "ascent",
-    "external_goal": "ocupar un rol honorífico o monárquico tras Pelayo (según la tradición del texto)",
-    "internal_need": "obtener reconocimiento dentro de una dinastía emergente",
-    "contradiction": "figurar en la sucesión pero quedar caracterizado por la narrativa como menos relevante",
-    "change_vector": "paso breve y poco destacado en la cadena sucesoria",
-    "last_event_id": "evt-089701"
+    "stage": "turn",
+    "external_goal": "maintain the legacy left by Pelayo",
+    "internal_need": "to transition from being a successor in name to a legitimate ruler (largely unrealized in sources)",
+    "contradiction": "recorded as successor but 'anodine' in later chronicling",
+    "change_vector": "succession followed by rapid disappearance from the central narrative",
+    "last_event_id": "evt-073701"
   }
 }

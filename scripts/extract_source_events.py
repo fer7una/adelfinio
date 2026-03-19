@@ -17,6 +17,8 @@ import subprocess
 import unicodedata
 from pathlib import Path
 
+from pipeline_common import normalize_year_token
+
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "data" / "timeline" / "source_events.json"
 DEFAULT_SOURCE = ROOT / "docs" / "chronicles" / "01-La gran aventura del reino de Asturias.pdf"
@@ -307,9 +309,9 @@ def paragraph_to_event(
 ) -> dict:
     year_match = YEAR_RE.search(paragraph)
     if year_match:
-        year = year_match.group(1)
+        year = normalize_year_token(year_match.group(1))
     elif allow_inferred_dates:
-        year = infer_year_for_index(base_year, index)
+        year = normalize_year_token(infer_year_for_index(base_year, index))
     else:
         raise RuntimeError("paragraph has no detectable year and inferred dates are disabled")
 

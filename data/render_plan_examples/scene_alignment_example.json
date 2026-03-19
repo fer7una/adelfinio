@@ -1,0 +1,31 @@
+{
+  "episode_id": "example-episode",
+  "scene_index": 1,
+  "utterances": [
+    {
+      "utterance_id": "utt_001",
+      "audio_clip_path": "artifacts/audio_events/example-episode/scene_01/utt_001.mp3",
+      "alignment_method": "estimated",
+      "words": [
+        {
+          "index": 0,
+          "text": "The",
+          "start_s": 0.0,
+          "end_s": 0.35
+        },
+        {
+          "index": 1,
+          "text": "kingdom",
+          "start_s": 0.35,
+          "end_s": 0.72
+        },
+        {
+          "index": 2,
+          "text": "fractures",
+          "start_s": 0.72,
+          "end_s": 1.14
+        }
+      ]
+    }
+  ]
+}

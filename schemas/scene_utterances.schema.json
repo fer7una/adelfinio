@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scene_utterances.schema.json",
+  "title": "Scene Utterances",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "episode_id",
+    "scene_index",
+    "utterances"
+  ],
+  "properties": {
+    "episode_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scene_index": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "utterances": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "utterance_id",
+          "kind",
+          "speaker",
+          "delivery",
+          "event_ids",
+          "tts_voice",
+          "voice_profile",
+          "full_text"
+        ],
+        "properties": {
+          "utterance_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "narration",
+              "dialogue",
+              "shout"
+            ]
+          },
+          "speaker": {
+            "type": "string",
+            "minLength": 1
+          },
+          "delivery": {
+            "type": "string",
+            "minLength": 1
+          },
+          "event_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "tts_voice": {
+            "type": "string",
+            "minLength": 1
+          },
+          "voice_profile": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tts_voice",
+              "tone",
+              "words_per_second",
+              "delivery_modifiers"
+            ],
+            "properties": {
+              "tts_voice": {
+                "type": "string",
+                "minLength": 1
+              },
+              "tone": {
+                "type": "string",
+                "minLength": 1
+              },
+              "words_per_second": {
+                "$ref": "render_plan_common.schema.json#/$defs/nonNegativeNumber"
+              },
+              "delivery_modifiers": {
+                "type": "object",
+                "minProperties": 1,
+                "additionalProperties": {
+                  "$ref": "render_plan_common.schema.json#/$defs/nonNegativeNumber"
+                }
+              }
+            }
+          },
+          "full_text": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

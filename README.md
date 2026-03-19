@@ -129,7 +129,8 @@ bash scripts/run_story_pipeline_from_source.sh \
 - Componer MP4 final con assets:
 
 ```bash
-python3 scripts/compose_final_video.py --episode data/episodes/generated/story-catalog/main-20260317-story-resistencia-pelayo.json
+bash scripts/run_final_ai_video_pipeline_v2.sh \
+  data/episodes/generated/story-catalog/main-20260317-story-resistencia-pelayo.json
 ```
 
 SVG opcionales para overlays del montaje final:
@@ -137,18 +138,18 @@ SVG opcionales para overlays del montaje final:
 - `assets/video_overlays/narration.svg`
 - `assets/video_overlays/dialogue.svg`
 - `assets/video_overlays/shout.svg`
-- Si no existen, `compose_final_video.py` usa el estilo fallback generado con filtros de ffmpeg.
+- Si no existen, V2 usa el estilo fallback generado con filtros de ffmpeg.
 
 - Ejecutar pipeline final en lote para un directorio de episodios:
 
 ```bash
-bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/story-catalog
+bash scripts/run_final_ai_video_pipeline_v2.sh data/episodes/generated/story-catalog
 ```
 
 - Prueba sin APIs (mock local con ffmpeg):
 
 ```bash
-bash scripts/run_final_ai_video_pipeline.sh data/episodes/generated/story-catalog --mock
+bash scripts/run_final_ai_video_pipeline_v2.sh data/episodes/generated/story-catalog --mock
 ```
 
 Control de calidad de imagen:
@@ -214,6 +215,6 @@ Guia rapida en `docs/local_video_pipeline.md`.
 - `source_pack.json` es la fuente narrativa canonica revisada.
 - `data/timeline/source_events.json` sigue existiendo como artefacto derivado.
 - El catalogo de historias es lineal y la eleccion del `story_id` es manual.
-- `episode.json` sigue siendo el contrato final consumido por el render, ahora ampliado con trazabilidad e inferencias etiquetadas.
-- El render ya no depende de una imagen por bloque de texto: genera una imagen base por escena, analiza el foco visual y reparte narracion/dialogo en `text_phases` secuenciales.
+- `episode.json` sigue siendo la fuente editorial consumida por el render.
+- El render V2 deriva `events`, `utterances`, `alignment`, `audio_plan`, `overlay_timeline` y `camera_plan` por escena antes de componer el video final.
 - Sin `source_pack.review.status=approved`, no se generan personajes, catalogos ni episodios.

@@ -1,0 +1,37 @@
+{
+  "episode_id": "example-episode",
+  "scene_index": 1,
+  "source_scene_image_path": "artifacts/scene_assets/example-episode/scenes/scene_01.png",
+  "initial_scene_estimate_s": 9.5,
+  "events": [
+    {
+      "event_id": "scene_01_ev_001",
+      "order": 1,
+      "kind": "narration",
+      "speaker": "",
+      "delivery": "normal",
+      "text": "The kingdom fractures into rival factions.",
+      "audio_text": "The kingdom fractures into rival factions.",
+      "page_index": 1,
+      "page_count_in_group": 1,
+      "group_id": "narration:0",
+      "primary_actor": "",
+      "focus_bbox": [
+        0.22,
+        0.18,
+        0.44,
+        0.36
+      ],
+      "overlay_candidate_bbox": [
+        0.08,
+        0.79,
+        0.84,
+        0.14
+      ],
+      "source_phase_index": 1,
+      "source_image_path": "artifacts/scene_assets/example-episode/scenes/scene_01.png",
+      "source_prompt_path": "artifacts/scene_assets/example-episode/scenes/scene_01.image.prompt.txt",
+      "requires_pre_roll_clean": false
+    }
+  ]
+}

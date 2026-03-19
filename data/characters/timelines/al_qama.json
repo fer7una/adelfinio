@@ -2,21 +2,21 @@
   "character_id": "al_qama",
   "records": [
     {
-      "record_id": "arc-07380101-al_qama",
-      "event_id": "evt-073801",
+      "record_id": "arc-40004441-alqama-battle",
+      "event_id": "evt-073401",
       "chronology_index": 1,
       "emotion_before": "resolve",
-      "emotion_after": "fear",
-      "arc_stage_before": "ascent",
-      "arc_stage_after": "crisis",
-      "change_summary": "Ordenó el inicio del combate en la campaña contra los rebeldes; la acción culminó en enfrentamientos con resultados adversos para la expedición en el relato.",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "crisis",
+      "arc_stage_after": "turn",
+      "change_summary": "Engaged in pitched battle with rebels; terrain and tactics led to disordered retreat in sources.",
       "source_ref": {
-        "file": "01-La gran aventura del reino de Asturias",
-        "section": "evt-073801",
-        "checksum": "a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8",
-        "excerpt": "Alkama mandó entonces comenzar el combate, y los soldados tomaron las armas."
+        "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+        "section": "evt-073401",
+        "checksum": "0000000000000000000000000000000000000000000000000000000000000000",
+        "excerpt": "actors: don_oppas, al_qama, pelayo"
       },
-      "updated_at": "2026-03-18T23:45:00Z"
+      "updated_at": "2026-03-19T18:40:00Z"
     }
   ]
 }

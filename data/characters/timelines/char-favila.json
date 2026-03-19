@@ -1,0 +1,22 @@
+{
+  "character_id": "char-favila",
+  "records": [
+    {
+      "record_id": "arc-00010200-favila-succession",
+      "event_id": "evt-73701",
+      "chronology_index": 2,
+      "emotion_before": "grief",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "turn",
+      "arc_stage_after": "resolution",
+      "change_summary": "Muerte de Pelayo -> Favila sucede; marca cambio dinástico breve en la línea de Pelayo.",
+      "source_ref": {
+        "file": "01-La gran aventura del reino de Asturias",
+        "section": "Cuando murió Pelayo, en 737, le sucedió su hijo Favila",
+        "checksum": "0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b",
+        "excerpt": "Cuando murió Pelayo, en 737, le sucedió su hijo Favila."
+      },
+      "updated_at": "2026-03-19T17:39:56Z"
+    }
+  ]
+}

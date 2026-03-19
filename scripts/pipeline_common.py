@@ -48,12 +48,29 @@ def trim_text(text: str, max_len: int) -> str:
     compact = normalize_ws(text)
     if len(compact) <= max_len:
         return compact
-    cut = compact[: max_len + 1]
+    if max_len <= 3:
+        return compact[:max_len]
+    available = max_len - 3
+    cut = compact[: available + 1]
     if " " in cut:
         cut = cut.rsplit(" ", 1)[0]
     else:
-        cut = cut[:max_len]
-    return cut.rstrip(".,;: ") + "..."
+        cut = cut[:available]
+    cut = cut.rstrip(".,;: ")
+    if not cut:
+        cut = compact[:available].rstrip(".,;: ")
+    if len(cut) > available:
+        cut = cut[:available].rstrip(".,;: ")
+    return cut + "..."
+
+
+def normalize_year_token(value: str | int | None) -> str:
+    raw = normalize_ws("" if value is None else str(value))
+    if not raw:
+        return ""
+    if raw.isdigit() and len(raw) == 3:
+        return raw.zfill(4)
+    return raw
 
 
 def slugify(text: str, max_len: int = 48) -> str:

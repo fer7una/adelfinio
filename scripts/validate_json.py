@@ -48,6 +48,30 @@ VALIDATION_TARGETS = [
         ROOT / "schemas" / "character_timeline.schema.json",
         ROOT / "data" / "characters" / "timelines" / "character_timeline_example.json",
     ),
+    (
+        ROOT / "schemas" / "scene_events.schema.json",
+        ROOT / "data" / "render_plan_examples" / "scene_events_example.json",
+    ),
+    (
+        ROOT / "schemas" / "scene_utterances.schema.json",
+        ROOT / "data" / "render_plan_examples" / "scene_utterances_example.json",
+    ),
+    (
+        ROOT / "schemas" / "scene_alignment.schema.json",
+        ROOT / "data" / "render_plan_examples" / "scene_alignment_example.json",
+    ),
+    (
+        ROOT / "schemas" / "scene_audio_plan.schema.json",
+        ROOT / "data" / "render_plan_examples" / "scene_audio_plan_example.json",
+    ),
+    (
+        ROOT / "schemas" / "scene_overlay_timeline.schema.json",
+        ROOT / "data" / "render_plan_examples" / "scene_overlay_timeline_example.json",
+    ),
+    (
+        ROOT / "schemas" / "scene_camera_plan.schema.json",
+        ROOT / "data" / "render_plan_examples" / "scene_camera_plan_example.json",
+    ),
 ]
 
 
