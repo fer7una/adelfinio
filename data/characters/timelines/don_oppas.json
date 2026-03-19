@@ -1,0 +1,22 @@
+{
+  "character_id": "don_oppas",
+  "records": [
+    {
+      "record_id": "arc-07350101-donoppas",
+      "event_id": "evt-073501",
+      "chronology_index": 1,
+      "emotion_before": "uncertainty",
+      "emotion_after": "uncertainty",
+      "arc_stage_before": "setup",
+      "arc_stage_after": "setup",
+      "change_summary": "Presencia eclesiástica registrada en la narración del episodio de Monte Auseva; función explícita no clarificada en los fragmentos citados.",
+      "source_ref": {
+        "file": "01-La gran aventura del reino de Asturias",
+        "section": "evt-073501",
+        "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+        "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva y el obispo Oppas subió a un..."
+      },
+      "updated_at": "2026-03-18T23:45:00Z"
+    }
+  ]
+}

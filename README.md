@@ -126,7 +126,7 @@ bash scripts/run_story_pipeline_from_source.sh \
   \"docs/chronicles/01-La gran aventura del reino de Asturias.pdf\"
 ```
 
-- Componer MP4 final con assets (subtitulos incrustados):
+- Componer MP4 final con assets:
 
 ```bash
 python3 scripts/compose_final_video.py --episode data/episodes/generated/story-catalog/main-20260317-story-resistencia-pelayo.json
@@ -156,11 +156,18 @@ Control de calidad de imagen:
 - `OPENAI_IMAGE_QUALITY=low|medium|high|auto`
 - Tambien disponible por CLI: `python3 scripts/generate_scene_assets.py --image-quality medium ...`
 
+Control de layout visual y zoom:
+
+- `OPENAI_LAYOUT_MODEL`
+- `OPENAI_LAYOUT_REASONING_EFFORT`
+- `generate_scene_assets.py` genera una sola imagen base por escena, la analiza visualmente y produce `text_phases`, `overlay_bbox` y `camera_track` para el montaje final.
+
 Separacion de modelos por fase:
 
 - `OPENAI_CHARACTER_MODEL`
 - `OPENAI_STORY_CATALOG_MODEL`
 - `OPENAI_EPISODE_MODEL`
+- `OPENAI_LAYOUT_MODEL`
 - Si no se definen, cada script cae primero en `OPENAI_STORY_MODEL` y luego en `gpt-5.4`
 
 - Pipeline grafico completo desde fuente revisada:
@@ -208,4 +215,5 @@ Guia rapida en `docs/local_video_pipeline.md`.
 - `data/timeline/source_events.json` sigue existiendo como artefacto derivado.
 - El catalogo de historias es lineal y la eleccion del `story_id` es manual.
 - `episode.json` sigue siendo el contrato final consumido por el render, ahora ampliado con trazabilidad e inferencias etiquetadas.
+- El render ya no depende de una imagen por bloque de texto: genera una imagen base por escena, analiza el foco visual y reparte narracion/dialogo en `text_phases` secuenciales.
 - Sin `source_pack.review.status=approved`, no se generan personajes, catalogos ni episodios.

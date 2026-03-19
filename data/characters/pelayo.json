@@ -2,64 +2,65 @@
   "character_id": "pelayo",
   "display_name": "Pelayo",
   "aliases": [],
-  "historical_period": "siglo VIII (principios)",
-  "role": "monarch",
-  "biography_short": "Líder de la insurrección cristiana en la cornisa cantábrica; protagoniza la resistencia en la montaña (Monte Auseva / Covadonga) y, tras la victoria, encarna el núcleo que dará lugar al reino de Asturias.",
+  "historical_period": "early 8th century (c. 722–737)",
+  "role": "military",
+  "biography_short": "Líder militar asturiano identificado en las fuentes del libro como el jefe de la sublevación en la Cornisa Cantábrica (Covadonga / Monte Auseva), instalado en Cangas de Onís y protagonista de victorias que atrajeron a otros núcleos cristianos del norte.",
   "voice_profile": {
-    "tts_voice": "tenor_bajo_hieratico",
-    "tone": "resuelto, sobrio, autoritario",
-    "words_per_second": 2.6,
+    "tts_voice": "ballad",
+    "tone": "grave, decidido, directo",
+    "words_per_second": 3.6,
     "delivery_modifiers": {
       "normal": 1.0,
       "shout": 1.25
     }
   },
   "visual_profile": {
-    "age_range": "40-55",
-    "hair": "oscuro, corto",
-    "beard": "barba corta y recortada",
-    "clothing": "túnica y cota de malla ligera; capa de piel en tiempos de refugio montañoso",
+    "age_range": "adult (30-60)",
+    "hair": "oscuro, despeinado por la vida de montaña (inferencia baja confianza)",
+    "beard": "probablemente poblado (inferencia baja confianza)",
+    "clothing": "ropa práctica de guerrero/rústica, capa sencilla, protecciones ligeras (inferencia basada en contexto militar montañoso)",
     "palette": [
-      "#6B4423",
-      "#2F3E2F",
-      "#8B7B6B"
+      "#6B4C3B",
+      "#7A7A6E",
+      "#3A3A2E"
     ],
-    "style_notes": "Vestuario sencillo de líder guerrero: combinación de elementos visigodos arcaizantes y práctico equipo de montaña; énfasis en manos y mirada resoluta para planos cercanos."
+    "style_notes": "Apariencia austera de jefe de guerrilla; visual que comunique resiliencia y conocimiento del terreno (inferencia apoyada en fuentes sobre uso del monte y retiro a Cangas de Onís)."
   },
   "state": {
     "status": "deceased",
-    "location": "Asturias (Covadonga / Cangas de Onís según fuentes)",
+    "location": "Asturias",
     "alliances": [
-      "favila"
+      "ermesinda"
     ],
-    "conflicts": [],
-    "last_seen_episode_id": null,
-    "last_updated": "2026-03-17T17:31:57Z"
+    "conflicts": [
+      "al_qama"
+    ],
+    "last_seen_episode_id": "teaser-08650110-evt",
+    "last_updated": "2026-03-18T23:45:00Z"
   },
   "continuity": {
     "must_keep": [
-      "liderazgo_en_levanta_miento_de_722",
-      "batalla_en_monte_Auseva/Covadonga",
-      "vínculos_con_aristocracia_hispano-goda"
+      "liderazgo en la insurrección del norte (Covadonga / Monte Auseva)",
+      "instalación en Cangas de Onís como centro de resistencia"
     ],
     "must_avoid": [
-      "detalles_biográficos_no_sostenidos_por_fuente (p.ej. fecha precisa de nacimiento)",
-      "atribuciones_anacrónicas de títulos estatales modernos"
+      "presentar a Pelayo sin contexto cronológico (fechas 722–737/ános inmediatos)",
+      "atribuir milagros o hechos legendarios sin fuente explícita"
     ]
   },
   "emotional_state": {
     "dominant_emotion": "resolve",
     "intensity": 0.8,
-    "valence": 0.6,
-    "arousal": 0.6,
-    "trigger_summary": "levantamiento contra la exigencia de tributo y la presión musulmana; necesidad de proteger a su gente en el contexto de colapso visigodo"
+    "valence": 0.3,
+    "arousal": 0.7,
+    "trigger_summary": "derrotas/amenazas externas y la necesidad de proteger un enclave montañoso; victoria que aumenta la determinación"
   },
   "arc_state": {
     "stage": "ascent",
-    "external_goal": "consolidar un núcleo de resistencia cristiana en las montañas",
-    "internal_need": "legitimar su liderazgo y convertir la revuelta en autoridad estable",
-    "contradiction": "debe pasar de caudillo local a figura institucional sin instrumentos estatales claros",
-    "change_vector": "de guerrillero/caudillo a fundador de un linaje político",
-    "last_event_id": "evt-073501"
+    "external_goal": "consolidar un núcleo político-militar en la Cornisa Cantábrica que resista la dominación musulmana",
+    "internal_need": "legitimación del liderazgo frente a otras élites hispanogodas",
+    "contradiction": "liderar una resistencia local con recursos y reconocimiento limitados",
+    "change_vector": "de caudillo local a fundador de un referente político-militar asturiano",
+    "last_event_id": "evt-086501"
   }
 }

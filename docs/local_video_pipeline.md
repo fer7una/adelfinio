@@ -98,6 +98,7 @@ python3 scripts/generate_episode_from_story.py \
 Salida esperada:
 
 - `data/episodes/generated/story-catalog/*.json`
+- El episodio ya sale con una revision automatica de ortografia, gramatica, puntuacion y coherencia local antes de guardarse
 
 Validar artefactos y episodio:
 
@@ -109,7 +110,7 @@ python3 scripts/validate_story_pipeline.py \
   --episode data/episodes/generated/story-catalog/<episode>.json
 ```
 
-## Paso 7: generar video final (imagen IA + voz IA + montaje)
+## Paso 7: generar video final (imagen IA + voz IA + layout + montaje)
 
 Generar assets por escena (OpenAI):
 
@@ -137,6 +138,7 @@ Salida esperada:
 
 - `artifacts/scene_assets/<episode_id>/scenes/*.png`
 - `artifacts/scene_assets/<episode_id>/scenes/*.mp3`
+- `artifacts/scene_assets/<episode_id>/manifest.json` con `scene_image_path`, `text_phases`, `overlay_bbox`, `focus_bbox` y `camera_track`
 - `artifacts/videos/final/<episode_id>.mp4`
 - `artifacts/subtitles/final/<episode_id>.srt`
 
@@ -144,6 +146,18 @@ Control de coste/calidad:
 
 - `OPENAI_IMAGE_QUALITY=low|medium|high|auto`
 - Si no se define, el script deja que la API use `auto`.
+- `OPENAI_LAYOUT_MODEL` controla el analisis visual posterior a la imagen.
+- `OPENAI_LAYOUT_REASONING_EFFORT=low|medium|high` controla coste/latencia del layout.
+- `OPENAI_EPISODE_REVIEW_MODEL` permite separar el modelo usado en la revision lingüistica del episodio; si no se define, se reutiliza `OPENAI_EPISODE_MODEL`.
+- `OPENAI_EPISODE_REVIEW_REASONING_EFFORT=low|medium|high` controla el coste de la pasada de correccion; por defecto queda en `low`.
+- `OPENAI_EPISODE_REVIEW_SCOPE=full|render` limita el alcance de la revision; `render` revisa solo `title`, `narration` y `dialogue`.
+
+Comportamiento del render final:
+
+- Se genera una sola imagen base por escena.
+- El texto visible se divide en `text_phases` secuenciales cuando no cabe en el overlay.
+- El zoom se calcula desde `focus_bbox`, no desde anclas fijas.
+- Los bocadillos de narracion/dialogo se colocan en `overlay_bbox` calculados para evitar tapar el foco y regiones protegidas.
 
 Ejecucion en lote (todos los episodios del plan):
 
@@ -175,6 +189,7 @@ Este comando ejecuta:
 3. `character_bible` y salidas compatibles
 4. `story_catalog`
 5. Episodio final
+   - incluye una segunda pasada automatica de correccion lingüistica
 6. Render mock u OpenAI real
 
 ## Que valida este pipeline
@@ -182,5 +197,6 @@ Este comando ejecuta:
 - Estructura de datos y consistencia de IDs
 - Presencia de `source_evidence`, `plot_twist` y continuidad dramatica en episodios `main`
 - Continuidad emocional y de arco por personaje (`character_beats`)
+- Revision automatica de ortografia, gramatica, puntuacion y frases torpes antes de persistir el episodio
 - Generacion de assets por escena y composicion final
 - Punto de integracion para voz, imagen IA y subida TikTok

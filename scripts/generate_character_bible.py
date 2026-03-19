@@ -29,6 +29,26 @@ DEFAULT_OUTPUT = ROOT / "data" / "characters" / "character_bible.json"
 DEFAULT_CHAR_DIR = ROOT / "data" / "characters"
 DEFAULT_TIMELINES_DIR = ROOT / "data" / "characters" / "timelines"
 DEFAULT_MODEL_ENV = "OPENAI_CHARACTER_MODEL"
+SUPPORTED_OPENAI_TTS_VOICES = [
+    "alloy",
+    "echo",
+    "fable",
+    "onyx",
+    "nova",
+    "shimmer",
+    "coral",
+    "verse",
+    "ballad",
+    "ash",
+    "sage",
+    "marin",
+    "cedar",
+]
+SEMANTIC_TTS_VOICE_MAP = {
+    "tenor_bajo_hieratico": "onyx",
+    "baritono_rudo": "ash",
+    "soprano_madura": "shimmer",
+}
 
 SYSTEM_PROMPT = """
 Eres un analista narrativo-historico. Debes producir un character bible estructurado y auditable.
@@ -39,7 +59,17 @@ Reglas:
 - Toda inferencia debe apoyarse en source_refs y confidence.
 - Modela comportamiento, voz, visualidad y arco pensando en su uso posterior en video.
 - Mantén continuidad cronologica y emocional por personaje.
+- voice_profile.tts_voice debe ser una voz OpenAI valida. Valores permitidos: alloy, echo, fable, onyx, nova, shimmer, coral, verse, ballad, ash, sage, marin, cedar.
 """.strip()
+
+
+def print_llm_warning() -> None:
+    print(
+        "WARNING: generate_character_bible.py uses OpenAI structured generation and will call the API.\n"
+        "No built-in --mock is available for this narrative step.\n"
+        "If you only need to avoid OpenAI calls during render, use --mock in run_story_pipeline_from_source.sh or run_final_ai_video_pipeline.sh.",
+        file=os.sys.stderr,
+    )
 
 
 def sample_evenly(items: list[dict], limit: int) -> list[dict]:
@@ -131,6 +161,38 @@ def compact_chunk_samples(source_pack: dict, limit: int = 120) -> list[dict]:
     ]
 
 
+def normalize_tts_voice_id(value: str | None, fallback: str = "alloy") -> str:
+    clean = normalize_ws(value).lower().replace(" ", "_")
+    fallback_clean = normalize_ws(fallback).lower().replace(" ", "_") or "alloy"
+    if clean in SUPPORTED_OPENAI_TTS_VOICES:
+        return clean
+    mapped = SEMANTIC_TTS_VOICE_MAP.get(clean)
+    if mapped:
+        return mapped
+    if any(token in clean for token in ("soprano", "femen", "mujer", "materna")):
+        return "shimmer"
+    if any(token in clean for token in ("tenor", "baritono", "grave", "hieratico", "solemne")):
+        return "onyx"
+    if any(token in clean for token in ("rudo", "aspero", "guerrero", "bronco")):
+        return "ash"
+    if fallback_clean in SUPPORTED_OPENAI_TTS_VOICES:
+        return fallback_clean
+    return "alloy"
+
+
+def normalize_character_payload(payload: dict) -> dict:
+    voice_profile = dict(payload.get("voice_profile") or {})
+    voice_profile["tts_voice"] = normalize_tts_voice_id(str(voice_profile.get("tts_voice", "alloy")))
+    payload["voice_profile"] = voice_profile
+    return payload
+
+
+def normalize_character_bible_payload(payload: dict) -> dict:
+    characters = payload.get("characters") or []
+    payload["characters"] = [normalize_character_payload(dict(character)) for character in characters if isinstance(character, dict)]
+    return payload
+
+
 def prompt_payload(source_pack: dict) -> str:
     payload = {
         "source_pack_id": source_pack["source_pack_id"],
@@ -148,6 +210,10 @@ def prompt_payload(source_pack: dict) -> str:
             "goal": "Extraer personajes, comportamiento, relaciones y continuidad dramatica sin perder fidelidad.",
             "inference_policy": "evidence_plus_labeled_inference",
             "sampling_policy": "uniform_coverage_plus_actor_index",
+            "tts_voice_policy": {
+                "allowed_values": SUPPORTED_OPENAI_TTS_VOICES,
+                "rule": "Usa solo voces OpenAI validas en voice_profile.tts_voice",
+            },
         },
     }
     return json.dumps(payload, ensure_ascii=False, indent=2)
@@ -258,6 +324,7 @@ def main() -> int:
         model = args.model or os.getenv(DEFAULT_MODEL_ENV) or os.getenv("OPENAI_STORY_MODEL") or "gpt-5.4"
         schema = inline_external_schema_refs(load_schema("character_bible.schema.json"))
         prompt_body = prompt_payload(source_pack)
+        print_llm_warning()
         client = build_openai_client(Path(args.dotenv))
         payload = run_structured_generation(
             client=client,
@@ -268,6 +335,7 @@ def main() -> int:
             user_prompt=prompt_body,
             reasoning_effort=args.reasoning_effort,
         )
+        payload = normalize_character_bible_payload(payload)
         payload["character_bible_id"] = payload.get("character_bible_id") or f"cb-{source_pack['source_pack_id'][4:]}"
         payload["source_pack_id"] = source_pack["source_pack_id"]
         payload["created_at"] = payload.get("created_at") or source_pack.get("created_at")

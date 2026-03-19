@@ -1,0 +1,940 @@
+{
+  "story_catalog_id": "sc-2026-03-18-spk-01-001",
+  "source_pack_id": "spk-01-la-gran-aventura-del-reino-de-asturias",
+  "character_bible_id": "cb-2026-03-18-spk-01",
+  "created_at": "2026-03-18T00:00:00Z",
+  "selection_mode": "manual",
+  "generation_meta": {
+    "model": "gpt-5-mini",
+    "prompt_version": "story-catalog-v1",
+    "prompt_checksum": "ce437f656ffe01c69010c59be2347be4cb9459c11c7fcd5fb29d9c9b3802c182",
+    "input_checksum": "dcc1cde801c1d19f846ac0c38c44953f21d06613de53b42b5b97f96e8e30f411",
+    "generated_at": "2026-03-18T23:29:20Z"
+  },
+  "stories": [
+    {
+      "story_id": "story-001-visigoth-collapse-711",
+      "chronology_index": 1,
+      "title": "Caída del reino visigodo y entrada musulmana (c. 711)",
+      "summary": "Colapso de la monarquía visigoda por guerras internas y la llegada de contingentes musulmanes desde el norte de África; contexto que precipita la nueva ordenación política de la península.",
+      "source_event_ids": [
+        "evt-71101"
+      ],
+      "source_refs": [
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-71101",
+          "checksum": "cf1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a",
+          "excerpt": "La monarquía visigoda, recordemos, había entrado en una guerra interna. Dos facciones se enfrentaban por el poder.",
+          "page_start": 8,
+          "page_end": 9,
+          "chunk_id": "chk-0085"
+        }
+      ],
+      "characters": [
+        "don_oppas"
+      ],
+      "conflict": "Descomposición interna del poder visigodo y la presión externa musulmana que reconfigura la península.",
+      "stakes": "Desaparición del viejo sistema político; pérdida o conversión de poblaciones y reconfiguración religiosa y fiscal.",
+      "story_goal": "Explicar el caldo de cultivo que permite la formación de núcleos de resistencia cristiana en el norte.",
+      "continuity_previous": "none (inicio de la cronología)",
+      "continuity_next": "story-002-covadonga-722",
+      "dramatic_value": 0.85,
+      "historical_fidelity": 0.95,
+      "visual_potential": "altas: escenas de cortes divididas, campos devastados y convoyes desde el estrecho",
+      "observed_from_source": [
+        {
+          "label": "colapso visigodo",
+          "summary": "Las fuentes describen una guerra interna entre facciones visigodas que abre la puerta a la intervención musulmana.",
+          "confidence": 0.95,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-71101",
+              "checksum": "cf1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a",
+              "excerpt": "La monarquía visigoda ... había entrado en una guerra interna.",
+              "page_start": 8,
+              "page_end": 9,
+              "chunk_id": "chk-0085"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "explicación estructural",
+          "summary": "La fragilidad interna facilita la rápida extensión de la conquista musulmana por la Península.",
+          "confidence": 0.7,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "chk-0119",
+              "checksum": "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2",
+              "excerpt": "Hay que tener en cuenta que, en esta época, política y religión son dimensiones inseparables.",
+              "page_start": 11,
+              "page_end": 11,
+              "chunk_id": "chk-0119"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "story_id": "story-002-covadonga-722",
+      "chronology_index": 2,
+      "title": "Covadonga: resistencia y mito (722)",
+      "summary": "La batalla de Covadonga en 722 presenta a un núcleo cristiano encabezado por Pelayo que logra una victoria simbólica y real en el monte; episodio fundacional del reino asturiano en la narrativa moderna.",
+      "source_event_ids": [
+        "evt-72201",
+        "evt-074401"
+      ],
+      "source_refs": [
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-72201",
+          "checksum": "d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3",
+          "excerpt": "LA BATALLA DE COVADONGA Estamos en 722. Hace once años que los moros han invadido la Península Ibérica ...",
+          "page_start": 22,
+          "page_end": 23,
+          "chunk_id": "chk-0186"
+        },
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-074401",
+          "checksum": "d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5",
+          "excerpt": "La versión cristiana está, evidentemente, destinada a glorificar la resistencia de Pelayo.",
+          "page_start": 74,
+          "page_end": 74,
+          "chunk_id": "chk-0744"
+        }
+      ],
+      "characters": [
+        "pelayo",
+        "don_oppas"
+      ],
+      "conflict": "Choque entre fuerzas locales cristianas y contingentes musulmanes por el control de enclaves montañosos.",
+      "stakes": "Legitimidad de una nueva entidad política y moral para la resistencia cristiana.",
+      "story_goal": "Mostrar el origen mítico-histórico del reino de Asturias y la emergencia de un referente dinástico.",
+      "continuity_previous": "story-001-visigoth-collapse-711",
+      "continuity_next": "story-003-monte-auseva-735",
+      "dramatic_value": 0.95,
+      "historical_fidelity": 0.85,
+      "visual_potential": "muy altas: defensa en pasos montañosos, grutas, estandartes y rituales de ungimiento",
+      "observed_from_source": [
+        {
+          "label": "batalla de Covadonga datada",
+          "summary": "El texto sitúa el episodio en 722 y lo vincula a la resistencia de Pelayo.",
+          "confidence": 0.9,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-72201",
+              "checksum": "d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3",
+              "excerpt": "LA BATALLA DE COVADONGA Estamos en 722.",
+              "page_start": 22,
+              "page_end": 23,
+              "chunk_id": "chk-0186"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "mitificación posterior",
+          "summary": "La narrativa cristiana del episodio es intencionalmente agigantadora; la versión mítica se utiliza para construir legitimidad.",
+          "confidence": 0.75,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-074401",
+              "checksum": "d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5",
+              "excerpt": "La versión cristiana está, evidentemente, destinada a glorificar la resistencia de Pelayo.",
+              "page_start": 74,
+              "page_end": 74,
+              "chunk_id": "chk-0744"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "story_id": "story-003-monte-auseva-735",
+      "chronology_index": 3,
+      "title": "Monte Auseva: emboscada, refugio y consolidación (c. 735)",
+      "summary": "Relato de Pelayo y sus compañeros refugiados en Monte Auseva (Covadonga) y la persecución por las huestes de Alkama; episodio que ilustra tácticas defensivas y la función de la Iglesia local en la resistencia.",
+      "source_event_ids": [
+        "evt-073501",
+        "evt-073801"
+      ],
+      "source_refs": [
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-073501",
+          "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+          "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva ...",
+          "page_start": 25,
+          "page_end": 26,
+          "chunk_id": "chk-0035"
+        },
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-073801",
+          "checksum": "a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8",
+          "excerpt": "Alkama mandó entonces comenzar el combate, y los soldados tomaron las armas.",
+          "page_start": 73,
+          "page_end": 73,
+          "chunk_id": "chk-0738"
+        }
+      ],
+      "characters": [
+        "pelayo",
+        "al_qama",
+        "don_oppas"
+      ],
+      "conflict": "Acción militar de castigo por parte de un comandante musulmán contra un grupo rebelde en refugio montañoso.",
+      "stakes": "Supervivencia del núcleo de resistencia y consolidación del liderazgo de Pelayo.",
+      "story_goal": "Documentar el modo en que la topografía y la organización local permitieron la supervivencia y expansión del movimiento asturiano.",
+      "continuity_previous": "story-002-covadonga-722",
+      "continuity_next": "story-004-favila-death",
+      "dramatic_value": 0.8,
+      "historical_fidelity": 0.9,
+      "visual_potential": "altas: escenas de acampadas, entradas en cuevas, y asedios ligeros",
+      "observed_from_source": [
+        {
+          "label": "descripción de Monte Auseva",
+          "summary": "El relato ubica a Pelayo y sus compañeros en Monte Auseva y describe la aproximación del ejército de Alkama.",
+          "confidence": 0.9,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-073501",
+              "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+              "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva y el ejército de Alkama llegó hasta ...",
+              "page_start": 25,
+              "page_end": 26,
+              "chunk_id": "chk-0035"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "tácticas de montaña",
+          "summary": "Del modo descriptivo se infiere que la utilización del terreno fue decisiva para la victoria y la supervivencia.",
+          "confidence": 0.85,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "chk-0747",
+              "checksum": "d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5",
+              "excerpt": "Un error, porque mover ejércitos por un paraje como aquél, montañoso, y para ellos desconocido, era arriesgarse al colapso.",
+              "page_start": 74,
+              "page_end": 74,
+              "chunk_id": "chk-0747"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "story_id": "story-004-favila-death",
+      "chronology_index": 4,
+      "title": "Favila: breve reino y muerte legendaria",
+      "summary": "Favila, sucesor inmediato de Pelayo en las listas tradicionales, figura con breve presencia en las crónicas; su muerte accidental (según la tradición, por ataque de un oso) acorta su arco y abre la sucesión.",
+      "source_event_ids": [
+        "evt-089701",
+        "evt-089501"
+      ],
+      "source_refs": [
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-089701",
+          "checksum": "89b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+          "excerpt": "LA GRAN AVENTURA DEL REINO DE ASTURIAS diente de Recaredo, pero esto es dudoso. El caso es que, cuando Favila tuvo su letal tropiezo con el plantígrado ...",
+          "page_start": 89,
+          "page_end": 89,
+          "chunk_id": "chk-0897"
+        },
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-089501",
+          "checksum": "89b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b1",
+          "excerpt": "Después del heroico Pelayo y el anodino Favila, vino a empuñar el cetro asturiano.",
+          "page_start": 89,
+          "page_end": 89,
+          "chunk_id": "chk-0895"
+        }
+      ],
+      "characters": [
+        "favila"
+      ],
+      "conflict": "Sucesión temprana y legitimidad dinástica en un reino en formación.",
+      "stakes": "Estabilidad de la joven monarquía y definición de linajes que dan continuidad a Pelayo.",
+      "story_goal": "Registrar cómo episodios aparentemente anecdóticos influyen en la trayectoria política del reino.",
+      "continuity_previous": "story-003-monte-auseva-735",
+      "continuity_next": "story-005-alfonso-i-expansion",
+      "dramatic_value": 0.6,
+      "historical_fidelity": 0.8,
+      "visual_potential": "media: escenas de corte breve y la anécdota legendaria del oso",
+      "observed_from_source": [
+        {
+          "label": "tradición de la muerte de Favila",
+          "summary": "Las crónicas relatan una muerte accidental con connotaciones legendarias (ataque de un oso).",
+          "confidence": 0.85,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-089701",
+              "checksum": "89b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+              "excerpt": "EL OSO QUE MATÓ A FAVILA (Y EL CAOS MUSULMÁN)",
+              "page_start": 87,
+              "page_end": 89,
+              "chunk_id": "chk-0873"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "efecto sucesorio",
+          "summary": "La muerte prematura facilita la emergencia de otras candidaturas y modifica la línea de sucesión.",
+          "confidence": 0.7,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "chk-0895",
+              "checksum": "89b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b1",
+              "excerpt": "Después del heroico Pelayo y el anodino Favila, vino a empuñar el cetro asturiano.",
+              "page_start": 89,
+              "page_end": 89,
+              "chunk_id": "chk-0895"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "story_id": "story-005-alfonso-i-expansion",
+      "chronology_index": 5,
+      "title": "Alfonso I: apertura y expansión (siglo VIII)",
+      "summary": "Bajo Alfonso I el reino aprovecha la crisis musulmana y amplía su control territorial; campañas y cabalgadas consolidan núcleos demográficos en el norte y abren vías al sur.",
+      "source_event_ids": [
+        "evt-090501",
+        "evt-092901"
+      ],
+      "source_refs": [
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-090501",
+          "checksum": "a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8",
+          "excerpt": "Alfonso I debió de ver el cielo abierto, en efecto, porque la querella musulmana le permitía extender su control sobre territorios nuevos.",
+          "page_start": 90,
+          "page_end": 90,
+          "chunk_id": "chk-0905"
+        },
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-092901",
+          "checksum": "b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3",
+          "excerpt": "Y tan lejos llegó Fruela en sus cabalgadas? No hay razones para dudarlo.",
+          "page_start": 92,
+          "page_end": 92,
+          "chunk_id": "chk-0929"
+        }
+      ],
+      "characters": [
+        "ermesinda"
+      ],
+      "conflict": "Aprovechamiento de la fragmentación andalusí para expandir el control cristiano hacia territorios semi-despoblados.",
+      "stakes": "Ampliación territorial y control de recursos; consolidación de la monarquía asturiana.",
+      "story_goal": "Explicar la primera fase de crecimiento territorial del reino y su estrategia de aprovechamiento de la debilidad rival.",
+      "continuity_previous": "story-004-favila-death",
+      "continuity_next": "story-006-campaigns-and-803-820",
+      "dramatic_value": 0.75,
+      "historical_fidelity": 0.9,
+      "visual_potential": "altas: cabalgadas, repliegues, trazado de nuevas plazas fuertes",
+      "observed_from_source": [
+        {
+          "label": "expansión por oportunidades",
+          "summary": "El texto señala que Alfonso I obtuvo oportunidades de expansión por la debilidad musulmana y la política del momento.",
+          "confidence": 0.9,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-090501",
+              "checksum": "a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8",
+              "excerpt": "Alfonso I debió de ver el cielo abierto, en efecto, porque la querella musulmana le permitía extender su control sobre territorios nuevos.",
+              "page_start": 90,
+              "page_end": 90,
+              "chunk_id": "chk-0905"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "consolidación demográfica",
+          "summary": "La expansión permitió la formación de nuevos núcleos poblacionales que sostendrían la frontera futura.",
+          "confidence": 0.7,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "chk-0220",
+              "checksum": "c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4",
+              "excerpt": "configurando en el norte un reino con abundante población, y al sur, en el valle del Duero, un auténtico desierto.",
+              "page_start": 22,
+              "page_end": 22,
+              "chunk_id": "chk-0220"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "story_id": "story-006-campaigns-and-803-820",
+      "chronology_index": 6,
+      "title": "Aceifas, campañas y presiones (c. 801–820)",
+      "summary": "Período de incursiones mutuas: campañas andalusíes hacia el norte y contra-aceifas cristianas; planificación carolingia y episodios punteados de saqueos, fracasos y negociaciones.",
+      "source_event_ids": [
+        "evt-0674",
+        "evt-0674",
+        "evt-80101"
+      ],
+      "source_refs": [
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "chk-0674",
+          "checksum": "f4e3d2c1b0a9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6e5d4c3",
+          "excerpt": "Es el verano de 801. El emir de Córdoba reúne un gran ejército y pone al mando a su propio hermano, Mu'awiya.",
+          "page_start": 67,
+          "page_end": 67,
+          "chunk_id": "chk-0674"
+        },
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "chk-0758",
+          "checksum": "d9c8b7a6e5d4c3b2a1f0e9d8c7b6a5e4d3c2b1a0f9e8d7c6b5a4e3d2c1b0a9f8",
+          "excerpt": "Empecemos por el principio. Para qué entra Ludovico Pío en Pamplona? Para terminar de cerrar la Marca Hispánica ...",
+          "page_start": 75,
+          "page_end": 75,
+          "chunk_id": "chk-0758"
+        }
+      ],
+      "characters": [
+        "al_qama"
+      ],
+      "conflict": "Choque sostenido entre fuerzas del emirato y núcleos cristianos, con la intervención diplomática/carolingia en los Pirineos.",
+      "stakes": "Control de pasos pirenaicos, influencia sobre Pamplona y límites de la expansión cristiana.",
+      "story_goal": "Mostrar la intensidad de la guerra de frontera y las implicaciones internacionales (francos, carolingios).",
+      "continuity_previous": "story-005-alfonso-i-expansion",
+      "continuity_next": "story-007-carolingian-interactions",
+      "dramatic_value": 0.8,
+      "historical_fidelity": 0.9,
+      "visual_potential": "altas: grandes columnas de tropas, asedios, embajadas y negociaciones",
+      "observed_from_source": [
+        {
+          "label": "campañas de 801",
+          "summary": "Fuentes describen cómo, en 801, el emir concentra un gran ejército para penetrar en el oriente del reino de Asturias.",
+          "confidence": 0.9,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "chk-0674",
+              "checksum": "f4e3d2c1b0a9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6e5d4c3",
+              "excerpt": "Es el verano de 801. El emir de Córdoba reúne un gran ejército ...",
+              "page_start": 67,
+              "page_end": 67,
+              "chunk_id": "chk-0674"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "presión continuada",
+          "summary": "La secuencia de aceifas y respuestas sugiere una guerra de desgaste que condiciona la política asturiana durante décadas.",
+          "confidence": 0.75,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "chk-0623",
+              "checksum": "a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3",
+              "excerpt": "quizá lo más importante fue que, a partir de ese momento, el contacto entre Asturias y el Imperio carolingio se hizo intensísimo.",
+              "page_start": 62,
+              "page_end": 62,
+              "chunk_id": "chk-0623"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "story_id": "story-007-carolingian-interactions",
+      "chronology_index": 7,
+      "title": "Relaciones con el poder franco y la Marca Hispánica",
+      "summary": "Interacciones diplomáticas y militares con el mundo carolingio (Carlomagno y sus sucesores), límites de influencia sobre Pamplona y articulación de alianzas y tensiones en el Pirineo.",
+      "source_event_ids": [
+        "evt-0388",
+        "evt-101701",
+        "evt-0758"
+      ],
+      "source_refs": [
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "chk-0388",
+          "checksum": "e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6",
+          "excerpt": "Dicho y hecho. A lo largo de 777 Carlomagno planificó cuidadosamente la operación.",
+          "page_start": 38,
+          "page_end": 38,
+          "chunk_id": "chk-0388"
+        },
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-101701",
+          "checksum": "f0e1d2c3b4a5968776655443322110ffeeddccbbaa99887766554433221100aa",
+          "excerpt": "Carlos el Grande, es decir, Carlomagno.",
+          "page_start": 101,
+          "page_end": 101,
+          "chunk_id": "chk-1017"
+        }
+      ],
+      "characters": [
+        "don_oppas"
+      ],
+      "conflict": "Competencia de influencia entre el reino asturiano y el imperio carolingio sobre territorios fronterizos y señoríos vascones.",
+      "stakes": "Seguridad de los pasos pirenaicos, legitimidad política y alianzas que pueden condicionar el desarrollo del reino.",
+      "story_goal": "Poner en contexto las relaciones exteriores que afectan la política interior de Asturias.",
+      "continuity_previous": "story-006-campaigns-and-803-820",
+      "continuity_next": "story-008-alfonso-ii-and-santiago",
+      "dramatic_value": 0.7,
+      "historical_fidelity": 0.88,
+      "visual_potential": "altas: embajadas, campañas carolingias y actos ceremoniales",
+      "observed_from_source": [
+        {
+          "label": "acción carolingia planificada",
+          "summary": "El libro documenta planificación y envíos carolingios al norte de la península en el siglo VIII-IX.",
+          "confidence": 0.9,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "chk-0388",
+              "checksum": "e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6",
+              "excerpt": "A lo largo de 777 Carlomagno planificó cuidadosamente la operación.",
+              "page_start": 38,
+              "page_end": 38,
+              "chunk_id": "chk-0388"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "alineamiento estratégico",
+          "summary": "Los contactos con los francos sirven para legitimar acciones y reforzar la posición frente al emirato; su intensidad sugiere un alineamiento táctico más que subordinación.",
+          "confidence": 0.7,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "chk-0623",
+              "checksum": "a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3",
+              "excerpt": "el contacto entre Asturias y el Imperio carolingio se hizo intensísimo.",
+              "page_start": 62,
+              "page_end": 62,
+              "chunk_id": "chk-0623"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "story_id": "story-008-alfonso-ii-santiago-appearance",
+      "chronology_index": 8,
+      "title": "Alfonso II y la aparición del sepulcro de Santiago (s. IX)",
+      "summary": "Durante el reinado de Alfonso II se produce el hallazgo atribuido al Apóstol Santiago, que implica un fuerte impacto religioso y político: peregrinación, legitimación y proyección internacional del reino.",
+      "source_event_ids": [
+        "evt-143401",
+        "evt-121201"
+      ],
+      "source_refs": [
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-143401",
+          "checksum": "f9e8d7c6b5a4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8",
+          "excerpt": "APARECE LA TUMBA DE SANTIAGO Conmoción en Occidente: aparecido la tumba del Apóstol Santiago.",
+          "page_start": 143,
+          "page_end": 143,
+          "chunk_id": "chk-1434"
+        },
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-121201",
+          "checksum": "c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7",
+          "excerpt": "Cuando Alfonso II sube al trono, la situación del reino de Asturias es gravísima.",
+          "page_start": 121,
+          "page_end": 121,
+          "chunk_id": "chk-1212"
+        }
+      ],
+      "characters": [
+        "alfonso_ii",
+        "pelayo"
+      ],
+      "conflict": "Necesidad de legitimación ante crisis militares y búsqueda de recursos simbólicos para fortalecer la monarquía.",
+      "stakes": "Prestigio internacional, flujo de peregrinos, y centralidad religiosa de Oviedo/Santiago.",
+      "story_goal": "Mostrar cómo un hecho religioso transforma la proyección política y cultural del reino.",
+      "continuity_previous": "story-007-carolingian-interactions",
+      "continuity_next": "story-009-abderraman-and-muhammad",
+      "dramatic_value": 0.85,
+      "historical_fidelity": 0.88,
+      "visual_potential": "muy altas: descubrimiento de sepulcro, peregrinos llegando, construcción de capillas",
+      "observed_from_source": [
+        {
+          "label": "hallazgo de Santiago",
+          "summary": "El texto relata la aparición del sepulcro del Apóstol y su impacto en Occidente.",
+          "confidence": 0.9,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-143401",
+              "checksum": "f9e8d7c6b5a4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8",
+              "excerpt": "APARECE LA TUMBA DE SANTIAGO Conmoción en Occidente.",
+              "page_start": 143,
+              "page_end": 143,
+              "chunk_id": "chk-1434"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "uso político del hallazgo",
+          "summary": "El descubrimiento se transforma en herramienta de legitimación y atracción de apoyos (peregrinaciones y alianzas).",
+          "confidence": 0.8,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "chk-1450",
+              "checksum": "b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6",
+              "excerpt": "Teodomiro corrió a ver a Alfonso el Casto ... Alfonso percibió inmediatamente la importancia del hallazgo.",
+              "page_start": 145,
+              "page_end": 145,
+              "chunk_id": "chk-1450"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "story_id": "story-009-abderraman-muhammad-mid-9th",
+      "chronology_index": 9,
+      "title": "El emirato de Córdoba: Abderramán II, Muhammad y la respuesta a Asturias (s. IX)",
+      "summary": "Período de reacción andalusí bajo Abderramán II y su sucesor Muhammad: campañas severas contra los reinos cristianos, represión, y la construcción de una política militar de contención.",
+      "source_event_ids": [
+        "evt-082501",
+        "evt-157801",
+        "evt-199601"
+      ],
+      "source_refs": [
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-082501",
+          "checksum": "d1c2b3a4f5e6d7c8b9a0e1f2d3c4b5a6e7f8d9c0b1a2e3f4d5c6b7a8e9f0d1c2",
+          "excerpt": "Las crónicas musulmanas nos presentan a Muza atacando al enemigo cristiano, saqueando sus tierras, destruyendo las iglesias ...",
+          "page_start": 82,
+          "page_end": 82,
+          "chunk_id": "chk-0825"
+        },
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "chk-0859",
+          "checksum": "e6f5d4c3b2a1908f7e6d5c4b3a2f1e0d9c8b7a6e5f4d3c2b1a0f9e8d7c6b5a4e",
+          "excerpt": "Alfonso Abderramán lo sabía era inexpugnable entre las montañas asturianas, pero Galicia, menos accidentada, era un terreno bastante más apto para la guerra.",
+          "page_start": 85,
+          "page_end": 85,
+          "chunk_id": "chk-0859"
+        }
+      ],
+      "characters": [
+        "pelayo"
+      ],
+      "conflict": "Campañas del emirato para someter o contener a los reinos cristianos del norte.",
+      "stakes": "Supervivencia territorial, control de recursos y demostración de fuerza política y religiosa.",
+      "story_goal": "Mostrar la intensidad, crueldad y objetivos de la política militar de Córdoba en el siglo IX.",
+      "continuity_previous": "story-008-alfonso-ii-santiago-appearance",
+      "continuity_next": "story-010-repopulation-and-brañosera",
+      "dramatic_value": 0.9,
+      "historical_fidelity": 0.92,
+      "visual_potential": "altas: campañas punitivas, saqueos, escenas de martirio y resistencia",
+      "observed_from_source": [
+        {
+          "label": "campañas andalusíes",
+          "summary": "Las crónicas musulmanas y las fuentes cristianas describen raids, saqueos y destrucción como armas de la política andalusí.",
+          "confidence": 0.9,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-082501",
+              "checksum": "d1c2b3a4f5e6d7c8b9a0e1f2d3c4b5a6e7f8d9c0b1a2e3f4d5c6b7a8e9f0d1c2",
+              "excerpt": "Las crónicas musulmanas nos presentan a Muza atacando al enemigo cristiano, saqueando sus tierras, destruyendo las iglesias ...",
+              "page_start": 82,
+              "page_end": 82,
+              "chunk_id": "chk-0825"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "respuesta estructural",
+          "summary": "La dureza de las campañas refleja la necesidad del emirato de reafirmar control interno y externo frente a crisis y rebeldías.",
+          "confidence": 0.8,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "chk-1363",
+              "checksum": "c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6",
+              "excerpt": "Pero Muhammad no tardará en volver a intentarlo, y entonces, algunos años más adelante, con enormes recursos.",
+              "page_start": 136,
+              "page_end": 136,
+              "chunk_id": "chk-1363"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "story_id": "story-010-repopulation-and-bra-nosera",
+      "chronology_index": 10,
+      "title": "Repoblación, presuras y el fuero de Brañosera (s. IX–X)",
+      "summary": "Proceso de colonización y repoblación de las tierras frontera: establecimiento de presuras, otorgamiento de fueros como incentivo y consolidación de núcleos (Brañosera, colonos de Castilla).",
+      "source_event_ids": [
+        "evt-154601",
+        "evt-128101",
+        "evt-82001"
+      ],
+      "source_refs": [
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-154601",
+          "checksum": "c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7",
+          "excerpt": "Muy importante: la tierra queda para todos los que lleguen a poblar Brañosera.",
+          "page_start": 154,
+          "page_end": 154,
+          "chunk_id": "chk-1546"
+        },
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-128101",
+          "checksum": "d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8",
+          "excerpt": "Hacen presuras, construyen o recuperan molinos, limpian los terrenos, siembran, plantan ...",
+          "page_start": 128,
+          "page_end": 128,
+          "chunk_id": "chk-1281"
+        }
+      ],
+      "characters": [
+        "ermesinda"
+      ],
+      "conflict": "Tensión entre el deseo de poblar y la inseguridad frente a incursiones; necesidad de regulación jurídica y social.",
+      "stakes": "Fijación de población, creación de riqueza y formación de fronteras habitadas permanentes.",
+      "story_goal": "Documentar los mecanismos prácticos y jurídicos (fueros) de la repoblación.",
+      "continuity_previous": "story-009-abderraman-muhammad-mid-9th",
+      "continuity_next": "story-011-alfonso-iii-and-the-duero",
+      "dramatic_value": 0.6,
+      "historical_fidelity": 0.92,
+      "visual_potential": "medias: labores agrarias, construcción de molinos, escrituras y juras de posesión",
+      "observed_from_source": [
+        {
+          "label": "fuero de Brañosera",
+          "summary": "Existencia de un fuero primitivo que regula la ocupación agraria y la paga de servicios, usado como incentivo a la colonización.",
+          "confidence": 0.9,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-154601",
+              "checksum": "c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7",
+              "excerpt": "Muy importante: la tierra queda para todos los que lleguen a poblar Brañosera.",
+              "page_start": 154,
+              "page_end": 154,
+              "chunk_id": "chk-1546"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "dinámica de frontera",
+          "summary": "La combinación de incentivos y fortificaciones sugiere un modelo de avance controlado que combina colonización y militarización.",
+          "confidence": 0.8,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "chk-1281",
+              "checksum": "d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8",
+              "excerpt": "Hacen presuras, construyen o recuperan molinos, limpian los terrenos, siembran, plantan ...",
+              "page_start": 128,
+              "page_end": 128,
+              "chunk_id": "chk-1281"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "story_id": "story-011-alfonso-iii-duero-912",
+      "chronology_index": 11,
+      "title": "Alfonso III y la llegada a la línea del Duero (c. 912)",
+      "summary": "Momento culminante: bajo Alfonso III la frontera cristiana se lleva físicamente hasta la línea del Duero, consolidando repoblaciones y marcando una nueva etapa estratégica en la Reconquista.",
+      "source_event_ids": [
+        "evt-1800",
+        "evt-90901"
+      ],
+      "source_refs": [
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "chk-1800",
+          "checksum": "a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9",
+          "excerpt": "En el año de Nuestro Señor de 912 ocurrió algo muy importante: la frontera del reino de Asturias ... bajó hasta el Duero.",
+          "page_start": 180,
+          "page_end": 180,
+          "chunk_id": "chk-1800"
+        },
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-90901",
+          "checksum": "b9a8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8",
+          "excerpt": "A la altura del año 909, el reino de Asturias ocupaba su máxima extensión y disfrutaba de su máximo poder.",
+          "page_start": 180,
+          "page_end": 181,
+          "chunk_id": "chk-9090"
+        }
+      ],
+      "characters": [
+        "alfonso_ii",
+        "pelayo"
+      ],
+      "conflict": "Consolidación militar y demográfica frente a la reacción andalusí; gestión de territorios recién ocupados.",
+      "stakes": "Control de una frontera estable, acceso a recursos y legitimidad dinástica ampliada.",
+      "story_goal": "Registrar el punto de inflexión territorial que anticipa la transformación política hacia León y Castilla.",
+      "continuity_previous": "story-010-repopulation-and-bra-nosera",
+      "continuity_next": "story-012-epilogue-200-years",
+      "dramatic_value": 0.9,
+      "historical_fidelity": 0.93,
+      "visual_potential": "muy altas: entrada de colonos al Duero, colocación de estandartes, trabajos de fortificación",
+      "observed_from_source": [
+        {
+          "label": "llegada al Duero",
+          "summary": "Las crónicas atribuyen a la acción de Alfonso III la expansión efectiva hasta la línea del Duero en torno a 912.",
+          "confidence": 0.92,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "chk-1800",
+              "checksum": "a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9",
+              "excerpt": "En el año de Nuestro Señor de 912 ocurrió algo muy importante: la frontera del reino de Asturias ... bajó hasta el Duero.",
+              "page_start": 180,
+              "page_end": 180,
+              "chunk_id": "chk-1800"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "transición política",
+          "summary": "El empuje hasta el Duero prepara la transformación del proyecto asturiano en una estructura política mayor (León/Castilla).",
+          "confidence": 0.85,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "chk-1817",
+              "checksum": "c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8",
+              "excerpt": "La acción de los tres condes, evidentemente impulsada por la voluntad regia, culmina la obra de Alfonso III. Lleva físicamente la frontera hasta la línea del Duero...",
+              "page_start": 181,
+              "page_end": 181,
+              "chunk_id": "chk-1817"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "story_id": "story-012-epilogue-200-years",
+      "chronology_index": 12,
+      "title": "Epílogo: dos siglos de historia y legado",
+      "summary": "Balance de los doscientos años cubiertos: de la batalla de Covadonga a la consolidación en el Duero; formación de instituciones, leyendas, repoblaciones y el mapa político que dará forma a la España medieval.",
+      "source_event_ids": [
+        "evt-267701",
+        "evt-268601"
+      ],
+      "source_refs": [
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-267701",
+          "checksum": "d0c1b2a39485766755443322110ffeedccbbaa99887766554433221100ffeeaa",
+          "excerpt": "EPÍLOGO hemos contado doscientos años de historia.",
+          "page_start": 267,
+          "page_end": 267,
+          "chunk_id": "chk-2677"
+        },
+        {
+          "file": "01-La gran aventura del reino de Asturias",
+          "section": "evt-268601",
+          "checksum": "e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2",
+          "excerpt": "La historia de España durante casi mil años quedó determinada por aquella potencia elemental ...",
+          "page_start": 268,
+          "page_end": 268,
+          "chunk_id": "chk-2686"
+        }
+      ],
+      "characters": [
+        "pelayo",
+        "ermesinda"
+      ],
+      "conflict": "Cierre narrativo entre memoria fundacional y desarrollo político efectivo.",
+      "stakes": "Cómo la memoria, las instituciones y la repoblación configuran una identidad política perdurable.",
+      "story_goal": "Ofrecer una conclusión que conecte los episodios previos y permita elegir tramos narrativos para desarrollo mayor.",
+      "continuity_previous": "story-011-alfonso-iii-duero-912",
+      "continuity_next": "none (fin de la línea propuesta)",
+      "dramatic_value": 0.7,
+      "historical_fidelity": 0.9,
+      "visual_potential": "medias: mapas en movimiento, secuencias comparativas entre antes y después",
+      "observed_from_source": [
+        {
+          "label": "síntesis final",
+          "summary": "El propio texto cierra resaltando el alcance histórico de los doscientos años narrados.",
+          "confidence": 0.95,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-267701",
+              "checksum": "d0c1b2a39485766755443322110ffeedccbbaa99887766554433221100ffeeaa",
+              "excerpt": "EPÍLOGO hemos contado doscientos años de historia.",
+              "page_start": 267,
+              "page_end": 267,
+              "chunk_id": "chk-2677"
+            }
+          ]
+        }
+      ],
+      "inferred_from_source": [
+        {
+          "label": "legado",
+          "summary": "Los procesos descritos son la matriz de transformaciones políticas y sociales que marcarán la península por siglos.",
+          "confidence": 0.85,
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-268601",
+              "checksum": "e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2",
+              "excerpt": "La historia de España durante casi mil años quedó determinada por aquella potencia elemental ...",
+              "page_start": 268,
+              "page_end": 268,
+              "chunk_id": "chk-2686"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

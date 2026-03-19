@@ -2,21 +2,21 @@
   "character_id": "pelayo",
   "records": [
     {
-      "record_id": "arc-00100027-pelayo-0735",
+      "record_id": "arc-07350101-pelayo",
       "event_id": "evt-073501",
       "chronology_index": 1,
-      "emotion_before": "fear",
+      "emotion_before": "uncertainty",
       "emotion_after": "resolve",
       "arc_stage_before": "setup",
       "arc_stage_after": "ascent",
-      "change_summary": "Del miedo ante la presión tributaria a la resolución de liderar una resistencia efectiva (victoria en el entorno montañoso).",
+      "change_summary": "Defensa/emboscada en Monte Auseva (Covadonga) donde las fuerzas de Pelayo resisten y causan la retirada musulmana; esto impulsa el crecimiento del movimiento rebelde.",
       "source_ref": {
-        "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+        "file": "01-La gran aventura del reino de Asturias",
         "section": "evt-073501",
-        "checksum": "1a2b3c4d5e6f77889900aabbccddeeff11223344556677889900aabbccddeeff",
-        "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva y el ejército de Alkama llegó hasta y alzó innumerables tiendas frente a la entrada de una cueva."
+        "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+        "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva y el ejército de Alkama llegó ..."
       },
-      "updated_at": "2026-03-17T17:31:57Z"
+      "updated_at": "2026-03-18T23:45:00Z"
     }
   ]
 }

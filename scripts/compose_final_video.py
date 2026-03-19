@@ -13,12 +13,33 @@ import sys
 from functools import lru_cache
 from pathlib import Path
 
+try:
+    from video_text_layout import TEXT_FIT_CHAR_WIDTH_FACTOR, wrap_text_unbounded
+except ModuleNotFoundError:  # Support package-style imports in local tooling.
+    from scripts.video_text_layout import TEXT_FIT_CHAR_WIDTH_FACTOR, wrap_text_unbounded
+
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ASSETS_DIR = ROOT / "artifacts" / "scene_assets"
 DEFAULT_VIDEO_DIR = ROOT / "artifacts" / "videos" / "final"
 DEFAULT_SUBS_DIR = ROOT / "artifacts" / "subtitles" / "final"
 DEFAULT_OVERLAY_DIR = ROOT / "assets" / "video_overlays"
 TMP_DIR = ROOT / ".tmp" / "compose_final"
+SMART_PUNCT_TRANSLATION = str.maketrans(
+    {
+        "“": '"',
+        "”": '"',
+        "‘": "'",
+        "’": "'",
+        "´": "'",
+        "`": "'",
+        "–": "-",
+        "—": "-",
+        "…": "...",
+        "«": '"',
+        "»": '"',
+        "\u00a0": " ",
+    }
+)
 
 
 def load_json(path: Path) -> dict:
@@ -42,11 +63,54 @@ def normalize_ws(text: str) -> str:
     return re.sub(r"\s+", " ", text or "").strip()
 
 
+def capitalize_sentence_starts(text: str) -> str:
+    out: list[str] = []
+    capitalize_next = True
+    prev_chars = ""
+    for char in text:
+        if char.isalpha() and capitalize_next:
+            out.append(char.upper())
+            capitalize_next = False
+        else:
+            out.append(char)
+            if char.isalpha():
+                capitalize_next = False
+        prev_chars = (prev_chars + char)[-3:]
+        if char in ".!?":
+            capitalize_next = True
+    return "".join(out)
+
+
 def normalize_terminal_punctuation(text: str) -> str:
-    clean = normalize_ws(text)
-    clean = clean.replace(":", ".")
+    clean = normalize_ws(str(text or "").translate(SMART_PUNCT_TRANSLATION))
+    clean = re.sub(r"\s+([,.;:!?])", r"\1", clean)
+    clean = re.sub(r"([,.;:!?])(?![\s\"')\]])", r"\1 ", clean)
     clean = re.sub(r"\s*\.\s*\.\s*\.", "...", clean)
-    return clean
+    clean = re.sub(r"\s+", " ", clean).strip()
+    clean = re.sub(r"^\.\.\.\s+(\S)", r"...\1", clean)
+    capitalized = capitalize_sentence_starts(clean)
+    original_ellipsis = re.match(r"^(\.\.\.)([A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ\-]*)", clean)
+    capitalized_ellipsis = re.match(r"^(\.\.\.)([A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ\-]*)", capitalized)
+    if original_ellipsis and capitalized_ellipsis:
+        start = capitalized_ellipsis.start(2)
+        end = capitalized_ellipsis.end(2)
+        capitalized = capitalized[:start] + original_ellipsis.group(2) + capitalized[end:]
+    return capitalized
+
+
+def lowercase_after_ellipsis_if_needed(text: str, proper_nouns: set[str] | None = None) -> str:
+    clean = normalize_terminal_punctuation(text)
+    if not clean.startswith("... "):
+        return clean
+    proper_nouns = {normalize_ws(item).lower() for item in (proper_nouns or set()) if normalize_ws(item)}
+    match = re.match(r"^\.\.\.\s+([A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ\-]*)", clean)
+    if not match:
+        return clean
+    word = match.group(1)
+    if normalize_ws(word).lower() in proper_nouns:
+        return clean
+    start = match.start(1)
+    return clean[:start] + word[:1].lower() + word[1:] + clean[match.end(1):]
 
 
 def trim_caption(text: str, max_len: int = 140) -> str:
@@ -96,7 +160,7 @@ def fit_wrapped_text(
     max_font_size: int,
     min_font_size: int,
     max_lines: int,
-    char_width_factor: float = 0.54,
+    char_width_factor: float = TEXT_FIT_CHAR_WIDTH_FACTOR,
 ) -> tuple[str, int, int]:
     clean = normalize_ws(text)
     if not clean:
@@ -105,10 +169,10 @@ def fit_wrapped_text(
     for font_size in range(max_font_size, min_font_size - 1, -1):
         line_spacing = max(4, round(font_size * 0.16))
         max_chars = max(8, int(box_w / max(1.0, font_size * char_width_factor)))
-        wrapped = wrap_text(clean, width=max_chars, max_lines=max_lines)
-        lines = [line for line in wrapped.splitlines() if line.strip()]
-        if not lines:
+        lines = wrap_text_unbounded(clean, max_chars)
+        if not lines or len(lines) > max_lines:
             continue
+        wrapped = "\n".join(lines)
         est_width = max(len(line) for line in lines) * font_size * char_width_factor
         est_height = (len(lines) * font_size) + ((len(lines) - 1) * line_spacing)
         if est_width <= box_w and est_height <= box_h:
@@ -289,6 +353,33 @@ def centered_overlay_position(
     return str(overlay_x), str(overlay_y)
 
 
+def anchored_overlay_position(
+    frame_w: int,
+    frame_h: int,
+    overlay_w: int,
+    overlay_h: int,
+    *,
+    horizontal_anchor: str,
+    vertical_anchor: str,
+) -> tuple[str, str]:
+    if horizontal_anchor == "left":
+        overlay_x = 42
+    elif horizontal_anchor == "right":
+        overlay_x = max(0, frame_w - overlay_w - 42)
+    else:
+        overlay_x = max(0, round((frame_w - overlay_w) / 2))
+
+    if vertical_anchor == "upper_third":
+        center_y = frame_h / 6
+    elif vertical_anchor == "lower_third":
+        center_y = frame_h * (5 / 6)
+    else:
+        raise ValueError(f"Unsupported vertical anchor: {vertical_anchor}")
+
+    overlay_y = max(18, min(frame_h - overlay_h, round(center_y - (overlay_h / 2))))
+    return str(overlay_x), str(overlay_y)
+
+
 def centered_text_position(
     overlay_x: str,
     overlay_y: str,
@@ -305,11 +396,26 @@ def centered_text_position(
     return text_x, text_y, text_box_w, text_box_h
 
 
+def narration_paddings(overlay_w: int, overlay_h: int, *, compact: bool = False) -> tuple[int, int, int, int]:
+    left_pad = max(78, round(overlay_w * 0.14))
+    right_pad = max(78, round(overlay_w * 0.14))
+    top_pad = max(26, round(overlay_h * 0.12))
+    bottom_pad = max(74, round(overlay_h * 0.26))
+    if compact:
+        left_pad = max(52, round(left_pad * 0.78))
+        right_pad = max(52, round(right_pad * 0.78))
+        top_pad = max(18, round(top_pad * 0.82))
+        bottom_pad = max(52, round(bottom_pad * 0.78))
+    return left_pad, right_pad, top_pad, bottom_pad
+
+
 def narration_layout(
     frame_w: int,
     frame_h: int,
     overlay_w: int,
     overlay_h: int,
+    *,
+    compact: bool = False,
 ) -> tuple[str, str, str, str, int, int]:
     overlay_x, overlay_y = centered_overlay_position(
         frame_w,
@@ -318,10 +424,7 @@ def narration_layout(
         overlay_h,
         vertical_anchor="lower_third",
     )
-    left_pad = max(78, round(overlay_w * 0.14))
-    right_pad = max(78, round(overlay_w * 0.14))
-    top_pad = max(26, round(overlay_h * 0.12))
-    bottom_pad = max(74, round(overlay_h * 0.26))
+    left_pad, right_pad, top_pad, bottom_pad = narration_paddings(overlay_w, overlay_h, compact=compact)
     text_box_w = max(120, overlay_w - left_pad - right_pad)
     text_box_h = max(60, overlay_h - top_pad - bottom_pad)
     text_x = f"{overlay_x}+{left_pad}+({text_box_w}-text_w)/2"
@@ -332,11 +435,10 @@ def narration_layout(
 def narration_text_box(
     overlay_w: int,
     overlay_h: int,
+    *,
+    compact: bool = False,
 ) -> tuple[str, str, int, int]:
-    left_pad = max(78, round(overlay_w * 0.14))
-    right_pad = max(78, round(overlay_w * 0.14))
-    top_pad = max(26, round(overlay_h * 0.12))
-    bottom_pad = max(74, round(overlay_h * 0.26))
+    left_pad, right_pad, top_pad, bottom_pad = narration_paddings(overlay_w, overlay_h, compact=compact)
     text_box_w = max(120, overlay_w - left_pad - right_pad)
     text_box_h = max(60, overlay_h - top_pad - bottom_pad)
     text_x = f"{left_pad}+({text_box_w}-text_w)/2"
@@ -351,12 +453,15 @@ def dialogue_layout(
     overlay_h: int,
     *,
     shout: bool,
+    bubble_anchor: str,
 ) -> tuple[str, str, str, str, int, int]:
-    overlay_x, overlay_y = centered_overlay_position(
+    horizontal_anchor = "left" if bubble_anchor == "upper_left" else "right" if bubble_anchor == "upper_right" else "center"
+    overlay_x, overlay_y = anchored_overlay_position(
         frame_w,
         frame_h,
         overlay_w,
         overlay_h,
+        horizontal_anchor=horizontal_anchor,
         vertical_anchor="upper_third",
     )
     pad_x = max(92, round(overlay_w * (0.24 if shout else 0.22)))
@@ -370,6 +475,79 @@ def dialogue_layout(
         pad_y=pad_y,
     )
     return overlay_x, overlay_y, text_x, text_y, text_box_w, text_box_h
+
+
+def bbox_to_pixels(
+    bbox: list[float] | None,
+    *,
+    frame_w: int,
+    frame_h: int,
+    fallback_w: int,
+    fallback_h: int,
+) -> tuple[int, int, int, int]:
+    if not isinstance(bbox, list) or len(bbox) != 4:
+        x = max(0, round((frame_w - fallback_w) / 2))
+        y = max(0, round((frame_h - fallback_h) / 2))
+        return x, y, fallback_w, fallback_h
+    x = max(0, min(frame_w - 1, round(float(bbox[0]) * frame_w)))
+    y = max(0, min(frame_h - 1, round(float(bbox[1]) * frame_h)))
+    w = max(1, min(frame_w - x, round(float(bbox[2]) * frame_w)))
+    h = max(1, min(frame_h - y, round(float(bbox[3]) * frame_h)))
+    return x, y, w, h
+
+
+def fit_overlay_size_within_box(
+    *,
+    svg_path: Path | None,
+    target_box_w: int,
+    target_box_h: int,
+    fallback_native_w: int,
+    fallback_native_h: int,
+) -> tuple[int, int]:
+    canvas = svg_canvas_size(svg_path.as_posix()) if svg_path else None
+    native_w = fallback_native_w
+    native_h = fallback_native_h
+    if canvas and canvas[0] > 0 and canvas[1] > 0:
+        native_w, native_h = round(canvas[0]), round(canvas[1])
+    scale = min(target_box_w / max(1, native_w), target_box_h / max(1, native_h))
+    return max(1, round(native_w * scale)), max(1, round(native_h * scale))
+
+
+def narration_layout_from_box(
+    *,
+    overlay_x: int,
+    overlay_y: int,
+    overlay_w: int,
+    overlay_h: int,
+    compact: bool = False,
+) -> tuple[str, str, str, str, int, int]:
+    left_pad, right_pad, top_pad, bottom_pad = narration_paddings(overlay_w, overlay_h, compact=compact)
+    text_box_w = max(120, overlay_w - left_pad - right_pad)
+    text_box_h = max(60, overlay_h - top_pad - bottom_pad)
+    text_x = f"{overlay_x}+{left_pad}+({text_box_w}-text_w)/2"
+    text_y = f"{overlay_y}+{top_pad}+({text_box_h}-text_h)/2"
+    return str(overlay_x), str(overlay_y), text_x, text_y, text_box_w, text_box_h
+
+
+def dialogue_layout_from_box(
+    *,
+    overlay_x: int,
+    overlay_y: int,
+    overlay_w: int,
+    overlay_h: int,
+    shout: bool,
+) -> tuple[str, str, str, str, int, int]:
+    pad_x = max(92, round(overlay_w * (0.24 if shout else 0.22)))
+    pad_y = max(74, round(overlay_h * (0.27 if shout else 0.24)))
+    text_x, text_y, text_box_w, text_box_h = centered_text_position(
+        str(overlay_x),
+        str(overlay_y),
+        overlay_w=overlay_w,
+        overlay_h=overlay_h,
+        pad_x=pad_x,
+        pad_y=pad_y,
+    )
+    return str(overlay_x), str(overlay_y), text_x, text_y, text_box_w, text_box_h
 
 
 def is_action_shout(text: str) -> bool:
@@ -463,7 +641,7 @@ def normalize_scene_dialogue(dialogue_payload) -> list[dict]:
         out.append(
             {
                 "speaker": speaker,
-                "line": trim_caption(line, max_len=170),
+                "line": line,
                 "delivery": normalize_dialogue_delivery(str(item.get("delivery", "")), line),
             }
         )
@@ -484,14 +662,38 @@ def build_block_filter(
     duration_s: int,
     font_file: str | None,
     dialogue_delivery: str,
-    overlay_assets: dict[str, Path | None],
+    focus_anchor: str = "upper_center",
+    bubble_anchor: str = "",
+    overlay_assets: dict[str, Path | None] | None = None,
+    scene_duration_s: int | None = None,
+    phase_start_s: float = 0.0,
+    phase_end_s: float | None = None,
+    focus_bbox: list[float] | None = None,
+    overlay_bbox: list[float] | None = None,
 ) -> str:
+    overlay_assets = overlay_assets or {}
     frames = max(1, duration_s * fps)
-    zoom_expr = "if(lte(on,1),1.03,min(1.03+on*0.0018,1.28))"
-    drift_x = [0.28, -0.22, 0.18, -0.16][(scene_index + block_index) % 4]
-    drift_y = [-0.10, 0.12, -0.08, 0.14][(scene_index + block_index) % 4]
-    x_expr = f"min(max(iw/2-(iw/zoom/2)+on*{drift_x:.2f},0),iw-iw/zoom)"
-    y_expr = f"min(max(ih/2-(ih/zoom/2)+on*{drift_y:.2f},0),ih-ih/zoom)"
+    total_scene_s = max(duration_s, int(scene_duration_s or duration_s))
+    phase_end_s = float(phase_end_s if phase_end_s is not None else (phase_start_s + duration_s))
+    progress_start = max(0.0, min(1.0, float(phase_start_s) / total_scene_s))
+    progress_end = max(progress_start, min(1.0, float(phase_end_s) / total_scene_s))
+    if isinstance(focus_bbox, list) and len(focus_bbox) == 4:
+        center_x = max(0.0, min(1.0, float(focus_bbox[0]) + (float(focus_bbox[2]) / 2)))
+        center_y = max(0.0, min(1.0, float(focus_bbox[1]) + (float(focus_bbox[3]) / 2)))
+        zoom_start = 1.03 + (0.24 * progress_start)
+        zoom_end = 1.03 + (0.24 * progress_end)
+        zoom_step = 0.0 if frames <= 1 else max(0.0, (zoom_end - zoom_start) / frames)
+        zoom_expr = f"if(lte(on,1),{zoom_start:.5f},min({zoom_end:.5f},{zoom_start:.5f}+on*{zoom_step:.6f}))"
+    else:
+        zoom_expr = "if(lte(on,1),1.03,min(1.03+on*0.0018,1.28))"
+        focus_map = {
+            "upper_left": (0.35, 0.34),
+            "upper_center": (0.50, 0.33),
+            "upper_right": (0.65, 0.34),
+        }
+        center_x, center_y = focus_map.get(focus_anchor, focus_map["upper_center"])
+    x_expr = f"min(max(iw*{center_x:.4f}-(iw/zoom/2),0),iw-iw/zoom)"
+    y_expr = f"min(max(ih*{center_y:.4f}-(ih/zoom/2),0),ih-ih/zoom)"
 
     filters: list[str] = [
         f"scale={width}:{height}:force_original_aspect_ratio=increase",
@@ -502,7 +704,7 @@ def build_block_filter(
             f"y='{y_expr}':"
             f"d={frames}:s={width}x{height}:fps={fps}"
         ),
-        "eq=contrast=1.10:saturation=1.24:brightness=-0.01",
+        "eq=contrast=1.08:saturation=1.36:brightness=0.01",
         "drawbox=x=0:y=0:w=iw:h=ih:color=black@0.10:t=22",
         "format=rgba",
     ]
@@ -513,7 +715,7 @@ def build_block_filter(
     caption_dir = tmp_episode_dir / "captions"
     caption_dir.mkdir(parents=True, exist_ok=True)
     caption_file = caption_dir / f"scene_{scene_index:02d}_block_{block_index:02d}.txt"
-    clean_block_text = trim_caption(block_text, max_len=150)
+    clean_block_text = sanitize_display_narration(block_text)
     escaped_font_file = escape_filter_path(font_file) if font_file else None
     font_expr = f"fontfile='{escaped_font_file}':" if escaped_font_file else ""
     narration_font_file = resolve_narration_font_file(font_file)
@@ -524,17 +726,42 @@ def build_block_filter(
     if not dialogue_mode:
         narration_svg = overlay_assets.get("narration")
         if narration_svg:
-            overlay_w, overlay_h = scaled_svg_size(narration_svg, target_width=900, fallback_height=310)
-            overlay_x, overlay_y, text_x, text_y, text_box_w, text_box_h = narration_layout(
-                frame_w=width,
-                frame_h=height,
-                overlay_w=overlay_w,
-                overlay_h=overlay_h,
-            )
-            local_text_x, local_text_y, _, _ = narration_text_box(
-                overlay_w=overlay_w,
-                overlay_h=overlay_h,
-            )
+            if isinstance(overlay_bbox, list) and len(overlay_bbox) == 4:
+                box_x, box_y, box_w, box_h = bbox_to_pixels(
+                    overlay_bbox,
+                    frame_w=width,
+                    frame_h=height,
+                    fallback_w=900,
+                    fallback_h=310,
+                )
+                overlay_w, overlay_h = fit_overlay_size_within_box(
+                    svg_path=narration_svg,
+                    target_box_w=box_w,
+                    target_box_h=box_h,
+                    fallback_native_w=900,
+                    fallback_native_h=310,
+                )
+                overlay_x_px = box_x + max(0, round((box_w - overlay_w) / 2))
+                overlay_y_px = box_y + max(0, round((box_h - overlay_h) / 2))
+                overlay_x, overlay_y, text_x, text_y, text_box_w, text_box_h = narration_layout_from_box(
+                    overlay_x=overlay_x_px,
+                    overlay_y=overlay_y_px,
+                    overlay_w=overlay_w,
+                    overlay_h=overlay_h,
+                )
+                local_text_x, local_text_y, _, _ = narration_text_box(overlay_w=overlay_w, overlay_h=overlay_h)
+            else:
+                overlay_w, overlay_h = scaled_svg_size(narration_svg, target_width=900, fallback_height=310)
+                overlay_x, overlay_y, text_x, text_y, text_box_w, text_box_h = narration_layout(
+                    frame_w=width,
+                    frame_h=height,
+                    overlay_w=overlay_w,
+                    overlay_h=overlay_h,
+                )
+                local_text_x, local_text_y, _, _ = narration_text_box(
+                    overlay_w=overlay_w,
+                    overlay_h=overlay_h,
+                )
             wrapped_text, font_size, line_spacing = fit_wrapped_text(
                 clean_block_text,
                 text_box_w,
@@ -542,8 +769,39 @@ def build_block_filter(
                 max_font_size=42,
                 min_font_size=26,
                 max_lines=3,
-                char_width_factor=0.52,
+                char_width_factor=TEXT_FIT_CHAR_WIDTH_FACTOR,
             )
+            if font_size <= 32:
+                if isinstance(overlay_bbox, list) and len(overlay_bbox) == 4:
+                    overlay_x, overlay_y, text_x, text_y, text_box_w, text_box_h = narration_layout_from_box(
+                        overlay_x=overlay_x_px,
+                        overlay_y=overlay_y_px,
+                        overlay_w=overlay_w,
+                        overlay_h=overlay_h,
+                        compact=True,
+                    )
+                else:
+                    overlay_x, overlay_y, text_x, text_y, text_box_w, text_box_h = narration_layout(
+                        frame_w=width,
+                        frame_h=height,
+                        overlay_w=overlay_w,
+                        overlay_h=overlay_h,
+                        compact=True,
+                    )
+                local_text_x, local_text_y, _, _ = narration_text_box(
+                    overlay_w=overlay_w,
+                    overlay_h=overlay_h,
+                    compact=True,
+                )
+                wrapped_text, font_size, line_spacing = fit_wrapped_text(
+                    clean_block_text,
+                    text_box_w,
+                    text_box_h,
+                    max_font_size=42,
+                    min_font_size=26,
+                    max_lines=3,
+                    char_width_factor=TEXT_FIT_CHAR_WIDTH_FACTOR,
+                )
             caption_file.write_text(wrapped_text + "\n", encoding="utf-8")
             overlay_label = f"narr_{block_index:02d}"
             next_label = f"v{stage_idx}"
@@ -580,18 +838,47 @@ def build_block_filter(
             current_label = next_label
             stage_idx += 1
         else:
+            if isinstance(overlay_bbox, list) and len(overlay_bbox) == 4:
+                box_x, box_y, box_w, box_h = bbox_to_pixels(
+                    overlay_bbox,
+                    frame_w=width,
+                    frame_h=height,
+                    fallback_w=760,
+                    fallback_h=180,
+                )
+                text_x = f"{box_x}+({box_w}-text_w)/2"
+                text_y = f"{box_y}+({box_h}-text_h)/2"
+                fit_box_w = box_w
+                fit_box_h = box_h
+            else:
+                text_x = "(w-text_w)/2"
+                text_y = "h-h/6-text_h/2"
+                fit_box_w = 760
+                fit_box_h = 180
             wrapped_text, font_size, line_spacing = fit_wrapped_text(
                 clean_block_text,
-                box_w=760,
-                box_h=180,
+                box_w=fit_box_w,
+                box_h=fit_box_h,
                 max_font_size=42,
                 min_font_size=26,
                 max_lines=3,
-                char_width_factor=0.52,
+                char_width_factor=TEXT_FIT_CHAR_WIDTH_FACTOR,
             )
+            if font_size <= 32 and not (isinstance(overlay_bbox, list) and len(overlay_bbox) == 4):
+                fit_box_w = 840
+                fit_box_h = 210
+                text_x = "(w-text_w)/2"
+                text_y = "h-h/6-text_h/2"
+                wrapped_text, font_size, line_spacing = fit_wrapped_text(
+                    clean_block_text,
+                    box_w=fit_box_w,
+                    box_h=fit_box_h,
+                    max_font_size=42,
+                    min_font_size=26,
+                    max_lines=3,
+                    char_width_factor=TEXT_FIT_CHAR_WIDTH_FACTOR,
+                )
             caption_file.write_text(wrapped_text + "\n", encoding="utf-8")
-            text_x = "(w-text_w)/2"
-            text_y = "h-h/6-text_h/2"
             next_label = f"v{stage_idx}"
             graph.append(
                 f"[{current_label}]drawtext="
@@ -609,7 +896,7 @@ def build_block_filter(
 
     if dialogue_speaker and dialogue_line:
         bubble_file = caption_dir / f"scene_{scene_index:02d}_bubble_{block_index:02d}.txt"
-        clean_dialogue = trim_caption(dialogue_line, max_len=120)
+        clean_dialogue = normalize_terminal_punctuation(block_text or dialogue_line)
         shout = dialogue_delivery == "shout"
         overlay_key = "shout" if shout else "dialogue"
         bubble_svg = overlay_assets.get(overlay_key)
@@ -617,19 +904,39 @@ def build_block_filter(
         escaped_shape_font = escape_filter_path(shape_font) if shape_font else None
         shape_font_expr = f"fontfile='{escaped_shape_font}':" if escaped_shape_font else ""
         shape_file = caption_dir / f"scene_{scene_index:02d}_bubble_shape_{block_index:02d}.txt"
-        bubble_w = 660
-        bubble_h = 250
+        bubble_w = 680
+        bubble_h = 260
         outline = 8
         body_w = bubble_w - bubble_h
         if bubble_svg:
-            overlay_w, overlay_h = scaled_svg_size(bubble_svg, target_width=bubble_w, fallback_height=bubble_h)
-            bubble_x, bubble_y, text_x, text_y, text_box_w, text_box_h = dialogue_layout(
-                frame_w=width,
-                frame_h=height,
-                overlay_w=overlay_w,
-                overlay_h=overlay_h,
-                shout=shout,
-            )
+            if isinstance(overlay_bbox, list) and len(overlay_bbox) == 4:
+                box_x, box_y, box_w, box_h = bbox_to_pixels(
+                    overlay_bbox,
+                    frame_w=width,
+                    frame_h=height,
+                    fallback_w=bubble_w,
+                    fallback_h=bubble_h,
+                )
+                overlay_w, overlay_h = box_w, box_h
+                overlay_x_px = box_x + max(0, round((box_w - overlay_w) / 2))
+                overlay_y_px = box_y + max(0, round((box_h - overlay_h) / 2))
+                bubble_x, bubble_y, text_x, text_y, text_box_w, text_box_h = dialogue_layout_from_box(
+                    overlay_x=overlay_x_px,
+                    overlay_y=overlay_y_px,
+                    overlay_w=overlay_w,
+                    overlay_h=overlay_h,
+                    shout=shout,
+                )
+            else:
+                overlay_w, overlay_h = scaled_svg_size(bubble_svg, target_width=bubble_w, fallback_height=bubble_h)
+                bubble_x, bubble_y, text_x, text_y, text_box_w, text_box_h = dialogue_layout(
+                    frame_w=width,
+                    frame_h=height,
+                    overlay_w=overlay_w,
+                    overlay_h=overlay_h,
+                    shout=shout,
+                    bubble_anchor=bubble_anchor,
+                )
             wrapped_text, font_size, line_spacing = fit_wrapped_text(
                 clean_dialogue,
                 text_box_w,
@@ -637,7 +944,7 @@ def build_block_filter(
                 max_font_size=36 if shout else 38,
                 min_font_size=22,
                 max_lines=3,
-                char_width_factor=0.52,
+                char_width_factor=TEXT_FIT_CHAR_WIDTH_FACTOR,
             )
             bubble_file.write_text(wrapped_text + "\n", encoding="utf-8")
             overlay_label = f"{overlay_key}_{block_index:02d}"
@@ -663,13 +970,25 @@ def build_block_filter(
             current_label = next_label
             stage_idx += 1
         elif shout:
-            bubble_x, bubble_y = centered_overlay_position(
-                width,
-                height,
-                bubble_w,
-                bubble_h,
-                vertical_anchor="upper_third",
-            )
+            if isinstance(overlay_bbox, list) and len(overlay_bbox) == 4:
+                box_x, box_y, _, _ = bbox_to_pixels(
+                    overlay_bbox,
+                    frame_w=width,
+                    frame_h=height,
+                    fallback_w=bubble_w,
+                    fallback_h=bubble_h,
+                )
+                bubble_x = str(box_x)
+                bubble_y = str(box_y)
+            else:
+                bubble_x, bubble_y = anchored_overlay_position(
+                    width,
+                    height,
+                    bubble_w,
+                    bubble_h,
+                    horizontal_anchor="left" if bubble_anchor == "upper_left" else "right" if bubble_anchor == "upper_right" else "center",
+                    vertical_anchor="upper_third",
+                )
             wrapped_text, font_size, line_spacing = fit_wrapped_text(
                 clean_dialogue,
                 box_w=320,
@@ -677,7 +996,7 @@ def build_block_filter(
                 max_font_size=36,
                 min_font_size=22,
                 max_lines=3,
-                char_width_factor=0.52,
+                char_width_factor=TEXT_FIT_CHAR_WIDTH_FACTOR,
             )
             bubble_file.write_text(wrapped_text + "\n", encoding="utf-8")
             shape_file.write_text("✹\n", encoding="utf-8")
@@ -718,13 +1037,25 @@ def build_block_filter(
             current_label = next_label
             stage_idx += 1
         else:
-            bubble_x, bubble_y = centered_overlay_position(
-                width,
-                height,
-                bubble_w,
-                bubble_h,
-                vertical_anchor="upper_third",
-            )
+            if isinstance(overlay_bbox, list) and len(overlay_bbox) == 4:
+                box_x, box_y, _, _ = bbox_to_pixels(
+                    overlay_bbox,
+                    frame_w=width,
+                    frame_h=height,
+                    fallback_w=bubble_w,
+                    fallback_h=bubble_h,
+                )
+                bubble_x = str(box_x)
+                bubble_y = str(box_y)
+            else:
+                bubble_x, bubble_y = anchored_overlay_position(
+                    width,
+                    height,
+                    bubble_w,
+                    bubble_h,
+                    horizontal_anchor="left" if bubble_anchor == "upper_left" else "right" if bubble_anchor == "upper_right" else "center",
+                    vertical_anchor="upper_third",
+                )
             bubble_box_x = bubble_x.replace("w", "iw")
             wrapped_text, font_size, line_spacing = fit_wrapped_text(
                 clean_dialogue,
@@ -733,7 +1064,7 @@ def build_block_filter(
                 max_font_size=38,
                 min_font_size=22,
                 max_lines=3,
-                char_width_factor=0.52,
+                char_width_factor=TEXT_FIT_CHAR_WIDTH_FACTOR,
             )
             bubble_file.write_text(wrapped_text + "\n", encoding="utf-8")
             shape_file.write_text("⬤\n", encoding="utf-8")
@@ -835,43 +1166,78 @@ def write_srt(episode: dict, output_srt: Path, scenes_override: list[dict] | Non
     lines: list[str] = []
     cursor = 0.0
     scenes = scenes_override if scenes_override is not None else episode["scenes"]
-    for idx, scene in enumerate(scenes, start=1):
-        duration = float(scene["estimated_seconds"])
-        start = fmt_srt_time(cursor)
-        end = fmt_srt_time(cursor + duration)
-        text = sanitize_display_narration(str(scene["narration"]).strip().replace("\n", " "))
-        lines.extend([str(idx), f"{start} --> {end}", text, ""])
-        cursor += duration
+    entry_index = 1
+    for scene in scenes:
+        blocks = scene_caption_blocks(scene)
+        if not blocks:
+            duration = float(scene["estimated_seconds"])
+            start = fmt_srt_time(cursor)
+            end = fmt_srt_time(cursor + duration)
+            text = sanitize_display_narration(str(scene["narration"]).strip().replace("\n", " "))
+            lines.extend([str(entry_index), f"{start} --> {end}", text, ""])
+            entry_index += 1
+            cursor += duration
+            continue
+
+        for block in blocks:
+            duration = float(block.get("duration_seconds", 0))
+            if duration <= 0:
+                continue
+            start = fmt_srt_time(cursor)
+            end = fmt_srt_time(cursor + duration)
+            proper_nouns = set(block.get("proper_nouns", [])) if isinstance(block.get("proper_nouns"), list) else set()
+            text = lowercase_after_ellipsis_if_needed(
+                str(block.get("dialogue_line") or block.get("text") or "").replace("\n", " "),
+                proper_nouns=proper_nouns,
+            )
+            if text:
+                lines.extend([str(entry_index), f"{start} --> {end}", text, ""])
+                entry_index += 1
+            cursor += duration
     output_srt.write_text("\n".join(lines).strip() + "\n", encoding="utf-8")
 
 
 def scene_caption_blocks(scene: dict) -> list[dict]:
-    raw_blocks = scene.get("caption_blocks")
+    scene_focus_bbox = []
+    camera_track = scene.get("camera_track")
+    if isinstance(camera_track, dict) and isinstance(camera_track.get("focus_bbox"), list):
+        scene_focus_bbox = list(camera_track.get("focus_bbox", []))
+    raw_blocks = scene.get("text_phases")
+    if not isinstance(raw_blocks, list) or not raw_blocks:
+        raw_blocks = scene.get("caption_blocks")
     if isinstance(raw_blocks, list) and raw_blocks:
         output: list[dict] = []
         for idx, block in enumerate(raw_blocks, start=1):
-            block_text = trim_caption(
+            proper_nouns = list(block.get("proper_nouns", [])) if isinstance(block.get("proper_nouns"), list) else []
+            block_text = lowercase_after_ellipsis_if_needed(
                 sanitize_display_narration(str(block.get("text", ""))),
-                max_len=220,
+                proper_nouns=set(proper_nouns),
             )
             if not block_text:
                 continue
-            dialogue_line = trim_caption(
-                normalize_terminal_punctuation(str(block.get("dialogue_line", ""))),
-                max_len=170,
+            dialogue_line = lowercase_after_ellipsis_if_needed(
+                str(block.get("dialogue_line", "")),
+                proper_nouns=set(proper_nouns),
             )
             output.append(
                 {
-                    "block_index": int(block.get("block_index", idx)),
+                    "block_index": int(block.get("phase_index", block.get("block_index", idx))),
                     "text": block_text,
+                    "phase_kind": normalize_ws(str(block.get("phase_kind", "narration"))) or "narration",
                     "paragraph_index": int(block.get("paragraph_index", 0)),
                     "paragraph_block_index": int(block.get("paragraph_block_index", idx - 1)),
                     "paragraph_blocks_total": int(block.get("paragraph_blocks_total", 1)),
                     "duration_seconds": int(block.get("duration_seconds", 1)),
-                    "image_path": str(block.get("image_path", scene.get("image_path", ""))),
+                    "phase_start_s": float(block.get("phase_start_s", 0.0)),
+                    "phase_end_s": float(block.get("phase_end_s", 0.0)),
+                    "image_path": str(block.get("image_path", scene.get("scene_image_path", scene.get("image_path", "")))),
                     "dialogue_speaker": normalize_ws(str(block.get("dialogue_speaker", ""))),
                     "dialogue_line": dialogue_line,
                     "dialogue_delivery": normalize_dialogue_delivery(str(block.get("dialogue_delivery", "")), dialogue_line),
+                    "primary_actor": normalize_ws(str(block.get("primary_actor", ""))),
+                    "overlay_bbox": list(block.get("overlay_bbox", [])) if isinstance(block.get("overlay_bbox"), list) else [],
+                    "focus_bbox": list(block.get("focus_bbox", [])) if isinstance(block.get("focus_bbox"), list) and block.get("focus_bbox") else list(scene_focus_bbox),
+                    "proper_nouns": proper_nouns,
                 }
             )
         if output:
@@ -899,10 +1265,17 @@ def scene_caption_blocks(scene: dict) -> list[dict]:
             "paragraph_block_index": int(block.get("paragraph_block_index", idx - 1)),
             "paragraph_blocks_total": int(block.get("paragraph_blocks_total", len(fallback_blocks))),
             "duration_seconds": int(fallback_durations[idx - 1]),
-            "image_path": fallback_image,
+            "phase_start_s": float(sum(fallback_durations[: idx - 1])),
+            "phase_end_s": float(sum(fallback_durations[:idx])),
+            "image_path": str(scene.get("scene_image_path", fallback_image)),
             "dialogue_speaker": "",
             "dialogue_line": "",
             "dialogue_delivery": "normal",
+            "phase_kind": "narration",
+            "primary_actor": "",
+            "overlay_bbox": [],
+            "focus_bbox": list(scene_focus_bbox),
+            "proper_nouns": [],
         }
         for idx, block in enumerate(fallback_blocks, start=1)
     ]
@@ -927,6 +1300,13 @@ def build_block_segment(
     audio_start_s: float,
     font_file: str | None,
     dialogue_delivery: str,
+    focus_anchor: str,
+    bubble_anchor: str,
+    scene_duration_s: int,
+    phase_start_s: float,
+    phase_end_s: float,
+    focus_bbox: list[float] | None,
+    overlay_bbox: list[float] | None,
     overlay_assets: dict[str, Path | None],
 ) -> None:
     vf = build_block_filter(
@@ -943,7 +1323,14 @@ def build_block_segment(
         duration_s=duration_s,
         font_file=font_file,
         dialogue_delivery=dialogue_delivery,
+        focus_anchor=focus_anchor,
+        bubble_anchor=bubble_anchor,
         overlay_assets=overlay_assets,
+        scene_duration_s=scene_duration_s,
+        phase_start_s=phase_start_s,
+        phase_end_s=phase_end_s,
+        focus_bbox=focus_bbox,
+        overlay_bbox=overlay_bbox,
     )
     af = f"[1:a]apad=pad_dur={duration_s},atrim=0:{duration_s}[aout]"
     filter_complex = f"{vf};{af}"
@@ -1049,6 +1436,7 @@ def main() -> int:
         default=os.getenv("VIDEO_OVERLAY_ASSETS_DIR", str(DEFAULT_OVERLAY_DIR)),
         help="Directory with narration.svg, dialogue.svg and shout.svg overlays.",
     )
+    parser.add_argument("--burn-subtitles", action="store_true", help="Burn subtitles into the final MP4")
     parser.add_argument("--no-burn-subtitles", action="store_true", help="Do not burn subtitles into final MP4")
     args = parser.parse_args()
 
@@ -1141,6 +1529,13 @@ def main() -> int:
                     audio_start_s=audio_cursor,
                     font_file=font_file,
                     dialogue_delivery=str(block.get("dialogue_delivery", "normal")),
+                    focus_anchor="upper_center",
+                    bubble_anchor="",
+                    scene_duration_s=target_duration,
+                    phase_start_s=float(block.get("phase_start_s", audio_cursor)),
+                    phase_end_s=float(block.get("phase_end_s", audio_cursor + block_duration)),
+                    focus_bbox=list(block.get("focus_bbox", [])) if isinstance(block.get("focus_bbox"), list) else [],
+                    overlay_bbox=list(block.get("overlay_bbox", [])) if isinstance(block.get("overlay_bbox"), list) else [],
                     overlay_assets=overlay_assets,
                 )
                 concat_lines.append(f"file '{segment_path.as_posix()}'")
@@ -1150,10 +1545,12 @@ def main() -> int:
         compose_concat(ffmpeg, concat_list, merged_video)
         write_srt(episode, output_srt, scenes_override=manifest_scenes)
 
-        if args.no_burn_subtitles:
-            shutil.copy2(merged_video, output_video)
-        else:
+        burn_subtitles_enabled = bool(args.burn_subtitles and not args.no_burn_subtitles)
+
+        if burn_subtitles_enabled:
             burn_subtitles(ffmpeg, merged_video, output_video, output_srt)
+        else:
+            shutil.copy2(merged_video, output_video)
 
         print(f"Composed final video: {output_video}")
         print(f"Subtitles: {output_srt}")

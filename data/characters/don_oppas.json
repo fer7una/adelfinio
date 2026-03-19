@@ -1,0 +1,61 @@
+{
+  "character_id": "don_oppas",
+  "display_name": "Don Oppas",
+  "aliases": [
+    "Oppas (obispo)"
+  ],
+  "historical_period": "early 8th century (events around 722–735)",
+  "role": "religious",
+  "biography_short": "Obispo mencionado en las fuentes del libro en el contexto de los episodios alrededor de Monte Auseva / Covadonga; aparece vinculado a los mismos hechos en los que participa Pelayo.",
+  "voice_profile": {
+    "tts_voice": "fable",
+    "tone": "ceremonial, preocupado",
+    "words_per_second": 3.0,
+    "delivery_modifiers": {
+      "normal": 1.0,
+      "shout": 1.05
+    }
+  },
+  "visual_profile": {
+    "age_range": "adult (40-70)",
+    "hair": "poco definido en la fuente",
+    "beard": "no especificado",
+    "clothing": "atuendo episcopal (inferencia baja confianza)",
+    "palette": [
+      "#BFAE9E",
+      "#6B5844"
+    ],
+    "style_notes": "Presentarlo como figura eclesiástica implicada en los eventos, más de presencia institucional que de mando militar."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "Asturias",
+    "alliances": [],
+    "conflicts": [],
+    "last_seen_episode_id": "teaser-07350110-evt",
+    "last_updated": "2026-03-18T23:45:00Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "aparece en las fuentes ligadas a los episodios de Monte Auseva/Covadonga"
+    ],
+    "must_avoid": [
+      "afirmar colaboraciones o traiciones no expresadas textualmente en las citas"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "uncertainty",
+    "intensity": 0.4,
+    "valence": 0.0,
+    "arousal": 0.2,
+    "trigger_summary": "presencia eclesial en un contexto militar y narrativo complejo"
+  },
+  "arc_state": {
+    "stage": "setup",
+    "external_goal": "representar la presencia eclesiástica en episodios fundacionales",
+    "internal_need": "mantener la autoridad espiritual en tiempos de cambio",
+    "contradiction": "la Iglesia aparece tanto como institución apoyadora del orden como implicada en conflictos locales",
+    "change_vector": "figura de referencia institucional en relatos sobre la fundación del reino",
+    "last_event_id": "evt-073501"
+  }
+}

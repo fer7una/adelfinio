@@ -19,7 +19,7 @@
       "role": "monarch",
       "biography_short": "Líder de la insurrección cristiana en la cornisa cantábrica; protagoniza la resistencia en la montaña (Monte Auseva / Covadonga) y, tras la victoria, encarna el núcleo que dará lugar al reino de Asturias.",
       "voice_profile": {
-        "tts_voice": "tenor_bajo_hieratico",
+        "tts_voice": "onyx",
         "tone": "resuelto, sobrio, autoritario",
         "words_per_second": 2.6,
         "delivery_modifiers": {
@@ -332,7 +332,7 @@
       "role": "military",
       "biography_short": "Miembro de la aristocracia hispanogoda, vinculado a la primera generación que conecta con Pelayo; se le atribuyen cargos militares y una muerte legendaria por ataque de un plantígrado.",
       "voice_profile": {
-        "tts_voice": "baritono_rudo",
+        "tts_voice": "ash",
         "tone": "conciso, seco",
         "words_per_second": 2.8,
         "delivery_modifiers": {
@@ -557,7 +557,7 @@
       "role": "other",
       "biography_short": "Personaje femenino vinculado a la familia de Pelayo en las fuentes; aparece como figura que conecta generaciones posteriores (menciones en relaciones dinásticas).",
       "voice_profile": {
-        "tts_voice": "soprano_madura",
+        "tts_voice": "shimmer",
         "tone": "reservado, digno",
         "words_per_second": 2.4,
         "delivery_modifiers": {

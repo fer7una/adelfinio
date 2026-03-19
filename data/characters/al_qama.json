@@ -1,0 +1,64 @@
+{
+  "character_id": "al_qama",
+  "display_name": "Al Qama (Alkama / Alkama/Alkama?)",
+  "aliases": [
+    "Alkama",
+    "Alkama (Al Qama)"
+  ],
+  "historical_period": "early 8th century (campaigns around 722–735)",
+  "role": "military",
+  "biography_short": "Jefe/mandador musulmán que lideró las fuerzas que se enfrentaron a los rebeldes astures en los episodios del monte Auseva / Covadonga según los relatos del libro; se le atribuye la orden de comenzar el combate en algunos pasajes.",
+  "voice_profile": {
+    "tts_voice": "onyx",
+    "tone": "claro y firme, militar",
+    "words_per_second": 3.8,
+    "delivery_modifiers": {
+      "normal": 1.0,
+      "shout": 1.3
+    }
+  },
+  "visual_profile": {
+    "age_range": "adult (30-50)",
+    "hair": "no especificado",
+    "beard": "probablemente poblado (inferencia baja confianza)",
+    "clothing": "uniforme militar/estándar del comandante de campaña (inferencia baja confianza)",
+    "palette": [
+      "#3C2F2F",
+      "#8A5B2A"
+    ],
+    "style_notes": "Representado como comandante en campaña; énfasis en disciplina y aparato militar."
+  },
+  "state": {
+    "status": "deceased",
+    "location": "operaciones en la cornisa norte / Asturias",
+    "alliances": [],
+    "conflicts": [
+      "pelayo"
+    ],
+    "last_seen_episode_id": "teaser-07380110-evt",
+    "last_updated": "2026-03-18T23:45:00Z"
+  },
+  "continuity": {
+    "must_keep": [
+      "mandato de comenzar el combate en relatos de la batalla (evt-073801/evt-073501)"
+    ],
+    "must_avoid": [
+      "atribuir motivaciones internas no registradas en el texto"
+    ]
+  },
+  "emotional_state": {
+    "dominant_emotion": "resolve",
+    "intensity": 0.6,
+    "valence": -0.1,
+    "arousal": 0.6,
+    "trigger_summary": "figura de mando en una expedición militar; toma decisiones operativas"
+  },
+  "arc_state": {
+    "stage": "crisis",
+    "external_goal": "dominar/reprimir levantamientos en la zona norte",
+    "internal_need": "cumplir órdenes y mantener disciplina en campaña",
+    "contradiction": "operar en un territorio montañoso desconocido para sus tropas",
+    "change_vector": "de fuerza expedicionaria a retirada/fracaso en operaciones locales",
+    "last_event_id": "evt-073801"
+  }
+}

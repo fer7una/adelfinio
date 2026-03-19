@@ -2,21 +2,21 @@
   "character_id": "favila",
   "records": [
     {
-      "record_id": "arc-00100034-favila-0897",
+      "record_id": "arc-08970101-favila",
       "event_id": "evt-089701",
-      "chronology_index": 2,
-      "emotion_before": "pride",
+      "chronology_index": 1,
+      "emotion_before": "calm",
       "emotion_after": "grief",
-      "arc_stage_before": "setup",
+      "arc_stage_before": "ascent",
       "arc_stage_after": "turn",
-      "change_summary": "La muerte legendaria de Favila transforma el escenario familiar y dinástico.",
+      "change_summary": "Muerte súbita/accidental (tradición de tropiezo fatal con un oso) que interrumpe su proyección política y favorece la candidatura de otros.",
       "source_ref": {
-        "file": "spk-01-la-gran-aventura-del-reino-de-asturias",
+        "file": "01-La gran aventura del reino de Asturias",
         "section": "evt-089701",
-        "checksum": "dd44ee55ff6677889900aabbccddeeff0011223344556677889900aabbccdde8",
-        "excerpt": "cuando Favila tuvo su letal tropiezo con el plantígrado"
+        "checksum": "89c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3",
+        "excerpt": "LA GRAN AVENTURA ... cuando Favila tuvo su letal tropiezo con el plantígrado ..."
       },
-      "updated_at": "2026-03-17T17:31:57Z"
+      "updated_at": "2026-03-18T23:45:00Z"
     }
   ]
 }

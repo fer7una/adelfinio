@@ -40,6 +40,15 @@ Reglas:
 """.strip()
 
 
+def print_llm_warning() -> None:
+    print(
+        "WARNING: generate_story_catalog.py uses OpenAI structured generation and will call the API.\n"
+        "No built-in --mock is available for this narrative step.\n"
+        "If you only need to avoid OpenAI calls during render, use --mock in run_story_pipeline_from_source.sh or run_final_ai_video_pipeline.sh.",
+        file=os.sys.stderr,
+    )
+
+
 def sample_evenly(items: list[dict], limit: int) -> list[dict]:
     if limit <= 0 or len(items) <= limit:
         return list(items)
@@ -170,6 +179,7 @@ def main() -> int:
         model = args.model or os.getenv(DEFAULT_MODEL_ENV) or os.getenv("OPENAI_STORY_MODEL") or "gpt-5.4"
         schema = inline_external_schema_refs(load_schema("story_catalog.schema.json"))
         prompt_body = prompt_payload(source_pack, character_bible)
+        print_llm_warning()
         client = build_openai_client(Path(args.dotenv))
         payload = run_structured_generation(
             client=client,

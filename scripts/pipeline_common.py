@@ -285,6 +285,49 @@ def run_structured_generation(
     return payload
 
 
+def run_structured_generation_with_content(
+    *,
+    client: Any,
+    model: str,
+    schema_name: str,
+    schema: dict[str, Any],
+    system_prompt: str,
+    user_content: list[dict[str, Any]],
+    reasoning_effort: str = "medium",
+) -> dict[str, Any]:
+    strict_schema = make_openai_strict_schema(schema)
+    response = client.responses.create(
+        model=model,
+        reasoning={"effort": reasoning_effort},
+        input=[
+            {
+                "role": "system",
+                "content": [{"type": "input_text", "text": system_prompt}],
+            },
+            {
+                "role": "user",
+                "content": user_content,
+            },
+        ],
+        text={
+            "format": {
+                "type": "json_schema",
+                "name": schema_name,
+                "schema": strict_schema,
+                "strict": True,
+            }
+        },
+    )
+    raw = extract_response_text(response)
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(f"Structured response is not valid JSON: {exc}") from exc
+    if not isinstance(payload, dict):
+        raise RuntimeError("Structured response root must be a JSON object.")
+    return payload
+
+
 def default_generation_meta(*, model: str, prompt_version: str, prompt_body: str, input_checksum: str) -> dict[str, Any]:
     return {
         "model": model,

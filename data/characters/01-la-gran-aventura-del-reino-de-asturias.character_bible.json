@@ -1,0 +1,1209 @@
+{
+  "character_bible_id": "cb-2026-03-18-spk-01",
+  "source_pack_id": "spk-01-la-gran-aventura-del-reino-de-asturias",
+  "created_at": "2026-03-18T23:45:00Z",
+  "inference_policy": "evidence_plus_labeled_inference",
+  "generation_meta": {
+    "model": "gpt-5-mini",
+    "prompt_version": "character-bible-v1",
+    "prompt_checksum": "d4043ca9ffe37ee52be9f619b82ba49f0940bb39ed4368e20ad58bb9a2670642",
+    "input_checksum": "d36dda9351018c813c297861555b8e10152cd48d6a0aa301266009362b6af156",
+    "generated_at": "2026-03-18T23:26:04Z"
+  },
+  "characters": [
+    {
+      "character_id": "pelayo",
+      "display_name": "Pelayo",
+      "aliases": [],
+      "historical_period": "early 8th century (c. 722–737)",
+      "role": "military",
+      "biography_short": "Líder militar asturiano identificado en las fuentes del libro como el jefe de la sublevación en la Cornisa Cantábrica (Covadonga / Monte Auseva), instalado en Cangas de Onís y protagonista de victorias que atrajeron a otros núcleos cristianos del norte.",
+      "voice_profile": {
+        "tts_voice": "ballad",
+        "tone": "grave, decidido, directo",
+        "words_per_second": 3.6,
+        "delivery_modifiers": {
+          "normal": 1.0,
+          "shout": 1.25
+        }
+      },
+      "visual_profile": {
+        "age_range": "adult (30-60)",
+        "hair": "oscuro, despeinado por la vida de montaña (inferencia baja confianza)",
+        "beard": "probablemente poblado (inferencia baja confianza)",
+        "clothing": "ropa práctica de guerrero/rústica, capa sencilla, protecciones ligeras (inferencia basada en contexto militar montañoso)",
+        "palette": [
+          "#6B4C3B",
+          "#7A7A6E",
+          "#3A3A2E"
+        ],
+        "style_notes": "Apariencia austera de jefe de guerrilla; visual que comunique resiliencia y conocimiento del terreno (inferencia apoyada en fuentes sobre uso del monte y retiro a Cangas de Onís)."
+      },
+      "state": {
+        "status": "deceased",
+        "location": "Asturias",
+        "alliances": [
+          "rebeldes_astures"
+        ],
+        "conflicts": [
+          "al_qama"
+        ],
+        "last_seen_episode_id": "teaser-08650110-evt",
+        "last_updated": "2026-03-18T23:45:00Z"
+      },
+      "continuity": {
+        "must_keep": [
+          "liderazgo en la insurrección del norte (Covadonga / Monte Auseva)",
+          "instalación en Cangas de Onís como centro de resistencia"
+        ],
+        "must_avoid": [
+          "presentar a Pelayo sin contexto cronológico (fechas 722–737/ános inmediatos)",
+          "atribuir milagros o hechos legendarios sin fuente explícita"
+        ]
+      },
+      "emotional_state": {
+        "dominant_emotion": "resolve",
+        "intensity": 0.8,
+        "valence": 0.3,
+        "arousal": 0.7,
+        "trigger_summary": "derrotas/amenazas externas y la necesidad de proteger un enclave montañoso; victoria que aumenta la determinación"
+      },
+      "arc_state": {
+        "stage": "ascent",
+        "external_goal": "consolidar un núcleo político-militar en la Cornisa Cantábrica que resista la dominación musulmana",
+        "internal_need": "legitimación del liderazgo frente a otras élites hispanogodas",
+        "contradiction": "liderar una resistencia local con recursos y reconocimiento limitados",
+        "change_vector": "de caudillo local a fundador de un referente político-militar asturiano",
+        "last_event_id": "evt-086501"
+      },
+      "observed_from_source": {
+        "goals": [
+          {
+            "label": "defender/retener territorio y liderar la insurrección",
+            "summary": "Pelayo encabezó la sublevación en la montaña (Covadonga/Monte Auseva) y actuó como jefe militar de los rebeldes astures.",
+            "confidence": 0.95,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-073501",
+                "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+                "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva ... el ejército de Alkama llegó hasta y alzó innumerables tiendas frente a la entrada de una cueva.",
+                "page_start": 25,
+                "page_end": 26,
+                "chunk_id": "chk-0035"
+              },
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-083401",
+                "checksum": "f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2",
+                "excerpt": "Los cristianos ganaron. Los moros pusieron pies en polvorosa. El triunfo de Pelayo hizo que otros muchos ... se sumaran a la rebelión.",
+                "page_start": 83,
+                "page_end": 83,
+                "chunk_id": "chk-0834"
+              }
+            ]
+          }
+        ],
+        "fears": [
+          {
+            "label": "amenaza de pérdida del enclave",
+            "summary": "La instalación en zonas montañosas y la naturaleza de la guerra sugieren una preocupación por la seguridad frente a ejércitos mayores.",
+            "confidence": 0.85,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-73701",
+                "checksum": "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2",
+                "excerpt": "Pelayo se instaló en Cangas de Onís, cerca de las montañas, por si acaso.",
+                "page_start": 131,
+                "page_end": 131,
+                "chunk_id": "chk-7370"
+              }
+            ]
+          }
+        ],
+        "contradictions": [
+          {
+            "label": "líder local vs. necesidad de legitimidad amplia",
+            "summary": "Aunque jefe de una insurrección local, la tradición registra ritos y acciones con carga simbólica (p. ej. ungimiento) que apuntan a una búsqueda de legitimación mayor.",
+            "confidence": 0.8,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-119601",
+                "checksum": "c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4",
+                "excerpt": "Más precisamente, fue ungido rey por el rito visigodo, algo que no se había hecho nunca antes en el reino de Asturias ...",
+                "page_start": 119,
+                "page_end": 119,
+                "chunk_id": "chk-1196"
+              }
+            ]
+          }
+        ],
+        "behavior_patterns": [
+          {
+            "label": "uso del terreno y tácticas defensivas en montaña",
+            "summary": "Presencia en Monte Auseva / Covadonga y elección de refugio en zonas montañosas; éxitos militares que sugieren aprovechamiento del territorio.",
+            "confidence": 0.9,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-073501",
+                "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+                "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva ...",
+                "page_start": 25,
+                "page_end": 26,
+                "chunk_id": "chk-0035"
+              },
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-074701",
+                "checksum": "d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5",
+                "excerpt": "Un error, porque mover ejércitos por un paraje como aquél, montañoso, y para ellos desconocido, era arriesgarse al colapso.",
+                "page_start": 74,
+                "page_end": 74,
+                "chunk_id": "chk-0747"
+              }
+            ]
+          }
+        ],
+        "relationships": [
+          {
+            "target_character_id": "al_qama",
+            "relationship_type": "enemy",
+            "summary": "Al Qama (Alkama) mandó las fuerzas musulmanas que se enfrentaron a Pelayo en la zona de Monte Auseva / Covadonga.",
+            "confidence": 0.95,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-073501",
+                "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+                "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva y el ejército de Alkama llegó hasta ...",
+                "page_start": 25,
+                "page_end": 26,
+                "chunk_id": "chk-0035"
+              },
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-073801",
+                "checksum": "a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8",
+                "excerpt": "Alkama mandó entonces comenzar el combate, y los soldados tomaron las armas.",
+                "page_start": 73,
+                "page_end": 73,
+                "chunk_id": "chk-0738"
+              }
+            ]
+          },
+          {
+            "target_character_id": "don_oppas",
+            "relationship_type": "other",
+            "summary": "El obispo Oppas aparece en el relato en relación con los mismos hechos (sublevación/batalla); su presencia queda registrada en las fuentes alrededor de los episodios de Pelayo.",
+            "confidence": 0.8,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "chk-0035",
+                "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+                "excerpt": "El obispo Oppas subió a un...",
+                "page_start": 25,
+                "page_end": 26,
+                "chunk_id": "chk-0035"
+              }
+            ]
+          },
+          {
+            "target_character_id": "ermesinda",
+            "relationship_type": "family",
+            "summary": "Ermesinda aparece asociada con Pelayo en varias referencias y en genealogías posteriores; las fuentes del libro colocan a Ermesinda en conexión directa con la familia de Pelayo.",
+            "confidence": 0.65,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-105001",
+                "checksum": "5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a",
+                "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda ...",
+                "page_start": 105,
+                "page_end": 105,
+                "chunk_id": "chk-1050"
+              },
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-73701",
+                "checksum": "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2",
+                "excerpt": "Pelayo se instaló en Cangas de Onís, cerca de las montañas ...",
+                "page_start": 131,
+                "page_end": 131,
+                "chunk_id": "chk-7370"
+              }
+            ]
+          }
+        ]
+      },
+      "inferred_from_source": {
+        "internal_needs": [
+          {
+            "label": "necesidad de legitimación ritual/política",
+            "summary": "El hecho de que las fuentes destaquen un 'ungimiento' por el rito visigodo sugiere que Pelayo necesitó un marco ritual para legitimar su autoridad más allá del acto militar.",
+            "confidence": 0.75,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-119601",
+                "checksum": "c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4",
+                "excerpt": "Más precisamente, fue ungido rey por el rito visigodo, algo que no se había hecho nunca antes ...",
+                "page_start": 119,
+                "page_end": 119,
+                "chunk_id": "chk-1196"
+              }
+            ]
+          }
+        ],
+        "private_state": [
+          {
+            "label": "resolución ante la amenaza",
+            "summary": "Las decisiones de retirarse/instalarse en terreno montañoso y las acciones militares muestran un estado privado orientado a resistencia y resolución.",
+            "confidence": 0.7,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-73701",
+                "checksum": "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2",
+                "excerpt": "Pelayo se instaló en Cangas de Onís, cerca de las montañas, por si acaso.",
+                "page_start": 131,
+                "page_end": 131,
+                "chunk_id": "chk-7370"
+              }
+            ]
+          }
+        ],
+        "likely_arc": [
+          {
+            "label": "de caudillo local a referente dinástico",
+            "summary": "La obra registra su victoria y la posterior mención de ungimiento/ritual y de sucesión, lo que permite inferir que Pelayo pasa de líder local a figura fundacional con significación dinástica.",
+            "confidence": 0.85,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-083401",
+                "checksum": "f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2",
+                "excerpt": "El triunfo de Pelayo hizo que otros muchos ... se sumaran a la rebelión.",
+                "page_start": 83,
+                "page_end": 83,
+                "chunk_id": "chk-0834"
+              },
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-119601",
+                "checksum": "c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4",
+                "excerpt": "Más precisamente, fue ungido rey por el rito visigodo ...",
+                "page_start": 119,
+                "page_end": 119,
+                "chunk_id": "chk-1196"
+              }
+            ]
+          }
+        ]
+      },
+      "event_records": [
+        {
+          "record_id": "arc-07350101-pelayo",
+          "event_id": "evt-073501",
+          "chronology_index": 1,
+          "emotion_before": "uncertainty",
+          "emotion_after": "resolve",
+          "arc_stage_before": "setup",
+          "arc_stage_after": "ascent",
+          "change_summary": "Defensa/emboscada en Monte Auseva (Covadonga) donde las fuerzas de Pelayo resisten y causan la retirada musulmana; esto impulsa el crecimiento del movimiento rebelde.",
+          "observed_from_source": [
+            {
+              "label": "victoria militar y atracción de seguidores",
+              "summary": "El triunfo de Pelayo provocó que otros muchos en la cornisa cantábrica se sumaran a la rebelión.",
+              "confidence": 0.9,
+              "source_refs": [
+                {
+                  "file": "01-La gran aventura del reino de Asturias",
+                  "section": "evt-083401",
+                  "checksum": "f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2",
+                  "excerpt": "Los cristianos ganaron. ... El triunfo de Pelayo hizo que otros muchos ... se sumaran a la rebelión.",
+                  "page_start": 83,
+                  "page_end": 83,
+                  "chunk_id": "chk-0834"
+                },
+                {
+                  "file": "01-La gran aventura del reino de Asturias",
+                  "section": "evt-073501",
+                  "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+                  "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva ...",
+                  "page_start": 25,
+                  "page_end": 26,
+                  "chunk_id": "chk-0035"
+                }
+              ]
+            }
+          ],
+          "inferred_from_source": [
+            {
+              "label": "consolidación del liderazgo",
+              "summary": "A partir de la victoria se infiere que Pelayo consolidó autoridad entre diversas gentes del norte, paso crucial para la formación de un centro político en Asturias.",
+              "confidence": 0.8,
+              "source_refs": [
+                {
+                  "file": "01-La gran aventura del reino de Asturias",
+                  "section": "evt-083401",
+                  "checksum": "f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2",
+                  "excerpt": "El triunfo de Pelayo hizo que otros muchos ... se sumaran a la rebelión.",
+                  "page_start": 83,
+                  "page_end": 83,
+                  "chunk_id": "chk-0834"
+                }
+              ]
+            }
+          ],
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-073501",
+              "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+              "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva y el ejército de Alkama llegó ...",
+              "page_start": 25,
+              "page_end": 26,
+              "chunk_id": "chk-0035"
+            }
+          ],
+          "confidence": 0.88,
+          "updated_at": "2026-03-18T23:45:00Z"
+        }
+      ]
+    },
+    {
+      "character_id": "favila",
+      "display_name": "Favila",
+      "aliases": [],
+      "historical_period": "8th–9th century (references in late 8th/early 9th century material)",
+      "role": "monarch",
+      "biography_short": "Personaje vinculado a la dinastía inicial asturiana. Las fuentes del libro lo mencionan en cargos honoríficos (espatario/conde de espatarios) y en la sucesión inmediata tras Pelayo en algunas narraciones; la obra recoge además una tradición sobre su muerte accidental.",
+      "voice_profile": {
+        "tts_voice": "ash",
+        "tone": "más apagado, formal",
+        "words_per_second": 3.2,
+        "delivery_modifiers": {
+          "normal": 1.0,
+          "shout": 1.1
+        }
+      },
+      "visual_profile": {
+        "age_range": "adult (30-50)",
+        "hair": "no especificado en fuente",
+        "beard": "no especificado en fuente",
+        "clothing": "insignia de cargo ceremonial (inferencia baja confianza)",
+        "palette": [
+          "#5A4B3A",
+          "#8A7F6E"
+        ],
+        "style_notes": "Figura descrita en las crónicas como menos heroica que Pelayo; representar con menor empaque épico."
+      },
+      "state": {
+        "status": "deceased",
+        "location": "Asturias",
+        "alliances": [
+          "aristocracia_hispanogoda"
+        ],
+        "conflicts": [],
+        "last_seen_episode_id": "teaser-08970110-evt",
+        "last_updated": "2026-03-18T23:45:00Z"
+      },
+      "continuity": {
+        "must_keep": [
+          "asociación con el título de espatario/conde de espatarios",
+          "mención en la sucesión temprana tras Pelayo en la narrativa"
+        ],
+        "must_avoid": [
+          "dar por hecho genealogías contradictorias sin citar la fuente"
+        ]
+      },
+      "emotional_state": {
+        "dominant_emotion": "uncertainty",
+        "intensity": 0.4,
+        "valence": 0.0,
+        "arousal": 0.2,
+        "trigger_summary": "las fuentes lo presentan como figura secundaria frente a Pelayo; la percepción es de menor protagonismo"
+      },
+      "arc_state": {
+        "stage": "ascent",
+        "external_goal": "ocupar un rol honorífico o monárquico tras Pelayo (según la tradición del texto)",
+        "internal_need": "obtener reconocimiento dentro de una dinastía emergente",
+        "contradiction": "figurar en la sucesión pero quedar caracterizado por la narrativa como menos relevante",
+        "change_vector": "paso breve y poco destacado en la cadena sucesoria",
+        "last_event_id": "evt-089701"
+      },
+      "observed_from_source": {
+        "goals": [
+          {
+            "label": "ejercicio de cargo real/honorífico",
+            "summary": "Algunos pasajes atribuyen a Favila funciones como espatario o incluso conde de espatarios; también aparece mencionado en relación con el cetro asturiano después de Pelayo.",
+            "confidence": 0.9,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-081501",
+                "checksum": "81a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2",
+                "excerpt": "Se le atribuye la función de espatario o incluso conde de espatarios.",
+                "page_start": 81,
+                "page_end": 81,
+                "chunk_id": "chk-0815"
+              },
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-089501",
+                "checksum": "89b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+                "excerpt": "Después del heroico Pelayo y el anodino Favila, vino a empuñar el cetro asturiano.",
+                "page_start": 89,
+                "page_end": 89,
+                "chunk_id": "chk-0895"
+              }
+            ]
+          }
+        ],
+        "fears": [],
+        "contradictions": [
+          {
+            "label": "origen y posición oscura",
+            "summary": "El texto admite incertidumbre sobre su origen y su papel exacto; se pregunta de dónde era duque Favila y cuestiona certezas.",
+            "confidence": 0.9,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-081601",
+                "checksum": "81c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2",
+                "excerpt": "De dónde era duque este Favila, el padre de Pelayo? No lo sabemos con...",
+                "page_start": 81,
+                "page_end": 81,
+                "chunk_id": "chk-0816"
+              }
+            ]
+          }
+        ],
+        "behavior_patterns": [
+          {
+            "label": "función honorífica y breve visibilidad en las crónicas",
+            "summary": "Aparece en contextos de sucesión y en anécdotas que le otorgan un papel breve y relativamente secundario.",
+            "confidence": 0.85,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-089501",
+                "checksum": "89b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+                "excerpt": "Después del heroico Pelayo y el anodino Favila, vino a empuñar el cetro asturiano.",
+                "page_start": 89,
+                "page_end": 89,
+                "chunk_id": "chk-0895"
+              }
+            ]
+          }
+        ],
+        "relationships": [
+          {
+            "target_character_id": "pelayo",
+            "relationship_type": "family",
+            "summary": "Las fuentes lo relacionan con Pelayo en el marco de la genealogía/sucesión (textos presentan conexiones familiares y sucesorias).",
+            "confidence": 0.75,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-081601",
+                "checksum": "81c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2",
+                "excerpt": "De dónde era duque este Favila, el padre de Pelayo? No lo sabemos ...",
+                "page_start": 81,
+                "page_end": 81,
+                "chunk_id": "chk-0816"
+              },
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-089701",
+                "checksum": "89c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3",
+                "excerpt": "LA GRAN AVENTURA ... cuando Favila tuvo su letal tropiezo con el plantígrado, la candidatura de Alfonso...",
+                "page_start": 89,
+                "page_end": 89,
+                "chunk_id": "chk-0897"
+              }
+            ]
+          }
+        ]
+      },
+      "inferred_from_source": {
+        "internal_needs": [
+          {
+            "label": "necesidad de legitimidad dinástica",
+            "summary": "La aparición de Favila en la línea sucesoria sugiere el intento de continuidad dinástica tras la figura fundacional de Pelayo.",
+            "confidence": 0.7,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-089501",
+                "checksum": "89b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+                "excerpt": "Después del heroico Pelayo y el anodino Favila, vino a empuñar el cetro asturiano.",
+                "page_start": 89,
+                "page_end": 89,
+                "chunk_id": "chk-0895"
+              }
+            ]
+          }
+        ],
+        "private_state": [],
+        "likely_arc": [
+          {
+            "label": "breve reinado/figura secundaria",
+            "summary": "Los pasajes lo presentan como una figura menor en comparación con Pelayo; su arco narrativo es corto y con poca proyección en el libro.",
+            "confidence": 0.75,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-089501",
+                "checksum": "89b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+                "excerpt": "Después del heroico Pelayo y el anodino Favila, vino a empuñar el cetro asturiano.",
+                "page_start": 89,
+                "page_end": 89,
+                "chunk_id": "chk-0895"
+              }
+            ]
+          }
+        ]
+      },
+      "event_records": [
+        {
+          "record_id": "arc-08970101-favila",
+          "event_id": "evt-089701",
+          "chronology_index": 1,
+          "emotion_before": "calm",
+          "emotion_after": "grief",
+          "arc_stage_before": "ascent",
+          "arc_stage_after": "turn",
+          "change_summary": "Muerte súbita/accidental (tradición de tropiezo fatal con un oso) que interrumpe su proyección política y favorece la candidatura de otros.",
+          "observed_from_source": [
+            {
+              "label": "muerte tradicionalmente atribuida",
+              "summary": "La tradición narrativa lo vincula con una muerte 'letal' en un incidente con un plantígrado (oso).",
+              "confidence": 0.88,
+              "source_refs": [
+                {
+                  "file": "01-La gran aventura del reino de Asturias",
+                  "section": "evt-089701",
+                  "checksum": "89c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3",
+                  "excerpt": "cuando Favila tuvo su letal tropiezo con el plantígrado, la candidatura de Alfonso...",
+                  "page_start": 89,
+                  "page_end": 89,
+                  "chunk_id": "chk-0897"
+                }
+              ]
+            }
+          ],
+          "inferred_from_source": [],
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-089701",
+              "checksum": "89c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3",
+              "excerpt": "LA GRAN AVENTURA ... cuando Favila tuvo su letal tropiezo con el plantígrado ...",
+              "page_start": 89,
+              "page_end": 89,
+              "chunk_id": "chk-0897"
+            }
+          ],
+          "confidence": 0.86,
+          "updated_at": "2026-03-18T23:45:00Z"
+        }
+      ]
+    },
+    {
+      "character_id": "ermesinda",
+      "display_name": "Ermesinda",
+      "aliases": [],
+      "historical_period": "8th–9th century (appears in genealogical references across chapters)",
+      "role": "civilian",
+      "biography_short": "Personaje recurrente en la narrativa genealógica del libro; aparece vinculada con la familia de Pelayo y con la sucesión dinástica en pasajes que tratan la transmisión del poder en Asturias.",
+      "voice_profile": {
+        "tts_voice": "sage",
+        "tone": "sereno, contenido",
+        "words_per_second": 3.2,
+        "delivery_modifiers": {
+          "normal": 1.0,
+          "shout": 1.05
+        }
+      },
+      "visual_profile": {
+        "age_range": "adult (20-50)",
+        "hair": "no especificado en fuente",
+        "beard": "n/a",
+        "clothing": "atributos femeninos de la nobleza temprana (inferencia baja confianza)",
+        "palette": [
+          "#7B6E5A",
+          "#C9B79A"
+        ],
+        "style_notes": "Representar como figura de la casa dinástica, presencia más relevante por vínculo que por acción directa."
+      },
+      "state": {
+        "status": "deceased",
+        "location": "Asturias",
+        "alliances": [
+          "familia_pelayo"
+        ],
+        "conflicts": [],
+        "last_seen_episode_id": "teaser-10500110-evt",
+        "last_updated": "2026-03-18T23:45:00Z"
+      },
+      "continuity": {
+        "must_keep": [
+          "vínculo genealogíco/sucesorio con Pelayo y la monarquía asturiana"
+        ],
+        "must_avoid": [
+          "atribuirle acciones militares o políticas sin fuente explícita"
+        ]
+      },
+      "emotional_state": {
+        "dominant_emotion": "calm",
+        "intensity": 0.3,
+        "valence": 0.2,
+        "arousal": 0.2,
+        "trigger_summary": "aparece en registros genealógicos y ceremoniales; su representación debe ser de calma institucional"
+      },
+      "arc_state": {
+        "stage": "setup",
+        "external_goal": "mantener la línea dinástica/familiar",
+        "internal_need": "proteger la memoria y legitimidad de la casa",
+        "contradiction": "presencia simbólica frente a ausencia de acciones directas",
+        "change_vector": "más figura de enlace generacional que agente de cambio",
+        "last_event_id": "evt-105001"
+      },
+      "observed_from_source": {
+        "goals": [],
+        "fears": [],
+        "contradictions": [
+          {
+            "label": "figura mencionada vs. ausencia de protagonismo activo",
+            "summary": "Aparece en contextos genealógicos y en episodios que tratan sucesiones, pero no se la presenta como actor principal de campañas.",
+            "confidence": 0.9,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-105001",
+                "checksum": "5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a",
+                "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda ...",
+                "page_start": 105,
+                "page_end": 105,
+                "chunk_id": "chk-1050"
+              }
+            ]
+          }
+        ],
+        "behavior_patterns": [
+          {
+            "label": "presencia en relatos genealógicos",
+            "summary": "Figura recurrente en las referencias sobre parentesco y transmisión del poder.",
+            "confidence": 0.9,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-105001",
+                "checksum": "5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a",
+                "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda ...",
+                "page_start": 105,
+                "page_end": 105,
+                "chunk_id": "chk-1050"
+              }
+            ]
+          }
+        ],
+        "relationships": [
+          {
+            "target_character_id": "pelayo",
+            "relationship_type": "family",
+            "summary": "Asociada a Pelayo en la narrativa genealógica; las fuentes la conectan con la casa de Pelayo y con la sucesión.",
+            "confidence": 0.75,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-105001",
+                "checksum": "5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a",
+                "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda ...",
+                "page_start": 105,
+                "page_end": 105,
+                "chunk_id": "chk-1050"
+              }
+            ]
+          }
+        ]
+      },
+      "inferred_from_source": {
+        "internal_needs": [],
+        "private_state": [],
+        "likely_arc": [
+          {
+            "label": "soporte genealogico",
+            "summary": "Más que protagonista, su papel es de soporte en la construcción de legitimidades sucesorias en la narrativa del reino.",
+            "confidence": 0.7,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-105001",
+                "checksum": "5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a",
+                "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda ...",
+                "page_start": 105,
+                "page_end": 105,
+                "chunk_id": "chk-1050"
+              }
+            ]
+          }
+        ]
+      },
+      "event_records": [
+        {
+          "record_id": "arc-10500101-ermesinda",
+          "event_id": "evt-105001",
+          "chronology_index": 1,
+          "emotion_before": "calm",
+          "emotion_after": "calm",
+          "arc_stage_before": "setup",
+          "arc_stage_after": "setup",
+          "change_summary": "Presencia en pasajes sobre transmisión dinástica que conectan su nombre con sucesiones posteriores.",
+          "observed_from_source": [
+            {
+              "label": "mención en el contexto sucesorio",
+              "summary": "Ermesinda aparece en relación con la genealogía de reyes posteriores.",
+              "confidence": 0.9,
+              "source_refs": [
+                {
+                  "file": "01-La gran aventura del reino de Asturias",
+                  "section": "evt-105001",
+                  "checksum": "5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a",
+                  "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda ...",
+                  "page_start": 105,
+                  "page_end": 105,
+                  "chunk_id": "chk-1050"
+                }
+              ]
+            }
+          ],
+          "inferred_from_source": [],
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-105001",
+              "checksum": "5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a",
+              "excerpt": "Fruela I reina porque es hijo de la hija de Pelayo; Silo, porque está casado con la hija de Ermesinda ...",
+              "page_start": 105,
+              "page_end": 105,
+              "chunk_id": "chk-1050"
+            }
+          ],
+          "confidence": 0.88,
+          "updated_at": "2026-03-18T23:45:00Z"
+        }
+      ]
+    },
+    {
+      "character_id": "al_qama",
+      "display_name": "Al Qama (Alkama / Alkama/Alkama?)",
+      "aliases": [
+        "Alkama",
+        "Alkama (Al Qama)"
+      ],
+      "historical_period": "early 8th century (campaigns around 722–735)",
+      "role": "military",
+      "biography_short": "Jefe/mandador musulmán que lideró las fuerzas que se enfrentaron a los rebeldes astures en los episodios del monte Auseva / Covadonga según los relatos del libro; se le atribuye la orden de comenzar el combate en algunos pasajes.",
+      "voice_profile": {
+        "tts_voice": "onyx",
+        "tone": "claro y firme, militar",
+        "words_per_second": 3.8,
+        "delivery_modifiers": {
+          "normal": 1.0,
+          "shout": 1.3
+        }
+      },
+      "visual_profile": {
+        "age_range": "adult (30-50)",
+        "hair": "no especificado",
+        "beard": "probablemente poblado (inferencia baja confianza)",
+        "clothing": "uniforme militar/estándar del comandante de campaña (inferencia baja confianza)",
+        "palette": [
+          "#3C2F2F",
+          "#8A5B2A"
+        ],
+        "style_notes": "Representado como comandante en campaña; énfasis en disciplina y aparato militar."
+      },
+      "state": {
+        "status": "deceased",
+        "location": "operaciones en la cornisa norte / Asturias",
+        "alliances": [
+          "fuerzas_del_emirato"
+        ],
+        "conflicts": [
+          "pelayo"
+        ],
+        "last_seen_episode_id": "teaser-07380110-evt",
+        "last_updated": "2026-03-18T23:45:00Z"
+      },
+      "continuity": {
+        "must_keep": [
+          "mandato de comenzar el combate en relatos de la batalla (evt-073801/evt-073501)"
+        ],
+        "must_avoid": [
+          "atribuir motivaciones internas no registradas en el texto"
+        ]
+      },
+      "emotional_state": {
+        "dominant_emotion": "resolve",
+        "intensity": 0.6,
+        "valence": -0.1,
+        "arousal": 0.6,
+        "trigger_summary": "figura de mando en una expedición militar; toma decisiones operativas"
+      },
+      "arc_state": {
+        "stage": "crisis",
+        "external_goal": "dominar/reprimir levantamientos en la zona norte",
+        "internal_need": "cumplir órdenes y mantener disciplina en campaña",
+        "contradiction": "operar en un territorio montañoso desconocido para sus tropas",
+        "change_vector": "de fuerza expedicionaria a retirada/fracaso en operaciones locales",
+        "last_event_id": "evt-073801"
+      },
+      "observed_from_source": {
+        "goals": [
+          {
+            "label": "reprimir la sublevación y someter la zona",
+            "summary": "El ejército bajo el mando de Alkama llegó y desplegó fuerzas frente a la cueva/entrada en Monte Auseva; en pasajes se le atribuye la orden de comenzar el combate.",
+            "confidence": 0.95,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-073501",
+                "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+                "excerpt": "el ejército de Alkama llegó hasta y alzó innumerables tiendas frente a la entrada de una cueva.",
+                "page_start": 25,
+                "page_end": 26,
+                "chunk_id": "chk-0035"
+              },
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-073801",
+                "checksum": "a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8",
+                "excerpt": "Alkama mandó entonces comenzar el combate, y los soldados tomaron las armas.",
+                "page_start": 73,
+                "page_end": 73,
+                "chunk_id": "chk-0738"
+              }
+            ]
+          }
+        ],
+        "fears": [],
+        "contradictions": [],
+        "behavior_patterns": [
+          {
+            "label": "conducir ejércitos en campaña",
+            "summary": "Narrativas describen a Alkama/Al Qama en papel de comandante que organiza acampadas y lanza la iniciativa combativa.",
+            "confidence": 0.9,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-073801",
+                "checksum": "a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8",
+                "excerpt": "Alkama mandó entonces comenzar el combate, y los soldados tomaron las armas.",
+                "page_start": 73,
+                "page_end": 73,
+                "chunk_id": "chk-0738"
+              }
+            ]
+          }
+        ],
+        "relationships": [
+          {
+            "target_character_id": "pelayo",
+            "relationship_type": "enemy",
+            "summary": "Opuesto militarmente a Pelayo en los episodios descritos en Monte Auseva / Covadonga.",
+            "confidence": 0.95,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-073501",
+                "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+                "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva y el ejército de Alkama llegó ...",
+                "page_start": 25,
+                "page_end": 26,
+                "chunk_id": "chk-0035"
+              }
+            ]
+          }
+        ]
+      },
+      "inferred_from_source": {
+        "internal_needs": [
+          {
+            "label": "cumplir el objetivo militar del emirato",
+            "summary": "Como comandante de una expedición, su necesidad operativa era someter o neutralizar focos de rebelión en la cornisa cantábrica.",
+            "confidence": 0.8,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-073501",
+                "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+                "excerpt": "el ejército de Alkama llegó hasta y alzó innumerables tiendas frente a la entrada de una cueva.",
+                "page_start": 25,
+                "page_end": 26,
+                "chunk_id": "chk-0035"
+              }
+            ]
+          }
+        ],
+        "private_state": [],
+        "likely_arc": [
+          {
+            "label": "comandante expedicionario con resultados limitados en la zona",
+            "summary": "Las narraciones muestran emprendimiento militar pero terminan con la retirada/fracaso frente a la resistencia de Pelayo.",
+            "confidence": 0.8,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "evt-083401",
+                "checksum": "f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2",
+                "excerpt": "El triunfo de Pelayo hizo que otros muchos ... se sumaran a la rebelión.",
+                "page_start": 83,
+                "page_end": 83,
+                "chunk_id": "chk-0834"
+              }
+            ]
+          }
+        ]
+      },
+      "event_records": [
+        {
+          "record_id": "arc-07380101-al_qama",
+          "event_id": "evt-073801",
+          "chronology_index": 1,
+          "emotion_before": "resolve",
+          "emotion_after": "fear",
+          "arc_stage_before": "ascent",
+          "arc_stage_after": "crisis",
+          "change_summary": "Ordenó el inicio del combate en la campaña contra los rebeldes; la acción culminó en enfrentamientos con resultados adversos para la expedición en el relato.",
+          "observed_from_source": [
+            {
+              "label": "orden de iniciar combate",
+              "summary": "Alkama mandó entonces comenzar el combate, y los soldados tomaron las armas.",
+              "confidence": 0.92,
+              "source_refs": [
+                {
+                  "file": "01-La gran aventura del reino de Asturias",
+                  "section": "evt-073801",
+                  "checksum": "a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8",
+                  "excerpt": "Alkama mandó entonces comenzar el combate, y los soldados tomaron las armas.",
+                  "page_start": 73,
+                  "page_end": 73,
+                  "chunk_id": "chk-0738"
+                }
+              ]
+            }
+          ],
+          "inferred_from_source": [
+            {
+              "label": "fracaso relativo de la expedición",
+              "summary": "Los textos relatan la retirada y la pérdida de iniciativa frente a la resistencia asturiana, lo que sugiere que la campaña no logró sus fines inmediatos.",
+              "confidence": 0.8,
+              "source_refs": [
+                {
+                  "file": "01-La gran aventura del reino de Asturias",
+                  "section": "evt-083401",
+                  "checksum": "f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2",
+                  "excerpt": "Los cristianos ganaron. Los moros pusieron pies en polvorosa. El triunfo de Pelayo ...",
+                  "page_start": 83,
+                  "page_end": 83,
+                  "chunk_id": "chk-0834"
+                }
+              ]
+            }
+          ],
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-073801",
+              "checksum": "a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8",
+              "excerpt": "Alkama mandó entonces comenzar el combate, y los soldados tomaron las armas.",
+              "page_start": 73,
+              "page_end": 73,
+              "chunk_id": "chk-0738"
+            }
+          ],
+          "confidence": 0.85,
+          "updated_at": "2026-03-18T23:45:00Z"
+        }
+      ]
+    },
+    {
+      "character_id": "don_oppas",
+      "display_name": "Don Oppas",
+      "aliases": [
+        "Oppas (obispo)"
+      ],
+      "historical_period": "early 8th century (events around 722–735)",
+      "role": "religious",
+      "biography_short": "Obispo mencionado en las fuentes del libro en el contexto de los episodios alrededor de Monte Auseva / Covadonga; aparece vinculado a los mismos hechos en los que participa Pelayo.",
+      "voice_profile": {
+        "tts_voice": "fable",
+        "tone": "ceremonial, preocupado",
+        "words_per_second": 3.0,
+        "delivery_modifiers": {
+          "normal": 1.0,
+          "shout": 1.05
+        }
+      },
+      "visual_profile": {
+        "age_range": "adult (40-70)",
+        "hair": "poco definido en la fuente",
+        "beard": "no especificado",
+        "clothing": "atuendo episcopal (inferencia baja confianza)",
+        "palette": [
+          "#BFAE9E",
+          "#6B5844"
+        ],
+        "style_notes": "Presentarlo como figura eclesiástica implicada en los eventos, más de presencia institucional que de mando militar."
+      },
+      "state": {
+        "status": "deceased",
+        "location": "Asturias",
+        "alliances": [
+          "iglesia"
+        ],
+        "conflicts": [],
+        "last_seen_episode_id": "teaser-07350110-evt",
+        "last_updated": "2026-03-18T23:45:00Z"
+      },
+      "continuity": {
+        "must_keep": [
+          "aparece en las fuentes ligadas a los episodios de Monte Auseva/Covadonga"
+        ],
+        "must_avoid": [
+          "afirmar colaboraciones o traiciones no expresadas textualmente en las citas"
+        ]
+      },
+      "emotional_state": {
+        "dominant_emotion": "uncertainty",
+        "intensity": 0.4,
+        "valence": 0.0,
+        "arousal": 0.2,
+        "trigger_summary": "presencia eclesial en un contexto militar y narrativo complejo"
+      },
+      "arc_state": {
+        "stage": "setup",
+        "external_goal": "representar la presencia eclesiástica en episodios fundacionales",
+        "internal_need": "mantener la autoridad espiritual en tiempos de cambio",
+        "contradiction": "la Iglesia aparece tanto como institución apoyadora del orden como implicada en conflictos locales",
+        "change_vector": "figura de referencia institucional en relatos sobre la fundación del reino",
+        "last_event_id": "evt-073501"
+      },
+      "observed_from_source": {
+        "goals": [],
+        "fears": [],
+        "contradictions": [],
+        "behavior_patterns": [
+          {
+            "label": "presencia institucional en episodios de conflicto",
+            "summary": "El obispo Oppas está presente en las narraciones del combate en Monte Auseva/Covadonga.",
+            "confidence": 0.85,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "chk-0035",
+                "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+                "excerpt": "El obispo Oppas subió a un...",
+                "page_start": 25,
+                "page_end": 26,
+                "chunk_id": "chk-0035"
+              }
+            ]
+          }
+        ],
+        "relationships": [
+          {
+            "target_character_id": "pelayo",
+            "relationship_type": "other",
+            "summary": "Aparece en el relato asociado a los mismos episodios que involucran a Pelayo; la naturaleza exacta de la relación (alianza, oposición, mediación) no queda explícita en los fragmentos citados.",
+            "confidence": 0.75,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "chk-0035",
+                "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+                "excerpt": "Pelayo, dónde estás?... El obispo dijo entonces: \"Juzgo, hermano hijo, que ...\"",
+                "page_start": 25,
+                "page_end": 26,
+                "chunk_id": "chk-0035"
+              }
+            ]
+          }
+        ]
+      },
+      "inferred_from_source": {
+        "internal_needs": [],
+        "private_state": [],
+        "likely_arc": [
+          {
+            "label": "figura eclesiástica de contexto",
+            "summary": "Más que actor político-militar, su papel en la obra es marcar la presencia y el peso de la institución eclesiástica en los episodios fundacionales.",
+            "confidence": 0.7,
+            "source_refs": [
+              {
+                "file": "01-La gran aventura del reino de Asturias",
+                "section": "chk-0035",
+                "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+                "excerpt": "El obispo Oppas subió a un...",
+                "page_start": 25,
+                "page_end": 26,
+                "chunk_id": "chk-0035"
+              }
+            ]
+          }
+        ]
+      },
+      "event_records": [
+        {
+          "record_id": "arc-07350101-donoppas",
+          "event_id": "evt-073501",
+          "chronology_index": 1,
+          "emotion_before": "uncertainty",
+          "emotion_after": "uncertainty",
+          "arc_stage_before": "setup",
+          "arc_stage_after": "setup",
+          "change_summary": "Presencia eclesiástica registrada en la narración del episodio de Monte Auseva; función explícita no clarificada en los fragmentos citados.",
+          "observed_from_source": [
+            {
+              "label": "presencia en el episodio",
+              "summary": "El obispo Oppas subió a un lugar en el episodio narrado junto a otros protagonistas.",
+              "confidence": 0.82,
+              "source_refs": [
+                {
+                  "file": "01-La gran aventura del reino de Asturias",
+                  "section": "chk-0035",
+                  "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+                  "excerpt": "El obispo Oppas subió a un...",
+                  "page_start": 25,
+                  "page_end": 26,
+                  "chunk_id": "chk-0035"
+                }
+              ]
+            }
+          ],
+          "inferred_from_source": [],
+          "source_refs": [
+            {
+              "file": "01-La gran aventura del reino de Asturias",
+              "section": "evt-073501",
+              "checksum": "e0a1f3d4ca7b8c9d0e1f2a3b4c5d6e7f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d",
+              "excerpt": "Pelayo estaba con sus compañeros en el monte Auseva y el obispo Oppas subió a un...",
+              "page_start": 25,
+              "page_end": 26,
+              "chunk_id": "chk-0035"
+            }
+          ],
+          "confidence": 0.78,
+          "updated_at": "2026-03-18T23:45:00Z"
+        }
+      ]
+    }
+  ]
+}

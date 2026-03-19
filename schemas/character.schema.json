@@ -71,8 +71,21 @@
       "properties": {
         "tts_voice": {
           "type": "string",
-          "minLength": 2,
-          "maxLength": 40
+          "enum": [
+            "alloy",
+            "echo",
+            "fable",
+            "onyx",
+            "nova",
+            "shimmer",
+            "coral",
+            "verse",
+            "ballad",
+            "ash",
+            "sage",
+            "marin",
+            "cedar"
+          ]
         },
         "tone": {
           "type": "string",
